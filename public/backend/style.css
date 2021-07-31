@@ -1,0 +1,477 @@
+.quotation-wrapper {
+    max-width: 595px;
+    margin: auto;
+    /* background-color: rgb(243, 236, 236); */
+}
+
+.quotation-wrapper img {
+    width: 100%;
+}
+
+.quotation-header img {
+    max-width: 170px;
+}
+
+.quotation-header .bill-title {
+    font-family: 'Roboto'sans-serif;
+    background: #242424;
+    color: white;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    text-align: center;
+    display: inline-block;
+    padding: 3px 9px;
+}
+
+.quotation-header .wreaper-box {
+    padding-left: 42px;
+
+}
+
+.quotation-header .select-wraper {
+    max-width: 150px;
+    padding-top: 5px;
+
+}
+
+.quotation-header select {
+    font-family: 'Roboto'sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #37454E;
+    border: 1px solid white;
+    padding: 3px 3px 3px 0;
+    width: 100%;
+    display: inline-block;
+}
+
+.quotation-header select:focus {
+    border: none;
+    outline: none;
+}
+
+
+.address-box {
+    border-radius: 3px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    margin-top: 10px;
+    border: 2px dashed white;
+    min-height: 60px;
+
+}
+
+
+.quotation-wrapper:hover .address-box {
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+    min-height: 60px;
+
+}
+
+.address-box p {
+    margin-bottom: 5px;
+}
+
+.client-name {
+    font-family: 'Roboto'sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #37454E;
+    margin-bottom: 7px;
+}
+
+.client-info {
+    font-family: 'Roboto'sans-serif;
+    font-style: normal;
+    line-height: 9px;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+.client-info span {
+    font-weight: 700;
+}
+
+
+/* Invoice Modal design */
+.invModal-title {
+    font-family: 'Roboto'sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+}
+
+
+.btn-dark {
+    background-color: #242424;
+}
+
+
+.form-control:focus {
+    box-shadow: 0 0 5px #242424;
+    border-color: #242424;
+}
+
+.invoice-table thead tr th {
+    font-family: 'Roboto'sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+    background: #3B3B3B;
+    border: 2px solid #FFFFFF;
+    padding: 6px 7px;
+
+}
+
+.invoice-table thead tr th:nth-child(1) {
+    background: #F5BC49;
+    color: #000000;
+}
+
+.invoice-table thead tr th:nth-child(3) {
+    max-width: 80px;
+}
+
+.invoice-table tbody tr td {
+    font-family: 'Roboto'sans-serif;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #000000;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border: 2px solid #FFFFFF;
+}
+
+
+.invoice-table tbody tr:nth-child(odd) td {
+    background: #F8F8F8;
+}
+
+.invoice-table tbody tr:nth-child(even) td {
+    background: #ECEAEB;
+}
+
+.invoice-table tbody tr td select {
+    background-color: inherit;
+    border: none;
+    font-weight: 700;
+    border: 2px dashed transparent;
+
+}
+
+
+.invoice-table tbody tr td select:focus {
+    box-shadow: none;
+    border: none;
+    background-color: inherit;
+}
+
+
+
+.addInvBtn {
+    font-family: 'Roboto'sans-serif;
+    padding: .3rem;
+    font-size: 14px;
+    transition: all 0.05s ease-in;
+    display: block;
+    width: 100%;
+    opacity: 0;
+    color: #888;
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* display       : none; */
+}
+
+
+.quotation-wrapper:hover .addInvBtn {
+    opacity: 1;
+    /* margin-top   : 10px; */
+    /* margin-bottom: 10px; */
+    /* display      : block; */
+
+}
+
+
+.quotation-wrapper:hover .invoice-table tbody tr td select {
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+}
+
+
+.invoice-table tbody tr td input {
+    max-width: 95px;
+    margin: auto;
+    background-color: transparent;
+    border-color: transparent;
+    text-align: center;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #000000;
+    border: none;
+    outline: none;
+}
+
+.invoice-table tbody tr td .form-control {
+    padding: 0;
+}
+
+
+.invoice-table tbody tr td input:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+
+.quotation-wrapper:hover .invoice-table tbody tr td input {
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+}
+
+
+.invoice-table tbody tr {
+    position: relative;
+}
+
+.invoice-table tbody tr button {
+    position: absolute;
+    top: 20px;
+    right: -20px;
+    color: white;
+    background-color: #242424;
+    border: none;
+    padding: 2px 5px;
+    font-size: 10px;
+    border-radius: 3px;
+    opacity: 0;
+}
+
+
+.invoice-table tbody tr:hover button {
+    opacity: 1;
+}
+
+
+.tk {
+    font-family: 'Hind Siliguri', sans-serif;
+}
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.payment-box {
+    padding-left: 42px;
+}
+
+.payment-box h3 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 17px;
+    color: #000000;
+    display: inline-block;
+    padding-bottom: 6px;
+    margin: 0;
+}
+
+.payment-box h6 {
+    margin-bottom: 2px;
+    margin-top: 0px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 8px;
+    line-height: 10px;
+    color: #44515a;
+}
+
+.subtable {
+    width: 100%;
+}
+
+.subtable tr td {
+    border: 2px solid #FFFFFF;
+
+}
+
+.subtable tr:nth-child(odd) td {
+    background-color: #ECEAEB;
+}
+
+.subtable tr:nth-child(even) td {
+    background-color: #F8F8F8;
+}
+
+.subtable tr td:first-child {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #525453;
+    padding: 5px 0 5px 10px;
+}
+
+.subtable tr td:last-child {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #313131;
+    text-align: center;
+}
+
+
+.grandtotal td:first-child {
+    font-size: 14px !important;
+    line-height: 17px !important;
+    color: #FFFFFF !important;
+    background-color: #3B3B3B !important;
+    padding: 5px 0;
+    text-align: center;
+}
+
+.grandtotal td:last-child {
+    font-size: 14px !important;
+    line-height: 17px !important;
+    color: #080807 !important;
+    background-color: #F5BC49 !important;
+    text-align: center;
+}
+
+
+.inline-input {
+    max-width: 25px;
+    text-align: center;
+    background-color: transparent;
+    border: 2px solid transparent;
+
+}
+
+
+.inline-input:focus {
+    border: 2px solid transparent;
+    outline: none;
+}
+
+
+.quotation-wrapper:hover .inline-input {
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+}
+
+.customerInfoDate h4 {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 8px;
+    line-height: 10px;
+    color: #37454E;
+}
+
+.customerInfoDate h6 {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #37454E;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 8px;
+    line-height: 10px;
+}
+
+.customerInfoDate input {
+    max-width: 90px;
+    font-family: 'Roboto', sans-serif;
+    color: #37454E;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 8px;
+    line-height: 10px;
+    background-color: transparent;
+    border: 2px dashed white;
+    display: block;
+    text-align: left;
+    margin-left: -3px;
+    margin-top: -2px;
+}
+
+
+.customerInfoDate input:focus {
+    border: 2px dashed white;
+    outline: none;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.quotation-wrapper:hover .customerInfoDate input {
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+}
+
+.quotation-wrapper:hover .payment-wraper {
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+
+.assignSegSelect {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    font-style: normal;
+    line-height: 17px;
+    color: #000000;
+    display: inline-block;
+    border: 2px dashed white;
+
+}
+
+.assignSegSelect:focus {
+    border: 2px dashed white;
+    outline: none;
+}
+
+.quotation-wrapper:hover .assignSegSelect {
+    background: rgba(0, 0, 0, 0.015);
+    border: 2px dashed rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
