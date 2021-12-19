@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ItemController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +19,3 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
     
 // });
-Route::get('/items', [ItemController::class, 'itemApi']);
-    Route::get('/clients', [ItemController::class, 'clientApi']);
-    Route::get('/managers', [ItemController::class, 'managerApi']);

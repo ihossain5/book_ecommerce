@@ -59,10 +59,12 @@
                         </a>
                     </li>
                
-                
-
-
-
+                    <li>
+                        <a href="{{ route('category.index') }}" class="waves-effect">
+                            <i class="dripicons-calendar"></i>
+                            <span> Category Management </span>
+                        </a>
+                    </li>
             </ul>
         </div>
         <div class="clearfix"></div>

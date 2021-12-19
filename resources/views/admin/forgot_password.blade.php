@@ -61,13 +61,25 @@
                     {{-- <div class="alert alert-info" role="alert">
                         Enter your Email and instructions will be sent to you!
                     </div> --}}
-                    @if (session()->has('success'))
+                @if (session()->has('success'))
                     <div class="alert alert-info text-center text-dark mt-3 alert-solid alert-dismissible shadow-sm p-3 mb-5 rounded"
                         role="alert">
                         {{ session('success') }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
+                    </div>
+                @endif
+
+                @if (session()->has('error'))
+                    <div class=" mt-3">
+                        <div class="font-medium text-red-600 text-danger">
+                            {{ __('Whoops! Something went wrong.') }}
+                        </div>
+
+                        <ul class="mt-3 list-disc list-inside text-danger text-sm text-red-600">
+                          <li>{{ session('error') }}</li>
+                        </ul>
                     </div>
                 @endif
 

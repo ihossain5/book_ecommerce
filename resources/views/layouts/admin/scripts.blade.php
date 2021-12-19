@@ -48,3 +48,61 @@ crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
 integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
 crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+$(document).ajaxStart(function() {
+        $('.preloader').empty();
+        $('.preloader').addClass('ajax_loader').append(
+            `<div class='preloader'>
+                <div id="status">
+                    <div class="spinner"></div>
+                </div>
+            </div>`
+        );
+    });
+
+
+    $(document).ajaxComplete(function() {
+        $('.preloader').removeClass('ajax_loader').empty();
+    });
+    
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-bottom-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+    @if(Session::has('error'))
+    var message = "{{ Session::get('error') }}";
+        toastr["error"](message)
+     @endif
+
+      // for alert message
+    var toastMixin = Swal.mixin({
+        toast: true,
+        title: 'General Title',
+        animation: false,
+        position: 'bottom-right',
+        showConfirmButton: false,
+        timer: 5000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+</script>

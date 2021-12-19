@@ -2,6 +2,8 @@
 
 namespace App\Exceptions;
 
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -34,8 +36,10 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (QueryException $e, $request) {
+            return redirect()->back()->with('error','Database connection is failed. Please try again later');
         });
+
     }
+
 }
