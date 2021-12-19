@@ -1,10 +1,10 @@
 @extends('layouts.admin.master')
 @section('title')
-Category Management
+    Category Management
 @endsection
 @section('pageCss')
     <style>
-.switch {
+        .switch {
             position: relative;
             display: inline-block;
             width: 60px;
@@ -63,6 +63,7 @@ Category Management
         .slider.round:before {
             border-radius: 50%;
         }
+
     </style>
 @endsection
 @section('content')
@@ -77,7 +78,7 @@ Category Management
                                 <div class="ms-header-text">
                                     <h4 class="mt-0 header-title">All Categories</h4>
                                 </div>
-                             <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
+                                <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
                                     name="button" id="addButton" data-toggle="modal" data-target="#add"> Add
                                     New
                                 </button>
@@ -97,14 +98,15 @@ Category Management
                                     <tbody>
                                         @if (!empty($categories))
                                             @foreach ($categories as $category)
-                                                <tr class="item{{ $category->category_id }}">
+                                                <tr class="category{{ $category->category_id }}">
                                                     <td>{{ $category->name }}</td>
-              
+
                                                     <td>{{ $category->description }}</td>
 
                                                     <td>
                                                         <label class="switch">
-                                                            <input class="is_home is_home_status{{ $category->category_id }}"
+                                                            <input
+                                                                class="is_home is_home_status{{ $category->category_id }}"
                                                                 type="checkbox"
                                                                 {{ $category->is_home == 1 ? 'checked' : '' }}
                                                                 data-id="{{ $category->category_id }}">
@@ -113,7 +115,8 @@ Category Management
                                                     </td>
                                                     <td>
                                                         <label class="switch">
-                                                            <input class="is_nav is_nav_status{{ $category->category_id }}"
+                                                            <input
+                                                                class="is_nav is_nav_status{{ $category->category_id }}"
                                                                 type="checkbox"
                                                                 {{ $category->is_nav == 1 ? 'checked' : '' }}
                                                                 data-id="{{ $category->category_id }}">
@@ -127,10 +130,10 @@ Category Management
                                                             onclick='viewItem({{ $category->category_id }})'><i
                                                                 class='fa fa-eye'></i></button>
                                                         <button type='button' class='btn btn-outline-info '
-                                                            onclick='editItem({{ $category->category_id }})'><i
+                                                            onclick='editCategory({{ $category->category_id }})'><i
                                                                 class='mdi mdi-pencil'></i></button>
                                                         <button type='button' name='delete' class="btn btn-outline-danger "
-                                                            onclick="deleteItem({{ $category->category_id }})"><i
+                                                            onclick="deleteCategory({{ $category->category_id }})"><i
                                                                 class="mdi mdi-delete "></i></button>
 
                                                     </td>
@@ -192,7 +195,7 @@ Category Management
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="updateHeroSectionForm" method="POST"> @csrf
+                    <form class="updateCategoryForm" method="POST"> @csrf
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <div class="form-group">
                             <label>Category Name</label>
@@ -241,7 +244,8 @@ Category Management
                         class="btn btn-block btn-primary waves-effect waves-light" onclick="editCategory()">
                         Edit
                     </button>
-                    <button type="button" onclick="deleteCategory()" class="btn btn-block delete_btn btn-danger waves-effect waves-light">
+                    <button type="button" onclick="deleteCategory()"
+                        class="btn btn-block delete_btn btn-danger waves-effect waves-light">
                         Delete
                     </button>
                     <button type="submit" data-dismiss="modal" class="btn btn-block btn-success waves-effect waves-light">
@@ -254,8 +258,8 @@ Category Management
     <!-- view  Modal End -->
 @endsection
 @section('pageScripts')
-<script>
-    $('#addButton').on('click', function() {
+    <script>
+        $('#addButton').on('click', function() {
             $('.categoryAddForm').trigger('reset');
         });
 
@@ -264,8 +268,8 @@ Category Management
                 "ordering": false,
             });
 
-                        // add form validation
-         $(".categoryAddForm").validate({
+            // add form validation
+            $(".categoryAddForm").validate({
                 rules: {
                     name: {
                         required: true,
@@ -290,7 +294,7 @@ Category Management
                 },
             });
             // update form validation
-            $(".updateHeroSectionForm").validate({
+            $(".updateCategoryForm").validate({
                 rules: {
                     name: {
                         required: true,
@@ -320,11 +324,13 @@ Category Management
             routes: {
                 updateStatus: "{!! route('category.status.update') !!}",
                 add: "{!! route('category.store') !!}",
+                update: "{!! route('update.category') !!}",
+
             }
         };
 
-// store category 
-$(document).on('submit', '.categoryAddForm', function(event) {
+        // store category 
+        $(document).on('submit', '.categoryAddForm', function(event) {
             event.preventDefault();
             $.ajax({
                 url: config.routes.add,
@@ -338,18 +344,39 @@ $(document).on('submit', '.categoryAddForm', function(event) {
                     if (response.success == true) {
                         var categoryTable = $('#categoryTable').DataTable();
                         var row = $('<tr>')
-                            .append(`<td>` + response.data.name + `</td>`)
-                            .append(`<td>` + response.data.formated_description + `</td>`)
+                            .append(`<td>` + response.data.category.name + `</td>`)
+                            .append(`<td>` + response.data.category.description + `</td>`)
+                            .append(`<td>
+                                        <label class="switch">
+                                                <input class="is_home is_home_status${ response.data.category.category_id}"type="checkbox"
+                                                   data-id="${response.data.category.category_id}">
+                                                      <span class="slider round"></span>
+                                         </label>
+                                         </td>`)
+                            .append(`<td>
+                                        <label class="switch">
+                                                <input class="is_nav is_nav_status${ response.data.category.category_id}"type="checkbox"
+                                                   data-id="${response.data.category.category_id}">
+                                                      <span class="slider round"></span>
+                                         </label>
+                                         </td>`)
 
-                            .append(`<td><button type='button' class='btn btn-outline-dark' onclick='viewCategory(${response.data.category_id})'>
+                            .append(`<td>
+                                <button type='button' class='btn btn-outline-dark' onclick='viewCategory(${response.data.category.category_id})'>
                                 <i class='fa fa-eye'></i>
+                            </button>
+                            <button type='button' class='btn btn-outline-info' onclick='editCategory(${response.data.category.category_id})'>
+                                <i class='mdi mdi-pencil'></i>
+                            </button>
+                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteCategory(${response.data.category.category_id})">
+                                <i class="mdi mdi-delete "></i>
                             </button>
                          </td>`)
 
 
                         var category_row = categoryTable.row.add(row).draw().node();
                         $('#categoryTable tbody').prepend(row);
-                        $(category_row).addClass('category' + response.data.category_id + '');
+                        $(category_row).addClass('category' + response.data.category.category_id + '');
                         $('.categoryAddForm').trigger('reset');
                         if (response.data.message) {
                             $('#add').modal('hide');
@@ -387,7 +414,140 @@ $(document).on('submit', '.categoryAddForm', function(event) {
             });
         });
 
-    // is home status change function
+
+        //edit a category
+        function editCategory(id) {
+            var url = "{!! route('category.edit', ':id') !!}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                method: "get",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#edit_name').val(response.data.name)
+                        $('#edit_description').val(response.data.description)
+                        $('#hidden_id').val(response.data.category_id)
+
+                        $('#edit_modal').modal('show');
+
+                    } //success end
+
+                },
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + 'Data not found' + ""
+                        });
+
+
+                    }
+                },
+            });
+
+        }
+
+        // update category
+        $(document).off('submit', '.updateCategoryForm');
+        $(document).on('submit', '.updateCategoryForm', function(event) {
+            event.preventDefault();
+
+            $.ajax({
+                url: config.routes.update,
+                method: "post",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                success: function(response) {
+
+                    if (response.success == true) {
+                        $('.category' + response.data.category.category_id).html(
+                            `
+                                <td>${response.data.category.name}</td>
+                                <td>${response.data.category.description}</td>
+
+                                <td>
+                                        <label class="switch">
+                                                <input class="is_home is_home_status${ response.data.category.category_id}"type="checkbox"
+                                                ${response.data.category.is_home == 1 ? 'checked' : ''}  data-id="${response.data.category.category_id}">
+                                                      <span class="slider round"></span>
+                                         </label>
+                                </td>
+                                <td>
+                                        <label class="switch">
+                                                <input class="is_nav is_nav_status${ response.data.category.category_id}"type="checkbox"
+                                                ${response.data.category.is_nav == 1 ? 'checked' : ''}   data-id="${response.data.category.category_id}">
+                                                      <span class="slider round"></span>
+                                         </label>
+                                         </td>
+                                  
+                                         <td>
+                                <button type='button' class='btn btn-outline-dark' onclick='viewCategory(${response.data.category.category_id})'>
+                                <i class='fa fa-eye'></i>
+                            </button>
+                            <button type='button' class='btn btn-outline-info' onclick='editCategory(${response.data.category.category_id})'>
+                                <i class='mdi mdi-pencil'></i>
+                            </button>
+                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteCategory(${response.data.category.category_id})">
+                                <i class="mdi mdi-delete "></i>
+                            </button>
+                         </td>
+                                `
+                        );
+                        if (response.data.message) {
+                            $('#edit_modal').modal('hide');
+                            toastMixin.fire({
+                                icon: 'success',
+                                animation: true,
+                                title: "" + response.data.message + ""
+                            });
+                            $('.updateCategoryForm')[0].reset();
+                        }
+
+
+                    } else {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + response.data.error + ""
+                        });
+
+                    }
+
+                }, //success end
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + 'Data not found' + ""
+                        });
+
+
+                    } else if (error.status == 422) {
+                        $.each(error.responseJSON.errors, function(i, message) {
+                            toastMixin.fire({
+                                icon: 'error',
+                                animation: true,
+                                title: "" + message + ""
+                            });
+                        });
+
+                    }
+                },
+
+            });
+        });
+
+        // is home status change function
         $(document.body).on('click', '.is_home', function() {
             var id = $(this).attr('data-id');
             Swal.fire({
@@ -441,7 +601,7 @@ $(document).on('submit', '.categoryAddForm', function(event) {
             })
         });
 
-    // is nav status change function
+        // is nav status change function
         $(document.body).on('click', '.is_nav', function() {
             var id = $(this).attr('data-id');
             Swal.fire({
@@ -494,5 +654,64 @@ $(document).on('submit', '.categoryAddForm', function(event) {
                 }
             })
         });
-</script>
+
+
+               // delete category
+         function deleteCategory(id) {
+            // alert(id)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "All of items under this category will also be deleted",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var delete_url = "{!! route('category.destroy', ':id') !!}";
+            delete_url = delete_url.replace(':id', id);
+                    $.ajax({
+                        type: "Delete",
+                        url: delete_url,
+                        data: {
+                            id: id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.success === true) {
+                                toastMixin.fire({
+                                    icon: 'success',
+                                    animation: true,
+                                    title: "" + response.data.message + ""
+                                });
+                                $('#categoryTable').DataTable().row('.category' + id)
+                                    .remove()
+                                    .draw();
+                                    $('#viewModal').modal('hide');
+                            } else {
+                                Swal.fire("Error!", "" + response.message + "", "error");
+                            }
+                        },
+                        error: function(error) {
+                            if (error.status == 404) {
+                                toastMixin.fire({
+                                    icon: 'error',
+                                    animation: true,
+                                    title: "" + 'Data not found' + ""
+                                });
+
+
+                            }
+                        },
+                    });
+
+                }
+            })
+
+
+        }
+        //end
+    </script>
 @endsection

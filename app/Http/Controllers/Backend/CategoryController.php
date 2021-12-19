@@ -3,22 +3,21 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Service\CategoryService;
 use Exception;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
-{
+class CategoryController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(CategoryService $categoryService)
-    {
+    public function index(CategoryService $categoryService) {
         $categories = $categoryService->all();
-        return view('admin.category.category_management',compact('categories'));
+        return view('admin.category.category_management', compact('categories'));
     }
 
     /**
@@ -26,8 +25,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -37,9 +35,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        dd($request->all());
+    public function store(CategoryRequest $request, CategoryService $categoryService) {
+        $category         = $categoryService->store($request->validated());
+
+        $data['message']  = 'Category created successfully';
+
+        $data['category'] = $category;
+
+        return $this->success($data);
     }
 
     /**
@@ -48,11 +51,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
+    public function edit(Category $category) {
+        return $this->success($category);
+    }
 
     /**
      * Update the specified resource in storage.
@@ -61,9 +66,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(CategoryRequest $request, CategoryService $categoryService) {
+
+        $category = $categoryService->update($request->hidden_id, $request->validated());
+
+        $data['message']  = 'Category updated successfully';
+
+        $data['category'] = $category;
+
+        return $this->success($data);
+       
     }
 
     /**
@@ -72,20 +84,25 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy(Category $category) {
+        $category->delete();
+
+        $data['message']  = 'Category deleted successfully';
+
+        $data['category'] = $category;
+
+        return $this->success($data);
     }
 
     public function updateStatus(Request $request, CategoryService $categoryService) {
         try {
-            $category = $categoryService->updateStatus($request->id,$request->type);
+            $category = $categoryService->updateStatus($request->id, $request->type);
 
-          } catch (Exception $e) {
-              
+        } catch (Exception $e) {
+
             return $this->error($e->getMessage());
-          }
-          
+        }
+
         return $this->success($this->responseMessage($category->category_id));
     }
 
@@ -94,14 +111,14 @@ class CategoryController extends Controller
     //         $category = $categoryService->updateNavStatus($request->id);
 
     //       } catch (Exception $e) {
-              
+
     //         return $this->error($e->getMessage());
     //       }
 
     //     return $this->success($this->responseMessage($category->category_id));
     // }
 
-    protected function responseMessage($id){
+    protected function responseMessage($id) {
         $data            = array();
         $data['message'] = 'Status updated successfully';
         $data['id']      = $id;

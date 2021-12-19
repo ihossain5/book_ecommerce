@@ -7,13 +7,27 @@ Class CategoryService {
 
     /** Get All Category */
     function all() {
-        return Category::all();
+        return Category::latest()->get();
     }
 
 
     /** Find a Category By Id */
     function find($id) {
         return Category::findOrFail($id);
+    }
+
+    /** store a category */
+    function store($data) {
+        return Category::create($data);
+    }
+
+    /** store a category */
+    function update($id,$data) {
+        $category = $this->find($id);
+        
+        $category->update($data);
+
+        return $category;
     }
 
 

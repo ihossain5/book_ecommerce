@@ -43,7 +43,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 /* category route start */
     // Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::resource('category', CategoryController::class);
-    Route::post('update-status',[CategoryController::class, 'updateStatus'])->name('category.status.update');
+    Route::post('update-asdasd',[CategoryController::class, 'updateStatus'])->name('category.status.update');
+    Route::post('update-category',[CategoryController::class, 'update'])->name('update.category');
     // Route::post('update-nav-status',[CategoryController::class, 'updateIsNavStatus'])->name('category.is_nav.status.update');
 /* category route end */
 
