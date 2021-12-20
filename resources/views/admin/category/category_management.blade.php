@@ -656,8 +656,8 @@
         });
 
 
-               // delete category
-         function deleteCategory(id) {
+        // delete category
+        function deleteCategory(id) {
             // alert(id)
             Swal.fire({
                 title: 'Are you sure?',
@@ -670,7 +670,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     var delete_url = "{!! route('category.destroy', ':id') !!}";
-            delete_url = delete_url.replace(':id', id);
+                    delete_url = delete_url.replace(':id', id);
                     $.ajax({
                         type: "Delete",
                         url: delete_url,
@@ -689,7 +689,7 @@
                                 $('#categoryTable').DataTable().row('.category' + id)
                                     .remove()
                                     .draw();
-                                    $('#viewModal').modal('hide');
+                                $('#viewModal').modal('hide');
                             } else {
                                 Swal.fire("Error!", "" + response.message + "", "error");
                             }

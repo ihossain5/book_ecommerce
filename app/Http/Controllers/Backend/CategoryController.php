@@ -21,39 +21,26 @@ class CategoryController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request, CategoryService $categoryService) {
-        $category         = $categoryService->store($request->validated());
 
-        $data['message']  = 'Category created successfully';
+        try {
+            $category = $categoryService->store($request->validated());
 
-        $data['category'] = $category;
+            $message = 'Category created successfully';
 
-        return $this->success($data);
+            return $this->success($this->responseMessage($message, $category));
+
+        } catch (Exception $e) {
+
+            return $this->error($e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
 
     public function edit(Category $category) {
         return $this->success($category);
@@ -68,14 +55,18 @@ class CategoryController extends Controller {
      */
     public function update(CategoryRequest $request, CategoryService $categoryService) {
 
-        $category = $categoryService->update($request->hidden_id, $request->validated());
+        try {
+            $category = $categoryService->update($request->hidden_id, $request->validated());
 
-        $data['message']  = 'Category updated successfully';
+            $message = 'Category updated successfully';
 
-        $data['category'] = $category;
+            return $this->success($this->responseMessage($message, $category));
 
-        return $this->success($data);
-       
+        } catch (Exception $e) {
+
+            return $this->error($e->getMessage());
+        }
+
     }
 
     /**
@@ -85,43 +76,40 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category) {
-        $category->delete();
 
-        $data['message']  = 'Category deleted successfully';
-
-        $data['category'] = $category;
-
-        return $this->success($data);
-    }
-
-    public function updateStatus(Request $request, CategoryService $categoryService) {
         try {
-            $category = $categoryService->updateStatus($request->id, $request->type);
+            $category->delete();
+
+            $message = 'Category deleted successfully';
+
+            return $this->success($this->responseMessage($message, $category));
 
         } catch (Exception $e) {
 
             return $this->error($e->getMessage());
         }
 
-        return $this->success($this->responseMessage($category->category_id));
     }
 
-    // public function updateIsNavStatus(Request $request, CategoryService $categoryService) {
-    //     try {
-    //         $category = $categoryService->updateNavStatus($request->id);
+    public function updateStatus(Request $request, CategoryService $categoryService) {
+        try {
+            $category = $categoryService->updateStatus($request->id, $request->type);
 
-    //       } catch (Exception $e) {
+            $message = 'Status updated successfully';
 
-    //         return $this->error($e->getMessage());
-    //       }
+            return $this->success($this->responseMessage($message));
 
-    //     return $this->success($this->responseMessage($category->category_id));
-    // }
+        } catch (Exception $e) {
 
-    protected function responseMessage($id) {
-        $data            = array();
-        $data['message'] = 'Status updated successfully';
-        $data['id']      = $id;
+            return $this->error($e->getMessage());
+        }
+
+    }
+
+    protected function responseMessage($message, $category = null) {
+        $data             = array();
+        $data['message']  = $message;
+        $data['category'] = $category;
         return $data;
     }
 }
