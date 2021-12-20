@@ -106,10 +106,12 @@ class CategoryController extends Controller {
 
     }
 
-    protected function responseMessage($message, $category = null) {
-        $data             = array();
-        $data['message']  = $message;
-        $data['category'] = $category;
-        return $data;
-    }
+        // response message function
+        function responseMessage($message, $category = null) {
+            $data             = array();
+            $data['message']  = $message;
+            $data['category'] = $category;
+            return $data;
+        }
+
 }

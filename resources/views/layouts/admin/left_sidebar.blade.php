@@ -65,6 +65,12 @@
                             <span> Category Management </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('feature-attributes.index') }}" class="waves-effect">
+                            <i class="dripicons-calendar"></i>
+                            <span> Feature Attribute </span>
+                        </a>
+                    </li>
             </ul>
         </div>
         <div class="clearfix"></div>

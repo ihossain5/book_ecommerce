@@ -34,10 +34,15 @@ Class CategoryService {
     /** Update Category Status */
     function updateStatus($id, $type) {
         if ($type == 'is_nav') {
+
             return $this->updateNavStatus($id);
+
         } else if ($type == 'is_home') {
+
             return $this->updateHomeStatus($id);
+
         } else {
+            
             return false;
         }
     }

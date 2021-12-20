@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\FeatureAttributeController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,12 +42,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 //* employee route end */
 
 /* category route start */
-    // Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
     Route::resource('category', CategoryController::class);
     Route::post('update-asdasd',[CategoryController::class, 'updateStatus'])->name('category.status.update');
     Route::post('update-category',[CategoryController::class, 'update'])->name('update.category');
-    // Route::post('update-nav-status',[CategoryController::class, 'updateIsNavStatus'])->name('category.is_nav.status.update');
 /* category route end */
+
+/* feature attribute route start */
+    Route::resource('feature-attributes', FeatureAttributeController::class);
+    Route::post('update-asdasd',[CategoryController::class, 'updateStatus'])->name('category.status.update');
+    Route::post('update-category',[CategoryController::class, 'update'])->name('update.category');
+/* feature attribute route end */
 
 
 
