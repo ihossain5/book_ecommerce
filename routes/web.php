@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\FeatureAttributeController;
+use App\Http\Controllers\Backend\PublicationController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,9 +50,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
 /* feature attribute route start */
     Route::resource('feature-attributes', FeatureAttributeController::class);
-    Route::post('update-asdasd',[CategoryController::class, 'updateStatus'])->name('category.status.update');
-    Route::post('update-category',[CategoryController::class, 'update'])->name('update.category');
 /* feature attribute route end */
+
+/* publications  route start */
+    Route::resource('publications', PublicationController::class);
+/* publications route end */
 
 
 

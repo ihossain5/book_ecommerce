@@ -105,4 +105,9 @@ toastr.options = {
             toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
     });
+
+// dropify initialize
+    $('.dropify').dropify();
+
+    var imagesUrl = '{!! URL::asset('/images/') !!}/';
 </script>

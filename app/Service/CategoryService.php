@@ -21,7 +21,7 @@ Class CategoryService {
         return Category::create($data);
     }
 
-    /** store a category */
+    /** update a category */
     function update($id,$data) {
         $category = $this->find($id);
         

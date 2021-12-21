@@ -330,6 +330,7 @@
         };
 
         // store category 
+        $(document).off('submit', '.categoryAddForm');
         $(document).on('submit', '.categoryAddForm', function(event) {
             event.preventDefault();
             $.ajax({

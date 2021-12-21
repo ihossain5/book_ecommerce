@@ -1,10 +1,22 @@
 @extends('layouts.admin.master')
 @section('title')
-    Feature Attribute
+    Publications
 @endsection
 @section('pageCss')
     <style>
-
+.btn-custom {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+    color: #000000;
+    border-radius: 5px;
+    border: none;
+    padding: 7px 30px 7px 15px;
+    cursor: pointer;
+}
+.btnAccept {
+    background: #52b85c;
+}
     </style>
 @endsection
 @section('content')
@@ -17,7 +29,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="ms-header-text">
-                                    <h4 class="mt-0 header-title">All Feature Attributes</h4>
+                                    <h4 class="mt-0 header-title">All Publications</h4>
                                 </div>
                                 <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
                                     name="button" id="addButton" data-toggle="modal" data-target="#add"> Add
@@ -25,26 +37,39 @@
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table id="attribuetable" class="table table-bordered dt-responsive nowrap"
+                                <table id="publicationtable" class="table table-bordered dt-responsive nowrap"
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th>Image</th>
+                                            <th>Description</th>
                                             <th>Name</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (!empty($attributes))
-                                            @foreach ($attributes as $attribute)
-                                                <tr class="attribute{{ $attribute->feature_attribute_id }}">
-                                                    <td>{{ $attribute->name }}</td>
+                                        @if (!empty($publications))
+                                            @foreach ($publications as $publication)
+                                                <tr class="publication{{ $publication->publication_id }}">
+                                                    <td>
+                                                        <img class='img-fluid' src="{{ asset('images/' . $publication->photo) }}"
+                                                            alt="{{ $publication->name }}" style='width: 60px; height: 55px;'>
+                                                    </td>
+                                                    <td>{{ $publication->name }}</td>
+                                                    <td>{{ $publication->description }}</td>
 
                                                     <td>
+                                                        <button type='button' class='btn btn-outline-dark'
+                                                        onclick='viewPublication({{ $publication->publication_id }})'><i
+                                                            class='fa fa-eye'></i>
+                                                        </button>
+
                                                         <button type='button' class='btn btn-outline-info '
-                                                            onclick='editAttribute({{ $attribute->feature_attribute_id }})'><i
+                                                            onclick='editPublication({{ $publication->publication_id }})'><i
                                                                 class='mdi mdi-pencil'></i></button>
+
                                                         <button type='button' name='delete' class="btn btn-outline-danger "
-                                                            onclick="deleteAttribute({{ $attribute->feature_attribute_id }})"><i
+                                                            onclick="deletePublication({{ $publication->publication_id }})"><i
                                                                 class="mdi mdi-delete "></i></button>
 
                                                     </td>
@@ -68,17 +93,32 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Add a new attribute</h5>
+                    <h5 class="modal-title mt-0 text-center">Add a new publication</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="attributeAddForm" method="POST"> @csrf
+                    <form class="publicationAddForm" method="POST"> @csrf
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name" placeholder="Type name" />
                         </div>
-
                         <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" class="form-control" cols="30" rows="5"></textarea>
+
+                        </div>
+
+                        <div class="form-group ">
+                            <label for=""> Photo</label>
+                            <div class="custom-file">
+                                <input type="file" name="photo" class="custom-file-input dropify"
+                                    data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                                    data-max-file-size="0.6M" data-height="120">
+                            </div>
+                            <label id="photo-error" class="error mt-2 text-danger" for="photo"></label>
+                        </div>
+
+                        <div class="form-group mt-4">
                             <div>
                                 <button type="submit" class="btn btn-block btn-success waves-effect waves-light">
                                     Submit
@@ -99,15 +139,29 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Update a attribute</h5>
+                    <h5 class="modal-title mt-0 text-center">Update a publication</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="updateAttributeForm" method="POST"> @csrf @method('PUT')
+                    <form class="updatepublicationForm" method="POST"> @csrf @method('PUT')
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <div class="form-group">
-                            <label>Category Name</label>
+                            <label>Name</label>
                             <input type="text" class="form-control" id="edit_name" name="name" placeholder="Type name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" class="form-control" id="edit_description" cols="30" rows="5"></textarea>
+
+                        </div>
+
+                        <div class="form-group ">
+                            <label for=""> Photo</label>
+                            <div class="custom-file edit_photo">
+                                <input type="file" name="photo" class="custom-file-input dropify" id="edit_photo"
+                                    data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                                    data-max-file-size="0.6M" data-height="120">
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -125,30 +179,79 @@
     </div>
     <!-- Edit  Modal End -->
 
+        <!-- view  Modal -->
+        <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header d-block">
+                    <h5 class="modal-title mt-0 text-center">Publication Details</h5>
+                    <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-xl-12 col-md-12">
+                        <div class="ms-form-group view-modal">
+                            <p class="pb-3">
+                                <strong>Publication Name:</strong> <span id="view_name"></span><br>
+                                <strong>Publication Description:</strong> <span id="view_description"></span><br>
+                                <strong>Publication Photo :</strong><br>
+                                <img class="mt-2" src="" id="view_image" style="width: 100%;">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 ">
+                    <div class="row">
+
+                        <div class="col-md-12 ">
+                        <button data-dismiss="modal" class="btn btn-block btnAccept mb-3 "> Done</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- view  Modal End -->
+
 @endsection
 @section('pageScripts')
     <script>
         $('#addButton').on('click', function() {
-            $('.attributeAddForm').trigger('reset');
+            $('.publicationAddForm').trigger('reset');
+            $('.dropify-preview').hide();
         });
 
         $(document).ready(function() {
-            $('#attribuetable').DataTable({
+            $('#publicationtable').DataTable({
                 "ordering": false,
             });
 
             // add form validation
-            $(".attributeAddForm").validate({
+            $(".publicationAddForm").validate({
                 rules: {
                     name: {
                         required: true,
                         maxlength: 100,
                     },
+                    description: {
+                        required: true,
+                        maxlength: 1000,
+                    },
+                    photo: {
+                        required: true,
+                    },
 
                 },
                 messages: {
                     name: {
-                        required: 'Please insert attribute name',
+                        required: 'Please insert publication name',
+                    },
+                    description: {
+                        required: 'Please insert publication description',
+                    },
+                    photo: {
+                        required: 'Please insert publication photo',
                     },
 
                 },
@@ -158,7 +261,7 @@
                 },
             });
             // update form validation
-            $(".updateAttributeForm").validate({
+            $(".updatepublicationForm").validate({
                 rules: {
                     name: {
                         required: true,
@@ -168,7 +271,7 @@
                 },
                 messages: {
                     name: {
-                        required: 'Please insert attribute name',
+                        required: 'Please insert publication name',
                     },
 
                 },
@@ -181,16 +284,17 @@
 
         var config = {
             routes: {
-                updateStatus: "{!! route('category.status.update') !!}",
-                add: "{!! route('feature-attributes.store') !!}",
-                update: "{!! route('update.category') !!}",
-
+                add: "{!! route('publications.store') !!}",
+                edit: "{!! route('publications.edit', ':id') !!}",
+                show: "{!! route('publications.show', ':id') !!}",
+                update: "{!! route('publications.update', ':id') !!}",
+                delete: "{!! route('publications.destroy', ':id') !!}",
             }
         };
 
-        // store attribute 
-        $(document).off('submit', '.attributeAddForm');
-        $(document).on('submit', '.attributeAddForm', function(event) {
+        // store category 
+        $(document).off('submit', '.publicationAddForm');
+        $(document).on('submit', '.publicationAddForm', function(event) {
             event.preventDefault();
             $.ajax({
                 url: config.routes.add,
@@ -202,25 +306,32 @@
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
-                        var attribuetable = $('#attribuetable').DataTable();
+                        var publicationtable = $('#publicationtable').DataTable();
                         var row = $('<tr>')
-                            .append(`<td>` + response.data.attribute.name + `</td>`)
+                            .append(`<td><img class="img-fluid" src="${imagesUrl}` +
+                                `${response.data.photo}" style='width: 60px; height: 55px;'></td>`)
+                            .append(`<td>` + response.data.name + `</td>`)
+                            .append(`<td>` + response.data.description + `</td>`)
 
 
                             .append(`<td>
-                            <button type='button' class='btn btn-outline-info' onclick='editAttribute(${response.data.attribute.feature_attribute_id})'>
+                            <button type='button' class='btn btn-outline-dark' onclick='viewPublication(${response.data.publication_id})'>
+                                  <i class='fa fa-eye'></i>
+                             </button>
+                            <button type='button' class='btn btn-outline-info' onclick='editPublication(${response.data.publication_id})'>
                                 <i class='mdi mdi-pencil'></i>
                             </button>
-                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteAttribute(${response.data.attribute.feature_attribute_id})">
+                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deletePublication(${response.data.publication_id})">
                                 <i class="mdi mdi-delete "></i>
                             </button>
                          </td>`)
 
 
-                        var category_row = attribuetable.row.add(row).draw().node();
-                        $('#attribuetable tbody').prepend(row);
-                        $(category_row).addClass('attribute' + response.data.attribute.feature_attribute_id + '');
-                        $('.attributeAddForm').trigger('reset');
+                        var publication_row = publicationtable.row.add(row).draw().node();
+                        $('#publicationtable tbody').prepend(row);
+                        $(publication_row).addClass('publication' + response.data.publication_id + '');
+                        $('.publicationAddForm').trigger('reset');
+
                         if (response.data.message) {
                             $('#add').modal('hide');
                             toastMixin.fire({
@@ -252,15 +363,60 @@
                         });
 
                     }
+                    if (error.status == 500) {
+                        toastMixin.fire({
+                                icon: 'error',
+                                animation: true,
+                                title: "" + error.responseJSON.message + ""
+                            });
+                    }
                 },
 
             });
         });
 
 
+        function viewPublication(id) {
+            var url = config.routes.edit;
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                method: "get",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#view_name').text(response.data.name);
+                        $('#view_description').text(response.data.description);
+
+                        if (response.data.photo != null) {
+                            $('#view_image').attr('src', imagesUrl + response.data.photo);
+                        }
+                        $('#viewModal').modal('show');
+
+                    } //success end
+
+                },
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + 'Data not found' + ""
+                        });
+
+
+                    }
+                },
+            }); //ajax end
+        }
+
         //edit a category
-        function editAttribute(id) {
-            var url = "{!! route('feature-attributes.edit', ':id') !!}";
+        function editPublication(id) {
+            var url = config.routes.edit;
             url = url.replace(':id', id);
             $.ajax({
                 url: url,
@@ -273,7 +429,24 @@
                 success: function(response) {
                     if (response.success == true) {
                         $('#edit_name').val(response.data.name)
-                        $('#hidden_id').val(response.data.feature_attribute_id)
+                        $('#edit_description').val(response.data.description)
+                        $('#hidden_id').val(response.data.publication_id)
+
+                        if (response.data.photo) {
+                            var photo = imagesUrl + response.data.photo;
+                            $("#edit_photo").attr("data-height", 150);
+                            $("#edit_photo").attr("data-min-width", 450);
+                            $("#edit_photo").attr("data-default-file", photo);
+                            $('.edit_photo').find(".dropify-wrapper").removeClass(
+                                "dropify-wrapper").addClass(
+                                "dropify-wrapper has-preview");
+                            $('.edit_photo').find(".dropify-preview").css('display', 'block');
+                            $('.edit_photo').find('.dropify-render').html('').html('<img src=" ' +
+                                photo +
+                                '">')
+                        } else {
+                            $(".dropify-preview .dropify-render img").attr("src", "");
+                        }
                         $('#edit_modal').modal('show');
 
                     } //success end
@@ -295,16 +468,16 @@
         }
 
         // update category
-        $(document).off('submit', '.updateAttributeForm');
-        $(document).on('submit', '.updateAttributeForm', function(event) {
+        $(document).off('submit', '.updatepublicationForm');
+        $(document).on('submit', '.updatepublicationForm', function(event) {
             event.preventDefault();
             var id =   $('#hidden_id').val();
 
-            var url = "{!! route('feature-attributes.update', ':id') !!}";
-            url = url.replace(':id', id);
+            var update_url = config.routes.update;
+            update_url = update_url.replace(':id', id);
 
             $.ajax({
-                url: url,
+                url: update_url,
                 method: "post",
                 data: new FormData(this),
                 contentType: false,
@@ -314,14 +487,21 @@
                 success: function(response) {
 
                     if (response.success == true) {
-                        $('.attribute' + response.data.attribute.feature_attribute_id).html(
+                        $('.publication' + response.data.publication_id).html(
                             `
-                                <td>${response.data.attribute.name}</td>
+                            <td>
+                              <img class="img-fluid" src="${imagesUrl}` +`${response.data.photo}" style='width: 60px; height: 55px;'>
+                            </td>
+                                <td>${response.data.name}</td>
+                                <td>${response.data.description}</td>
                                 <td>
-                                    <button type='button' class='btn btn-outline-info' onclick='editAttribute(${response.data.attribute.feature_attribute_id})'>
+                                    <button type='button' class='btn btn-outline-dark' onclick='viewPublication(${response.data.publication_id})'>
+                                       <i class='fa fa-eye'></i>
+                                    </button>
+                                    <button type='button' class='btn btn-outline-info' onclick='editPublication(${response.data.publication_id})'>
                                         <i class='mdi mdi-pencil'></i>
                                     </button>
-                                    <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteAttribute(${response.data.attribute.feature_attribute_id})">
+                                    <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deletePublication(${response.data.publication_id})">
                                         <i class="mdi mdi-delete "></i>
                                     </button>
                                 </td>
@@ -334,7 +514,7 @@
                                 animation: true,
                                 title: "" + response.data.message + ""
                             });
-                            $('.updateAttributeForm')[0].reset();
+                            $('.updatepublicationForm')[0].reset();
                         }
 
 
@@ -366,6 +546,12 @@
                             });
                         });
 
+                    }else if (error.status == 500) {
+                        toastMixin.fire({
+                                icon: 'error',
+                                animation: true,
+                                title: "" + error.responseJSON.message + ""
+                            });
                     }
                 },
 
@@ -374,7 +560,7 @@
 
 
         // delete category
-        function deleteAttribute(id) {
+        function deletePublication(id) {
             // alert(id)
             Swal.fire({
                 title: 'Are you sure?',
@@ -386,7 +572,7 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    var delete_url = "{!! route('feature-attributes.destroy', ':id') !!}";
+                    var delete_url = config.routes.delete;
                     delete_url = delete_url.replace(':id', id);
                     $.ajax({
                         type: "Delete",
@@ -403,7 +589,7 @@
                                     animation: true,
                                     title: "" + response.data.message + ""
                                 });
-                                $('#attribuetable').DataTable().row('.attribute' + id)
+                                $('#publicationtable').DataTable().row('.publication' + id)
                                     .remove()
                                     .draw();
                                 $('#viewModal').modal('hide');
@@ -420,6 +606,13 @@
                                 });
 
 
+                            }
+                            if (error.status == 500) {
+                                toastMixin.fire({
+                                        icon: 'error',
+                                        animation: true,
+                                        title: "" + error.responseJSON.message + ""
+                                    });
                             }
                         },
                     });
