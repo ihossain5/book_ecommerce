@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AuthorController;
+use App\Http\Controllers\Backend\BookController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\FeatureAttributeController;
 use App\Http\Controllers\Backend\PublicationController;
@@ -55,6 +56,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::resource('publications', PublicationController::class);
 /* author  route start */
     Route::resource('authors', AuthorController::class);
+/* book route start */
+    Route::resource('books', BookController::class);
 
 
 

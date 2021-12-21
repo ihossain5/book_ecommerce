@@ -80,7 +80,13 @@
                     <li>
                         <a href="{{ route('authors.index') }}" class="waves-effect">
                             <i class="dripicons-calendar"></i>
-                            <span> Publications </span>
+                            <span> Author Management </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('books.index') }}" class="waves-effect">
+                            <i class="dripicons-calendar"></i>
+                            <span> Book Management </span>
                         </a>
                     </li>
             </ul>
