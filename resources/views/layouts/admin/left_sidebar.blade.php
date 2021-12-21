@@ -77,6 +77,12 @@
                             <span> Publications </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('authors.index') }}" class="waves-effect">
+                            <i class="dripicons-calendar"></i>
+                            <span> Publications </span>
+                        </a>
+                    </li>
             </ul>
         </div>
         <div class="clearfix"></div>

@@ -17,6 +17,7 @@
 </head>
 
 <body class="fixed-left">
+    <div class="preloader"></div>
     <!-- Loader -->
     <div id="preloader">
         <div id="status">

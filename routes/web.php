@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Backend\AuthorController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\FeatureAttributeController;
 use App\Http\Controllers\Backend\PublicationController;
@@ -50,11 +51,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
 /* feature attribute route start */
     Route::resource('feature-attributes', FeatureAttributeController::class);
-/* feature attribute route end */
-
 /* publications  route start */
     Route::resource('publications', PublicationController::class);
-/* publications route end */
+/* author  route start */
+    Route::resource('authors', AuthorController::class);
+
 
 
 

@@ -25,7 +25,9 @@
         integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog=="
         crossorigin="anonymous" />
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         table i {
@@ -82,19 +84,38 @@
             margin-right: 40px;
             margin-top: 20px;
         }
-        .user_role_btn{
+
+        .user_role_btn {
             margin-right: 40px;
         }
-        .sidebar_user_card{
+
+        .sidebar_user_card {
             background-color: transparent !important;
         }
-        .user_name{
+
+        .user_name {
             color: #eaeaea;
         }
+
         .btn_disabled {
             pointer-events: none;
             cursor: not-allowed;
             box-shadow: none;
+        }
+
+        .btn-custom {
+            font-weight: bold;
+            font-size: 20px;
+            line-height: 24px;
+            color: #000000;
+            border-radius: 5px;
+            border: none;
+            padding: 7px 30px 7px 15px;
+            cursor: pointer;
+        }
+
+        .btnAccept {
+            background: #52b85c;
         }
 
     </style>

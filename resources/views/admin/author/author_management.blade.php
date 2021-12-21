@@ -1,22 +1,10 @@
 @extends('layouts.admin.master')
 @section('title')
-    Publications
+    Authors
 @endsection
 @section('pageCss')
     <style>
-.btn-custom {
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 24px;
-    color: #000000;
-    border-radius: 5px;
-    border: none;
-    padding: 7px 30px 7px 15px;
-    cursor: pointer;
-}
-.btnAccept {
-    background: #52b85c;
-}
+
     </style>
 @endsection
 @section('content')
@@ -29,7 +17,7 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="ms-header-text">
-                                    <h4 class="mt-0 header-title">All Publications</h4>
+                                    <h4 class="mt-0 header-title">All Authors</h4>
                                 </div>
                                 <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
                                     name="button" id="addButton" data-toggle="modal" data-target="#add"> Add
@@ -37,7 +25,7 @@
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table id="publicationtable" class="table table-bordered dt-responsive nowrap"
+                                <table id="authortable" class="table table-bordered dt-responsive nowrap"
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
@@ -48,28 +36,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (!empty($publications))
-                                            @foreach ($publications as $publication)
-                                                <tr class="publication{{ $publication->publication_id }}">
+                                        @if (!empty($authors))
+                                            @foreach ($authors as $author)
+                                                <tr class="author{{ $author->author_id }}">
                                                     <td>
-                                                        <img class='img-fluid' src="{{ asset('images/' . $publication->photo) }}"
-                                                            alt="{{ $publication->name }}" style='width: 60px; height: 55px;'>
+                                                        <img class='img-fluid' src="{{ asset('images/' . $author->photo) }}"
+                                                            alt="{{ $author->name }}" style='width: 60px; height: 55px;'>
                                                     </td>
-                                                    <td>{{ $publication->name }}</td>
-                                                    <td>{{ $publication->description }}</td>
+                                                    <td>{{ $author->name }}</td>
+                                                    <td>{{ $author->description }}</td>
 
                                                     <td>
                                                         <button type='button' class='btn btn-outline-dark'
-                                                        onclick='viewPublication({{ $publication->publication_id }})'><i
+                                                        onclick='viewAuthor({{ $author->author_id }})'><i
                                                             class='fa fa-eye'></i>
                                                         </button>
 
                                                         <button type='button' class='btn btn-outline-info '
-                                                            onclick='editPublication({{ $publication->publication_id }})'><i
+                                                            onclick='editAuthor({{ $author->author_id }})'><i
                                                                 class='mdi mdi-pencil'></i></button>
 
                                                         <button type='button' name='delete' class="btn btn-outline-danger "
-                                                            onclick="deletePublication({{ $publication->publication_id }})"><i
+                                                            onclick="deleteAuthor({{ $author->author_id }})"><i
                                                                 class="mdi mdi-delete "></i></button>
 
                                                     </td>
@@ -93,11 +81,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Add a new publication</h5>
+                    <h5 class="modal-title mt-0 text-center">Add a new author</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="publicationAddForm" method="POST"> @csrf
+                    <form class="authorAddForm" method="POST"> @csrf
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" name="name" placeholder="Type name" />
@@ -139,11 +127,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Update a publication</h5>
+                    <h5 class="modal-title mt-0 text-center">Update a author</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="updatepublicationForm" method="POST"> @csrf @method('PUT')
+                    <form class="updateauthorForm" method="POST"> @csrf @method('PUT')
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <div class="form-group">
                             <label>Name</label>
@@ -185,16 +173,16 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Publication Details</h5>
+                    <h5 class="modal-title mt-0 text-center">author Details</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="col-xl-12 col-md-12">
                         <div class="ms-form-group view-modal">
                             <p class="pb-3">
-                                <strong>Publication Name:</strong> <span id="view_name"></span><br>
-                                <strong>Publication Description:</strong> <span id="view_description"></span><br>
-                                <strong>Publication Photo :</strong><br>
+                                <strong>Author Name:</strong> <span id="view_name"></span><br>
+                                <strong>Author Description:</strong> <span id="view_description"></span><br>
+                                <strong>Author Photo :</strong><br>
                                 <img class="mt-2" src="" id="view_image" style="width: 100%;">
                             </p>
                         </div>
@@ -218,17 +206,17 @@
 @section('pageScripts')
     <script>
         $('#addButton').on('click', function() {
-            $('.publicationAddForm').trigger('reset');
+            $('.authorAddForm').trigger('reset');
             $('.dropify-preview').hide();
         });
 
         $(document).ready(function() {
-            $('#publicationtable').DataTable({
+            $('#authortable').DataTable({
                 "ordering": false,
             });
 
             // add form validation
-            $(".publicationAddForm").validate({
+            $(".authorAddForm").validate({
                 rules: {
                     name: {
                         required: true,
@@ -245,13 +233,13 @@
                 },
                 messages: {
                     name: {
-                        required: 'Please insert publication name',
+                        required: 'Please insert author name',
                     },
                     description: {
-                        required: 'Please insert publication description',
+                        required: 'Please insert author description',
                     },
                     photo: {
-                        required: 'Please insert publication photo',
+                        required: 'Please insert author photo',
                     },
 
                 },
@@ -261,7 +249,7 @@
                 },
             });
             // update form validation
-            $(".updatepublicationForm").validate({
+            $(".updateauthorForm").validate({
                 rules: {
                     name: {
                         required: true,
@@ -271,7 +259,7 @@
                 },
                 messages: {
                     name: {
-                        required: 'Please insert publication name',
+                        required: 'Please insert author name',
                     },
 
                 },
@@ -284,17 +272,16 @@
 
         var config = {
             routes: {
-                add: "{!! route('publications.store') !!}",
-                edit: "{!! route('publications.edit', ':id') !!}",
-                show: "{!! route('publications.show', ':id') !!}",
-                update: "{!! route('publications.update', ':id') !!}",
-                delete: "{!! route('publications.destroy', ':id') !!}",
+                add: "{!! route('authors.store') !!}",
+                edit: "{!! route('authors.edit', ':id') !!}",
+                update: "{!! route('authors.update', ':id') !!}",
+                delete: "{!! route('authors.destroy', ':id') !!}",
             }
         };
 
         // store category 
-        $(document).off('submit', '.publicationAddForm');
-        $(document).on('submit', '.publicationAddForm', function(event) {
+        $(document).off('submit', '.authorAddForm');
+        $(document).on('submit', '.authorAddForm', function(event) {
             event.preventDefault();
             $.ajax({
                 url: config.routes.add,
@@ -306,7 +293,7 @@
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
-                        var publicationtable = $('#publicationtable').DataTable();
+                        var authortable = $('#authortable').DataTable();
                         var row = $('<tr>')
                             .append(`<td><img class="img-fluid" src="${imagesUrl}` +
                                 `${response.data.photo}" style='width: 60px; height: 55px;'></td>`)
@@ -315,22 +302,22 @@
 
 
                             .append(`<td>
-                            <button type='button' class='btn btn-outline-dark' onclick='viewPublication(${response.data.publication_id})'>
+                            <button type='button' class='btn btn-outline-dark' onclick='viewAuthor(${response.data.author_id})'>
                                   <i class='fa fa-eye'></i>
                              </button>
-                            <button type='button' class='btn btn-outline-info' onclick='editPublication(${response.data.publication_id})'>
+                            <button type='button' class='btn btn-outline-info' onclick='editAuthor(${response.data.author_id})'>
                                 <i class='mdi mdi-pencil'></i>
                             </button>
-                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deletePublication(${response.data.publication_id})">
+                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteAuthor(${response.data.author_id})">
                                 <i class="mdi mdi-delete "></i>
                             </button>
                          </td>`)
 
 
-                        var publication_row = publicationtable.row.add(row).draw().node();
-                        $('#publicationtable tbody').prepend(row);
-                        $(publication_row).addClass('publication' + response.data.publication_id + '');
-                        $('.publicationAddForm').trigger('reset');
+                        var author_row = authortable.row.add(row).draw().node();
+                        $('#authortable tbody').prepend(row);
+                        $(author_row).addClass('author' + response.data.author_id + '');
+                        $('.authorAddForm').trigger('reset');
 
                         if (response.data.message) {
                             $('#add').modal('hide');
@@ -376,7 +363,7 @@
         });
 
 
-        function viewPublication(id) {
+        function viewAuthor(id) {
             var url = config.routes.edit;
             url = url.replace(':id', id);
             $.ajax({
@@ -415,7 +402,7 @@
         }
 
         //edit a category
-        function editPublication(id) {
+        function editAuthor(id) {
             var url = config.routes.edit;
             url = url.replace(':id', id);
             $.ajax({
@@ -430,7 +417,7 @@
                     if (response.success == true) {
                         $('#edit_name').val(response.data.name)
                         $('#edit_description').val(response.data.description)
-                        $('#hidden_id').val(response.data.publication_id)
+                        $('#hidden_id').val(response.data.author_id)
 
                         if (response.data.photo) {
                             var photo = imagesUrl + response.data.photo;
@@ -468,8 +455,8 @@
         }
 
         // update category
-        $(document).off('submit', '.updatepublicationForm');
-        $(document).on('submit', '.updatepublicationForm', function(event) {
+        $(document).off('submit', '.updateauthorForm');
+        $(document).on('submit', '.updateauthorForm', function(event) {
             event.preventDefault();
             var id =   $('#hidden_id').val();
 
@@ -487,7 +474,7 @@
                 success: function(response) {
 
                     if (response.success == true) {
-                        $('.publication' + response.data.publication_id).html(
+                        $('.author' + response.data.author_id).html(
                             `
                             <td>
                               <img class="img-fluid" src="${imagesUrl}` +`${response.data.photo}" style='width: 60px; height: 55px;'>
@@ -495,13 +482,13 @@
                                 <td>${response.data.name}</td>
                                 <td>${response.data.description}</td>
                                 <td>
-                                    <button type='button' class='btn btn-outline-dark' onclick='viewPublication(${response.data.publication_id})'>
+                                    <button type='button' class='btn btn-outline-dark' onclick='viewAuthor(${response.data.author_id})'>
                                        <i class='fa fa-eye'></i>
                                     </button>
-                                    <button type='button' class='btn btn-outline-info' onclick='editPublication(${response.data.publication_id})'>
+                                    <button type='button' class='btn btn-outline-info' onclick='editAuthor(${response.data.author_id})'>
                                         <i class='mdi mdi-pencil'></i>
                                     </button>
-                                    <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deletePublication(${response.data.publication_id})">
+                                    <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteAuthor(${response.data.author_id})">
                                         <i class="mdi mdi-delete "></i>
                                     </button>
                                 </td>
@@ -514,7 +501,7 @@
                                 animation: true,
                                 title: "" + response.data.message + ""
                             });
-                            $('.updatepublicationForm')[0].reset();
+                            $('.updateauthorForm')[0].reset();
                         }
 
 
@@ -560,7 +547,7 @@
 
 
         // delete category
-        function deletePublication(id) {
+        function deleteAuthor(id) {
             // alert(id)
             Swal.fire({
                 title: 'Are you sure?',
@@ -589,7 +576,7 @@
                                     animation: true,
                                     title: "" + response.data.message + ""
                                 });
-                                $('#publicationtable').DataTable().row('.publication' + id)
+                                $('#authortable').DataTable().row('.author' + id)
                                     .remove()
                                     .draw();
                                 $('#viewModal').modal('hide');
