@@ -17,6 +17,7 @@ class CreateBookFeatureAttributesTable extends Migration
             $table->id('book_feature_attribute_id');
             $table->foreignId('feature_attribute_id')->references('feature_attribute_id')->on('feature_attributes')->cascadeOnDelete();
             $table->foreignId('book_id')->references('book_id')->on('books')->cascadeOnDelete();
+            $table->string('value');
             $table->timestamps();
         });
     }

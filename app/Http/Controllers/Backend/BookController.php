@@ -3,18 +3,26 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\BookStoreRequest;
+use App\Models\FeatureAttribute;
+use App\Service\AuthorService;
+use App\Service\CategoryService;
+use App\Service\PublicationService;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
-{
+class BookController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('admin.book.book_management');
+    public function index(PublicationService $publicationService, CategoryService $categoryService, AuthorService $authorService) {
+        $publications = $publicationService->all();
+        $categories   = $categoryService->all();
+        $authors      = $authorService->all();
+        $attributes   = FeatureAttribute::orderBy('name', 'ASC')->get();
+
+        return view('admin.book.book_management', compact('publications', 'categories', 'authors', 'attributes'));
     }
 
     /**
@@ -22,8 +30,7 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -33,9 +40,8 @@ class BookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(BookStoreRequest $request) {
+        dd($request->all());
     }
 
     /**
@@ -44,8 +50,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -55,8 +60,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -67,8 +71,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -78,8 +81,7 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

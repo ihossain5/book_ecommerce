@@ -3,8 +3,14 @@
     Book Management
 @endsection
 @section('pageCss')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
-
+        .attributeLabel{
+            margin-right: 10px;
+        }
+        .attributeCheckbox{
+            margin-top: 5px;
+        }
     </style>
 @endsection
 @section('content')
@@ -25,7 +31,7 @@
                                 </button>
                             </div>
                             <div class="table-responsive">
-                                <table id="authortable" class="table table-bordered dt-responsive nowrap"
+                                <table id="bookTable" class="table table-bordered dt-responsive nowrap"
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
@@ -36,28 +42,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if (!empty($authors))
-                                            @foreach ($authors as $author)
-                                                <tr class="author{{ $author->author_id }}">
+                                        @if (!empty($books))
+                                            @foreach ($books as $book)
+                                                <tr class="book{{ $book->book_id }}">
                                                     <td>
-                                                        <img class='img-fluid' src="{{ asset('images/' . $author->photo) }}"
-                                                            alt="{{ $author->name }}" style='width: 60px; height: 55px;'>
+                                                        <img class='img-fluid' src="{{ asset('images/' . $book->photo) }}"
+                                                            alt="{{ $book->name }}" style='width: 60px; height: 55px;'>
                                                     </td>
-                                                    <td>{{ $author->name }}</td>
-                                                    <td>{{ $author->description }}</td>
+                                                    <td>{{ $book->name }}</td>
+                                                    <td>{{ $book->description }}</td>
 
                                                     <td>
                                                         <button type='button' class='btn btn-outline-dark'
-                                                        onclick='viewAuthor({{ $author->author_id }})'><i
-                                                            class='fa fa-eye'></i>
+                                                            onclick='viewBook({{ $book->book_id }})'><i
+                                                                class='fa fa-eye'></i>
                                                         </button>
 
                                                         <button type='button' class='btn btn-outline-info '
-                                                            onclick='editAuthor({{ $author->author_id }})'><i
+                                                            onclick='editBook({{ $book->book_id }})'><i
                                                                 class='mdi mdi-pencil'></i></button>
 
                                                         <button type='button' name='delete' class="btn btn-outline-danger "
-                                                            onclick="deleteAuthor({{ $author->author_id }})"><i
+                                                            onclick="deleteBook({{ $book->book_id }})"><i
                                                                 class="mdi mdi-delete "></i></button>
 
                                                     </td>
@@ -85,13 +91,12 @@
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="authorAddForm" method="POST"> @csrf
+                    <form class="bookAddForm" method="POST"> @csrf
                         <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Title</label>
-                                    <input type="text" class="form-control" name="title"
-                                        placeholder="Type title" />
+                                    <input type="text" class="form-control" name="title" placeholder="Type title" />
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -102,16 +107,61 @@
                             </div>
                         </div>
                         <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Publication</label>
+                                    <select name="publication_id" class="form-control" id="">
+                                        <option value="">Select</option>
+                                        @foreach ($publications as $publication)
+                                            <option value="{{ $publication->publication_id }}">{{ $publication->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Category</label>
+                                    <select name="category[]" class="form-control category-select-box" multiple="multiple">
+                                        <option value="">Select Category</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->category_id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label id="category[]-error" class="error mt-2 text-danger" for="category[]"></label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Author</label>
+                                    <select name="author[]" class="form-control author-select-box" multiple="multiple">
+                                        <option value="">Select Author</option>
+                                        @foreach ($authors as $author)
+                                            <option value="{{ $author->author_id }}">{{ $author->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label id="author[]-error" class="error mt-2 text-danger" for="author[]"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Short Description</label>
-                                    <textarea name="short_description" class="form-control" cols="30" rows="5"></textarea>
+                                    <textarea name="short_description" class="form-control" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Long Description</label>
-                                    <textarea name="long_description" class="form-control" cols="30" rows="5"></textarea>
+                                    <textarea name="long_description" class="form-control" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -119,13 +169,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Regular Price</label>
-                                    <input type="number" min="1" class="form-control" name="regular_price" id="regularPrice">
+                                    <input type="number" min="1" class="form-control" name="regular_price"
+                                        id="regularPrice">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Discount Percentage</label>
-                                    <input type="number" onkeyup="getDiscount(this)" min="0" class="form-control" id="discount_percentage" name="discount_percentage">
+                                    <input type="number" onkeyup="getDiscount(this)" min="0" class="form-control"
+                                        id="discount_percentage" name="discount_percentage">
                                 </div>
                             </div>
                         </div>
@@ -133,22 +185,74 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Discounted Price</label>
-                                    <input type="number" min="0" disabled class="form-control" name="discounted_price" id="discounted_price">
+                                    <input type="number" min="0" readonly class="form-control" name="discounted_price"
+                                        id="discounted_price">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label for=""> Cover Photo</label>
+                                    <div class="custom-file">
+                                        <input type="file" name="cover_photo" class="custom-file-input dropify"
+                                            data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                                            data-max-file-size="0.6M" data-height="120">
+                                    </div>
+                                    <label id="cover_photo-error" class="error mt-2 text-danger" for="cover_photo"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label for="">Back Side Photo</label>
+                                    <div class="custom-file">
+                                        <input type="file" name="back_photo" class="custom-file-input dropify"
+                                            data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                                            data-max-file-size="0.6M" data-height="120">
+                                    </div>
+                                    <label id="back_photo-error" class="error mt-2 text-danger" for="back_photo"></label>
                                 </div>
                             </div>
 
                         </div>
 
-                        
 
                         <div class="form-group ">
-                            <label for=""> Photo</label>
+                            <label for="">Book Preview (PDF only)</label>
                             <div class="custom-file">
-                                <input type="file" name="photo" class="custom-file-input dropify"
-                                    data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                                <input type="file" name="preview_book" class="custom-file-input dropify"
+                                    data-errors-position="outside" data-allowed-file-extensions='["pdf"]'
                                     data-max-file-size="0.6M" data-height="120">
                             </div>
-                            <label id="photo-error" class="error mt-2 text-danger" for="photo"></label>
+                            <label id="preview_book-error" class="error mt-2 text-danger" for="preview_book"></label>
+
+                        </div>
+
+                        <div class="form-row">
+                            @if (!empty($attributes))
+                                @foreach ($attributes as $key => $attribute)
+                                    <div class="col-md-2">
+                                        <div class="form-group attributeCheckbox">
+                                            {{-- <label></label> --}}
+                                            <label class="ms-checkbox-wrap ms-checkbox-dark attributeLabel">
+                                                <input type="checkbox" onclick="checkbox(this)"
+                                                    data-id="{{ $attribute->feature_attribute_id }}" value="">
+                                                <i class="ms-checkbox-check"></i>
+                                            </label>
+                                            <span> {{ $attribute->name }} </span>
+                                        </div>
+                                    </div>
+                                    <div class=" col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control input_box attribute_val{{ $attribute->feature_attribute_id }}"
+                                                disabled name="attribute[{{ $attribute->feature_attribute_id }}]"
+                                                id="value{{ $attribute->feature_attribute_id }}">
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
                         </div>
 
                         <div class="form-group mt-4">
@@ -172,11 +276,11 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Update a author</h5>
+                    <h5 class="modal-title mt-0 text-center">Update a book</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
-                    <form class="updateauthorForm" method="POST"> @csrf @method('PUT')
+                    <form class="updatebookForm" method="POST"> @csrf @method('PUT')
                         <input type="hidden" name="hidden_id" id="hidden_id">
                         <div class="form-group">
                             <label>Name</label>
@@ -184,7 +288,8 @@
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea name="description" class="form-control" id="edit_description" cols="30" rows="5"></textarea>
+                            <textarea name="description" class="form-control" id="edit_description" cols="30"
+                                rows="5"></textarea>
 
                         </div>
 
@@ -212,22 +317,22 @@
     </div>
     <!-- Edit  Modal End -->
 
-        <!-- view  Modal -->
-        <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog"
+    <!-- view  Modal -->
+    <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog"
         aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">author Details</h5>
+                    <h5 class="modal-title mt-0 text-center">book Details</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="col-xl-12 col-md-12">
                         <div class="ms-form-group view-modal">
                             <p class="pb-3">
-                                <strong>Author Name:</strong> <span id="view_name"></span><br>
-                                <strong>Author Description:</strong> <span id="view_description"></span><br>
-                                <strong>Author Photo :</strong><br>
+                                <strong>book Name:</strong> <span id="view_name"></span><br>
+                                <strong>book Description:</strong> <span id="view_description"></span><br>
+                                <strong>book Photo :</strong><br>
                                 <img class="mt-2" src="" id="view_image" style="width: 100%;">
                             </p>
                         </div>
@@ -237,7 +342,7 @@
                     <div class="row">
 
                         <div class="col-md-12 ">
-                        <button data-dismiss="modal" class="btn btn-block btnAccept mb-3 "> Done</button>
+                            <button data-dismiss="modal" class="btn btn-block btnAccept mb-3 "> Done</button>
                         </div>
                     </div>
                 </div>
@@ -249,42 +354,102 @@
 
 @endsection
 @section('pageScripts')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
         $('#addButton').on('click', function() {
-            $('.authorAddForm').trigger('reset');
+            $('.bookAddForm').trigger('reset');
             $('.dropify-preview').hide();
         });
 
         $(document).ready(function() {
-            $('#authortable').DataTable({
+            $('#bookTable').DataTable({
                 "ordering": false,
             });
 
+            $('.category-select-box').select2();
+            $('.author-select-box').select2();
+
             // add form validation
-            $(".authorAddForm").validate({
+            $(".bookAddForm").validate({
+                ignore: [],
                 rules: {
-                    name: {
+                    title: {
                         required: true,
                         maxlength: 100,
                     },
-                    description: {
+                    isbn: {
+                        required: true,
+                        maxlength: 100,
+                    },
+                    long_description: {
                         required: true,
                         maxlength: 1000,
                     },
-                    photo: {
+                    short_description: {
+                        required: true,
+                        maxlength: 1000,
+                    },
+                    cover_photo: {
                         required: true,
                     },
+                    back_photo: {
+                        required: true,
+                    },
+                    preview_book: {
+                        required: true,
+                    },
+                    regular_price: {
+                        required: true,
+                    },
+                    discounted_price: {
+                        required: true,
+                    },
+                    discount_percentage: {
+                        required: true,
+                    },
+                    publication_id: {
+                        required: true,
+                    },
+                    "author[]": "required",
+                    "category[]": "required",
 
                 },
                 messages: {
-                    name: {
-                        required: 'Please insert author name',
+                    title: {
+                        required: 'Please insert book title',
                     },
-                    description: {
-                        required: 'Please insert author description',
+                    isbn: {
+                        required: 'Please insert isbn number',
                     },
-                    photo: {
-                        required: 'Please insert author photo',
+                    short_description: {
+                        required: 'Please insert short description',
+                    },
+                    long_description: {
+                        required: 'Please insert long description',
+                    },
+                    cover_photo: {
+                        required: 'Please upload book cover photo',
+                    },
+                    back_photo: {
+                        required: 'Please upload book back side photo',
+                    },
+                    preview_book: {
+                        required: 'Please upload pdf for book preview',
+                    },
+                    author[]: {
+                        required: 'Please select book author',
+                    },
+                    category[]: {
+                        required: 'Please select book category',
+                    },
+                    publication_id: {
+                        required: 'Please select book publication',
+                    },
+                    regular_price: {
+                        required: 'Please insert book regular price',
+                    },
+                    discount_percentage: {
+                        required: 'Please insert discount percentage',
                     },
 
                 },
@@ -294,7 +459,7 @@
                 },
             });
             // update form validation
-            $(".updateauthorForm").validate({
+            $(".updatebookForm").validate({
                 rules: {
                     name: {
                         required: true,
@@ -304,7 +469,7 @@
                 },
                 messages: {
                     name: {
-                        required: 'Please insert author name',
+                        required: 'Please insert book name',
                     },
 
                 },
@@ -317,16 +482,16 @@
 
         var config = {
             routes: {
-                add: "{!! route('authors.store') !!}",
-                edit: "{!! route('authors.edit', ':id') !!}",
-                update: "{!! route('authors.update', ':id') !!}",
-                delete: "{!! route('authors.destroy', ':id') !!}",
+                add: "{!! route('books.store') !!}",
+                edit: "{!! route('books.edit', ':id') !!}",
+                update: "{!! route('books.update', ':id') !!}",
+                delete: "{!! route('books.destroy', ':id') !!}",
             }
         };
 
         // store category 
-        $(document).off('submit', '.authorAddForm');
-        $(document).on('submit', '.authorAddForm', function(event) {
+        $(document).off('submit', '.bookAddForm');
+        $(document).on('submit', '.bookAddForm', function(event) {
             event.preventDefault();
             $.ajax({
                 url: config.routes.add,
@@ -338,7 +503,7 @@
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
-                        var authortable = $('#authortable').DataTable();
+                        var bookTable = $('#bookTable').DataTable();
                         var row = $('<tr>')
                             .append(`<td><img class="img-fluid" src="${imagesUrl}` +
                                 `${response.data.photo}" style='width: 60px; height: 55px;'></td>`)
@@ -347,22 +512,22 @@
 
 
                             .append(`<td>
-                            <button type='button' class='btn btn-outline-dark' onclick='viewAuthor(${response.data.author_id})'>
+                            <button type='button' class='btn btn-outline-dark' onclick='viewBook(${response.data.book_id})'>
                                   <i class='fa fa-eye'></i>
                              </button>
-                            <button type='button' class='btn btn-outline-info' onclick='editAuthor(${response.data.author_id})'>
+                            <button type='button' class='btn btn-outline-info' onclick='editBook(${response.data.book_id})'>
                                 <i class='mdi mdi-pencil'></i>
                             </button>
-                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteAuthor(${response.data.author_id})">
+                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteBook(${response.data.book_id})">
                                 <i class="mdi mdi-delete "></i>
                             </button>
                          </td>`)
 
 
-                        var author_row = authortable.row.add(row).draw().node();
-                        $('#authortable tbody').prepend(row);
-                        $(author_row).addClass('author' + response.data.author_id + '');
-                        $('.authorAddForm').trigger('reset');
+                        var book_row = bookTable.row.add(row).draw().node();
+                        $('#bookTable tbody').prepend(row);
+                        $(book_row).addClass('book' + response.data.book_id + '');
+                        $('.bookAddForm').trigger('reset');
 
                         if (response.data.message) {
                             $('#add').modal('hide');
@@ -397,10 +562,10 @@
                     }
                     if (error.status == 500) {
                         toastMixin.fire({
-                                icon: 'error',
-                                animation: true,
-                                title: "" + error.responseJSON.message + ""
-                            });
+                            icon: 'error',
+                            animation: true,
+                            title: "" + error.responseJSON.message + ""
+                        });
                     }
                 },
 
@@ -408,7 +573,7 @@
         });
 
 
-        function viewAuthor(id) {
+        function viewBook(id) {
             var url = config.routes.edit;
             url = url.replace(':id', id);
             $.ajax({
@@ -447,7 +612,7 @@
         }
 
         //edit a category
-        function editAuthor(id) {
+        function editBook(id) {
             var url = config.routes.edit;
             url = url.replace(':id', id);
             $.ajax({
@@ -462,7 +627,7 @@
                     if (response.success == true) {
                         $('#edit_name').val(response.data.name)
                         $('#edit_description').val(response.data.description)
-                        $('#hidden_id').val(response.data.author_id)
+                        $('#hidden_id').val(response.data.book_id)
 
                         if (response.data.photo) {
                             var photo = imagesUrl + response.data.photo;
@@ -500,10 +665,10 @@
         }
 
         // update category
-        $(document).off('submit', '.updateauthorForm');
-        $(document).on('submit', '.updateauthorForm', function(event) {
+        $(document).off('submit', '.updatebookForm');
+        $(document).on('submit', '.updatebookForm', function(event) {
             event.preventDefault();
-            var id =   $('#hidden_id').val();
+            var id = $('#hidden_id').val();
 
             var update_url = config.routes.update;
             update_url = update_url.replace(':id', id);
@@ -519,21 +684,21 @@
                 success: function(response) {
 
                     if (response.success == true) {
-                        $('.author' + response.data.author_id).html(
+                        $('.book' + response.data.book_id).html(
                             `
                             <td>
-                              <img class="img-fluid" src="${imagesUrl}` +`${response.data.photo}" style='width: 60px; height: 55px;'>
+                              <img class="img-fluid" src="${imagesUrl}` + `${response.data.photo}" style='width: 60px; height: 55px;'>
                             </td>
                                 <td>${response.data.name}</td>
                                 <td>${response.data.description}</td>
                                 <td>
-                                    <button type='button' class='btn btn-outline-dark' onclick='viewAuthor(${response.data.author_id})'>
+                                    <button type='button' class='btn btn-outline-dark' onclick='viewBook(${response.data.book_id})'>
                                        <i class='fa fa-eye'></i>
                                     </button>
-                                    <button type='button' class='btn btn-outline-info' onclick='editAuthor(${response.data.author_id})'>
+                                    <button type='button' class='btn btn-outline-info' onclick='editBook(${response.data.book_id})'>
                                         <i class='mdi mdi-pencil'></i>
                                     </button>
-                                    <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteAuthor(${response.data.author_id})">
+                                    <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteBook(${response.data.book_id})">
                                         <i class="mdi mdi-delete "></i>
                                     </button>
                                 </td>
@@ -546,7 +711,7 @@
                                 animation: true,
                                 title: "" + response.data.message + ""
                             });
-                            $('.updateauthorForm')[0].reset();
+                            $('.updatebookForm')[0].reset();
                         }
 
 
@@ -578,12 +743,12 @@
                             });
                         });
 
-                    }else if (error.status == 500) {
+                    } else if (error.status == 500) {
                         toastMixin.fire({
-                                icon: 'error',
-                                animation: true,
-                                title: "" + error.responseJSON.message + ""
-                            });
+                            icon: 'error',
+                            animation: true,
+                            title: "" + error.responseJSON.message + ""
+                        });
                     }
                 },
 
@@ -592,7 +757,7 @@
 
 
         // delete category
-        function deleteAuthor(id) {
+        function deleteBook(id) {
             // alert(id)
             Swal.fire({
                 title: 'Are you sure?',
@@ -621,7 +786,7 @@
                                     animation: true,
                                     title: "" + response.data.message + ""
                                 });
-                                $('#authortable').DataTable().row('.author' + id)
+                                $('#bookTable').DataTable().row('.book' + id)
                                     .remove()
                                     .draw();
                                 $('#viewModal').modal('hide');
@@ -641,10 +806,10 @@
                             }
                             if (error.status == 500) {
                                 toastMixin.fire({
-                                        icon: 'error',
-                                        animation: true,
-                                        title: "" + error.responseJSON.message + ""
-                                    });
+                                    icon: 'error',
+                                    animation: true,
+                                    title: "" + error.responseJSON.message + ""
+                                });
                             }
                         },
                     });
@@ -656,18 +821,31 @@
         }
         //end
 
-        function getDiscount(e){
-           let regularPrice = document.getElementById('regularPrice').value;
-           if(regularPrice){
+        function getDiscount(e) {
+            let regularPrice = document.getElementById('regularPrice').value;
+            if (regularPrice) {
                 let discountedAmount = getDiscountedAmount(regularPrice, e.value);
-                document.getElementById('discounted_price').value   = discountedAmount;
-           }
+                document.getElementById('discounted_price').value = discountedAmount;
+            }
         }
 
-        function  getDiscountedAmount(regularPrice, percentage){
-            let amount =( regularPrice*percentage)/100;
+        function getDiscountedAmount(regularPrice, percentage) {
+            let amount = (regularPrice * percentage) / 100;
             let discountedAmount = regularPrice - amount;
             return discountedAmount;
+        }
+
+            // checkbox selcet function
+    function checkbox(e) {
+            var id = $(e).data('id');
+            if ($(e).is(':checked')) {
+                $('.attribute_val' + id).prop('disabled', false).prop('required', true).prop('maxlength', 50);
+
+            } else {
+                $('.attribute_val' + id).prop('disabled', true).prop('required', false).val('');
+
+            }
+
         }
     </script>
 @endsection

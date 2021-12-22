@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BookFeatureAttribute extends Model
+class BookCategory extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'book_feature_attribute_id';
+    protected $primaryKey = 'book_category_id';
 
     protected $guarded = [];
 }
