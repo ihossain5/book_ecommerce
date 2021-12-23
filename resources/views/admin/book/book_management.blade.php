@@ -11,6 +11,66 @@
         .attributeCheckbox{
             margin-top: 5px;
         }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #dc3545;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #198754;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #018346;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
     </style>
 @endsection
 @section('content')
@@ -35,9 +95,13 @@
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>Image</th>
-                                            <th>Name</th>
-                                            <th>Description</th>
+                                            <th>Cover Image</th>
+                                            <th>Title</th>
+                                            <th>ISBN Number</th>
+                                            <th>Regular Price</th>
+                                            <th>Discounted Price</th>
+                                            <th>Available Status</th>
+                                            <th>Visible Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -46,11 +110,34 @@
                                             @foreach ($books as $book)
                                                 <tr class="book{{ $book->book_id }}">
                                                     <td>
-                                                        <img class='img-fluid' src="{{ asset('images/' . $book->photo) }}"
+                                                        <img class='img-fluid' src="{{ asset('images/' . $book->cover_image) }}"
                                                             alt="{{ $book->name }}" style='width: 60px; height: 55px;'>
                                                     </td>
-                                                    <td>{{ $book->name }}</td>
-                                                    <td>{{ $book->description }}</td>
+                                                    <td>{{ $book->title }}</td>
+                                                    <td>{{ $book->isbn }}</td>
+                                                    <td>{{ currency_format($book->regular_price) }}</td>
+                                                    <td>{{ currency_format($book->discounted_price) }}</td>
+
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input
+                                                                class="is_available is_available_status{{ $book->book_id }}"
+                                                                type="checkbox"
+                                                                {{ $book->is_available == 1 ? 'checked' : '' }}
+                                                                data-id="{{ $book->book_id }}">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>
+                                                        <label class="switch">
+                                                            <input
+                                                                class="is_visible is_visible_status{{ $book->book_id }}"
+                                                                type="checkbox"
+                                                                {{ $book->is_visible == 1 ? 'checked' : '' }}
+                                                                data-id="{{ $book->book_id }}">
+                                                            <span class="slider round"></span>
+                                                        </label>
+                                                    </td>
 
                                                     <td>
                                                         <button type='button' class='btn btn-outline-dark'
@@ -436,12 +523,12 @@
                     preview_book: {
                         required: 'Please upload pdf for book preview',
                     },
-                    author[]: {
-                        required: 'Please select book author',
-                    },
-                    category[]: {
-                        required: 'Please select book category',
-                    },
+                    // author[]: {
+                    //     required: 'Please select book author',
+                    // },
+                    // category[]: {
+                    //     required: 'Please select book category',
+                    // },
                     publication_id: {
                         required: 'Please select book publication',
                     },
@@ -506,9 +593,27 @@
                         var bookTable = $('#bookTable').DataTable();
                         var row = $('<tr>')
                             .append(`<td><img class="img-fluid" src="${imagesUrl}` +
-                                `${response.data.photo}" style='width: 60px; height: 55px;'></td>`)
-                            .append(`<td>` + response.data.name + `</td>`)
-                            .append(`<td>` + response.data.description + `</td>`)
+                                `${response.data.backside_image}" style='width: 60px; height: 55px;'></td>`)
+                            .append(`<td>` + response.data.title + `</td>`)
+                            .append(`<td>` + response.data.isbn + `</td>`)
+                            .append(`<td> ৳ ` + bdCurrencyFormat(response.data.regular_price ) + `</td>`)
+                            .append(`<td> ৳ ` + bdCurrencyFormat (response.data.discounted_price) + `</td>`)
+
+                            .append(`<td> 
+                                        <label class="switch">
+                                             <input class="is_available is_available_status${ response.data.book_id}"type="checkbox" checked
+                                                 data-id="${response.data.book_id}">
+                                                <span class="slider round"></span>
+                                         </label>
+                                </td>`)
+
+                            .append(`<td> 
+                                        <label class="switch">
+                                             <input class="is_visible is_visible_status${ response.data.book_id}"type="checkbox" checked
+                                                 data-id="${response.data.book_id}">
+                                                <span class="slider round"></span>
+                                         </label>
+                                </td>`)
 
 
                             .append(`<td>
@@ -540,7 +645,14 @@
                         }
 
 
-                    } else {
+                    } else if(response.success == false){
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + response.data + ""
+                        });
+                    }
+                    else {
                         toastMixin.fire({
                             icon: 'error',
                             animation: true,

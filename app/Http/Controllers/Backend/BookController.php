@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookStoreRequest;
+use App\Models\Book;
 use App\Models\FeatureAttribute;
 use App\Service\AuthorService;
+use App\Service\BookService;
 use App\Service\CategoryService;
 use App\Service\PublicationService;
+use Exception;
 use Illuminate\Http\Request;
 
 class BookController extends Controller {
@@ -16,13 +19,14 @@ class BookController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PublicationService $publicationService, CategoryService $categoryService, AuthorService $authorService) {
+    public function index(PublicationService $publicationService, CategoryService $categoryService, AuthorService $authorService, BookService $bookService) {
         $publications = $publicationService->all();
         $categories   = $categoryService->all();
         $authors      = $authorService->all();
+        $books      = $bookService->all();
         $attributes   = FeatureAttribute::orderBy('name', 'ASC')->get();
 
-        return view('admin.book.book_management', compact('publications', 'categories', 'authors', 'attributes'));
+        return view('admin.book.book_management', compact('publications', 'categories', 'authors', 'attributes','books'));
     }
 
     /**
@@ -40,8 +44,19 @@ class BookController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookStoreRequest $request) {
-        dd($request->all());
+    public function store(BookStoreRequest $request, BookService $bookService) {
+        try {
+            $book = $bookService->store($request);
+
+            $book->message = 'Book created successfully';
+
+            return $this->success($book);
+
+        } catch (Exception $e) {
+
+            return $this->error($e->getMessage());
+        }
+
     }
 
     /**
@@ -81,7 +96,23 @@ class BookController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
-        //
+    public function destroy(Book $book) {
+        try {
+            deleteImage($book->cover_image);
+
+            deleteImage($book->backside_image);
+
+            deletePdf($book->book_preview);
+
+            $book->delete();
+
+            $book->message = 'Book deleted successfully';
+
+            return $this->success($book);
+
+        } catch (Exception $e) {
+
+            return $this->error($e->getMessage());
+        }
     }
 }

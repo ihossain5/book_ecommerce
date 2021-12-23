@@ -35,8 +35,8 @@ class BookStoreRequest extends FormRequest {
             "category.*"          => "required|distinct",
             "author"              => "required|array",
             "author.*"            => "required|distinct",
-            "attribute"           => "required|array",
-            "attribute.*"         => "required|distinct",
+            // "attribute"           => "required|array",
+            // "attribute.*"         => "required|distinct",
         ];
     }
     public function messages() {
