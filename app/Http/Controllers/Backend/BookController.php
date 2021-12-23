@@ -29,14 +29,6 @@ class BookController extends Controller {
         return view('admin.book.book_management', compact('publications', 'categories', 'authors', 'attributes','books'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -75,8 +67,10 @@ class BookController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
-        //
+    public function edit(Book $book) {
+        $book->load('categories','authors','authors','featureAttributes');
+
+        return $this->success($book);
     }
 
     /**

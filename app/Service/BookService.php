@@ -32,6 +32,25 @@ Class BookService {
 
     }
 
+    function updateAuthor($author, $request) {
+        $photo = $request->photo;
+
+        if ($photo) {
+            deleteImage($author->photo);
+            $photo_url = $this->uploadPhoto($photo);
+        } else {
+            $photo_url = $author->photo;
+        }
+        $author->update([
+            'name'        => $request->name,
+            'description' => $request->description,
+            'photo'       => $photo_url,
+
+        ]);
+
+        return $author;
+
+    }
 
     /** upload book photo */
     function uploadPhoto($photo) {
@@ -70,6 +89,20 @@ Class BookService {
             $book->discounted_price      = floatval(preg_replace('/[^\d.]/', '', $data->discounted_price));
 
             $book->save();
+
+            // $book = $this->book->create([
+            //     'title'                 => $data->title,
+            //     'isbn'                  => $data->isbn,
+            //     'publication_id'        => $data->publication_id,
+            //     'short_description'     => $data->short_description,
+            //     'long_description'      => $data->long_description,
+            //     'backside_image'        => $data->long_description,
+            //     'cover_image'           => $data->long_description,
+            //     'book_preview'          => $data->long_description,
+            //     'regular_price'         => floatval(preg_replace('/[^\d.]/', '', $data->regular_price)),
+            //     'discounted_percentage' => floatval(preg_replace('/[^\d.]/', '', $data->discount_percentage)),
+            //     'discounted_price'      => floatval(preg_replace('/[^\d.]/', '', $data->discounted_price)),
+            // ]);
 
             $book->update([
                 'backside_image' => $back_photo,
