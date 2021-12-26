@@ -5,10 +5,11 @@
 @section('pageCss')
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <style>
-        .attributeLabel{
+        .attributeLabel {
             margin-right: 10px;
         }
-        .attributeCheckbox{
+
+        .attributeCheckbox {
             margin-top: 5px;
         }
 
@@ -71,6 +72,21 @@
         .slider.round:before {
             border-radius: 50%;
         }
+
+        .viewBookModalData label>span {
+            font-weight: 400;
+        }
+
+        .bookData label>span {
+            font-weight: 400;
+        }
+
+        .pdfobject-container {
+            height: 40rem;
+        }
+        .previewBook{
+            cursor: pointer;
+        }
     </style>
 @endsection
 @section('content')
@@ -110,7 +126,8 @@
                                             @foreach ($books as $book)
                                                 <tr class="book{{ $book->book_id }}">
                                                     <td>
-                                                        <img class='img-fluid' src="{{ asset('images/' . $book->cover_image) }}"
+                                                        <img class='img-fluid'
+                                                            src="{{ asset('images/' . $book->cover_image) }}"
                                                             alt="{{ $book->name }}" style='width: 60px; height: 55px;'>
                                                     </td>
                                                     <td>{{ $book->title }}</td>
@@ -200,7 +217,8 @@
                                     <select name="publication_id" class="form-control" id="">
                                         <option value="">Select</option>
                                         @foreach ($publications as $publication)
-                                            <option value="{{ $publication->publication_id }}">{{ $publication->name }}
+                                            <option value="{{ $publication->publication_id }}">
+                                                {{ $publication->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -212,9 +230,10 @@
                                 <div class="form-group">
                                     <label>Select Category</label>
                                     <select name="category[]" class="form-control category-select-box" multiple="multiple">
-                                        <option value="">Select Category</option>
+                                        {{-- <option value="">Select Category</option> --}}
                                         @foreach ($categories as $category)
-                                            <option value="{{ $category->category_id }}">{{ $category->name }}</option>
+                                            <option value="{{ $category->category_id }}">{{ $category->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label id="category[]-error" class="error mt-2 text-danger" for="category[]"></label>
@@ -228,7 +247,7 @@
                                 <div class="form-group">
                                     <label>Select Author</label>
                                     <select name="author[]" class="form-control author-select-box" multiple="multiple">
-                                        <option value="">Select Author</option>
+                                        {{-- <option value="">Select Author</option> --}}
                                         @foreach ($authors as $author)
                                             <option value="{{ $author->author_id }}">{{ $author->name }}</option>
                                         @endforeach
@@ -284,8 +303,9 @@
                                     <label for=""> Cover Photo</label>
                                     <div class="custom-file">
                                         <input type="file" name="cover_photo" class="custom-file-input dropify"
-                                            data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
-                                            data-max-file-size="0.6M" data-height="120">
+                                            data-errors-position="outside"
+                                            data-allowed-file-extensions='["jpg", "png","jpeg"]' data-max-file-size="0.6M"
+                                            data-height="120">
                                     </div>
                                     <label id="cover_photo-error" class="error mt-2 text-danger" for="cover_photo"></label>
                                 </div>
@@ -295,8 +315,9 @@
                                     <label for="">Back Side Photo</label>
                                     <div class="custom-file">
                                         <input type="file" name="back_photo" class="custom-file-input dropify"
-                                            data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
-                                            data-max-file-size="0.6M" data-height="120">
+                                            data-errors-position="outside"
+                                            data-allowed-file-extensions='["jpg", "png","jpeg"]' data-max-file-size="0.6M"
+                                            data-height="120">
                                     </div>
                                     <label id="back_photo-error" class="error mt-2 text-danger" for="back_photo"></label>
                                 </div>
@@ -332,7 +353,8 @@
                                     </div>
                                     <div class=" col-md-4">
                                         <div class="form-group">
-                                            <input type="text" class="form-control input_box attribute_val{{ $attribute->feature_attribute_id }}"
+                                            <input type="text"
+                                                class="form-control input_box attribute_val{{ $attribute->feature_attribute_id }}"
                                                 disabled name="attribute[{{ $attribute->feature_attribute_id }}]"
                                                 id="value{{ $attribute->feature_attribute_id }}">
                                         </div>
@@ -360,33 +382,188 @@
     <!-- Edit  Modal -->
     <div class="modal fade bs-example-modal-center" id="edit_modal" tabindex="-1" role="dialog"
         aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Update a book</h5>
+                    <h5 class="modal-title mt-0 text-center">Update a book asdasd</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <form class="updatebookForm" method="POST"> @csrf @method('PUT')
                         <input type="hidden" name="hidden_id" id="hidden_id">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" id="edit_name" name="name" placeholder="Type name" />
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Title</label>
+                                    <input type="text" class="form-control" id="edit_title" name="title"
+                                        placeholder="Type title" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>ISBN Number</label>
+                                    <input type="text" class="form-control" id="edit_isbn" name="isbn"
+                                        placeholder="Type isbn number" />
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea name="description" class="form-control" id="edit_description" cols="30"
-                                rows="5"></textarea>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Publication</label>
+                                    <select name="publication_id" class="form-control" id="edit_publication_id">
+                                        <option value="">Select</option>
+                                        @foreach ($publications as $publication)
+                                            <option value="{{ $publication->publication_id }}">
+                                                {{ $publication->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Category</label>
+                                    <select name="category[]" class="form-control category-select-box" id="edit_category"
+                                        multiple="multiple">
+                                        {{-- <option value="">Select Category</option> --}}
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->category_id }}">{{ $category->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <label id="category[]-error" class="error mt-2 text-danger" for="category[]"></label>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Author</label>
+                                    <select name="author[]" class="form-control author-select-box" id="edit_author"
+                                        multiple="multiple">
+                                        {{-- <option value="">Select Author</option> --}}
+                                        @foreach ($authors as $author)
+                                            <option value="{{ $author->author_id }}">{{ $author->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label id="author[]-error" class="error mt-2 text-danger" for="author[]"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Short Description</label>
+                                    <textarea name="short_description" class="form-control" id="edit_short_description"
+                                        cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Long Description</label>
+                                    <textarea name="long_description" class="form-control" id="edit_long_description"
+                                        cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Regular Price</label>
+                                    <input type="number" min="1" class="form-control" id="edit_regular_price"
+                                        name="regular_price" id="regularPrice">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Discount Percentage</label>
+                                    <input type="number" onkeyup="getDiscount(this)" min="0" id="edit_discount_percentage"
+                                        class="form-control" id="discount_percentage" name="discount_percentage">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Discounted Price</label>
+                                    <input type="number" min="0" readonly class="form-control" id="edit_discounted_price"
+                                        name="discounted_price" id="discounted_price">
+                                </div>
+                            </div>
 
                         </div>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label for=""> Cover Photo</label>
+                                    <div class="custom-file coverPhoto">
+                                        <input type="file" id="edit_cover_photo" name="cover_photo"
+                                            class="custom-file-input " data-errors-position="outside"
+                                            data-allowed-file-extensions='["jpg", "png","jpeg"]' data-max-file-size="0.6M"
+                                            data-height="120">
+                                    </div>
+                                    <label id="cover_photo-error" class="error mt-2 text-danger" for="cover_photo"></label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ">
+                                    <label for="">Back Side Photo</label>
+                                    <div class="custom-file back_photo">
+                                        <input type="file" name="back_photo" id="edit_back_photo"
+                                            class="custom-file-input " data-errors-position="outside"
+                                            data-allowed-file-extensions='["jpg", "png","jpeg"]' data-max-file-size="0.6M"
+                                            data-height="120">
+                                    </div>
+                                    <label id="back_photo-error" class="error mt-2 text-danger" for="back_photo"></label>
+                                </div>
+                            </div>
+
+                        </div>
+
 
                         <div class="form-group ">
-                            <label for=""> Photo</label>
-                            <div class="custom-file edit_photo">
-                                <input type="file" name="photo" class="custom-file-input dropify" id="edit_photo"
-                                    data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                            <label for="">Book Preview (PDF only)</label>
+                            <div class="custom-file preview_book">
+                                <input type="file" name="preview_book" id="edit_preview_book" class="custom-file-input "
+                                    data-errors-position="outside" data-allowed-file-extensions='["pdf"]'
                                     data-max-file-size="0.6M" data-height="120">
                             </div>
+                            <label id="preview_book-error" class="error mt-2 text-danger" for="preview_book"></label>
+
+                        </div>
+
+                        <div class="form-row">
+                            @if (!empty($attributes))
+                                @foreach ($attributes as $key => $attribute)
+                                    <div class="col-md-2">
+                                        <div class="form-group attributeCheckbox">
+                                            {{-- <label></label> --}}
+                                            <label class="ms-checkbox-wrap ms-checkbox-dark attributeLabel">
+                                                <input type="checkbox" onclick="checkbox(this)"
+                                                    class="input_checkbox checkbox{{ $attribute->feature_attribute_id }}"
+                                                    data-id="{{ $attribute->feature_attribute_id }}" value="">
+                                                <i class="ms-checkbox-check"></i>
+                                            </label>
+                                            <span> {{ $attribute->name }} </span>
+                                        </div>
+                                    </div>
+                                    <div class=" col-md-4">
+                                        <div class="form-group">
+                                            <input type="text"
+                                                class="form-control input_box attribute_val{{ $attribute->feature_attribute_id }}"
+                                                disabled name="attribute[{{ $attribute->feature_attribute_id }}]"
+                                                id="value{{ $attribute->feature_attribute_id }}">
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+
                         </div>
 
                         <div class="form-group">
@@ -407,27 +584,76 @@
     <!-- view  Modal -->
     <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog"
         aria-labelledby="mySmallModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">book Details</h5>
+                    <h5 class="modal-title mt-0 text-center">Book Details</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
                     <div class="col-xl-12 col-md-12">
-                        <div class="ms-form-group view-modal">
+                        <h5 class="text-center ">
+                            Book Title : <span class="title"></span>
+                        </h5>
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <img class="mt-2" src="" id="cover_image" style="width: 100%;">
+                            </div>
+                            <div class="col-md-6">
+                                <img class="mt-2" src="" id="backside_image" style="width: 100%;">
+                            </div>
+                        </div>
+                        <div class="form-row mt-4 viewBookModalData">
+                            <div class="col-md-6">
+                                <label> Isbn : <span class="isbnNumber"></span></label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Preview Book : <span class="previewBook">Click to Read</span> </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Short Description : <span class="short_description"></span> </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Long Description : <span class="long_description"></span> </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Regular Price : <span class="regular_price"></span> </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Discounted Price : <span class="discounted_price"></span> </label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label>Discount Percentage : <span class="discounted_percentage"></span> </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Available Status: <span class="availAbleStatus"></span> </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Visible Status: <span class="visibleStatus"></span> </label>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <h5>Book Specifications</h5>
+                            </div>
+                        </div>
+
+                        <div class="form-row bookData">
+
+                        </div>
+                        {{-- <div class="ms-form-group view-modal">
                             <p class="pb-3">
                                 <strong>book Name:</strong> <span id="view_name"></span><br>
                                 <strong>book Description:</strong> <span id="view_description"></span><br>
                                 <strong>book Photo :</strong><br>
                                 <img class="mt-2" src="" id="view_image" style="width: 100%;">
                             </p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
                 <div class="col-md-12 ">
                     <div class="row">
-
                         <div class="col-md-12 ">
                             <button data-dismiss="modal" class="btn btn-block btnAccept mb-3 "> Done</button>
                         </div>
@@ -439,9 +665,28 @@
     </div>
     <!-- view  Modal End -->
 
+
+    <div class="modal fade bs-example-modal-center pdf_view"  tabindex="-1" role="dialog"
+    aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header d-block">
+                <h5 class="modal-title mt-0 text-center">Book Preview</h5>
+                <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="pdf_viewer"></div>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 @endsection
 @section('pageScripts')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.6/pdfobject.min.js"
+        integrity="sha512-B+t1szGNm59mEke9jCc5nSYZTsNXIadszIDSLj79fEV87QtNGFNrD6L+kjMSmYGBLzapoiR9Okz3JJNNyS2TSg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         $('#addButton').on('click', function() {
             $('.bookAddForm').trigger('reset');
@@ -573,6 +818,8 @@
                 edit: "{!! route('books.edit', ':id') !!}",
                 update: "{!! route('books.update', ':id') !!}",
                 delete: "{!! route('books.destroy', ':id') !!}",
+                updateStatus: "{!! route('books.status.update') !!}",
+                getPdf: "{!! route('book.get.pdf', ':id') !!}",
             }
         };
 
@@ -593,11 +840,13 @@
                         var bookTable = $('#bookTable').DataTable();
                         var row = $('<tr>')
                             .append(`<td><img class="img-fluid" src="${imagesUrl}` +
-                                `${response.data.backside_image}" style='width: 60px; height: 55px;'></td>`)
+                                `${response.data.backside_image}" style='width: 60px; height: 55px;'></td>`
+                            )
                             .append(`<td>` + response.data.title + `</td>`)
                             .append(`<td>` + response.data.isbn + `</td>`)
-                            .append(`<td> ৳ ` + bdCurrencyFormat(response.data.regular_price ) + `</td>`)
-                            .append(`<td> ৳ ` + bdCurrencyFormat (response.data.discounted_price) + `</td>`)
+                            .append(`<td> ৳ ` + bdCurrencyFormat(response.data.regular_price) + `</td>`)
+                            .append(`<td> ৳ ` + bdCurrencyFormat(response.data.discounted_price) +
+                                `</td>`)
 
                             .append(`<td> 
                                         <label class="switch">
@@ -645,14 +894,13 @@
                         }
 
 
-                    } else if(response.success == false){
+                    } else if (response.success == false) {
                         toastMixin.fire({
                             icon: 'error',
                             animation: true,
                             title: "" + response.data + ""
                         });
-                    }
-                    else {
+                    } else {
                         toastMixin.fire({
                             icon: 'error',
                             animation: true,
@@ -692,18 +940,38 @@
                 url: url,
                 method: "get",
                 data: {
-                    id: id,
                     _token: "{{ csrf_token() }}"
                 },
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
-                        $('#view_name').text(response.data.name);
-                        $('#view_description').text(response.data.description);
+                        $('.title').text(response.data.title);
 
-                        if (response.data.photo != null) {
-                            $('#view_image').attr('src', imagesUrl + response.data.photo);
+                        if (response.data.backside_image != null) {
+                            $('#cover_image').attr('src', imagesUrl + response.data.cover_image);
+                            $('#backside_image').attr('src', imagesUrl + response.data.backside_image);
                         }
+                        $('.isbnNumber').html(response.data.isbn)
+                        $('.short_description').html(response.data.short_description)
+                        $('.long_description').html(response.data.long_description)
+                        $('.discounted_percentage').html(response.data.discounted_percentage + ' %')
+                        $('.regular_price').html(response.data.regular_price)
+                        $('.discounted_price').html(response.data.discounted_price)
+                        $('.visibleStatus').html(response.data.is_visible == 1 ? 'Visible' : 'Not visible')
+                        $('.availAbleStatus').html(response.data.is_available == 1 ? 'Available' :
+                            'Not abailable')
+
+                        $('.previewBook').attr('onclick', `readBook(${response.data.book_id})`);
+
+                        $('.bookData').empty();
+                        $.each(response.data.feature_attributes, function(key, val) {
+                            $('.bookData').append(`
+                            <div class="col-md-6">
+                               <label>${val.name} : <span>${val.pivot.value}</span> </label>
+                            </div>
+                            `)
+                        });
+
                         $('#viewModal').modal('show');
 
                     } //success end
@@ -731,31 +999,92 @@
                 url: url,
                 method: "get",
                 data: {
-                    id: id,
                     _token: "{{ csrf_token() }}"
                 },
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
-                        $('#edit_name').val(response.data.name)
-                        $('#edit_description').val(response.data.description)
+                        $('#edit_title').val(response.data.title)
+                        $('#edit_isbn').val(response.data.isbn)
+                        $('#edit_isbn').val(response.data.isbn)
+                        $('#edit_publication_id').val(response.data.publication_id)
+
+
+                        var category_ids = [];
+                        $.each(response.data.categories, function(key, value) {
+                            category_ids.push(value.category_id)
+                        });
+
+                        $('#edit_category').val(category_ids);
+                        $('#edit_category').trigger('change');
+
+                        var author_ids = [];
+                        $.each(response.data.authors, function(i, val) {
+                            author_ids.push(val.author_id)
+                        });
+
+                        $('#edit_author').val(author_ids);
+                        $('#edit_author').trigger('change');
+
+
+                        $('#edit_short_description').val(response.data.short_description)
+
+                        $('#edit_long_description').val(response.data.long_description)
+
+                        $('#edit_regular_price').val(response.data.regular_price)
+
+                        $('#edit_discount_percentage').val(response.data.discounted_percentage)
+                        $('#edit_discounted_price').val(response.data.discounted_price)
+
                         $('#hidden_id').val(response.data.book_id)
 
-                        if (response.data.photo) {
-                            var photo = imagesUrl + response.data.photo;
-                            $("#edit_photo").attr("data-height", 150);
-                            $("#edit_photo").attr("data-min-width", 450);
-                            $("#edit_photo").attr("data-default-file", photo);
-                            $('.edit_photo').find(".dropify-wrapper").removeClass(
-                                "dropify-wrapper").addClass(
-                                "dropify-wrapper has-preview");
-                            $('.edit_photo').find(".dropify-preview").css('display', 'block');
-                            $('.edit_photo').find('.dropify-render').html('').html('<img src=" ' +
-                                photo +
-                                '">')
+                        // specifications
+                        $('.input_box').val('');
+                        $('.input_box').prop('disabled', true);
+                        $('.input_checkbox').prop('checked', false);
+
+                        $.each(response.data.feature_attributes, function(key, data) {
+                            $('.checkbox' + data.feature_attribute_id).prop('checked', true);
+                            $('.attribute_val' + data.feature_attribute_id).val(data.pivot.value);
+                            $('.attribute_val' + data.feature_attribute_id).prop('disabled', false)
+                                .prop('required', true).prop('maxlength', 50);
+                        });
+
+                        //cover image start
+                        if (response.data.cover_image) {
+                            var image = response.data.cover_image;
+                            var imageId = '#edit_cover_photo';
+                            var imageClass = '.coverPhoto';
+                            showImageIntoModal(image, imageId, imageClass)
                         } else {
-                            $(".dropify-preview .dropify-render img").attr("src", "");
+                            $('.coverPhoto').find(".dropify-preview .dropify-render img").attr("src", "");
                         }
+                        //cover image end
+
+                        //back side image start
+                        if (response.data.backside_image) {
+                            var image = response.data.backside_image;
+                            var imageId = '#edit_back_photo';
+                            var imageClass = '.back_photo';
+                            showImageIntoModal(image, imageId, imageClass)
+                        } else {
+                            $('.back_photo').find(".dropify-preview .dropify-render img").attr("src", "");
+                        }
+                        //back side image end
+
+                        //preview pdf start
+                        if (response.data.book_preview) {
+                            var image = response.data.book_preview;
+                            var imageId = '#edit_preview_book';
+                            var imageClass = '.preview_book';
+                            showImageIntoModal(image, imageId, imageClass)
+                        } else {
+                            $('.preview_book').find(".dropify-preview .dropify-render img").attr("src", "");
+                        }
+                        //preview pdf start end
+
+
+
                         $('#edit_modal').modal('show');
 
                     } //success end
@@ -772,6 +1101,24 @@
 
                     }
                 },
+            });
+
+        }
+
+        function showImageIntoModal(image, imageId, imageClass) {
+            var img_url = imagesUrl + image;
+
+            $(imageId).attr("data-default-file", img_url);
+            $(imageClass).find('.dropify-wrapper').removeClass("dropify-wrapper").addClass(
+                "dropify-wrapper has-preview");
+            $(imageClass).find(".dropify-preview").css('display', 'block');
+            $(imageClass).find('.dropify-render').html('').html('<img src=" ' + img_url +
+                '">')
+
+            $(imageId).dropify({
+                error: {
+                    'fileSize': 'The file size is too big ( 600KB  max).',
+                }
             });
 
         }
@@ -799,10 +1146,29 @@
                         $('.book' + response.data.book_id).html(
                             `
                             <td>
-                              <img class="img-fluid" src="${imagesUrl}` + `${response.data.photo}" style='width: 60px; height: 55px;'>
+                              <img class="img-fluid" src="${imagesUrl}` + `${response.data.cover_image}" style='width: 60px; height: 55px;'>
                             </td>
-                                <td>${response.data.name}</td>
-                                <td>${response.data.description}</td>
+                                <td>${response.data.title}</td>
+                                <td>${response.data.isbn}</td>
+                                <td>৳ ${bdCurrencyFormat(response.data.regular_price)}</td>
+                                <td>৳ ${bdCurrencyFormat(response.data.discounted_price)}</td>
+
+                                <td> 
+                                        <label class="switch">
+                                             <input class="is_available is_available_status${ response.data.book_id}"type="checkbox" ${response.data.is_available==1 ? 'checked' : '' }
+                                                 data-id="${response.data.book_id}">
+                                                <span class="slider round"></span>
+                                         </label>
+                                </td>
+
+                                <td> 
+                                        <label class="switch">
+                                             <input class="is_visible is_visible_status${ response.data.book_id}"type="checkbox" ${response.data.is_visible==1 ? 'checked' : '' }
+                                                 data-id="${response.data.book_id}">
+                                                <span class="slider round"></span>
+                                         </label>
+                                </td>
+
                                 <td>
                                     <button type='button' class='btn btn-outline-dark' onclick='viewBook(${response.data.book_id})'>
                                        <i class='fa fa-eye'></i>
@@ -827,6 +1193,12 @@
                         }
 
 
+                    } else if (response.success == false) {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + response.data + ""
+                        });
                     } else {
                         toastMixin.fire({
                             icon: 'error',
@@ -947,8 +1319,8 @@
             return discountedAmount;
         }
 
-            // checkbox selcet function
-    function checkbox(e) {
+        // checkbox selcet function
+        function checkbox(e) {
             var id = $(e).data('id');
             if ($(e).is(':checked')) {
                 $('.attribute_val' + id).prop('disabled', false).prop('required', true).prop('maxlength', 50);
@@ -957,6 +1329,166 @@
                 $('.attribute_val' + id).prop('disabled', true).prop('required', false).val('');
 
             }
+        }
+
+        // is home status change function
+        $(document.body).on('click', '.is_available', function() {
+            var id = $(this).attr('data-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Change this status!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: config.routes.updateStatus,
+                        method: "POST",
+                        data: {
+                            id: id,
+                            type: 'is_available',
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.success == true) {
+                                toastMixin.fire({
+                                    icon: 'success',
+                                    animation: true,
+                                    title: "" + response.data.message + ""
+                                });
+                            } else if (response.success == false) {
+                                toastMixin.fire({
+                                    icon: 'error',
+                                    animation: true,
+                                    title: "" + response.data + ""
+                                });
+                            }
+                        }, //success end
+                        error: function(error) {
+                            if (error.status == 404) {
+                                toastMixin.fire({
+                                    icon: 'error',
+                                    animation: true,
+                                    title: "" + 'Data not found' + ""
+                                });
+
+
+                            }
+                        },
+
+                    }); //ajax end
+                } else {
+                    if ($('.is_available_status' + id + "").prop("checked") == true) {
+                        $('.is_available_status' + id + "").prop('checked', false);
+                    } else {
+                        $('.is_available_status' + id + "").prop('checked', true);
+                    }
+                }
+            })
+        });
+
+        // is nav status change function
+        $(document.body).on('click', '.is_visible', function() {
+            var id = $(this).attr('data-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Change this status!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: config.routes.updateStatus,
+                        method: "POST",
+                        data: {
+                            id: id,
+                            type: 'is_visible',
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            if (response.success == true) {
+                                toastMixin.fire({
+                                    icon: 'success',
+                                    animation: true,
+                                    title: "" + response.data.message + ""
+                                });
+                            } else if (response.success == false) {
+                                toastMixin.fire({
+                                    icon: 'error',
+                                    animation: true,
+                                    title: "" + response.data + ""
+                                });
+                            }
+                        }, //success end
+                        error: function(error) {
+                            if (error.status == 404) {
+                                toastMixin.fire({
+                                    icon: 'error',
+                                    animation: true,
+                                    title: "" + 'Data not found' + ""
+                                });
+
+
+                            }
+                        },
+
+                    }); //ajax end
+                } else {
+                    if ($('.is_visible_status' + id + "").prop("checked") == true) {
+                        $('.is_visible_status' + id + "").prop('checked', false);
+                    } else {
+                        $('.is_visible_status' + id + "").prop('checked', true);
+                    }
+                }
+            })
+        });
+
+        function readBook(id) {
+            var path = window.location.origin;
+            var url = config.routes.getPdf;
+            url = url.replace(':id', id);
+            // var url = path.slice(0, -14);
+            $.ajax({
+                url: url,
+                method: "get",
+                data: {
+                    type: 'is_visible',
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        PDFObject.embed(path + "/pdfs/"+response.data, ".pdf_viewer");
+                        $('.pdf_view').modal('show');
+                    } else if (response.success == false) {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + response.data + ""
+                        });
+                    }
+                }, //success end
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + 'Data not found' + ""
+                        });
+
+
+                    }
+                },
+
+            }); //ajax end
 
         }
     </script>

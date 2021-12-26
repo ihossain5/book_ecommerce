@@ -51,42 +51,68 @@
                             Dashboard </span></a>
                 </li>
                 
-                    
-                    <li>
-                        <a href="{{ route('admin.index') }}" class="waves-effect">
-                            <i class="dripicons-calendar"></i>
-                            <span> Admin Management </span>
-                        </a>
-                    </li>
-               
                     <li>
                         <a href="{{ route('category.index') }}" class="waves-effect">
-                            <i class="dripicons-calendar"></i>
+                            <i class="fa fa-list-alt"></i>
                             <span> Category Management </span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('feature-attributes.index') }}" class="waves-effect">
-                            <i class="dripicons-calendar"></i>
+                            <i class="fa fa-certificate"></i>
                             <span> Feature Attribute </span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('publications.index') }}" class="waves-effect">
-                            <i class="dripicons-calendar"></i>
+                            <i class="fa fa-newspaper-o"></i>
                             <span> Publications </span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('authors.index') }}" class="waves-effect">
-                            <i class="dripicons-calendar"></i>
+                            <i class="fa fa-pencil-square-o"></i>
                             <span> Author Management </span>
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('books.index') }}" class="waves-effect">
-                            <i class="dripicons-calendar"></i>
+                            <i class="fa fa-book"></i>
                             <span> Book Management </span>
+                        </a>
+                    </li>
+
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-web"></i><span> Website
+                                Content <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
+                            </span></a>
+                        <ul class="list-unstyled">
+                            @if (Auth::user()->is_super_admin == 1 || Auth::user()->is_admin == 1)
+                                <li>
+                                    <a href="{{ route('sliders') }}" class="waves-effect">
+                                        <i class="dripicons-calendar"></i>
+                                        <span>Sliders</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('socials') }}" class="waves-effect">
+                                        <i class="dripicons-calendar"></i>
+                                        <span>Social Medias</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('contacts') }}" class="waves-effect">
+                                        <i class="dripicons-calendar"></i>
+                                        <span>Contacts</span>
+                                    </a>
+                                </li>
+                            @endif
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.index') }}" class="waves-effect">
+                            <i class="dripicons-user"></i>
+                            <span> Admin Management </span>
                         </a>
                     </li>
             </ul>

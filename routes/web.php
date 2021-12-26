@@ -9,6 +9,12 @@ use App\Http\Controllers\Backend\PublicationController;
 use App\Http\Controllers\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
+
+use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Backend\SocialMediaController;
+use App\Http\Controllers\Backend\ContactController;
+use Illuminate\Support\Facades\Artisan;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +35,7 @@ require __DIR__ . '/auth.php';
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    Route::get('/password-update', [AdminController::class, 'passwordChange'])->name('password.change');
+    Route::get('/password-change', [AdminController::class, 'passwordChange'])->name('password.change');
     Route::post('/password-update', [AdminController::class, 'updatePassword'])->name('password.update');
     Route::get('/profile-update', [AdminController::class, 'profile'])->name('user.profile');
     Route::post('/profile-update', [AdminController::class, 'profileUpdate'])->name('profile.update');
@@ -57,10 +63,36 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 /* author  route start */
     Route::resource('authors', AuthorController::class);
 /* book route start */
-    Route::resource('books', BookController::class);
+    Route::resource('books', BookController::class); 
+    Route::post('/book/status/update/', [BookController::class, 'updateStatus'])->name('books.status.update');
+    Route::get('get/{book}/pdf/', [BookController::class, 'getPdf'])->name('book.get.pdf');
+    
 
 
+// Slider start
+Route::get('/slider', [SliderController::class, 'index'])->name('sliders');
+Route::post('/slider/store', [SliderController::class, 'store'])->name('sliders.store');
+Route::post('/slider/edit', [SliderController::class, 'edit'])->name('sliders.edit');
+Route::post('/slider/update', [SliderController::class, 'update'])->name('sliders.update');
+Route::post('/slider/delete', [SliderController::class, 'destroy'])->name('sliders.delete');
+// Slider end
 
+
+// Social Media start
+Route::get('/social', [SocialMediaController::class, 'index'])->name('socials');
+Route::post('/social/store', [SocialMediaController::class, 'store'])->name('socials.store');
+Route::post('/social/edit', [SocialMediaController::class, 'edit'])->name('socials.edit');
+Route::post('/social/update', [SocialMediaController::class, 'update'])->name('socials.update');
+Route::post('/social/delete', [SocialMediaController::class, 'destroy'])->name('socials.delete');
+// Social Media end
+
+// Contact start
+Route::get('/contact', [ContactController::class, 'index'])->name('contacts');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contacts.store');
+Route::post('/contact/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+Route::post('/contact/update', [ContactController::class, 'update'])->name('contacts.update');
+Route::post('/contact/delete', [ContactController::class, 'destroy'])->name('contacts.delete');
+// Contact end
 
 });
 //* password reset start */
@@ -68,3 +100,11 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+//* password reset end */
+
+
+Route::get('/clear-cache', function() {
+    $configCache = Artisan::call('config:cache');
+    $clearCache = Artisan::call('cache:clear');
+    return "Finished";
+});

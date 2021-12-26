@@ -80,8 +80,19 @@ class BookController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {
-        //
+    public function update(Request $request, Book $book, BookService $bookService) {
+        // dd($request->all());
+        try {
+            $book = $bookService->updateBook($book,$request);
+
+            $book->message = 'Book updated successfully';
+
+            return $this->success($book);
+
+        } catch (Exception $e) {
+
+            return $this->error($e->getMessage());
+        }
     }
 
     /**
@@ -108,5 +119,23 @@ class BookController extends Controller {
 
             return $this->error($e->getMessage());
         }
+    }
+
+    public function updateStatus(Request $request, BookService $bookService){
+        try {
+
+          $book =   $bookService->updateStatus($request->id, $request->type);
+
+            $book->message = 'Book updated successfully';
+
+            return $this->success($book);
+
+        } catch (Exception $e) {
+
+            return $this->error($e->getMessage());
+        }
+    }
+    public function getPdf(Book $book){
+        return $this->success($book->book_preview);
     }
 }
