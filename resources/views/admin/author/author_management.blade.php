@@ -44,7 +44,9 @@
                                                             alt="{{ $author->name }}" style='width: 60px; height: 55px;'>
                                                     </td>
                                                     <td>{{ $author->name }}</td>
-                                                    <td>{{ $author->description }}</td>
+                                                    <td> {{\Illuminate\Support\Str::limit($author->description, 30, '...')}}
+                                                    
+                                                        </td>
 
                                                     <td>
                                                         <button type='button' class='btn btn-outline-dark'
@@ -298,7 +300,7 @@
                             .append(`<td><img class="img-fluid" src="${imagesUrl}` +
                                 `${response.data.photo}" style='width: 60px; height: 55px;'></td>`)
                             .append(`<td>` + response.data.name + `</td>`)
-                            .append(`<td>` + response.data.description + `</td>`)
+                            .append(`<td>` + response.data.formated_description + `</td>`)
 
 
                             .append(`<td>
@@ -480,7 +482,7 @@
                               <img class="img-fluid" src="${imagesUrl}` +`${response.data.photo}" style='width: 60px; height: 55px;'>
                             </td>
                                 <td>${response.data.name}</td>
-                                <td>${response.data.description}</td>
+                                <td>${response.data.formated_description}</td>
                                 <td>
                                     <button type='button' class='btn btn-outline-dark' onclick='viewAuthor(${response.data.author_id})'>
                                        <i class='fa fa-eye'></i>

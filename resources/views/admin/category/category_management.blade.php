@@ -127,7 +127,7 @@
                                                     <td>
 
                                                         <button type='button' class='btn btn-outline-dark'
-                                                            onclick='viewItem({{ $category->category_id }})'><i
+                                                            onclick='viewCategory({{ $category->category_id }})'><i
                                                                 class='fa fa-eye'></i></button>
                                                         <button type='button' class='btn btn-outline-info '
                                                             onclick='editCategory({{ $category->category_id }})'><i
@@ -170,6 +170,17 @@
                             <label>Category Description</label>
                             <textarea name="description" id="" class="form-control" cols="30" rows="5"></textarea>
                         </div>
+
+                        
+                        <div class="form-group ">
+                            <label for=""> Photo</label>
+                            <div class="custom-file">
+                                <input type="file" name="photo" class="custom-file-input dropify"
+                                    data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                                    data-max-file-size="0.3M" data-height="120">
+                            </div>
+                            <label id="photo-error" class="error mt-2 text-danger" for="photo"></label>
+                        </div>
                         <div class="form-group">
                             <div>
                                 <button type="submit" class="btn btn-block btn-success waves-effect waves-light">
@@ -206,6 +217,15 @@
                             <textarea name="description" id="edit_description" class="form-control" cols="30"
                                 rows="5"></textarea>
                         </div>
+                        <div class="form-group ">
+                            <label for=""> Photo</label>
+                            <div class="custom-file edit_photo">
+                                <input type="file" name="photo" class="custom-file-input dropify" id="edit_photo"
+                                    data-errors-position="outside" data-allowed-file-extensions='["jpg", "png","jpeg"]'
+                                    data-max-file-size="0.6M" data-height="120">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div>
                                 <button type="submit" class="btn btn-block btn-success waves-effect waves-light">
@@ -279,6 +299,9 @@
                         required: true,
                         maxlength: 10000,
                     },
+                    photo: {
+                        required: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -286,6 +309,9 @@
                     },
                     description: {
                         required: 'Please insert category description',
+                    },
+                    photo: {
+                        required: 'Please upload category photo',
                     },
                 },
                 errorPlacement: function(label, element) {
@@ -433,6 +459,22 @@
                         $('#edit_name').val(response.data.name)
                         $('#edit_description').val(response.data.description)
                         $('#hidden_id').val(response.data.category_id)
+
+                        if (response.data.photo) {
+                            var photo = imagesUrl + response.data.photo;
+                            $("#edit_photo").attr("data-height", 150);
+                            $("#edit_photo").attr("data-min-width", 450);
+                            $("#edit_photo").attr("data-default-file", photo);
+                            $('.edit_photo').find(".dropify-wrapper").removeClass(
+                                "dropify-wrapper").addClass(
+                                "dropify-wrapper has-preview");
+                            $('.edit_photo').find(".dropify-preview").css('display', 'block');
+                            $('.edit_photo').find('.dropify-render').html('').html('<img src=" ' +
+                                photo +
+                                '">')
+                        } else {
+                            $(".dropify-preview .dropify-render img").attr("src", "");
+                        }
 
                         $('#edit_modal').modal('show');
 

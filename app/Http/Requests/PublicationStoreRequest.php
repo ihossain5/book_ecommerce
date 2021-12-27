@@ -22,7 +22,7 @@ class PublicationStoreRequest extends FormRequest {
     public function rules() {
         return [
             'name'        => 'required|max:255|string',
-            'description' => 'required|max:255|string',
+            'description' => 'required|max:10000|string',
             'photo'       => 'required|max:600|image|mimes:png,jpg,jpeg',
         ];
     }

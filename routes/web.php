@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SocialMediaController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\HomePageController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -107,4 +108,4 @@ Route::get('/clear-cache', function() {
 });
 
 // frontend route start
-Route::get('/',[HomeController::class, 'index'])->name('frontend.home');
+Route::get('/',[HomePageController::class, 'index'])->name('frontend.home');

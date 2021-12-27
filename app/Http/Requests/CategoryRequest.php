@@ -23,12 +23,14 @@ class CategoryRequest extends FormRequest {
         return [
             'name'        => 'required|max:255|string',
             'description' => 'required|max:10000|string',
+            'photo'       => 'nullable|max:300|image|mimes:png,jpg,jpeg',
         ];
     }
     public function messages() {
         return [
             'name.required'        => 'Please insert category name.',
             'description.required' => 'Please insert category description',
+            // 'photo.required'       => 'Please upload category photo',
         ];
     }
 }

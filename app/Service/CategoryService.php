@@ -10,7 +10,6 @@ Class CategoryService {
         return Category::latest()->get();
     }
 
-
     /** Find a Category By Id */
     function find($id) {
         return Category::findOrFail($id);
@@ -18,18 +17,37 @@ Class CategoryService {
 
     /** store a category */
     function store($data) {
-        return Category::create($data);
-    }
 
-    /** update a category */
-    function update($id,$data) {
-        $category = $this->find($id);
-        
-        $category->update($data);
+        $photo_url = $this->uploadPhoto($data['photo']);
+
+        $category = Category::create($data);
+
+        $category->update(['photo' => $photo_url]);
 
         return $category;
     }
 
+    /** update a category */
+    function update($id, $data) {
+        $category = $this->find($id);
+
+        $photo = $data['photo'];
+
+        if ($photo) {
+            deleteImage($category->photo);
+            $photo_url = $this->uploadPhoto($photo);
+        } else {
+            $photo_url = $category->photo;
+        }
+
+        $category->update([
+            'name'        => $data['name'],
+            'description' => $data['description'],
+            'photo'       => $photo_url,
+        ]);
+
+        return $category;
+    }
 
     /** Update Category Status */
     function updateStatus($id, $type) {
@@ -42,13 +60,13 @@ Class CategoryService {
             return $this->updateHomeStatus($id);
 
         } else {
-            
+
             return false;
         }
     }
 
-      /** Update Category Home Status */
-      function updateHomeStatus($id) {
+    /** Update Category Home Status */
+    function updateHomeStatus($id) {
         $category = $this->find($id);
 
         if ($category->is_home == 0) {
@@ -77,5 +95,13 @@ Class CategoryService {
             ]);
         }
         return $category;
+    }
+
+    function uploadPhoto($photo) {
+        $path = 'categories/';
+
+        $photo_url = storeImage($photo, $path, 207, 296);
+
+        return $photo_url;
     }
 }

@@ -2,7 +2,7 @@
 namespace App\Service;
 
 use App\Models\Author;
-
+use Illuminate\Support\Str as Str;
 
 Class AuthorService {
 
@@ -19,6 +19,8 @@ Class AuthorService {
         $author = Author::create($data);
 
         $author->update(['photo'=> $photo_url]);
+
+        $author->formated_description = Str::limit($author->description, 30, '...');
 
         return $author;
 
@@ -42,6 +44,8 @@ Class AuthorService {
 
         ]);
 
+        $author->formated_description = Str::limit($author->description, 30, '...');
+
         return $author;
 
     }
@@ -49,7 +53,7 @@ Class AuthorService {
      function uploadPhoto($photo){
         $path = 'authors/';
 
-        $photo_url = storeImage($photo, $path, 401, 296);
+        $photo_url = storeImage($photo, $path, 277, 369);
 
         return $photo_url;
     }

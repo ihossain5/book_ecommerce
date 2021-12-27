@@ -150,7 +150,7 @@ Class BookService {
         return $book;
     }
 
-    function find($id){
+    function find($id) {
         return $this->book->findOrFail($id);
     }
 
@@ -201,5 +201,7 @@ Class BookService {
         }
         return $book;
     }
+
+
 
 }
