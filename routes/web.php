@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SocialMediaController;
 use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -70,11 +71,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
 
 // Slider start
-Route::get('/slider', [SliderController::class, 'index'])->name('sliders');
-Route::post('/slider/store', [SliderController::class, 'store'])->name('sliders.store');
-Route::post('/slider/edit', [SliderController::class, 'edit'])->name('sliders.edit');
-Route::post('/slider/update', [SliderController::class, 'update'])->name('sliders.update');
-Route::post('/slider/delete', [SliderController::class, 'destroy'])->name('sliders.delete');
+Route::resource('sliders', SliderController::class); 
 // Slider end
 
 
@@ -108,3 +105,6 @@ Route::get('/clear-cache', function() {
     $clearCache = Artisan::call('cache:clear');
     return "Finished";
 });
+
+// frontend route start
+Route::get('/',[HomeController::class, 'index'])->name('frontend.home');

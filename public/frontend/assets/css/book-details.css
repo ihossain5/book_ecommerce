@@ -1,0 +1,605 @@
+@import "common.css";
+@import "header.css";
+@import "cards.css";
+@import "footer.css";
+
+.book_details_box {
+    background   : #FDF7EE;
+    border-radius: 10px;
+    min-height   : 790px;
+}
+
+.box_relative {
+    position: relative;
+    top     : 0;
+    left    : 0;
+    bottom  : 0;
+    right   : 0;
+}
+
+.left_book_img {
+    padding-top: 14.6rem;
+}
+
+.hero_img {
+    width        : 352px;
+    position     : absolute;
+    filter       : drop-shadow(15px 20px 35px rgba(42, 70, 66, 0.2));
+    border-radius: 10px;
+    cursor       : pointer;
+    transition   : all .4s;
+    user-select  : none;
+    z-index      : 3;
+}
+
+.thumb_img {
+    max-width    : 88px;
+    width        : 100%;
+    margin-bottom: 2.7rem;
+    border-radius: 5px;
+    cursor       : pointer;
+    border       : 3px solid transparent;
+    display      : block;
+    user-select  : none;
+}
+
+.thumb_img.active {
+    border: 3px solid #4F7F6C;
+    filter: drop-shadow(0px 15px 15px rgba(0, 0, 0, 0.1));
+}
+
+.hero_img {
+    opacity: 0;
+}
+
+.hero_img.active {
+    opacity: 1;
+}
+
+.details_wraper {
+    max-width  : 450px;
+    margin-left: 30.5rem;
+    padding-top: 8.1rem;
+}
+
+.details_wraper h6 {
+    font-weight  : normal;
+    font-size    : 1.6rem;
+    line-height  : 2.6rem;
+    color        : #828282;
+    margin-bottom: 1.1rem;
+}
+
+.details_wraper h6 span {
+    font-family: 'inter';
+    font-weight: 500;
+    color      : #4F4F4F;
+}
+
+.details_wraper h1 {
+    font-weight     : bold;
+    font-size       : 4.8rem;
+    line-height     : 5rem;
+    color           : #055052;
+    /* margin-top   : 2.4rem; */
+    margin-bottom   : 1.1rem;
+}
+
+.details_wraper h2 {
+    font-weight  : normal;
+    font-size    : 2rem;
+    line-height  : 2.6rem;
+    color        : #828282;
+    margin-bottom: 1.2rem;
+}
+
+.details_wraper h2 span {
+    font-weight: bold;
+    color      : #40ADC7;
+}
+
+.rating_box {
+    padding-top   : 1.2rem;
+    padding-bottom: 2rem;
+    border-bottom : 1px solid #E0E0E0;
+
+}
+
+.rating_box span {
+    font-weight: normal;
+    font-size  : 1.8rem;
+    line-height: 2.6rem;
+    color      : #000000;
+    margin-left: 1.2rem;
+}
+
+.book_description {
+    padding-top   : 2rem;
+    padding-bottom: 4.8rem;
+    font-weight   : normal;
+    font-size     : 1.6rem;
+    line-height   : 2.8rem;
+    color         : #333333;
+    border-bottom : 1px solid #E0E0E0;
+
+}
+
+.read_something_btn {
+    font-weight  : bold;
+    font-size    : 1.8rem;
+    line-height  : 2.7rem;
+    color        : #000000;
+    background   : #FFFFFF;
+    border       : 1px solid #BDBDBD;
+    border-radius: 5px;
+    border       : 1px solid #BDBDBD;
+    padding      : 1.2rem;
+    width        : 100%;
+}
+
+.read_btn_box {
+    position      : absolute;
+    padding-bottom: 2rem;
+    z-index       : 3;
+}
+
+.price_box {
+    padding-top   : 2rem;
+    padding-bottom: 2.5rem;
+}
+
+.price_box h3 {
+    font-weight: bold;
+    font-size  : 3.2rem;
+    line-height: 4.8rem;
+    color      : #000000;
+}
+
+.price_box h3 del {
+    font-size  : 2rem;
+    line-height: 3rem;
+    color      : #828282;
+}
+
+.price_box h3 span {
+    font-size  : 2rem;
+    line-height: 2.6rem;
+    color      : #FE0000;
+}
+
+.buy_btn {
+    font-family  : 'inter';
+    font-weight  : 600;
+    font-size    : 2rem;
+    line-height  : 2.4rem;
+    color        : #FFFFFF;
+    padding      : 2.1rem;
+    background   : #4F7F6C;
+    border-radius: 5px;
+    border       : none;
+    width        : 80%;
+}
+
+.book_add_btn {
+    position  : absolute;
+    top       : 10%;
+    right     : 30px;
+    bottom    : 0;
+    max-height: 250px;
+    margin    : auto;
+}
+
+.book_add_btn button {
+    background-color: #FFFFFF;
+    border          : none;
+    margin-bottom   : 2.1rem;
+    height          : 6.3rem;
+    width           : 6.3rem;
+    padding         : 1.7rem;
+    border-radius   : 50%;
+    display         : block;
+
+
+}
+
+.book_add_btn button img {
+    width: 100%;
+}
+
+.mobile_details {
+    display: none;
+}
+
+
+
+/* ==book details== */
+.nav-tabs {
+    position     : relative;
+    border       : none;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.nav-tabs li {
+    margin-right: 4rem;
+}
+
+.tab-content .tab_text {
+    margin-top : 3.2rem;
+    font-size  : 2rem;
+    font-weight: 400;
+    line-height: 2.8rem;
+}
+
+.writer_details_section .row {
+    margin-top  : -8rem;
+    margin-left : -7.9rem;
+    margin-right: -7.9rem;
+}
+
+.writer_details_section .row>* {
+    padding-top  : 8rem;
+    padding-left : 7.9rem;
+    padding-right: 7.9rem;
+}
+
+.tab-content .writer_details_section {
+    padding-top: 8.4rem;
+    margin: 0 -2rem;
+}
+
+.tab-content .writer_details_section .writer_details {
+    display: flex;
+}
+.tab-content .writer_details_section .writer_details .writer_details_img{
+    flex: 0 0 21.3rem;
+    max-width: 21.3rem;
+}
+
+.tab-content .writer_details_section .writer_details .wd_description {
+    padding: 0 6.2rem;
+}
+
+.tab-content .writer_details_section .writer_details img {
+    
+    filter       : drop-shadow(0px 10px 10px rgba(0, 0, 0, 0.15));
+    border-radius: 10px;
+    padding      : 0 2rem 2rem;
+
+}
+
+
+.tab-content .writer_details_section .writer_details h2 {
+    font-size    : 4rem;
+    margin-bottom: 2.7rem;
+    line-height  : 2.6rem;
+    font-weight  : bold;
+    color        : #055052;
+}
+
+.tab-content .writer_details_section .writer_details p {
+    font-size  : 1.8rem;
+    line-height: 2.6rem;
+    font-weight: normal;
+    color      : #777777;
+}
+
+/* ==rating_section== */
+.rating_heading h2 {
+    font-family   : 'Ruposhi Bangla Unicode';
+    font-weight   : 700;
+    font-size     : 3.2rem;
+    line-height   : 4.7rem;
+    padding-bottom: 1.2rem;
+    margin-bottom : 4.4rem;
+    border-bottom : 2px solid #E0E0E0;
+}
+
+.rating_section .rating_content {
+    text-align: center;
+    padding   : 4.4rem 0;
+}
+
+.rating_section .rating_content .rating {
+    margin       : 0 auto;
+    margin-bottom: 1.6rem;
+}
+
+.rating_section .rating_content .reating_points {
+    font-size  : 3.2rem;
+    font-weight: 700;
+    line-height: 2.6rem;
+}
+
+.rating_section .rating_content p {
+    font-size  : 1.8rem;
+    line-height: 2.6rem;
+    font-weight: 700;
+    padding-top: .8rem;
+}
+
+.rating_section .rating_box {
+    padding   : 11.6rem;
+    text-align: center;
+    background: #F2F2F2;
+}
+
+.rating_section .rating_box h3 {
+    font-size  : 3.2rem;
+    font-weight: 700;
+    line-height: 4.7rem;
+}
+
+.nav-tabs a {
+    font-family   : 'Ruposhi Bangla Unicode';
+    display       : inline-block;
+    font-size     : 2.4rem;
+    line-height   : 2.6rem;
+    font-weight   : 400;
+    color         : var(--gray);
+    text-transform: capitalize;
+    background    : none;
+    outline       : none;
+    padding-bottom: 1.7rem;
+    position      : relative;
+}
+
+.nav-tabs a.active {
+    font-weight: 700;
+    color      : #000;
+}
+
+.nav-tabs a.active::before {
+    content   : '';
+    position  : absolute;
+    bottom    : -1px;
+    left      : 0;
+    width     : 100%;
+    height    : 2px;
+    background: var(--gray);
+}
+
+
+/* ==related books== */
+.related_books_section .row {
+    margin-top   : -3.2rem;
+    margin-bottom: -3.2rem;
+    margin-left  : -7.6rem;
+    margin-right : -7.6rem;
+}
+
+.related_books_section .row>* {
+    padding-top   : 3.2rem;
+    padding-bottom: 3.2rem;
+    padding-left  : 7.6rem;
+    padding-right : 7.6rem;
+}
+
+
+
+/* Specification */
+.book_spec {
+    margin-top: 30px;
+}
+
+.book_spec tr td:first-child {
+    width           : 15%;
+    background-color: #f1f2f4;
+    font-family     : 'inter';
+}
+
+
+.book_spec tr td {
+    word-spacing: 4px;
+    padding     : 12px;
+    font-size   : 2rem;
+    font-weight : 400;
+    line-height : 2.8rem;
+    color       : #000000;
+}
+
+
+.book_spec a {
+    color: #4F7F6C;
+}
+
+.writer_details_carousel .owl-nav button {
+    position : absolute;
+    top      : 45%;
+    transform: translateY(-40%);
+}
+
+.writer_details_carousel .owl-nav button.owl-prev {
+    left: -5rem;
+
+}
+
+.writer_details_carousel .owl-nav button.owl-next {
+    right: -7rem;
+}
+
+@media (max-width: 1199.98px) {
+
+    .details_wraper {
+        max-width: 300px;
+    }
+
+    .tab-content .writer_details_section .writer_details {
+        flex-wrap      : wrap;
+        justify-content: center;
+        align-items    : center;
+        text-align     : center;
+    }
+
+
+    /* ==writers page== */
+    .writer_details_section .row {
+        margin-top  : -4rem;
+        margin-left : -1rem;
+        margin-right: -1rem;
+    }
+
+    .writer_details_section .row>* {
+        padding-top  : 4rem;
+        padding-left : 0;
+        padding-right: 0;
+    }
+}
+
+
+@media (max-width: 991.98px) {
+
+    .book_details_sec {
+        padding-top   : 43px;
+        padding-bottom: 43px;
+    }
+
+    .desktop_details {
+        display: none;
+    }
+
+    .mobile_details {
+        display: block;
+    }
+
+    .details_wraper {
+        margin-left: 0;
+        width      : 100%;
+        max-width  : initial;
+    }
+
+    .book_add_btn {
+        padding-top: 500px;
+    }
+
+    .details_wraper {
+        padding-top: 0;
+        margin-top : 100px;
+    }
+
+
+}
+
+@media (max-width: 767.98px) {
+
+    /* ==related books== */
+    .tab-content .writer_details_section {
+        margin: 0;
+    }
+    .related_books_section .row {
+        margin-left : -2.4rem;
+        margin-right: -2.4rem;
+    }
+
+    .related_books_section .row>* {
+        padding-left : 2.4rem;
+        padding-right: 2.4rem;
+    }
+
+    .tab-content .writer_details_section .writer_details .wd_description {
+        padding: 2rem 0;
+    }
+
+    .tab-content .writer_details_section .writer_details h2 {
+        font-size: 3.5rem;
+    }
+
+    .nav-tabs li {
+        margin-right: 2rem;
+    }
+
+    .nav-tabs a {
+        font-size: 1.8rem;
+    }
+
+    .thumb_img {
+        width: 45px;
+    }
+
+    .hero_img {
+        width: 182px;
+        left : 200px;
+    }
+
+    .read_btn_box {
+        left: 200px;
+    }
+
+    .left_book_img {
+        padding-top: 45px;
+    }
+
+    .book_details_box {
+        min-height: 410px;
+    }
+
+    .book_add_btn button {
+        height: 40px;
+        width : 40px;
+    }
+
+    .book_add_btn button {
+        padding: 8px;
+    }
+
+    .book_add_btn {
+        padding-top: 150px;
+        right      : 10px;
+    }
+
+    .buy_btn {
+        width: 100%;
+    }
+
+    .writer_details_carousel .owl-dots,
+    .common_carousel .owl-dots {
+        margin-top: 2rem;
+    }
+
+    .details_wraper h1 {
+        font-size: 30px;
+    }
+
+    .price_box h3 {
+        font-size: 24px;
+    }
+
+    .buy_btn {
+        font-size: 17px;
+        padding  : 10px;
+    }
+
+    .read_something_btn {
+        font-size  : 15px;
+        line-height: initial;
+        padding    : 10px;
+    }
+}
+
+@media (max-width: 600.98px) {
+
+    .hero_img,
+    .read_btn_box {
+        left: 106px;
+    }
+
+
+    .rating_section .rating_box {
+        padding: 6.6rem;
+    }
+
+    .book_spec tr td:first-child {
+        font-size   : 14px;
+        line-height : 17px;
+        width       : 37%;
+        word-spacing: initial;
+    }
+
+    .book_spec tr td {
+        padding: 6px;
+    }
+
+    .new_published_book_carousel {
+        padding: 0;
+    }
+
+}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookStoreRequest;
+use App\Http\Requests\BookUpdateRequest;
 use App\Models\Book;
 use App\Models\FeatureAttribute;
 use App\Service\AuthorService;
@@ -23,12 +24,11 @@ class BookController extends Controller {
         $publications = $publicationService->all();
         $categories   = $categoryService->all();
         $authors      = $authorService->all();
-        $books      = $bookService->all();
+        $books        = $bookService->all();
         $attributes   = FeatureAttribute::orderBy('name', 'ASC')->get();
 
-        return view('admin.book.book_management', compact('publications', 'categories', 'authors', 'attributes','books'));
+        return view('admin.book.book_management', compact('publications', 'categories', 'authors', 'attributes', 'books'));
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -68,7 +68,7 @@ class BookController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Book $book) {
-        $book->load('categories','authors','authors','featureAttributes');
+        $book->load('categories', 'authors', 'authors', 'featureAttributes');
 
         return $this->success($book);
     }
@@ -80,10 +80,10 @@ class BookController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book, BookService $bookService) {
+    public function update(BookUpdateRequest $request, Book $book, BookService $bookService) {
         // dd($request->all());
         try {
-            $book = $bookService->updateBook($book,$request);
+            $book = $bookService->updateBook($book, $request);
 
             $book->message = 'Book updated successfully';
 
@@ -121,10 +121,10 @@ class BookController extends Controller {
         }
     }
 
-    public function updateStatus(Request $request, BookService $bookService){
+    public function updateStatus(Request $request, BookService $bookService) {
         try {
 
-          $book =   $bookService->updateStatus($request->id, $request->type);
+            $book = $bookService->updateStatus($request->id, $request->type);
 
             $book->message = 'Book updated successfully';
 
@@ -135,7 +135,8 @@ class BookController extends Controller {
             return $this->error($e->getMessage());
         }
     }
-    public function getPdf(Book $book){
+    public function getPdf(Book $book) {
         return $this->success($book->book_preview);
     }
 }
+ 

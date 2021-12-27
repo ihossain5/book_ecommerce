@@ -1,0 +1,310 @@
+@import "common.css";
+@import "header.css";
+@import "footer.css";
+
+.checkout_container {
+    max-width: 1200px;
+    margin   : auto;
+}
+
+
+.checkout_p {
+    padding-top   : 2rem;
+    padding-bottom: 12rem;
+}
+
+.checkout_box h1 {
+    font-weight  : bold;
+    font-size    : 4rem;
+    line-height  : 6rem;
+    color        : #055052;
+    margin-bottom: 5.4rem;
+}
+
+.checkout_box h3 {
+    font-weight  : bold;
+    font-size    : 2.4rem;
+    line-height  : 2.6rem;
+    color        : #000000;
+    margin-bottom: 2.4rem;
+}
+
+.form_wraper {
+    max-width: 35.5rem;
+}
+
+.form_wraper label {
+    font-weight: bold;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    color      : #333333;
+}
+
+.form_wraper .form-control {
+    font-weight: bold;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    color      : #828282;
+    padding    : 1.2rem 1.6rem;
+    border     : 1px solid #000000;
+}
+
+.form_wraper .form-control:hover,
+.form_wraper .form-control:focus {
+    border: 1px solid #000000;
+}
+
+.form_group {
+    margin-bottom: 2.4rem;
+}
+
+.form_wraper .form-select {
+    font-weight: bold;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    color      : #828282;
+    padding    : 1.2rem 1.6rem;
+    border     : 1px solid #000000;
+}
+
+.form_wraper .form-select:hover,
+.form_wraper .form-select:focus {
+    border: 1px solid #000000;
+}
+
+.form_group .form-check-lebel {
+    font-weight: bold;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    color      : #000000;
+
+}
+
+.form-check-input {
+    height: 16px;
+    width : 16px;
+    border: 2px solid #BDBDBD;
+
+}
+
+.form-check-input:focus {
+    box-shadow: none;
+    border    : 2px solid #BDBDBD;
+
+}
+
+
+.form-check-input[type=checkbox] {
+    border-radius: 0 !important;
+}
+
+.form-check-input:checked {
+    background-color: transparent;
+    border          : 2px solid #000000;
+
+}
+
+.form-check-input:checked[type=checkbox] {
+    background-image   : url('../images/icons/fi_check.svg');
+    background-size    : 1.2rem;
+    background-position: center center;
+}
+
+.right_wraper {
+    max-width  : 46.8rem;
+    margin-left: auto;
+}
+
+.shop_header h2 {
+    font-weight: bold;
+    font-size  : 3.2rem;
+    line-height: 4.8rem;
+    color      : #000000;
+}
+
+.shop_header h6 {
+    font-weight: bold;
+    font-size  : 2rem;
+    line-height: 2.6rem;
+    color      : #828282;
+}
+
+.shop_header {
+    margin-bottom: 3.3rem;
+}
+
+.check_cart_item>div:first-child {
+    font-weight: bold;
+    font-size  : 2rem;
+    line-height: 2.6rem;
+    color      : #828282;
+}
+
+.check_cart_item>div:first-child span {
+    color: #000000;
+}
+
+.check_cart_item>div:last-child {
+    font-weight: bold;
+    font-size  : 2rem;
+    line-height: 2.6rem;
+    color      : #000000;
+}
+
+.check_cart_item {
+    padding-bottom : 3.2rem;
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+}
+
+.check_cart_item:last-child {
+    border-bottom: 1px solid #E0E0E0;
+    margin-bottom: 3.2rem;
+}
+
+.cart_fees {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+    padding-bottom : 2rem;
+}
+
+.cart_fees>div {
+    font-weight: normal;
+    font-size  : 2rem;
+    line-height: 2.6rem;
+    color      : #828282;
+}
+
+.cart_fees:last-child>div {
+    color        : #000000;
+    font-weight  : bold;
+    margin-bottom: 5.2rem;
+}
+
+.confirm_bn {
+    font-weight     : bold;
+    font-size       : 2rem;
+    line-height     : 3rem;
+    color           : #FFFFFF;
+    padding         : 1.2rem;
+    background-color: #4F7F6C;
+    border          : none;
+    width           : 100%;
+}
+
+.checkout_box2 {
+    max-width: 448px;
+}
+
+.check_img {
+    height       : 63px;
+    width        : 57px;
+    background   : #F8F8F8;
+    padding      : 7px 10px;
+    margin-bottom: 12px;
+}
+
+.check_img img {
+    width: 100%;
+}
+
+.checkout_box2 h1 {
+    font-weight  : bold;
+    font-size    : 4rem;
+    line-height  : 6rem;
+    color        : #000000;
+    margin-bottom: 4px;
+
+}
+
+.checkout_box2 p {
+    font-weight  : normal;
+    font-size    : 2rem;
+    line-height  : 2.6rem;
+    color        : #000000;
+    margin-bottom: 3.2rem;
+}
+
+.checkout_box2 h4 {
+    font-weight  : bold;
+    font-size    : 2.4rem;
+    line-height  : 2.6rem;
+    color        : #333333;
+    margin-bottom: 4.2rem;
+}
+
+.checkout_box2 h4 span {
+    font-family: 'inter';
+    font-weight: 500;
+    font-size  : 2rem;
+    line-height: 2.6rem;
+    color      : #4F4F4F;
+
+}
+
+.order_btn {
+    font-weight     : bold;
+    font-size       : 1.8rem;
+    line-height     : 2.4rem;
+    color           : #000000;
+    padding         : 12px 47px;
+    border          : 1px solid #BDBDBD;
+    background-color: transparent;
+    margin-bottom   : 4rem;
+}
+
+.check_cart_item>div:last-child del {
+    display    : block;
+    text-align : right;
+    font-weight: bold;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    color      : #828282;
+}
+
+@media (max-width: 1400.98px) {
+    .checkout_container {
+        padding-left : 2.4rem;
+        padding-right: 2.4rem;
+        max-width    : 960px;
+    }
+
+}
+
+@media (max-width: 991.98px) {
+    .checkout_container {
+        padding-left : 2.4rem;
+        padding-right: 2.4rem;
+        max-width    : 960px;
+    }
+
+    .checkout_box2 {
+        margin: auto;
+    }
+
+    .form_wraper {
+        margin       : auto;
+        max-width    : 448px;
+        margin-bottom: 50px;
+    }
+
+    .right_wraper {
+        max-width : 448px;
+        margin-top: 100px;
+        margin    : auto;
+
+    }
+
+}
+
+@media (max-width: 767.98px) {
+    .checkout_box2 h1 {
+        font-size: 28px;
+    }
+
+    .shop_header h2 {
+        font-size: 26px;
+    }
+}

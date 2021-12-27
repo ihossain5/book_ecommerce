@@ -84,9 +84,24 @@
         .pdfobject-container {
             height: 40rem;
         }
-        .previewBook{
+
+        .previewBook {
             cursor: pointer;
         }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0;
+            /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
+
     </style>
 @endsection
 @section('content')
@@ -275,7 +290,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Regular Price</label>
-                                    <input type="number" min="1" class="form-control" name="regular_price"
+                                    <input type="number" onkeyup="getDiscountedPrice(this)" min="1" class="form-control" name="regular_price"
                                         id="regularPrice">
                                 </div>
                             </div>
@@ -385,7 +400,7 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title mt-0 text-center">Update a book asdasd</h5>
+                    <h5 class="modal-title mt-0 text-center">Update a book</h5>
                     <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
                 <div class="modal-body">
@@ -476,15 +491,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Regular Price</label>
-                                    <input type="number" min="1" class="form-control" id="edit_regular_price"
-                                        name="regular_price" id="regularPrice">
+                                    <input type="number" onkeyup="getDiscountedPriceEdit(this)" min="1" class="form-control" id="edit_regular_price"
+                                        name="regular_price">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Discount Percentage</label>
-                                    <input type="number" onkeyup="getDiscount(this)" min="0" id="edit_discount_percentage"
-                                        class="form-control" id="discount_percentage" name="discount_percentage">
+                                    <input type="number" onkeyup="getDiscountEdit(this)" min="0"
+                                        id="edit_discount_percentage" class="form-control" name="discount_percentage">
                                 </div>
                             </div>
                         </div>
@@ -493,7 +508,7 @@
                                 <div class="form-group">
                                     <label>Discounted Price</label>
                                     <input type="number" min="0" readonly class="form-control" id="edit_discounted_price"
-                                        name="discounted_price" id="discounted_price">
+                                        name="discounted_price">
                                 </div>
                             </div>
 
@@ -666,31 +681,41 @@
     <!-- view  Modal End -->
 
 
-    <div class="modal fade bs-example-modal-center pdf_view"  tabindex="-1" role="dialog"
-    aria-labelledby="mySmallModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content">
-            <div class="modal-header d-block">
-                <h5 class="modal-title mt-0 text-center">Book Preview</h5>
-                <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
-                <div class="pdf_viewer"></div>
-            </div>
+    <div class="modal fade bs-example-modal-center pdf_view" tabindex="-1" role="dialog"
+        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header d-block">
+                    <h5 class="modal-title mt-0 text-center">Book Preview</h5>
+                    <button type="button" class="close modal_close_icon" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="pdf_viewer"></div>
+                </div>
 
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endsection
 @section('pageScripts')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.6/pdfobject.min.js"
         integrity="sha512-B+t1szGNm59mEke9jCc5nSYZTsNXIadszIDSLj79fEV87QtNGFNrD6L+kjMSmYGBLzapoiR9Okz3JJNNyS2TSg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="{{ asset('backend/assets/js/discountCalculation.js') }}"></script>
     <script>
         $('#addButton').on('click', function() {
             $('.bookAddForm').trigger('reset');
             $('.dropify-preview').hide();
+
+            $('.category-select-box').val('');
+            $('.category-select-box').trigger('change');
+
+            $('.author-select-box').val('');
+            $('.author-select-box').trigger('change');
+
+            $('.input_box' ).prop('disabled', true).val('');
         });
 
         $(document).ready(function() {
@@ -1055,7 +1080,8 @@
                             var image = response.data.cover_image;
                             var imageId = '#edit_cover_photo';
                             var imageClass = '.coverPhoto';
-                            showImageIntoModal(image, imageId, imageClass)
+                            var location = '/images/';
+                            showImageIntoModal(image, imageId, imageClass,location)
                         } else {
                             $('.coverPhoto').find(".dropify-preview .dropify-render img").attr("src", "");
                         }
@@ -1066,7 +1092,8 @@
                             var image = response.data.backside_image;
                             var imageId = '#edit_back_photo';
                             var imageClass = '.back_photo';
-                            showImageIntoModal(image, imageId, imageClass)
+                            var location = '/images/';
+                            showImageIntoModal(image, imageId, imageClass,location)
                         } else {
                             $('.back_photo').find(".dropify-preview .dropify-render img").attr("src", "");
                         }
@@ -1077,7 +1104,8 @@
                             var image = response.data.book_preview;
                             var imageId = '#edit_preview_book';
                             var imageClass = '.preview_book';
-                            showImageIntoModal(image, imageId, imageClass)
+                            var location = '/pdfs/';
+                            showImageIntoModal(image, imageId, imageClass,location)
                         } else {
                             $('.preview_book').find(".dropify-preview .dropify-render img").attr("src", "");
                         }
@@ -1105,8 +1133,9 @@
 
         }
 
-        function showImageIntoModal(image, imageId, imageClass) {
-            var img_url = imagesUrl + image;
+        function showImageIntoModal(image, imageId, imageClass,location_path) {
+            var main_path = location.origin;
+            var img_url = main_path + location_path + image;
 
             $(imageId).attr("data-default-file", img_url);
             $(imageClass).find('.dropify-wrapper').removeClass("dropify-wrapper").addClass(
@@ -1305,19 +1334,6 @@
         }
         //end
 
-        function getDiscount(e) {
-            let regularPrice = document.getElementById('regularPrice').value;
-            if (regularPrice) {
-                let discountedAmount = getDiscountedAmount(regularPrice, e.value);
-                document.getElementById('discounted_price').value = discountedAmount;
-            }
-        }
-
-        function getDiscountedAmount(regularPrice, percentage) {
-            let amount = (regularPrice * percentage) / 100;
-            let discountedAmount = regularPrice - amount;
-            return discountedAmount;
-        }
 
         // checkbox selcet function
         function checkbox(e) {
@@ -1466,7 +1482,7 @@
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
-                        PDFObject.embed(path + "/pdfs/"+response.data, ".pdf_viewer");
+                        PDFObject.embed(path + "/pdfs/" + response.data, ".pdf_viewer");
                         $('.pdf_view').modal('show');
                     } else if (response.success == false) {
                         toastMixin.fire({

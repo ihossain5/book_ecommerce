@@ -1,0 +1,248 @@
+/* ==red tag for book offer== */
+.image_wrapper .red_tag  p{
+    margin-top: -65%;
+    transform: translate(4%);
+}
+
+/* ==book cards with bg== */
+.book_card_with_bg_section {
+    padding-top: 1.8rem;
+}
+.book_card_with_bg_section .row {
+    margin-top: -6rem;
+    margin-bottom: -6rem;
+    margin-left: -2.4rem;
+    margin-right: -2.4rem;
+}
+.book_card_with_bg_section .row>* {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+}
+
+.card_with_bg {
+    position: relative;
+    text-align: center;
+}
+.circle_bg {
+    position: relative;
+    text-align: center;
+}
+.circle_bg::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 33.2rem;
+    height: 33.2rem;
+    /* background: #DBF2F8; */
+    border-radius: 50%;
+    opacity: 0.3;
+    z-index: -1;
+}
+.book_card_with_bg_section .row>*:nth-child(odd) .circle_bg::before {
+    background: #DBF2F8;
+}
+.book_card_with_bg_section .row>*:nth-child(even) .circle_bg::before {
+    background: #E1EDFB;
+}
+.circle_bg img {
+    filter: drop-shadow(15px 20px 35px rgba(42, 70, 66, 0.2));
+    border-radius: 1rem;
+    max-width: 20.7rem;
+    width: 100%;
+}
+.circle_bg img {
+    border-radius: 1rem;
+}
+.card_with_bg h6 {
+    margin-top: 4.8rem;
+    font-size: 2.8rem;
+    line-height: 4.2rem;
+    font-weight: bold;
+}
+
+
+/* ==book card common style== */
+.book_card_wrapper {
+    text-align: center;
+}
+.book_card_wrapper .rateYo {
+    margin: 0 auto;
+}
+.book_card_wrapper .image_wrapper {
+    filter: drop-shadow(15px 20px 35px rgba(42, 70, 66, 0.2));
+    border-radius: 1rem;
+    position: relative;
+}
+.book_card_wrapper .image_wrapper img {
+    border-radius: 1rem;
+}
+.book_card_wrapper .content_wrapper {
+    padding-top: 3.8rem;
+}
+
+.book_card_content h3.title {
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+    font-weight: bold;
+    margin-top: 0.6rem;
+}
+.book_card_content p.author, .book_card_content h6.discount {
+    font-size: 1.8rem;
+    line-height: 2.7rem;
+    font-weight: bold;
+    color: var(--gray);
+}
+.book_card_content .price_wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.2rem 0;
+}
+.book_card_content h6.discount {
+    text-decoration-line: line-through;
+}
+.book_card_content h5.regular {
+    font-size: 2.4rem;
+    line-height: 3.6rem;
+    font-weight: bold;
+}
+.book_card_content a.btn_buy_now {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    color: #4F7F6C;
+    display: inline-block;
+    border-bottom: 2px solid #4F7F6C;
+}
+
+
+
+/* ==writer card== */
+.writer_content{
+    text-align: center;
+    filter: drop-shadow(10px 20px 20px rgba(0, 0, 0, 0.15));
+}
+.writer_content .card_text{
+    padding-top: 2.2rem;
+}
+.writer_content img{
+    border-radius: 1rem;
+}
+.writer_content h3 {
+    font-size: 2.4rem;
+    line-height: 2.6rem;
+    font-weight: 700;
+    color: var(--blue);
+}
+
+
+
+/* ==writers page== */
+.writer_cards_section .row{
+    margin-top: -8rem;
+    margin-left: -2.9rem;
+    margin-right: -2.9rem;
+}
+.writer_cards_section .row>*{
+    padding-top: 8rem;
+    padding-left: 2.9rem;
+    padding-right: 2.9rem;
+}
+
+
+/* ==Books and writers details page== */
+.right_grid_content {
+    padding-left: 7.6rem;
+}
+.right_grid_content .row {
+    margin-top: -3.2rem;
+    margin-bottom: -3.2rem;
+    margin-left: -7.6rem;
+    margin-right: -7.6rem;
+}
+.right_grid_content .row>* {
+    padding-top: 3.2rem;
+    padding-bottom: 3.2rem;
+    padding-left: 7.6rem;
+    padding-right: 7.6rem;
+}
+
+@media (max-width: 1679.98px) {
+    .circle_bg::before {
+        width: 30rem;
+        height: 30rem;
+    }
+}
+@media (max-width: 767.98px) {
+    .writer_content h3 {
+        font-size: 2rem;
+    }
+    .circle_bg::before {
+        width: 31rem;
+        height: 31rem;
+    }
+    .circle_bg img {
+        transform: scale(.9);
+    }
+    .book_card_content h3.title {
+        font-size: 2rem;
+        line-height: 2.9rem;
+        font-weight: bold;
+    }
+    .book_card_content h5.regular {
+        font-size: 1.8rem;
+        line-height: 2.6rem;
+    }
+    .book_card_content p.author, .book_card_content h6.discount {
+        font-size: 1.5rem;
+        line-height: 2rem;
+    }
+    .book_card_content .price_wrapper {
+        padding: 1.3rem 0;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .book_card_with_bg_section .row {
+        margin-top: -2.6rem;
+        margin-bottom: -2.6rem;
+    }
+    .book_card_with_bg_section .row>* {
+        padding-top: 2.3rem;
+        padding-bottom: 2.3rem;
+    }
+        /* ==writers page== */
+    .writer_cards_section .row{
+        margin-top: -4rem;
+        margin-left: -2.3rem;
+        margin-right: -2.3rem;
+    }
+    .writer_cards_section .row>*{
+        padding-top: 4rem;
+        padding-left: 2.3rem;
+        padding-right: 2.3rem;
+    }
+    .circle_bg::before {
+        width: 18rem;
+        height: 18rem;
+    }
+    .circle_bg img {
+        transform: scale(.7);
+    }
+    .card_with_bg h6 {
+        font-size: 2.2rem;
+        line-height: 3.3rem;
+        margin-top: 2.4rem;
+    }
+
+    .new_published_card .jq-ry-container {
+        padding: 0;
+    }
+    
+}

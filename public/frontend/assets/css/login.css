@@ -1,0 +1,242 @@
+@import "common.css";
+@import "header.css";
+@import "footer.css";
+
+.login_section{
+    text-align: center; 
+<<<<<<< HEAD
+    margin: 0;
+<<<<<<< HEAD
+=======
+=======
+    margin: 4rem 0;
+>>>>>>> 033a0ba2bbf5ae7589d4dc3de2fac6ca36ae4c2a
+}
+.login_section .login_container{
+    display: flex;
+    flex: 0 0 63.9rem;
+    align-items: center;
+>>>>>>> e283631028ceb13c00619f4a91e55646bb1f9034
+}
+.login_section .login_container{
+    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+}
+.login_section .login_wrapper{
+    position: relative;
+    max-width: 63.9rem;
+}
+.login_section .login_wrapper .logo{
+    width: 427px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+  
+}
+.login_section .login_content {
+    width: 100%;
+    height: 100%;
+    padding-left: 16rem;
+    padding-right: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.login_section .login_content .font_inter{
+    font-family: "inter",sans-serif;
+}
+.login_section .login_content h2{
+    font-size: 4.4rem;
+    line-height: 6.5rem;
+    font-weight: bold;
+
+}
+.login_section .login_content h2.login_header{
+    padding-bottom: 3.2rem;
+}
+.login_section .login_content p{
+    font-size: 2.2rem;
+    line-height: 3.3rem;
+    font-weight: normal;
+}
+.login_section .login_content .submit_btn{
+    padding: 2.7rem 7rem;
+}
+.login_section .login_content .submit_btn a{
+    padding: 1.6rem;
+    display: block;
+    background-color: var(--blue);
+    color: var(--white);
+    text-decoration: none;
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 3.3rem;
+    border-radius: 6.8px;
+}
+.login_section .login_content h3{
+    padding-bottom: 2.7rem;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 3.3rem;
+}
+.login_section .social_btns,
+.login_section .submit_btns{
+    padding: 0 7rem;
+    padding-bottom: 2.6rem;
+    width: 100%;
+    display: flex;
+}
+.login_section .social_btns a{
+    border: 1px solid #BDBDBD;
+    border-radius: 6.9px;
+}
+
+.login_section .social_btns a.google{
+    padding: 1.6rem 0;
+    width: 100%;
+
+}
+.login_section .social_btns a.facebook{
+    padding: 1.6rem 0;
+    width: 100%;
+}
+.login_section .social_btns a:not(:last-child),
+.login_section .submit_btns a:not(:last-child){
+    margin-right: 1.6rem;
+
+}
+.login_section .social_btns a{
+    font-size: 2.2rem;
+    line-height: 2.7rem;
+    font-weight: 500;
+    font-family: 'inter',sans-serif;
+    color: #000;
+}
+.login_section .submit_btns a{
+    font-size: 2.5rem;
+    line-height: 3.3rem;
+    font-weight: 700;
+    font-family: 'Ruposhi Bangla Unicode';
+}
+.login_section .submit_btns a.submit{
+    background: var(--blue);
+    color: var(--white);
+    padding: 1.6rem 0;
+    width: 100%;
+}
+.login_section .submit_btns a.otp{
+    background: #E0E0E0;
+    color: #4F4F4F;
+    padding: 1.6rem 0;
+    width: 100%;
+
+}
+.login_section .social_btns a img{
+    padding-right: 1.4rem;
+}   
+
+.login_section .input_fild{
+    padding: 2.7rem 7rem ;
+
+}
+
+.login_section .input_fild input {
+    width: 100%;
+    font-size: 2.2rem;
+    line-height: 3.2rem;
+    font-weight: 700;
+    border: 2px solid;
+    font-family: 'Ruposhi Bangla Unicode';
+    padding: 1.2rem;
+    color: #828282;
+    border-radius: 5px;
+}
+
+/* `xxxl` applies to xx-large devices (large desktops, less than 1680px) */
+@media (min-width: 1679.98px) {
+    .login_section .login_content {
+        padding-left: 24rem;
+        padding-right: 14rem;
+    }
+    .login_section .submit_btns{
+        padding:  0 7rem;
+        margin-bottom: 2.6rem;
+    }
+    .login_section .social_btns{
+        padding:  1.6rem 7rem;
+        margin-bottom: 2.6rem;
+
+    }
+    .login_section .input_fild{
+        padding: 2.7rem 7rem ;
+    
+    }
+}
+
+
+/* `lg` applies to medium devices (tablets, less than 992px) */
+@media (max-width: 991.98px) {
+    .login_section {
+        margin: 4rem 0;
+    }
+    .login_section .sm_hide{
+        display: none;
+    }
+    .login_section .login_content {
+        margin-top: 2rem;
+    }
+    .login_section .social_btns{
+        padding: 0 2rem;
+        padding-bottom: 2.6rem;
+    }
+    .login_section .submit_btns{
+        padding: 0 5rem;
+    }
+    .login_section .input_fild input {
+        padding: 1rem 1.5rem;
+    }
+    .login_section .login_content .submit_btn{
+        padding: 2.2rem 2rem;
+    }
+    .login_section .input_fild{
+        padding: 2.2rem 2rem ;
+    }
+    .login_section .login_content h2 {
+        font-size: 2.8rem;
+    }
+    .login_section .login_content p {
+        font-size: 1.8rem;
+    }
+    .login_section .input_fild input {
+        font-size: 1.8rem;
+    }
+    .login_section .login_content h3 {
+        font-size: 1.8rem;
+    }
+    .login_section .submit_btns a {
+        font-size: 1.6rem;
+        line-height: 2.3rem;
+    }
+    .login_section .submit_btns {
+        padding: 0 2rem;
+    }
+    .login_section .social_btns a {
+        font-size: 1.6rem;
+        line-height: 2.3rem;
+    }
+
+}
+@media (max-width: 767.98px) {
+    .login_section .login_wrapper {
+        display: none;
+    }
+    .login_section .login_content {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .login_section .login_content h3 {
+        padding: 1.8rem 0;
+    }
+    
+}

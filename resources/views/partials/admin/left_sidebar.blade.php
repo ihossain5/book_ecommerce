@@ -87,9 +87,9 @@
                                 Content <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
                             </span></a>
                         <ul class="list-unstyled">
-                            @if (Auth::user()->is_super_admin == 1 || Auth::user()->is_admin == 1)
+                            {{-- @if (Auth::user()->is_super_admin == 1 || Auth::user()->is_admin == 1) --}}
                                 <li>
-                                    <a href="{{ route('sliders') }}" class="waves-effect">
+                                    <a href="{{ route('sliders.index') }}" class="waves-effect">
                                         <i class="dripicons-calendar"></i>
                                         <span>Sliders</span>
                                     </a>
@@ -106,7 +106,7 @@
                                         <span>Contacts</span>
                                     </a>
                                 </li>
-                            @endif
+                            {{-- @endif --}}
                         </ul>
                     </li>
                     <li>

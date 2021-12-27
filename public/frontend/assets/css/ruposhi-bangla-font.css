@@ -1,0 +1,96 @@
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V1';
+    src: url('../fonts/RuposhiBanglaANSIV1-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V1';
+    src: url('../fonts/RuposhiBanglaANSIV1-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V1';
+    src: url('../fonts/RuposhiBanglaANSIV1.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V1';
+    src: url('../fonts/RuposhiBanglaANSIV1-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V2';
+    src: url('../fonts/RuposhiBanglaANSIV2-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V2';
+    src: url('../fonts/RuposhiBanglaANSIV2.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla Unicode';
+    src: url('../fonts/RuposhiBanglaUnicode-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V2';
+    src: url('../fonts/RuposhiBanglaANSIV2-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla ANSI V2';
+    src: url('../fonts/RuposhiBanglaANSIV2-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla Unicode';
+    src: url('../fonts/RuposhiBanglaUnicode.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla Unicode';
+    src: url('../fonts/RuposhiBanglaUnicode-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ruposhi Bangla Unicode';
+    src: url('../fonts/RuposhiBanglaUnicode-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
