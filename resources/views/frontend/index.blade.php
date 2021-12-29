@@ -8,7 +8,7 @@
 
 @section('content')
 
-@include('partials.frontend.banner_slider')
+@include('partial.frontend.banner_slider')
 
     <!-- popular books -->
     <section class="popular_topics_section">
@@ -89,7 +89,7 @@
                     <div class="item">
                         <div class="new_published_card">
                             <div class="image_wrapper">
-                                <a href="book-details.html" class="d-block text-reset">
+                                <a href="{{route('frontend.book.details',[$book->book_id])}}" class="d-block text-reset">
                                     <img class="img-fluid w-100" src="{{ asset('images/'.$book->cover_image) }}" alt="book image">
                                 </a>
                             </div>

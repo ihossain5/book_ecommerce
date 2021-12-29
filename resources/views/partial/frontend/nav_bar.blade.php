@@ -10,7 +10,7 @@
                 <a data-bs-toggle="offcanvas" href="#cartSidebar" class="nav-link badge_link position-relative">
                     <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
                     <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
-                        1
+                       <span class="cartCounter">{{Cart::count()}}</span>
                         <span class="visually-hidden">unread messages</span>
                     </span> </a>
             </li>
@@ -58,7 +58,7 @@
                         <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
                         <span
                             class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
-                            1
+                            <span class="cartCounter">{{Cart::count()}}</span>
                             <span class="visually-hidden">unread messages</span>
                         </span> </a>
                 </li>

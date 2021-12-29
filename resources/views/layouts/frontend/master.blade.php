@@ -6,19 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bhorer Kagoj | @yield('title')</title>
-    
-    @include('partials.frontend.css')
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    @include('partial.frontend.css')
 
 </head>
 
 <body>
 
-    @include('partials.frontend.nav_bar')
-    @include('partials.frontend.cart')
+    @include('partial.frontend.nav_bar')
+    @include('partial.frontend.cart')
     @yield('content')
     <!-- Footer -->
-    @include('partials.frontend.footer')
+    @include('partial.frontend.footer')
 </body>    
-    @include('partials.frontend.js')
-    @yield('page-js')
+    @include('partial.frontend.js')
+
 </html>

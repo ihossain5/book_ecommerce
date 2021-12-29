@@ -11,7 +11,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-    @include('partials.admin.css')
+    @include('partial.admin.css')
     @yield('pageCss')
 
 </head>
@@ -26,18 +26,18 @@
     </div>
     <!-- Begin page -->
     <div id="wrapper">
-        @include('partials.admin.left_sidebar')
+        @include('partial.admin.left_sidebar')
         <!-- Start right Content here -->
         <div class="content-page">
             <!-- Start content -->
             <div class="content">
-                @include('partials.admin.top_bar')
+                @include('partial.admin.top_bar')
 
                 @yield('content')
 
             </div> <!-- content -->
 
-            @include('partials.admin.footer')
+            @include('partial.admin.footer')
        
 
         </div>
@@ -46,7 +46,7 @@
     </div>
     <!-- END wrapper -->
 
-    @include('partials.admin.scripts')
+    @include('partial.admin.scripts')
     @yield('pageScripts')
 </body>
 

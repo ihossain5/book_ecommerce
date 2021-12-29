@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SocialMediaController;
 use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Frontend\BookController as FrontendBookController;
+use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\HomePageController;
+use App\Http\Controllers\frontend\WriterController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -109,3 +112,7 @@ Route::get('/clear-cache', function() {
 
 // frontend route start
 Route::get('/',[HomePageController::class, 'index'])->name('frontend.home');
+Route::get('/book/{book}/details',[FrontendBookController::class, 'bookDetails'])->name('frontend.book.details');
+
+Route::get('/authors', [WriterController::class, 'index'])->name('frontend.authors');
+Route::post('/add-to-cart', [CartController::class, 'index'])->name('add.cart');
