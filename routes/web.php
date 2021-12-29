@@ -115,4 +115,8 @@ Route::get('/',[HomePageController::class, 'index'])->name('frontend.home');
 Route::get('/book/{book}/details',[FrontendBookController::class, 'bookDetails'])->name('frontend.book.details');
 
 Route::get('/authors', [WriterController::class, 'index'])->name('frontend.authors');
-Route::post('/add-to-cart', [CartController::class, 'index'])->name('add.cart');
+
+Route::post('/add-to-cart', [CartController::class, 'addTocart'])->name('add.cart');
+Route::post('/remove-cart', [CartController::class, 'deleteCart'])->name('remove.cart');
+Route::post('/increase-cart', [CartController::class, 'increaseCart'])->name('increase.cart.qty');
+Route::post('/decrease-cart', [CartController::class, 'decreaseCart'])->name('decrease.cart.qty');

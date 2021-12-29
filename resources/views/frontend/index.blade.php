@@ -125,7 +125,7 @@
                                     <h5 class="regular">{{englishTobangla($book->discounted_price)}} টাকা</h5>
                                     @endif
                                 </div>
-                                <a href="book-details.html" class="btn_buy_now">Buy Now</a>
+                                <a href="{{route('frontend.book.details',[$book->book_id])}}" class="btn_buy_now">Buy Now</a>
                             </div>
                         </div>
                     </div>

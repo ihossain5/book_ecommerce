@@ -17,9 +17,6 @@ Class CartService {
 
         $auhtors_name = $book->authors->pluck('name');
 
-        // Cart::add($book->book_id, $book->title, 1, $book->discounted_price,auhtors_name)
-        //     ->associate($book);
-   
         Cart::add([
             'id'      => $book->book_id,
             'name'    => $book->title,
@@ -34,6 +31,25 @@ Class CartService {
         ])->associate('App\Models\Book');
 
         return $this->getCartContent();
+    }
+
+    /* increase quantity  */
+    public function increaseCartQty($rowId) {
+        $cart = $this->getCart($rowId);
+        $qty  = $cart->qty + 1;
+        return $this->updateCart($rowId, $qty);
+
+    }
+
+    /* decrease quantity  */
+    public function decreaseCartQty($rowId) {
+        $cart = $this->getCart($rowId);
+        if ($cart->qty == 1) {
+            return false;
+        }
+        $qty = $cart->qty - 1;
+        return $this->updateCart($rowId, $qty);
+
     }
 
     /* get all cart items */
@@ -58,6 +74,21 @@ Class CartService {
         $books = $this->bookservice->find($ids)->count();
 
         return $books;
+    }
+
+    /* update cart quantity  */
+    public function updateCart($rowId, $qty) {
+        return Cart::update($rowId, $qty);
+    }
+
+    /* remove item from cart */
+    public function removeCsdart($rowId) {
+        return Cart::remove($rowId);
+
+    }
+    /* get single item from cart */
+    public function getCart($rowId) {
+        return Cart::get($rowId);
     }
 
 }

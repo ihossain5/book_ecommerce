@@ -10,7 +10,7 @@
         <div class="cart_body">
             <div class="cart_item_header">
                 <h5>Selected</h5>
-                <h6><span class="selectedItems">{{$cartQty}}</span> Items</h6>
+                <h6><span class="selectedItems ">{{$cartQty}}</span> Items</h6>
             </div>
 
             <div class="cart_table_wrapper">
@@ -20,7 +20,7 @@
                             @foreach ($items as $book)
                     
                             <tr class="cart_item">
-                                <td class="del_cell"><button class="del_btn"><img
+                                <td class="del_cell"><button class="del_btn" onclick="deleteCart('{{ $book->rowId }}')"><img
                                             src="{{asset('frontend/assets/images/icons/delete_black_24dp 1.svg')}}" alt=""></button></td>
                                 <td class="pd_cell"><img src="{{asset('images/'.$book->options->image)}}" alt=""></td>
                                 <td class="pd_info_cell">
@@ -32,16 +32,16 @@
                                    </h6>
                                 </td>
                                 <td class="pd_price_cell">
-                                    <h2>{{englishTobangla($book->subtotal)}} টাকা</h2>
+                                    <h2><span class="itemSubtotal{{$book->rowId}}">{{englishTobangla($book->subtotal)}}</span> টাকা</h2>
                                     <h6>
                                         @if ($book->options->discounted_percentage != null || $book->options->discounted_percentage != 0)
-                                        <del>{{englishTobangla($book->options->regular_price * $book->qty)}} টাকা</del>
+                                        <del> <span class="itemRegularPrice{{$book->rowId}}">{{englishTobangla($book->options->regular_price * $book->qty)}}</span> টাকা</del>
                                         @endif
                                     </h6>
                                     <div class="btn_group">
-                                        <button><img src="{{asset('frontend/assets/images/icons/remove.svg')}}" alt=""></button>
-                                        <span class="qty">{{$book->qty}}</span>
-                                        <button><img src="{{asset('frontend/assets/images/icons/add.svg')}}" alt=""></button>
+                                        <button type="button" onclick="decreaseQuantity('{{ $book->rowId }}')"><img src="{{asset('frontend/assets/images/icons/remove.svg')}}" alt=""></button>
+                                        <span class="qty cartQty{{$book->rowId}}">{{ englishTobangla($book->qty)}}</span>
+                                        <button type="button" onclick="increaseQuantity('{{ $book->rowId }}')"><img src="{{asset('frontend/assets/images/icons/add.svg')}}" alt=""></button>
                                     </div>
                                 </td>
                             </tr>

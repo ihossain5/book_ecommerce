@@ -11,7 +11,7 @@ class CartComposer extends ServiceCartService {
         $view->with([
             'totalAmount' => $this->subTotal(),
             'items'       => $this->getCartContent(),
-            'cartQty'       => $this->numberOfCartQty(),
+            'cartQty'     => $this->cartItems(),
         ]);
     }
 

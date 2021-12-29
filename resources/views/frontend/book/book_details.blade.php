@@ -145,7 +145,7 @@
                                 @endif
                             </h3>
                         </div>
-                        <button class="buy_btn">Buy Now</button>
+                        <button class="buy_btn" onclick="addToCart({{ $book->book_id }})">Buy Now</button>
                     </div>
                 </div>
             </div>
@@ -376,7 +376,7 @@
 @section('page-js')
     {{-- {{ asset('frontend/') }} --}}
     <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
-    <script src="{{ asset('frontend/assets/js/cart.js') }}"></script>
+  
     <script>
 
 
