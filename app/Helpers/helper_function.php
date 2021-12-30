@@ -57,3 +57,4 @@ function banglaToEnglish($number) {
 
     return str_replace($bn, $en, $number);
 }
+

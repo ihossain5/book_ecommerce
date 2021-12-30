@@ -13,6 +13,8 @@
                        <span class="cartCounter">{{Cart::count()}}</span>
                         <span class="visually-hidden">unread messages</span>
                     </span> </a>
+
+                    
             </li>
         </ul>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -53,8 +55,17 @@
                         </span> </a>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="offcanvas" href="#cartSidebar" class="nav-link badge_link position-relative"
+                    <a data-bs-toggle="offcanvas" href="#cartSidebar" class="nav-link badge_link position-relative cartSideBar {{Cart::count() <1 ? 'd-none': ''}}"
                         href="#">
+                        <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
+                        <span
+                            class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
+                            <span class="cartCounter">{{Cart::count()}}</span>
+                            <span class="visually-hidden">unread messages</span>
+                        </span> </a>
+
+                        <a href="javascript:void(0)" class="nav-link badge_link position-relative cartTooltip {{Cart::count() <1 ? '': 'd-none'}}" aria-current="page"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cart Empty">
                         <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
                         <span
                             class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">

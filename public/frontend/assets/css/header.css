@@ -10,7 +10,10 @@
     padding-bottom: 2.9rem;
 }
 
-
+.tooltip-inner {
+    font-size: 1.5rem;
+    padding  : 1rem 2rem;
+}
 
 .brand_nav {
     background: #E7F6F5;
@@ -401,7 +404,7 @@
 .cart_table_wrapper {
     overflow-x: hidden;
     overflow-y: auto;
-    height: calc(100vh - 381px);
+    height    : calc(100vh - 381px);
     /* height: 400px; */
 }
 .cart_table_wrapper::-webkit-scrollbar {
@@ -616,8 +619,14 @@
     display        : flex;
     justify-content: space-between;
     border-top     : 1px solid #EEEEEE;
+    padding-top       : 1.7rem;
+    padding-bottom    : 2.6rem;
+    display           : flex;
+    justify-content   : space-between;
+    border-top        : 1px solid #EEEEEE;
     /* margin-top     : 10rem; */
     margin-top     : 3rem;
+    margin-top        : 3rem;
 }
 
 .total_item h1 {

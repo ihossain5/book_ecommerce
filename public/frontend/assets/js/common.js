@@ -55,3 +55,9 @@ $('.filter_clear_btn').click(function () {
   console.log($(this).data('input_name'))
   $(`input[name ="${$(this).data('input_name')}"]`).prop("checked", false);
 })
+
+// Enable Tooltip
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+}) 

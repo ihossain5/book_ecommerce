@@ -17,6 +17,9 @@ function addToCart(id){
         dataType: 'JSON',
         success: function(response) {
             if(response.success == true){
+                $('.cartTooltip').addClass('d-none');
+                $('.cartSideBar').removeClass('d-none');
+                
                 appendToCart(response);
                 toastr["success"](response.data.message);
             }
@@ -93,6 +96,10 @@ function deleteCart(id){
         dataType: "json",
         success: function(response) {
             if (response.success == true) {
+                if(response.data.cartItems == 0){
+                    $('.cartTooltip').removeClass('d-none');
+                    $('.cartSideBar').addClass('d-none');
+                }
                 appendToCart(response);
             } //success end
         },

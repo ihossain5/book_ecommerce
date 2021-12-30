@@ -120,3 +120,5 @@ Route::post('/add-to-cart', [CartController::class, 'addTocart'])->name('add.car
 Route::post('/remove-cart', [CartController::class, 'deleteCart'])->name('remove.cart');
 Route::post('/increase-cart', [CartController::class, 'increaseCart'])->name('increase.cart.qty');
 Route::post('/decrease-cart', [CartController::class, 'decreaseCart'])->name('decrease.cart.qty');
+
+// Route::get('/send-sms', [FrontendBookController::class, 'send']);

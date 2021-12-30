@@ -111,7 +111,7 @@
                             <span>
                                 @if (!empty($book->authors))
                                     @foreach ($book->authors as $author)
-                                        {{ $author->name }}
+                                        {{ $author->name }}  @if (!$loop->last) , @endif
                                     @endforeach
                                 @endif
                             </span>
@@ -192,6 +192,25 @@
                                         <td>ISBN</td>
                                         <td>{{ $book->isbn }}</td>
                                     </tr>
+                                    <tr>
+                                        <td>Author</td>
+                                        <td>
+                                            <a href="#">
+                                                @foreach ($book->authors as $author)
+                                                 {{$author->name}} @if (!$loop->last) , @endif
+                                                @endforeach
+                                               
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Publisher</td>
+                                        <td>
+                                            <a href="#">
+                                                {{$book->publication->name}}
+                                            </a>
+                                        </td>
+                                    </tr>
                                     @if (!empty($book->featureAttributes))
                                         @foreach ($book->featureAttributes as $specification)
                                             <tr>
@@ -243,114 +262,41 @@
         </div>
         <div class="container">
             <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
+                @if (!empty($related_books))
+                @foreach ($related_books as $related_book)
                 <div class="col">
                     <div class="book_card_wrapper">
                         <div class="image_wrapper">
-                            <a href="book-details.html" class="d-block text-reset">
+                            <a href="{{route('frontend.book.details',[$related_book->book_id])}}" class="d-block text-reset">
                                 <img class="img-fluid w-100"
-                                    src="{{ asset('frontend/assets/images/books/book-img-1.png') }}" alt="book image">
+                                    src="{{ asset('images/'.$related_book->cover_image) }}" alt="book image">
                             </a>
                         </div>
                         <div class="content_wrapper book_card_content">
                             <div class="rating">
                                 <div class="rateYo"></div>
                             </div>
-                            <h3 class="title">সেরা লেখক সেরা গল্প</h3>
-                            <p class="author">শ্যামল দত্ত</p>
+                            <h3 class="title">{{$related_book->title}}</h3>
+                            <p class="author">
+                                @if (!empty($related_book->authors))
+                                @foreach ($related_book->authors as $author)
+                                    {{ $author->name }}  @if (!$loop->last) , @endif
+                                @endforeach
+                             @endif
+                            </p>
                             <div class="price_wrapper">
-                                <h6 class="discount">২০০ টাকা</h6>
-                                <h5 class="regular">১৮০ টাকা</h5>
+                                @if ($related_book->discounted_percentage != null || $related_book->discounted_percentage != 0)
+                                <h6 class="discount">{{ englishTobangla($related_book->regular_price) }} টাকা</h6>
+                                @endif
+                                <h5 class="regular">{{ englishTobangla($related_book->discounted_price) }} টাকা</h5>
                             </div>
-                            <a href="#" class="btn_buy_now">Buy Now</a>
+                            <a href="{{route('frontend.book.details',[$related_book->book_id])}}" class="btn_buy_now">Buy Now</a>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="book_card_wrapper">
-                        <div class="image_wrapper">
-                            <a href="book-details.html" class="d-block text-reset">
-                                <img class="img-fluid w-100"
-                                    src="{{ asset('frontend/assets/images/books/book-img-2.png') }}" alt="book image">
-                            </a>
-                        </div>
-                        <div class="content_wrapper book_card_content">
-                            <div class="rating">
-                                <div class="rateYo"></div>
-                            </div>
-                            <h3 class="title">সেরা লেখক সেরা গল্প</h3>
-                            <p class="author">শ্যামল দত্ত</p>
-                            <div class="price_wrapper">
-                                <h6 class="discount">২০০ টাকা</h6>
-                                <h5 class="regular">১৮০ টাকা</h5>
-                            </div>
-                            <a href="#" class="btn_buy_now">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="book_card_wrapper">
-                        <div class="image_wrapper">
-                            <a href="book-details.html" class="d-block text-reset">
-                                <img class="img-fluid w-100"
-                                    src="{{ asset('frontend/assets/images/books/book-img-3.png') }}" alt="book image">
-                            </a>
-                        </div>
-                        <div class="content_wrapper book_card_content">
-                            <div class="rating">
-                                <div class="rateYo"></div>
-                            </div>
-                            <h3 class="title">সেরা লেখক সেরা গল্প</h3>
-                            <p class="author">শ্যামল দত্ত</p>
-                            <div class="price_wrapper">
-                                <h6 class="discount">২০০ টাকা</h6>
-                                <h5 class="regular">১৮০ টাকা</h5>
-                            </div>
-                            <a href="#" class="btn_buy_now">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="book_card_wrapper">
-                        <div class="image_wrapper">
-                            <a href="book-details.html" class="d-block text-reset">
-                                <img class="img-fluid w-100"
-                                    src="{{ asset('frontend/assets/images/books/book-img-4.png') }}" alt="book image">
-                            </a>
-                        </div>
-                        <div class="content_wrapper book_card_content">
-                            <div class="rating"></div>
-                            <h3 class="title">সেরা লেখক সেরা গল্প</h3>
-                            <p class="author">শ্যামল দত্ত</p>
-                            <div class="price_wrapper">
-                                <h6 class="discount">২০০ টাকা</h6>
-                                <h5 class="regular">১৮০ টাকা</h5>
-                            </div>
-                            <a href="#" class="btn_buy_now">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="book_card_wrapper">
-                        <div class="image_wrapper">
-                            <a href="book-details.html" class="d-block text-reset">
-                                <img class="img-fluid w-100"
-                                    src="{{ asset('frontend/assets/images/books/book-img-2.png') }}" alt="book image">
-                            </a>
-                        </div>
-                        <div class="content_wrapper book_card_content">
-                            <div class="rating">
-                                <div class="rateYo"></div>
-                            </div>
-                            <h3 class="title">সেরা লেখক সেরা গল্প</h3>
-                            <p class="author">শ্যামল দত্ত</p>
-                            <div class="price_wrapper">
-                                <h6 class="discount">২০০ টাকা</h6>
-                                <h5 class="regular">১৮০ টাকা</h5>
-                            </div>
-                            <a href="#" class="btn_buy_now">Buy Now</a>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+                @endif
+
             </div>
         </div>
     </section>
