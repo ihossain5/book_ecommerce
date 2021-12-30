@@ -26,6 +26,7 @@ class User extends Authenticatable
         'is_manager',
         'is_admin',
         'image',
+        'otp_code',
     ];
 
     /**

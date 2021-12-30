@@ -17,6 +17,7 @@ use App\Http\Controllers\Frontend\BookController as FrontendBookController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\HomePageController;
+use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\frontend\WriterController;
 use Illuminate\Support\Facades\Artisan;
 
@@ -121,4 +122,6 @@ Route::post('/remove-cart', [CartController::class, 'deleteCart'])->name('remove
 Route::post('/increase-cart', [CartController::class, 'increaseCart'])->name('increase.cart.qty');
 Route::post('/decrease-cart', [CartController::class, 'decreaseCart'])->name('decrease.cart.qty');
 
-// Route::get('/send-sms', [FrontendBookController::class, 'send']);
+Route::get('/sign-in', [LoginController::class, 'index'])->name('frontend.login');
+Route::get('/send-otp', [LoginController::class, 'sendOtp'])->name('frontend.otp.send');
+Route::post('/verify-otp', [LoginController::class, 'verifyOtp'])->name('frontend.otp.verification');

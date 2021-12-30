@@ -22,4 +22,8 @@
             "extendedTimeOut": "1000",
             "autohide": false,
         }
+        @if(Session::has('error'))
+    var message = "{{ Session::get('error') }}";
+        toastr["error"](message)
+     @endif
 </script>
