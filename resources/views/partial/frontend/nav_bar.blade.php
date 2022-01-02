@@ -50,7 +50,7 @@
                         <img src="{{ asset('frontend/assets/images/icons/love-icon.svg') }}" alt="">
                         <span
                             class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
-                            1
+                            <span class="whislistCounter">0</span>
                             <span class="visually-hidden">unread messages</span>
                         </span> </a>
                 </li>
@@ -73,11 +73,14 @@
                             <span class="visually-hidden">unread messages</span>
                         </span> </a>
                 </li>
+              
+                @auth
                 <li class="nav-item user_login_icon">
                     <a href="my-profile.html"><img src="{{ asset('frontend/assets/images/icons/user.svg') }}" alt=""></a>
                 </li>
+                @else 
                 <li class="nav-item user_login">
-                    <a class="nav-link " href="login.html">
+                    <a class="nav-link " href="{{route('frontend.login')}}">
                         <span>লগ
                             ইন</span>
                     </a>
@@ -123,6 +126,8 @@
                         </div>
                     </div>
                 </li>
+                @endauth
+              
             </ul>
 
         </div>

@@ -115,6 +115,11 @@
 
 .user_login .nav-link {
     margin-right: 0 !important;
+    margin-left: 1.5rem;
+}
+
+.navbar-light .navbar-nav .nav-link.cartSideBar{
+    margin-right: 0;
 }
 
 .nav_login_form {

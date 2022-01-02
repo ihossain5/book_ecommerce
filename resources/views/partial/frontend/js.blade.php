@@ -8,22 +8,27 @@
 @yield('page-js')
 
 <script>
-            toastr.options = {
-            "closeButton": true,
-            "debug": true,
-            "tapToDismiss ": false,
-            "newestOnTop": true,
-            "progressBar": true,
-            "positionClass": "toast-bottom-right",
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "autohide": false,
-        }
-        @if(Session::has('error'))
-    var message = "{{ Session::get('error') }}";
+    toastr.options = {
+        "closeButton": true,
+        "debug": true,
+        "tapToDismiss ": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-bottom-right",
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "autohide": false,
+    }
+    @if (Session::has('error'))
+        var message = "{{ Session::get('error') }}";
         toastr["error"](message)
-     @endif
+    @endif
+    
+    @if (Session::has('success'))
+        var message = "{{ Session::get('success') }}";
+        toastr["success"](message)
+    @endif
 </script>

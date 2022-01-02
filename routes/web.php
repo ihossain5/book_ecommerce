@@ -19,6 +19,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\frontend\WriterController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -125,3 +126,5 @@ Route::post('/decrease-cart', [CartController::class, 'decreaseCart'])->name('de
 Route::get('/sign-in', [LoginController::class, 'index'])->name('frontend.login');
 Route::get('/send-otp', [LoginController::class, 'sendOtp'])->name('frontend.otp.send');
 Route::post('/verify-otp', [LoginController::class, 'verifyOtp'])->name('frontend.otp.verification');
+
+Route::post('store-rating',[ReviewController::class,'store'])->name('store.review');

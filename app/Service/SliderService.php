@@ -57,4 +57,8 @@ Class SliderService {
         return $photo_url;
     }
 
+    function getAllSliders(){
+        return $this->slider->orderBy('precedence','ASC')->get();
+    }
+
 }

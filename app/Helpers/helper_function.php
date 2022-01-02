@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
 
@@ -58,3 +59,8 @@ function banglaToEnglish($number) {
     return str_replace($bn, $en, $number);
 }
 
+
+// format date
+function formatDate($date) {
+    return Carbon::parse($date)->format('d F, Y');
+}

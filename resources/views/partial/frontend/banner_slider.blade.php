@@ -3,12 +3,12 @@
         <div class="container">
             <div class="banner_slider">
                 <div class="owl-carousel owl-theme">
-                    <div class="item"><img src="{{ asset('frontend/assets/images/banner-img/banner-slide-img-1.png') }}" alt="slider-images">
+                @if (!empty($sliders))
+                    @foreach ($sliders as $slider)
+                    <div class="item"><img src="{{ asset('images/'.$slider->image) }}" alt="slider-images">
                     </div>
-                    <div class="item"><img src="{{ asset('frontend/assets/images/banner-img/banner-slide-img-1.png') }}" alt="slider-images">
-                    </div>
-                    <div class="item"><img src="{{ asset('frontend/assets/images/banner-img/banner-slide-img-1.png') }}" alt="slider-images">
-                    </div>
+                    @endforeach
+                @endif
                 </div>
             </div>
         </div>

@@ -151,7 +151,7 @@ Class BookService {
     }
 
     function find($id) {
-        return $this->book->with('authors')->findOrFail($id);
+        return $this->book->with('authors','reviews')->findOrFail($id);
     }
 
     /** Update book Status */

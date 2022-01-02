@@ -33,4 +33,9 @@ class Book extends Model {
         ->withPivot( 'value')
         ->withTimestamps();
     }
+
+    // book review relation
+    public function reviews(){
+        return $this->hasMany(BookReview::class, 'book_id')->orderBy('created_at','DESC');
+    }
 }

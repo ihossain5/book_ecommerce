@@ -72,7 +72,7 @@
                                 <p class="book_description">{{ $book->short_description }}</p>
 
 
-                                <div class="price_box">                            
+                                <div class="price_box">
                                     <h3>{{ englishTobangla($book->discounted_price) }} টাকা
                                         @if ($book->discounted_percentage != null || $book->discounted_percentage != 0)
                                             <del>{{ englishTobangla($book->regular_price) }} টাকা</del>
@@ -85,7 +85,7 @@
                             </div>
 
                             <div class="book_add_btn">
-                                <button><img
+                                <button onclick="addToCart({{ $book->book_id }})"><img
                                         src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"
                                         alt=""></button>
                                 <button><img
@@ -111,7 +111,7 @@
                             <span>
                                 @if (!empty($book->authors))
                                     @foreach ($book->authors as $author)
-                                        {{ $author->name }}  @if (!$loop->last) , @endif
+                                        {{ $author->name }} @if (!$loop->last) , @endif
                                     @endforeach
                                 @endif
                             </span>
@@ -197,9 +197,9 @@
                                         <td>
                                             <a href="#">
                                                 @foreach ($book->authors as $author)
-                                                 {{$author->name}} @if (!$loop->last) , @endif
+                                                    {{ $author->name }} @if (!$loop->last) , @endif
                                                 @endforeach
-                                               
+
                                             </a>
                                         </td>
                                     </tr>
@@ -207,7 +207,7 @@
                                         <td>Publisher</td>
                                         <td>
                                             <a href="#">
-                                                {{$book->publication->name}}
+                                                {{ $book->publication->name }}
                                             </a>
                                         </td>
                                     </tr>
@@ -263,38 +263,42 @@
         <div class="container">
             <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
                 @if (!empty($related_books))
-                @foreach ($related_books as $related_book)
-                <div class="col">
-                    <div class="book_card_wrapper">
-                        <div class="image_wrapper">
-                            <a href="{{route('frontend.book.details',[$related_book->book_id])}}" class="d-block text-reset">
-                                <img class="img-fluid w-100"
-                                    src="{{ asset('images/'.$related_book->cover_image) }}" alt="book image">
-                            </a>
-                        </div>
-                        <div class="content_wrapper book_card_content">
-                            <div class="rating">
-                                <div class="rateYo"></div>
+                    @foreach ($related_books as $related_book)
+                        <div class="col">
+                            <div class="book_card_wrapper">
+                                <div class="image_wrapper">
+                                    <a href="{{ route('frontend.book.details', [$related_book->book_id]) }}"
+                                        class="d-block text-reset">
+                                        <img class="img-fluid w-100"
+                                            src="{{ asset('images/' . $related_book->cover_image) }}" alt="book image">
+                                    </a>
+                                </div>
+                                <div class="content_wrapper book_card_content">
+                                    <div class="rating">
+                                        <div class="rateYo"></div>
+                                    </div>
+                                    <h3 class="title">{{ $related_book->title }}</h3>
+                                    <p class="author">
+                                        @if (!empty($related_book->authors))
+                                            @foreach ($related_book->authors as $author)
+                                                {{ $author->name }} @if (!$loop->last) , @endif
+                                            @endforeach
+                                        @endif
+                                    </p>
+                                    <div class="price_wrapper">
+                                        @if ($related_book->discounted_percentage != null || $related_book->discounted_percentage != 0)
+                                            <h6 class="discount">
+                                                {{ englishTobangla($related_book->regular_price) }} টাকা</h6>
+                                        @endif
+                                        <h5 class="regular">{{ englishTobangla($related_book->discounted_price) }}
+                                            টাকা</h5>
+                                    </div>
+                                    <a href="{{ route('frontend.book.details', [$related_book->book_id]) }}"
+                                        class="btn_buy_now">Buy Now</a>
+                                </div>
                             </div>
-                            <h3 class="title">{{$related_book->title}}</h3>
-                            <p class="author">
-                                @if (!empty($related_book->authors))
-                                @foreach ($related_book->authors as $author)
-                                    {{ $author->name }}  @if (!$loop->last) , @endif
-                                @endforeach
-                             @endif
-                            </p>
-                            <div class="price_wrapper">
-                                @if ($related_book->discounted_percentage != null || $related_book->discounted_percentage != 0)
-                                <h6 class="discount">{{ englishTobangla($related_book->regular_price) }} টাকা</h6>
-                                @endif
-                                <h5 class="regular">{{ englishTobangla($related_book->discounted_price) }} টাকা</h5>
-                            </div>
-                            <a href="{{route('frontend.book.details',[$related_book->book_id])}}" class="btn_buy_now">Buy Now</a>
                         </div>
-                    </div>
-                </div>
-                @endforeach
+                    @endforeach
                 @endif
 
             </div>
@@ -308,9 +312,9 @@
                 <h2>রিভিউস এবং রেটিংস</h2>
             </div>
             <div class="rating_content">
-                <div class="rating ratingReadOnly" data-rating="3.5"></div>
-                <h3 class="reating_points">৪.৫/৫</h3>
-                <p>(৬টি রিভিউ)</p>
+                <div class="rating ratingReadOnly" data-rating="{{$rating}}"></div>
+                <h3 class="reating_points">{{ englishTobangla($rating)}}/৫</h3>
+                <p>({{ englishTobangla($book->reviews->count())}}টি রিভিউ)</p>
             </div>
             <div class="rating_box">
                 <h3>রিভিউস এবং রেটিংস</h3>
@@ -318,14 +322,64 @@
 
         </div>
     </section>
+    @auth
+    <section class="rating_section py-120">
+        <div class="container">
+            <div class="rating_container">
+                <div class="rating_text_box">
+                    <form class="reviewStoreForm" method="POST">@csrf
+                        <textarea class="form-control" name="review" cols="30" rows="5"
+                            placeholder="Tell us what do you think about this book"></textarea>
+                        <input type="hidden" name="book_id" value="{{ $book->book_id }}">
+                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="rating" class="book_rating">
+                        <div class="row mt-4 ">
+                            <div class="col-md-6">
+                                <div class="bookRating"></div>
+                            </div>
+                            <div class="col-md-6 pt-5 pt-md-0 text-end">
+                                <button type="submit" class="ratingBtn">SUBMIT</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                    
+                </div>
+
+                @if (!empty($book->reviews))
+                    @foreach ($book->reviews as $key => $review)
+                        <div class="user_rating_box">
+                            <div class="rating_user">
+                                <div>
+                                    <img src="  {{ asset($review->user->image == null ? 'frontend/assets/images/demo_user.png' : 'images/' . $review->user->image) }}"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <h2>by <span>{{ $review->user->name }}</span> {{ formatDate($review->created_at)  }}</h2>
+                                    <div class="userRating ratSerialId{{ $key }}"
+                                        data-user_rating="{{ $review->rating }}"></div>
+                                </div>
+                            </div>
+                            <div class="rating_msg">
+                                <p>{{ $review->review }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+
+
+
+            </div>
+        </div>
+    </section>
+    @endauth
+   
 @endsection
 @section('page-js')
-    {{-- {{ asset('frontend/') }} --}}
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
     <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
-  
+
     <script>
-
-
         $('.writer_details_carousel').owlCarousel({
             loop: false,
             autoplayTimeout: 3500,
@@ -349,25 +403,60 @@
                 }
             }
         })
-    </script>
 
-    <script>
         $(function() {
-
             for (let i = 0; i < $('.ratingDetails').length; i++) {
                 $(`.ratingId${i}`).rateYo({
                     starWidth: "20px",
                     rating: $('.ratingDetails').data('rating'),
                     readOnly: true,
                     ratedFill: "#F2C94C",
+                    normalFill: "none",
                     spacing: "5px",
+                    starSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
+  <path d="M10 1.34175L12.1223 6.62665L12.2392 6.91794L12.5524 6.93918L18.2345 7.32445L13.8641 10.976L13.6232 11.1772L13.6998 11.4817L15.0892 17.0047L10.2659 13.9765L10 13.8096L9.73415 13.9765L4.91081 17.0047L6.30024 11.4817L6.37683 11.1772L6.13594 10.976L1.76551 7.32445L7.44757 6.93918L7.76076 6.91794L7.87773 6.62665L10 1.34175Z" stroke="#F2C94C"/>
+  </svg>`
                 });
             }
 
-        });
-    </script>
+            for (let i = 0; i < $('.userRating').length; i++) {
 
-    <script>
+                $(`.ratSerialId${i}`).rateYo({
+                    starWidth: "22px",
+                    ratedFill: "#F2C94C",
+                    normalFill: "none",
+                    rating: $(`.ratSerialId${i}`).data('user_rating'),
+                    readOnly: true,
+                    spacing: "5px",
+                    starSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
+  <path d="M10 1.34175L12.1223 6.62665L12.2392 6.91794L12.5524 6.93918L18.2345 7.32445L13.8641 10.976L13.6232 11.1772L13.6998 11.4817L15.0892 17.0047L10.2659 13.9765L10 13.8096L9.73415 13.9765L4.91081 17.0047L6.30024 11.4817L6.37683 11.1772L6.13594 10.976L1.76551 7.32445L7.44757 6.93918L7.76076 6.91794L7.87773 6.62665L10 1.34175Z" stroke="#F2C94C"/>
+  </svg>`
+                });
+
+            }
+
+
+            $('.bookRating').rateYo({
+                starWidth: "32px",
+                ratedFill: "#F2C94C",
+                normalFill: "none",
+                spacing: "5px",
+                onSet: function(rating, rateYoInstance) {
+                    // alert(rating);
+                    // console.log(rating);
+                    var rating_value = rating;
+                    $('.book_rating').val(rating_value);
+
+                },
+                starSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
+  <path d="M10 1.34175L12.1223 6.62665L12.2392 6.91794L12.5524 6.93918L18.2345 7.32445L13.8641 10.976L13.6232 11.1772L13.6998 11.4817L15.0892 17.0047L10.2659 13.9765L10 13.8096L9.73415 13.9765L4.91081 17.0047L6.30024 11.4817L6.37683 11.1772L6.13594 10.976L1.76551 7.32445L7.44757 6.93918L7.76076 6.91794L7.87773 6.62665L10 1.34175Z" stroke="#F2C94C"/>
+  </svg>`
+            });
+
+
+
+        });
+
         $('.hero_img').mouseenter(function() {
             $('.hero_img.active').css({
                 'opacity': '0'
@@ -399,10 +488,7 @@
             });
 
         })
-    </script>
 
-
-    <script>
         // ratin >> rateyo acitvation
         $(".rateYo").rateYo({
             starWidth: "20px",
@@ -418,17 +504,82 @@
         // ratin readonly >> rateyo acitvation
         $(".rating.ratingReadOnly").rateYo({
             starWidth: "20px",
-            normalFill: "#808080",
+            normalFill: 'none',
             ratedFill: "#F2C94C",
             spacing: "5px",
+            readOnly: true,
             rating: $('.ratingReadOnly').data('rating'),
+            starSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
+      <path d="M10 1.34175L12.1223 6.62665L12.2392 6.91794L12.5524 6.93918L18.2345 7.32445L13.8641 10.976L13.6232 11.1772L13.6998 11.4817L15.0892 17.0047L10.2659 13.9765L10 13.8096L9.73415 13.9765L4.91081 17.0047L6.30024 11.4817L6.37683 11.1772L6.13594 10.976L1.76551 7.32445L7.44757 6.93918L7.76076 6.91794L7.87773 6.62665L10 1.34175Z" stroke="#F2C94C"/>
+      </svg>`
         });
-    </script>
 
-    <script>
         $('.read_btn_box').css({
             'margin-top': `calc(${$('.hero_img').innerHeight()}px + 25px)`,
             'width': `${$('.hero_img').innerWidth()}px`,
+        })
+
+        var config = {
+            routes: {
+                store: "{!! route('store.review') !!}",
+            }
+        };
+
+        // review store function
+
+        $(".reviewStoreForm").validate({
+            rules: {
+                review: {
+                    required: true,
+                },
+
+            },
+            messages: {
+                review: {
+                    required: 'Please write your review',
+                },
+
+
+            },
+
+            errorPlacement: function(label, element) {
+                label.addClass('mt-2 text-danger');
+                label.insertAfter(element);
+            },
+        });
+        $(document).on('submit', '.reviewStoreForm', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: config.routes.store,
+                method: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                success: function(response) {
+
+                    if (response.success == true) {
+                        location.reload();
+                    }  else {
+
+                    }
+                }, //success end
+                error: function(error) {
+                    if (error.status == 422) {
+                        $.each(error.responseJSON.errors, function(i, message) {
+                            $('.reviewStoreForm').after(`
+                            <div class="alert mt-5 text-center alert-danger alert-dismissible fade show" role="alert">
+                                <strong>${message}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                            `);
+                        });
+
+                    }
+                },
+            });
         })
     </script>
 @endsection
