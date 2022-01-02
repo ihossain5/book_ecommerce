@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Service\BookService;
+use App\Models\Author;
+use App\Models\Category;
+use App\Models\Publication;
 use App\Service\HomepageService;
 
 class HomePageController extends Controller {
@@ -12,6 +14,21 @@ class HomePageController extends Controller {
 
         $featureCategories = $homepageService->featureCategories();
 
-        return view('frontend.index',compact('books', 'featureCategories'));
+        return view('frontend.index', compact('books', 'featureCategories'));
+    }
+
+    public static function all_authors() {
+        return Author::all();
+
+    }
+
+    public static function all_category() {
+        return Category::all();
+
+    }
+
+    public static function all_publication() {
+        return Publication::all();
+
     }
 }

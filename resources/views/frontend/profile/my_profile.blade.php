@@ -159,7 +159,8 @@ crossorigin="anonymous" />
                         <section class="book_cards_section">
                             <div class="container ">
                                 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3  g-0">
-                                    <div class="col">
+                                   
+                                    {{-- <div class="col">
                                         <div class="book_card_wrapper">
                                             <div class="image_wrapper">
                                                 <a href="book-details.html" class="d-block text-reset">
@@ -188,8 +189,45 @@ crossorigin="anonymous" />
                                                 <a href="#" class="btn_buy_now">Buy Now</a>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    </div> --}}
+                                    @if (!empty(auth()->user()->wishlists))
+                                    @foreach (auth()->user()->wishlists as $wishlist)
+                                        <div class="col">
+                                            <div class="book_card_wrapper">
+                                                <div class="image_wrapper">
+                                                    <a href="{{ route('frontend.book.details', [$wishlist->book->book_id]) }}"
+                                                        class="d-block text-reset">
+                                                        <img class="img-fluid w-100"
+                                                            src="{{ asset('images/' . $wishlist->book->cover_image) }}" alt="book image">
+                                                    </a>
+                                                </div>
+                                                <div class="content_wrapper book_card_content">
+                                                    <div class="rating">
+                                                        <div class="rateYo"></div>
+                                                    </div>
+                                                    <h3 class="title">{{ $wishlist->book->title }}</h3>
+                                                    <p class="author">
+                                                        @if (!empty($wishlist->book->authors))
+                                                            @foreach ($wishlist->book->authors as $author)
+                                                                {{ $author->name }} @if (!$loop->last) , @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </p>
+                                                    <div class="price_wrapper">
+                                                        @if ($wishlist->book->discounted_percentage != null || $wishlist->book->discounted_percentage != 0)
+                                                            <h6 class="discount">
+                                                                {{ englishTobangla($wishlist->book->regular_price) }} টাকা</h6>
+                                                        @endif
+                                                        <h5 class="regular">{{ englishTobangla($wishlist->book->discounted_price) }}
+                                                            টাকা</h5>
+                                                    </div>
+                                                    <a href="{{ route('frontend.book.details', [$wishlist->book->book_id]) }}"
+                                                        class="btn_buy_now">Buy Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
                                 </div>
                             </div>
                         </section>

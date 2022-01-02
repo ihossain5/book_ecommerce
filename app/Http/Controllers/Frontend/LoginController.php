@@ -41,7 +41,7 @@ class LoginController extends Controller
 
             Auth::login($user);
 
-            return redirect(route('my.profile'));
+            return redirect(route('customer.profile'));
 
         }
 

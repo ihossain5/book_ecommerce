@@ -1,3 +1,11 @@
+@php
+use App\Http\Controllers\Frontend\HomePageController;
+$authors = HomePageController::all_authors();
+$categories = HomePageController::all_category();
+$publications = HomePageController::all_publication();
+
+@endphp
+
 <nav class="navbar navbar-expand-lg navbar-light brand_nav sticky-top">
     <div class="container">
         <button data-bs-toggle="offcanvas" href="#sidebar" class="navbar-toggler" type="button">
@@ -50,8 +58,13 @@
                         <img src="{{ asset('frontend/assets/images/icons/love-icon.svg') }}" alt="">
                         <span
                             class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
+                            @auth
                             <span class="whislistCounter">{{auth()->user()->wishlists->count()}}</span>
+                            @else
+                            <span class="whislistCounter">0</span>
+                            @endauth
                             <span class="visually-hidden">unread messages</span>
+
                         </span> </a>
                 </li>
                 <li class="nav-item">
@@ -76,9 +89,9 @@
               
                 @auth
                 <li class="nav-item user_login_icon">
-                    <a href="my-profile.html"><img src="{{ asset('frontend/assets/images/icons/user.svg') }}" alt=""></a>
+                    <a href="{{route('customer.profile')}}"><img src="{{ asset('frontend/assets/images/icons/user.svg') }}" alt=""></a>
                 </li>
-                @else 
+                @else
                 <li class="nav-item user_login">
                     <a class="nav-link " href="{{route('frontend.login')}}">
                         <span>লগ
@@ -148,146 +161,15 @@
                         </div>
                     </div>
                     <div class="row mega_link_box">
+
+                        @foreach ($publications as $publication)
                         <div class="col-3">
                             <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
+                                <li><a href="#"> {{$publication->name}}</a></li>
                             </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">প্রকাশনী নাম</a></li>
-                            </ul>
-                        </div>
+                        </div> 
+                        @endforeach
+                        
                     </div>
                 </div>
             </div>
@@ -307,22 +189,13 @@
                         </div>
                     </div>
                     <div class="row mega_link_box">
+                        @foreach ($categories as $category)
                         <div class="col-3">
                             <ul class="mega_writer_link">
-                                <li><a href="#">বিষয়ের নাম</a></li>
+                                <li><a href="{{ route('frontend.topics.name', $category->category_id ) }}">{{ $category->name }}</a></li>
                             </ul>
                         </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">বিষয়ের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">বিষয়ের নাম</a></li>
-                            </ul>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
 
@@ -342,147 +215,15 @@
                                     src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button>
                         </div>
                     </div>
-                    <div class="row mega_link_box">
+                    <div class="row mega_link_box"> 
+                        @foreach ($authors as $author)
+                         
                         <div class="col-3">
                             <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
+                                <li><a href="{{ route('frontend.author.details', $author->author_id ) }}">{{ $author->name }}</a></li>
                             </ul>
                         </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-3">
-                            <ul class="mega_writer_link">
-                                <li><a href="#">লেখকের নাম</a></li>
-                            </ul>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -521,27 +262,32 @@
                 <li>
                     <a class="dropdown_link" href="javascript:void(0)">প্রকাশনী</a>
                     <ul class="multi_level d-none">
-                        <li><a href="#">প্রকাশনী 1</a></li>
-                        <li><a href="#">প্রকাশনী 2</a></li>
-                        <li><a href="#"><button class="writer_btn">সব প্রকাশনী দেখুন <img
-                                        src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li>
+                        @foreach ($publications as $publication)
+                            <li><a href="#">{{$publication->name}}</a></li>
+                        @endforeach
+                        {{-- <li><a href="#"><button class="writer_btn">সব প্রকাশনী দেখুন <img
+                                        src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li> --}}
                     </ul>
                 </li>
                 <li>
                     <a class="dropdown_link" href="javascript:void(0)">বিষয়</a>
                     <ul class="multi_level d-none">
-                        <li><a href="#">বিষয় 1</a></li>
-                        <li><a href="#">বিষয় 2</a></li>
-                        <li><a href="#"><button class="writer_btn">সব বিষয় দেখুন <img
+
+                        @foreach ($categories as $category)
+                            <li><a href="{{ route('frontend.topics.name', $category->category_id ) }}">{{ $category->name }}</a></li>
+                        @endforeach
+                        <li><a href="{{ route('frontend.topics')}}"><button class="writer_btn">সব বিষয় দেখুন <img
                                         src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li>
                     </ul>
                 </li>
                 <li>
                     <a class="dropdown_link" href="javascript:void(0)">লেখক</a>
                     <ul class="multi_level d-none">
-                        <li><a href="#">লেখক 1</a></li>
-                        <li><a href="#">লেখক 1</a></li>
-                        <li><a href="#"><button class="writer_btn">সব লেখক দেখুন <img
+
+                        @foreach ($authors as $author)
+                        <li><a href="{{ route('frontend.author.details', $author->author_id ) }}">{{ $author->name }}</a></li>
+                        @endforeach
+                        <li><a href="{{ route('frontend.authors')}}"><button class="writer_btn">সব লেখক দেখুন <img
                                         src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li>
                     </ul>
                 </li>

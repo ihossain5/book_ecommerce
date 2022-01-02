@@ -30,12 +30,6 @@ class BookController extends Controller
             $rating = 0;
         }
 
-        
-       
-
-        // dd($rating);
-
-
        return view('frontend.book.book_details',compact('book','related_books','rating'));
     }
 

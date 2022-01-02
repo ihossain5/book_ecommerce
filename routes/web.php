@@ -18,7 +18,8 @@ use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\frontend\WriterController;
 use App\Http\Controllers\frontend\ProfileController;
-
+use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\Frontend\TopicController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -136,7 +137,7 @@ Route::post('/search/topics', [SearchController::class, 'topic_filter'])->name('
 Route::get('/book/list', [FrontendBookController::class, 'index'])->name('frontend.books');
 
 // Viewer profile start
-Route::get('/profile', [ProfileController::class, 'index'])->name('my.profile');
+Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 // Viewer profile end
 
