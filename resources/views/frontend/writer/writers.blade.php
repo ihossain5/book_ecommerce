@@ -12,12 +12,11 @@
         <div class="container">
             <div class="banner_slider">
                 <div class="owl-carousel owl-theme">
-                    <div class="item"><img src="{{ asset('frontend/assets/images/banner-img/banner-slide-img-1.png') }}" alt="slider-images">
-                    </div>
-                    <div class="item"><img src="{{ asset('frontend/assets/images/banner-img/banner-slide-img-1.png') }}" alt="slider-images">
-                    </div>
-                    <div class="item"><img src="{{ asset('frontend/assets/images/banner-img/banner-slide-img-1.png') }}" alt="slider-images">
-                    </div>
+                    @if (!empty($sliders))
+                        @foreach ($sliders as $slider)
+                            <div class="item"><img src="{{ asset('images/' . $slider->image) }}" alt="slider-images"></div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
@@ -31,70 +30,18 @@
             </div>
             <div class="container">
                 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-5  g-0">
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-1.png') }}" alt="writer image">
-                                <h3 class="card_text">শ্যামল দত্ত</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-2.png') }}" alt="writer image">
-                                <h3 class="card_text">মজিদ মাহমুদ</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-3.png') }}" alt="writer image">
-                                <h3 class="card_text">আন্দালিব রাশদী</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-4.png') }}" alt="writer image">
-                                <h3 class="card_text">সালেক নাছির উদ্দিন</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-5.png') }}" alt="writer image">
-                                <h3 class="card_text">আনোয়ারা সৈয়দ হক</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-1.png') }}" alt="writer image">
-                                <h3 class="card_text">শ্যামল দত্ত</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-2.png') }}" alt="writer image">
-                                <h3 class="card_text">মজিদ মাহমুদ</h3>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="writer_content">
-                            <a href="writer-details.html"  class="d-block tex-reset" >
-                                <img class="img-fluid w-100" src="{{ asset('frontend/assets/images/writers/writer-3.png') }}" alt="writer image">
-                                <h3 class="card_text">আন্দালিব রাশদী</h3>
-                            </a>
-                        </div>
-                    </div>
+                    @if(!empty($authors))
+                        @foreach ($authors as $author)
+                            <div class="col">
+                                <div class="writer_content">
+                                    <a href="{{ route('frontend.author.details', $author->author_id ) }}"  class="d-block tex-reset" >
+                                        <img class="img-fluid w-100" src="{{ asset('images/' . $author->photo) }}" alt="{{  $author->name }}">
+                                        <h3 class="card_text">{{  $author->name }}</h3>
+                                    </a>
+                                </div>
+                            </div>  
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </section>

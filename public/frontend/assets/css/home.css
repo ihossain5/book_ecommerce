@@ -81,10 +81,10 @@
     transform: translateY(-45%);
 }
 .writers_carousel .owl-nav button.owl-prev{
-    left: -2.4rem;
+    left: 0rem;
 }
 .writers_carousel .owl-nav button.owl-next{
-    right: -2.4rem;
+    right: 0rem;
 }
 
 /* ==carousel button > most selling books== */
@@ -101,8 +101,6 @@
 }
 
 
-
-
 @media (min-width: 1366px) {
     /* ==new published book== */
     .new_published_carousel_wrapper .container {
@@ -116,7 +114,7 @@
         max-width: 1366px;
     }
     .most_selling_carousel_wrapper .item {
-        padding: 4rem 6rem 0 6rem;
+        padding: 4rem 8rem 0 8rem;
     }
 
     /* ==writers== */
@@ -124,7 +122,7 @@
         max-width: 1340px;
     }
     .writers_carousel_wrapper .item {
-        padding: 4rem 4rem;
+        padding: 4rem 4.5rem;
     }
 
     /* ==carousel control== */
@@ -133,6 +131,24 @@
         transform: translateY(-40%);
     }
 }
+@media (min-width: 1440px) {
+    /* ==most selling books== */
+    .most_selling_carousel_wrapper .container {
+        max-width: 1420px;
+    }
+    .most_selling_carousel_wrapper .item {
+        padding: 4rem 8rem 0 8rem;
+    }
+
+    /* ==writers== */
+    .writers_carousel_wrapper .container {
+        max-width: 1400px;
+    }
+    .writers_carousel_wrapper .item {
+        padding: 4rem 5rem;
+    }
+}
+@media (min-width: 1680px) {}
 
 @media (min-width: 1920px) {
     /* ==new published book== */
@@ -188,10 +204,10 @@
 
 @media (max-width: 767.98px) {
     .most_selling_carousel_wrapper .item {
-        padding: 4rem 8rem 0 8rem;
+        padding: 6rem 8rem 0 8rem;
     }
     .writers_carousel_wrapper .item {
-        padding: 4rem 4rem;
+        padding: 4rem 6rem;
     }
     .new_published_card .image_wrapper {
         flex: 0 0 17rem;
@@ -222,12 +238,20 @@
 
 }
 @media (max-width: 575.98px) {
+    .most_selling_carousel_wrapper .container{
+        padding: 0;
+    }
+    .writers_carousel_wrapper .container{
+        padding: 0;
+    }
+    .new_published_carousel_wrapper .container{
+        padding: 0;
+    }
     .new_published_book_section.pb-70 {
         padding-bottom: 9.2rem;
     } 
     .new_published_book_carousel .item {
-        /* padding: 4rem 2rem 10rem 2rem; */
-        padding: 4rem .5rem 6rem 0;
+        padding: 6rem 2rem 8rem 2rem;
     }
 }
 

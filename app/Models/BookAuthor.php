@@ -12,4 +12,8 @@ class BookAuthor extends Model
     protected $primaryKey = 'book_author_id';
 
     protected $guarded = [];
+
+    public function books() {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
 }

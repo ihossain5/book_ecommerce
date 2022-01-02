@@ -63,9 +63,9 @@
                                 </h2>
 
                                 <div class="d-flex rating_box">
-                                    <div class="rating ratingDetails ratingId0" data-rating="0"></div>
+                                    <div class="rating ratingDetails ratingId0" data-rating="{{$rating}}"></div>
                                     <div>
-                                        <span>(৪.৫ / ৬টি রিভিউ)</span>
+                                        <span>({{ englishTobangla($rating) }} / ({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</span>
                                     </div>
                                 </div>
 
@@ -85,10 +85,10 @@
                             </div>
 
                             <div class="book_add_btn">
-                                <button onclick="addToCart({{ $book->book_id }})"><img
+                                <button onclick="addToWishlist({{ $book->book_id }})"><img
                                         src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"
                                         alt=""></button>
-                                <button><img
+                                <button onclick="addToCart({{ $book->book_id }})"><img
                                         src="{{ asset('frontend/assets/images/icons/shopping_cart_black_24dp (1).svg') }}"
                                         alt=""></button>
                                 <button><img src="{{ asset('frontend/assets/images/icons/share_black_24dp 1.svg') }}"
@@ -127,9 +127,9 @@
                         </h2>
 
                         <div class="d-flex rating_box">
-                            <div class="rating ratingId0" data-rating="3.3"></div>
+                            <div class="rating ratingId0" data-rating="{{$rating}}"></div>
                             <div>
-                                <span>(৪.৫ / ৬টি রিভিউ)</span>
+                                <span>({{ englishTobangla($rating) }} / ({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</span>
                             </div>
                         </div>
 
@@ -312,9 +312,9 @@
                 <h2>রিভিউস এবং রেটিংস</h2>
             </div>
             <div class="rating_content">
-                <div class="rating ratingReadOnly" data-rating="{{$rating}}"></div>
-                <h3 class="reating_points">{{ englishTobangla($rating)}}/৫</h3>
-                <p>({{ englishTobangla($book->reviews->count())}}টি রিভিউ)</p>
+                <div class="rating ratingReadOnly" data-rating="{{ $rating }}"></div>
+                <h3 class="reating_points">{{ englishTobangla($rating) }}/৫</h3>
+                <p>({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</p>
             </div>
             <div class="rating_box">
                 <h3>রিভিউস এবং রেটিংস</h3>
@@ -323,57 +323,58 @@
         </div>
     </section>
     @auth
-    <section class="rating_section py-120">
-        <div class="container">
-            <div class="rating_container">
-                <div class="rating_text_box">
-                    <form class="reviewStoreForm" method="POST">@csrf
-                        <textarea class="form-control" name="review" cols="30" rows="5"
-                            placeholder="Tell us what do you think about this book"></textarea>
-                        <input type="hidden" name="book_id" value="{{ $book->book_id }}">
-                        <input type="hidden" name="user_id" value="{{auth()->user()->id}}">
-                        <input type="hidden" name="rating" class="book_rating">
-                        <div class="row mt-4 ">
-                            <div class="col-md-6">
-                                <div class="bookRating"></div>
+        <section class="rating_section py-120">
+            <div class="container">
+                <div class="rating_container">
+                    <div class="rating_text_box">
+                        <form class="reviewStoreForm" method="POST">@csrf
+                            <textarea class="form-control" name="review" cols="30" rows="5"
+                                placeholder="Tell us what do you think about this book"></textarea>
+                            <input type="hidden" name="book_id" value="{{ $book->book_id }}">
+                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="rating" class="book_rating">
+                            <div class="row mt-4 ">
+                                <div class="col-md-6">
+                                    <div class="bookRating"></div>
+                                </div>
+                                <div class="col-md-6 pt-5 pt-md-0 text-end">
+                                    <button type="submit" class="ratingBtn">SUBMIT</button>
+                                </div>
                             </div>
-                            <div class="col-md-6 pt-5 pt-md-0 text-end">
-                                <button type="submit" class="ratingBtn">SUBMIT</button>
+
+                        </form>
+
+                    </div>
+
+                    @if (!empty($book->reviews))
+                        @foreach ($book->reviews as $key => $review)
+                            <div class="user_rating_box">
+                                <div class="rating_user">
+                                    <div>
+                                        <img src="  {{ asset($review->user->image == null ? 'frontend/assets/images/demo_user.png' : 'images/' . $review->user->image) }}"
+                                            alt="">
+                                    </div>
+                                    <div>
+                                        <h2>by <span>{{ $review->user->name }}</span>
+                                            {{ formatDate($review->created_at) }}</h2>
+                                        <div class="userRating ratSerialId{{ $key }}"
+                                            data-user_rating="{{ $review->rating }}"></div>
+                                    </div>
+                                </div>
+                                <div class="rating_msg">
+                                    <p>{{ $review->review }}</p>
+                                </div>
                             </div>
-                        </div>
-                        
-                    </form>
-                    
+                        @endforeach
+                    @endif
+
+
+
                 </div>
-
-                @if (!empty($book->reviews))
-                    @foreach ($book->reviews as $key => $review)
-                        <div class="user_rating_box">
-                            <div class="rating_user">
-                                <div>
-                                    <img src="  {{ asset($review->user->image == null ? 'frontend/assets/images/demo_user.png' : 'images/' . $review->user->image) }}"
-                                        alt="">
-                                </div>
-                                <div>
-                                    <h2>by <span>{{ $review->user->name }}</span> {{ formatDate($review->created_at)  }}</h2>
-                                    <div class="userRating ratSerialId{{ $key }}"
-                                        data-user_rating="{{ $review->rating }}"></div>
-                                </div>
-                            </div>
-                            <div class="rating_msg">
-                                <p>{{ $review->review }}</p>
-                            </div>
-                        </div>
-                    @endforeach
-                @endif
-
-
-
             </div>
-        </div>
-    </section>
+        </section>
     @endauth
-   
+
 @endsection
 @section('page-js')
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
@@ -522,6 +523,7 @@
         var config = {
             routes: {
                 store: "{!! route('store.review') !!}",
+                addWishlist: "{!! route('store.whislist') !!}",
             }
         };
 
@@ -547,6 +549,7 @@
                 label.insertAfter(element);
             },
         });
+
         $(document).on('submit', '.reviewStoreForm', function(e) {
             e.preventDefault();
             $.ajax({
@@ -561,7 +564,7 @@
 
                     if (response.success == true) {
                         location.reload();
-                    }  else {
+                    } else {
 
                     }
                 }, //success end
@@ -581,5 +584,33 @@
                 },
             });
         })
+
+        // add to wishlist   
+        function addToWishlist(id) {
+            $.ajax({
+                type: "POST",
+                url: config.routes.addWishlist,
+                data: {
+                    id: id,
+                },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.success == true) {
+                        $('.whislistCounter').html(response.data.whislist);
+                        toastr["success"](response.data.message);
+                    }
+                },
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastr["error"]('Something went wrong');
+                    } else if (error.status == 401) {
+                        toastr["error"]('Please login to continue');
+                    }
+                },
+            });
+        }
     </script>
 @endsection

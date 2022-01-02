@@ -64,6 +64,73 @@ input[type="file"] {
     padding-top: 4rem;
 
 }
+.my_profile_body .address_loc_details {
+    border: 1px solid #AEC4BB;
+    padding: 1.3rem 2.7rem;
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
+}
+.my_profile_body .tab-content .my_address_details{
+    padding: 0 8rem;
+}
+.my_profile_body .tab-content .my_address_details .address_loc>span {
+    color: #4F7F6C;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_edit .form-check-label{
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    color: #797979;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons {
+    text-align: end;
+    padding-top: 2.8rem;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons .edit{
+    background: url("../images/icons/Edit.svg");
+    width: 34px;
+    height: 34px;
+    display: inline-block;
+    margin-right: .8rem;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons .delete{
+    background: url("../images/icons/Delete.svg");
+    width: 34px;
+    height: 34px;
+    display: inline-block;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons button{
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+.form-check-input[type=radio] {
+    border-radius: 2px;
+}
+.my_profile_body .tab-content .my_address_details .form-check-input:checked{
+    background-color: #4F7F6C;
+    border-color: #4F7F6C;
+}
+.my_profile_body .tab-content .my_address_details .form-check-input:checked[type=radio] {
+    background-image: url("../images/icons/radio-chack.svg");
+    border: 0;
+}
+.my_profile_body .tab-content .my_address_details .form-check-input:focus {
+    border-color: #AEC4BB;
+    outline: 0;
+    box-shadow: none;
+}
+.my_profile_body .tab-content .my_address_details .address_loc{
+    padding-bottom: .9rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.6rem;
+    color: #797979;
+}
 .my_profile_body .tab-content .tab-pane.books_choice{
     max-width: 91rem;
 }
@@ -143,11 +210,12 @@ input[type="file"] {
     background: var(--gray);
 }
 
-.my_profile_body .order_details {
+.my_profile_body .order_details,
+.my_profile_body .address_loc_details {
     display: flex;
     justify-content: space-between;
 }
-.my_profile_body .order_details{
+.my_profile_body .order_details {
     border: 2px solid #F2F2F2;
     padding: 2.4rem 2.4rem 2.2rem;
 }
@@ -228,6 +296,30 @@ input[type="file"] {
     }
 }
 @media (max-width: 767.98px) {
+    
+    .my_profile_body .address_loc_details {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .my_profile_body .tab-content .my_address_details {
+        padding: 0;
+    }
+    .my_profile_body .tab-content .my_address_details .address_loc_buttons {
+        padding-top: 0;
+        display: inline-block;
+    }
+    .my_profile_body .tab-content .my_address_details .address_loc_edit .form-check-label{
+        margin-bottom: 0;
+    }
+    .my_profile_body .tab-content .my_address_details .address_loc_edit{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .my_profile_body .address_loc_details {
+        padding: 1.3rem 1.8rem;
+    }
     .book_cards_section .row {
         margin-left: -2.4rem;
         margin-right: -2.4rem;

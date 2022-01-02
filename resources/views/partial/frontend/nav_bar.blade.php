@@ -50,7 +50,7 @@
                         <img src="{{ asset('frontend/assets/images/icons/love-icon.svg') }}" alt="">
                         <span
                             class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
-                            <span class="whislistCounter">0</span>
+                            <span class="whislistCounter">{{auth()->user()->wishlists->count()}}</span>
                             <span class="visually-hidden">unread messages</span>
                         </span> </a>
                 </li>

@@ -12,4 +12,9 @@ class BookCategory extends Model
     protected $primaryKey = 'book_category_id';
 
     protected $guarded = [];
+    
+    public function books() {
+        return $this->belongsTo(Book::class, 'book_id');
+    }
+   
 }

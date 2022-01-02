@@ -14,7 +14,9 @@ class CreateWhislistsTable extends Migration
     public function up()
     {
         Schema::create('whislists', function (Blueprint $table) {
-            $table->id();
+            $table->id('whislist_id');
+            $table->foreignId('book_id')->references('book_id')->on('books')->cascadeOnDelete();
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }
