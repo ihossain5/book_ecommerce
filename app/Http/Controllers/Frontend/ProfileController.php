@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class ProfileController extends Controller {
@@ -91,52 +92,34 @@ class ProfileController extends Controller {
             ]);
         }
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        //
-    }
+    
+    public function photoUpdate(Request $request){
+        if (Auth::check()) {
+            $this->validate($request,[
+                'photo'=>'required|max:300|image|mimes:png,jpg,jpeg',
+             ]);
+            $customer = Auth::user();
+            if ($request->photo) {
+                deleteImage($customer->photo);
+                $photo     = $request->photo;
+                $path      = 'customer/avatar/';
+                $photo_url = storeImage($photo, $path, 100, 100);
+                $customer->update([
+                    'image' => $photo_url,
+                ]);
+                $data['message'] = 'Profile photo has been updated';
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        //
-    }
+                return $this->success($data);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id) {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id) {
-        //
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Please upload a photo',
+                ]);
+            }
+        } else {
+            Session::flash('error', 'Please sign in to continue');
+            return view('frontend.profile.my_profile');
+        }
     }
 }

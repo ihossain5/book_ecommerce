@@ -107,7 +107,7 @@
                                 @endif
                      
                                 <div class="rating">
-                                    <div class="rateYo"></div>
+                                    <div class="rateYo" data-user_rating="{{getTotalRating($book->reviews)}}"></div>
                                 </div>
                                 <h3 class="title">{{$book->title}}</h3>
                                 <p class="author">
@@ -230,7 +230,7 @@
                             </div>
                             <div class="content_wrapper book_card_content">
                                 <div class="rating">
-                                    <div class="rateYo"></div>
+                                    <div class="rateYo" data-user_rating="5"></div>
                                 </div>
                                 <h3 class="title">সেরা লেখক সেরা গল্প</h3>
                                 <p class="author">শ্যামল দত্ত</p>
@@ -251,6 +251,7 @@
                             </div>
                             <div class="content_wrapper book_card_content">
                                 <div class="rating"></div>
+
                                 <h3 class="title">সেরা লেখক সেরা গল্প</h3>
                                 <p class="author">শ্যামল দত্ত</p>
                                 <div class="price_wrapper">

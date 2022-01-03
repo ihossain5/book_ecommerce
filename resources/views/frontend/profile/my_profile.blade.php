@@ -2,16 +2,14 @@
 @section('title', 'Profile')
 
 @section('page-css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.5/sweetalert2.min.css"
-integrity="sha512-gX6K9e/4ewXjtn8Q/oePzgIxs2KPrksR4S2NNMYLxenvF7n7eNon9XbqQxb+5jcqYBVCcncIxqF6fXJYgQtoAg=="
-crossorigin="anonymous" />
+
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/my-profile.css') }}">
 @endsection
 
 @section('content')
 <section class="my_profile_section pt-20 pb-120">
     <div class="container">
-        <form action="#">
+
             <div class="upload-picture">
                 <div class="upload-picture-inner">
                     <label for="fileUpload">
@@ -32,10 +30,13 @@ crossorigin="anonymous" />
                             </svg>
                         </div>
                     </label>
-                    <input type="file" class="form-control-file" id="fileUpload" name="photo">
+
+                    <form method="POST" id="imageUpdateForm">@csrf
+                        <input type="file" class="form-control-file" id="fileUpload" name="photo" accept="image/*">
+                    </form>
                 </div>
             </div>
-        </form>
+
         <div class="my_profile_body">
             <div>
                 <!-- Nav tabs -->
@@ -55,7 +56,7 @@ crossorigin="anonymous" />
                             অর্ডার</a>
                     </li>
                     <li role="presentation">
-                        <a class="" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button"
+                        <a class="wishlistTab" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button"
                             role="tab" aria-controls="settings" aria-selected="false">পছন্দের তালিকা</a>
                     </li>
                 </ul>
@@ -203,7 +204,7 @@ crossorigin="anonymous" />
                                                 </div>
                                                 <div class="content_wrapper book_card_content">
                                                     <div class="rating">
-                                                        <div class="rateYo"></div>
+                                                        <div class="rateYo" data-user_rating="{{getTotalRating($wishlist->book->reviews)}}"></div>
                                                     </div>
                                                     <h3 class="title">{{ $wishlist->book->title }}</h3>
                                                     <p class="author">
@@ -240,126 +241,52 @@ crossorigin="anonymous" />
 @endsection
 @section('page-js')
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.15.5/sweetalert2.min.js"
-integrity="sha512-+uGHdpCaEymD6EqvUR4H/PBuwqm3JTZmRh3gT0Lq52VGDAlywdXPBEiLiZUg6D1ViLonuNSUFdbL2tH9djAP8g=="
-crossorigin="anonymous"></script>
+
+
 <script>
-
-    // edit profile image 
-    $('#fileUpload').change(function () {
-        const url = window.URL.createObjectURL(this.files[0]);
-        $('#uplodedImg').attr('src', url);
-    })
-
-    var toastMixin = Swal.mixin({
-            toast: true,
-            title: 'General Title',
-            animation: false,
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
-
-    var profile_config = {
+        var config = {
             routes: {
-                update: "{!! route('profile.update') !!}",
+                imageUpdate: "{!! route('profile.photo.update') !!}",
             }
         };
 
-        $(document).ready(function() {
-            $("#edit_profile_form").validate({
-
-                rules: {
-                  name: {
-                        required: true,
-                        maxlength: 100,
-                    },
-                    phone: {
-                        required: true,
-                        maxlength: 11,
-                    },
-                    email: {
-                        required: true,
-                        email:true,
-                    },
-                    dob: {
-                        required: true,
-                    },
-                },
-                messages: {
-                  name: {
-                        required: 'Please insert name',
-                    },
-                    phone: {
-                        required: 'Please insert phone',
-                    },
-                    dob: {
-                        required: 'Please insert date of birth',
-                    },
-                    email: {
-                        required:  'Please insert email',
-
-                    },
-                },
-                errorPlacement: function(label, element) {
-                    label.addClass('mt-2 text-danger');
-                    label.insertAfter(element);
-                },
-            });
+    var url;
+        $('#fileUpload').change(function() {
+             url = window.URL.createObjectURL(this.files[0]);
+             
+            $("#imageUpdateForm").submit();
+            console.log(url);
         });
-        //end
 
-        var path = "{{ url('/') }}" + '/images/';
-        $(document).off('submit', '#edit_profile_form');
-            $(document).on('submit', '#edit_profile_form', function(event) {
-                //alert('submit');
-                event.preventDefault();
-                $.ajax({
+        $(document).on('submit', '#imageUpdateForm', function(e) {
+            e.preventDefault();
+           
+            $.ajax({
+                url: config.routes.imageUpdate,
+                method: "POST",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#uplodedImg').attr('src', url);
+                        // toastr["success"](response.data.message)
 
-                    url: profile_config.routes.update,
-                    method: "POST",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    dataType: "json",
-                    success: function(response) {
-
-                        if (response.success == true) {
-
-                          var base_url="{{url('/')}}"
-                          // alert(base_url);
-                          window.location.href = base_url+'/profile';
-
-                          if (response.data.message) {
-                            //alert("abc");
-                                toastMixin.fire({
-                                    icon: 'success',
-                                    animation: true,
-                                    title: "" + response.data.message + ""
-                                });
-
-                            }
-                        }else {
-                          toastMixin.fire({
-                              icon: 'error',
-                              animation: true,
-                              title: "" + response.data.error + ""
-                          });
-
-                        }
-
-                      }
-
-
-                    })
-                  });
-
-              //success end
+                    } //success end
+                },
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastr["error"](response.data.message)
+                    }
+                    else if (error.status == 422) {
+                        $.each(error.responseJSON.errors, function(i, message) {
+                            toastr["error"](message)
+                        });
+                    }
+                },
+            }); //ajax end
+        });         
 </script>
 @endsection

@@ -64,3 +64,10 @@ function banglaToEnglish($number) {
 function formatDate($date) {
     return Carbon::parse($date)->format('d F, Y');
 }
+
+function getTotalRating($reviews) {
+    $totalReviews = $reviews->count();
+    $totalSum     = $reviews->sum('rating');
+
+    return round($totalSum / $totalReviews,1);
+}

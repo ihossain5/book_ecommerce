@@ -7,7 +7,7 @@ use App\Models\Category;
 Class HomepageService {
 
     function latestBook() {
-        return Book::with('authors', 'publication')->latest()->limit(8)->get();
+        return Book::with('authors', 'publication','reviews')->latest()->limit(8)->get();
     }
 
     function featureCategories() {

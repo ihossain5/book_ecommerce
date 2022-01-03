@@ -24,9 +24,9 @@ class SearchController extends Controller
         $request->category_list;
         $category_search_key=$request->category_search_key;
         $publisher_search_key=$request->publisher_search_key;
-        $request->price;
-        $request->publisher_list;
-        $request->writer_list;
+        $price=$request->price;
+        $publisher_list=$request->publisher_list;
+        $writer_list=$request->writer_list;
         $writer_search_key=$request->writer_search_key;
 
         if($category_search_key!=null || $writer_search_key!=null || $publisher_search_key!=null){
@@ -65,7 +65,6 @@ class SearchController extends Controller
     
             }
     
-
             if($writer_search_key!=null){
     
                 $book_authors=Author::where('name', 'LIKE', '%' . $writer_search_key. '%')->get();
@@ -127,7 +126,64 @@ class SearchController extends Controller
                 'book_list' => $bookID,
             ]);
         
-            }else{
+            }elseif($writer_list!=null){
+                $book_authors=BookAuthor::whereIn('author_id',$writer_list)->get();
+
+                //dd($book_authors);
+                $book_list=[];
+            
+                foreach($book_authors as $book_author){
+    
+                    $book_list[]=$book_author->book_id;
+                }
+                //dd($book_list);
+                $unique=array_unique($book_list);
+                //dd($unique);
+    
+                $bookID=Book::with('authors')->whereIn('book_id',$unique)->get();
+                //dd($bookID);
+    
+                return response()->json([
+                    'success' => true,
+                    'book_list' => $bookID,
+                ]);
+
+            }elseif($publisher_list){
+
+
+                $bookID=Book::with('authors')->whereIn('publication_id',$publisher_list)->get();
+
+                //dd($bookID);
+    
+                return response()->json([
+                    'success' => true,
+                    'book_list' => $bookID,
+                ]);
+            }elseif($price!=null){
+
+                if($price==100){
+                    $bookID=Book::with('authors')->whereBetween('regular_price', [0, 100])->get();
+                }elseif($price==500){
+                    $bookID=Book::with('authors')->whereBetween('regular_price', [100, 500])->get();
+                }elseif($price==1000){
+                    $bookID=Book::with('authors')->whereBetween('regular_price', [500, 1000])->get();
+                }elseif($price==1500){
+                    $bookID=Book::with('authors')->whereBetween('regular_price', [1000, 2000])->get();
+                }elseif($price==2000){
+                    $bookID=Book::with('authors')->where('regular_price', '=>',2000)->get();
+                }else{        
+                    $bookID=Book::with('authors')->get();
+                }
+               
+                //dd($bookID);
+    
+                return response()->json([
+                    'success' => true,
+                    'book_list' => $bookID,
+                ]);
+            }
+
+            else{
 
                 $books=Book::with('authors')->get();
                 return response()->json([

@@ -19,6 +19,7 @@ use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\frontend\WriterController;
 use App\Http\Controllers\frontend\ProfileController;
 use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\Frontend\SocialLoginController;
 use App\Http\Controllers\Frontend\TopicController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -142,3 +143,10 @@ Route::post('/profile/update', [ProfileController::class, 'update'])->name('prof
 // Viewer profile end
 
 Route::post('/search/books/filter', [SearchController::class, 'book_filter'])->name('book.filter');
+Route::post('/photo/update', [ProfileController::class, 'photoUpdate'])->name('profile.photo.update');
+
+// Google login
+Route::get('login/google', [SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('login/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
+
+Route::post('/frontend-logout',[LoginController::class,'logout'])->name('frontend.logout');

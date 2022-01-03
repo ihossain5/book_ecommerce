@@ -54,7 +54,7 @@ $publications = HomePageController::all_publication();
                 </form>
 
                 <li class="nav-item">
-                    <a class="nav-link badge_link position-relative" href="#">
+                    <a class="nav-link badge_link position-relative" href="{{route('customer.profile')}}">
                         <img src="{{ asset('frontend/assets/images/icons/love-icon.svg') }}" alt="">
                         <span
                             class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
@@ -89,7 +89,20 @@ $publications = HomePageController::all_publication();
               
                 @auth
                 <li class="nav-item user_login_icon">
-                    <a href="{{route('customer.profile')}}"><img src="{{ asset('frontend/assets/images/icons/user.svg') }}" alt=""></a>
+                    <a href="{{route('customer.profile')}}"><img src="{{ asset('frontend/assets/images/profile/profile-icon.png') }}" alt=""></a>
+                    <div class="user_login_dropdown">
+                        <ul>
+                            <li><a href="my-profile.html">আমার প্রোফাইল</a></li>
+                            <li><a href="checkout1.html">আমার অর্ডারস </a></li>
+                            <li><a href="my-profile.html">পছন্দের তালিকা</a></li>
+                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">সাইন আউট</a>
+                               
+                        <form id="logout-form" action="{{ route('frontend.logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 @else
                 <li class="nav-item user_login">
@@ -104,19 +117,19 @@ $publications = HomePageController::all_publication();
                                 <h1>লগ ইন করুন</h1>
                             </div>
                             <div class="form_wrapper">
-                                <form action="#" class="login_auth_box">
+                                <form class="login_auth_box">
                                     <div class="row">
                                         <div class="col-12 mb-3">
-                                            <input class="form-control form-control-lg" type="text"
+                                            <input class="form-control form-control-lg phone_number" type="text"
                                                 placeholder="আপনার ফোন নম্বর">
 
-                                        </div>
-                                        <div class="col-12 mb-3">
-                                            <input class="form-control form-control-lg" type="password"
+                                                <input class="form-control form-control-lg otp_change d-none" type="password"
                                                 placeholder="পাসওয়ার্ড">
+
                                         </div>
+
                                         <div class="col-12">
-                                            <button>সাবমিট করুন</button>
+                                            <button type="submit" class="btn_tg_sub">সাবমিট করুন</button>
                                         </div>
                                     </div>
                                 </form>
@@ -125,7 +138,7 @@ $publications = HomePageController::all_publication();
                                         <h3 class="or">অথবা গুগল/ফেসবুক দিয়ে লগ ইন করুন,</h3>
                                     </div>
                                     <div class="col-6">
-                                        <a href="#"><button><img src="{{ asset('frontend/assets/images/icons/Google__G__Logo 1.svg') }}"
+                                        <a href="{{route('login.google')}}"><button><img src="{{ asset('frontend/assets/images/icons/Google__G__Logo 1.svg') }}"
                                                     alt="">Google</button></a>
                                     </div>
                                     <div class="col-6">

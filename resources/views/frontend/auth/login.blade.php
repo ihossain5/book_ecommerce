@@ -44,7 +44,7 @@
                     </form>
                     <h3>অথবা গুগল/ফেসবুক দিয়ে লগ ইন করুন,</h3>
                     <div class="social_btns">
-                        <a href="" class="google"><img
+                        <a href="{{route('login.google')}}" class="google"><img
                                 src="{{ asset('frontend/assets/images/icons/Google__G__Logo.svg') }}"
                                 alt="google img">Google</a>
                         <a href="" class="facebook"><img
