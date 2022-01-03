@@ -266,7 +266,22 @@ $publications = HomePageController::all_publication();
                     alt=""></button>
             <div>
                 <img src="{{ asset('frontend/assets/images/icons/demoUserImg.svg') }}" alt="">
-                <h1>লগইন / সাইন ইন</h1>
+                {{-- <h1>লগইন / সাইন ইন</h1> --}}
+                <div class="sm_user_login">
+                    <button class="" type="button" data-bs-toggle="collapse" data-bs-target="#smUserDropdown" aria-controls="smUserDropdown"
+                        aria-expanded="false" aria-label="">
+                        রায়হান কবির
+                        <img src="{{ asset('frontend/assets/images/icons/down-arrow-white.svg') }}" alt="arrow">
+                    </button>
+                    <div class="sm_user_login_dropdown collapse" id=smUserDropdown>
+                        <ul>
+                            <li><a href="my-profile.html">আমার প্রোফাইল</a></li>
+                            <li><a href="checkout1.html">আমার অর্ডারস </a></li>
+                            <li><a href="my-profile.html">পছন্দের তালিকা</a></li>
+                            <li><a href="/">সাইন আউট</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="side_body">

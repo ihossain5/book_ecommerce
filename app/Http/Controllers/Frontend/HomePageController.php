@@ -14,7 +14,11 @@ class HomePageController extends Controller {
 
         $featureCategories = $homepageService->featureCategories();
 
-        return view('frontend.index', compact('books', 'featureCategories'));
+        $authors = $homepageService->authors();
+
+        $popularBooks = $homepageService->popularBooks();
+
+        return view('frontend.index', compact('books', 'featureCategories','authors','popularBooks'));
     }
 
     public static function all_authors() {

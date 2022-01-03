@@ -205,7 +205,7 @@
                                 </div>
                                 <div class="content_wrapper book_card_content">
                                     <div class="rating">
-                                        <div class="rateYo"></div>
+                                        <div class="rateYo" ></div>
                                     </div>
                                     <h3 class="title">{{ $book->title }}</h3>
                                     <p class="author">

@@ -100,7 +100,7 @@ class ProfileController extends Controller {
              ]);
             $customer = Auth::user();
             if ($request->photo) {
-                deleteImage($customer->photo);
+                deleteImage($customer->image);
                 $photo     = $request->photo;
                 $path      = 'customer/avatar/';
                 $photo_url = storeImage($photo, $path, 100, 100);

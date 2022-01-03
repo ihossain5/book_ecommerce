@@ -38,4 +38,9 @@ class Book extends Model {
     public function reviews(){
         return $this->hasMany(BookReview::class, 'book_id')->orderBy('created_at','DESC');
     }
+
+    //order relation
+    public function orders() {
+        return $this->belongsToMany(Order::class, 'order_books', 'book_id', 'order_id')->withPivot('quantity', 'amount');
+    }
 }
