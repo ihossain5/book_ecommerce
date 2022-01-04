@@ -7,8 +7,14 @@ Class CartService {
 
     protected $bookservice;
 
-    public function __construct(BookService $bookservice) {
-        $this->bookservice = $bookservice;
+    public $insideDhakadeliveryFee;
+
+    public $outsideDhakadeliveryFee;
+
+    public function __construct(BookService $bookservice, $insideDhakadeliveryFee = 60, $outsideDhakadeliveryFee = 120) {
+        $this->bookservice             = $bookservice;
+        $this->insideDhakadeliveryFee  = $insideDhakadeliveryFee;
+        $this->outsideDhakadeliveryFee = $outsideDhakadeliveryFee;
 
     }
 
@@ -65,6 +71,10 @@ Class CartService {
     /* get all number of cart quantity */
     public function numberOfCartQty() {
         return Cart::count();
+    }
+    /* destrouy cart */
+    public function destroy() {
+        return  Cart::destroy();
     }
 
     /* get all cart items */

@@ -74,6 +74,4 @@ function getTotalRating($reviews) {
     }else{
         return 0;
     }
-
-  
 }

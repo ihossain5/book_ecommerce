@@ -13,6 +13,7 @@ use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Frontend\BookController as FrontendBookController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
+use App\Http\Controllers\Frontend\CustomerAddressController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\ReviewController;
@@ -164,3 +165,7 @@ Route::post('/frontend-logout',[LoginController::class,'logout'])->name('fronten
 Route::post('/sidebar/filter/author', [SidebarSearchController::class, 'author_sidebar_filter'])->name('author.sidebar.filter');
 Route::post('/sidebar/filter/publisher', [SidebarSearchController::class, 'publisher_sidebar_filter'])->name('publisher.sidebar.filter');
 Route::post('/sidebar/filter/category', [SidebarSearchController::class, 'category_sidebar_filter'])->name('category.sidebar.filter');
+
+Route::post('/customer-address',[CustomerAddressController::class,'getAddress'])->name('get.customer.address');
+
+Route::post('/order-place',[CheckoutController::class,'placeOrder'])->name('order.place');
