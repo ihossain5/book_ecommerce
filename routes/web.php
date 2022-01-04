@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\BookController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\FeatureAttributeController;
+use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PublicationController;
 use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\SocialMediaController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\SidebarSearchController;
 use App\Http\Controllers\Frontend\SocialLoginController;
 use App\Http\Controllers\Frontend\TopicController;
+use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -95,6 +97,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/contact/edit', [ContactController::class, 'edit'])->name('contacts.edit');
     Route::post('/contact/update', [ContactController::class, 'update'])->name('contacts.update');
     Route::post('/contact/delete', [ContactController::class, 'destroy'])->name('contacts.delete');
+// Contact end
+
+// Contact start
+    Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
+    Route::get('/order/{order}', [OrderController::class, 'downloadInvoice'])->name('order.invoice.download');
+
 // Contact end
 
 });

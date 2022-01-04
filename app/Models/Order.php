@@ -5,8 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
-{
+class Order extends Model {
     use HasFactory;
 
     protected $primaryKey = 'order_id';
@@ -27,5 +26,17 @@ class Order extends Model
 
     public function books() {
         return $this->belongsToMany(Book::class, 'order_books', 'order_id', 'book_id')->withPivot('quantity', 'amount')->withTimestamps();
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function status() {
+        return $this->belongsTo(OrderStatus::class, 'order_status_id');
+    }
+
+    public function paymentMethod() {
+        return $this->belongsTo(Payment::class, 'payment_id');
     }
 }

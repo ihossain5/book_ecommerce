@@ -81,6 +81,12 @@
                             <span> Book Management </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('order.index') }}" class="waves-effect">
+                            <i class="fa fa-book"></i>
+                            <span> Order Management </span>
+                        </a>
+                    </li>
 
                     <li class="has_sub">
                         <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-web"></i><span> Website
