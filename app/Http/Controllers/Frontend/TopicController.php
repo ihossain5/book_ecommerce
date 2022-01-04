@@ -39,7 +39,14 @@ class TopicController extends Controller
         }
 
 
-        $books=Book::with('authors')->whereIn('book_id',$book_list)->get();
+        $books=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+
+        // foreach($books as $book){
+        //     $rating=getTotalRating($book->reviews);
+        //     $book->rating=$rating;
+        // }
+        //dd($books);
+
         //dd($books);
         $category_details=Category::where('category_id',$id)->first();
        

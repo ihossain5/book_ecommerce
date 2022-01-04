@@ -51,4 +51,10 @@ class User extends Authenticatable
     public function wishlists(){
         return $this->hasMany(Whislist::class)->with('book','book.reviews');
     }
+
+    public function addresses() {
+        return $this->belongsToMany(Address::class, 'user_addresses', 'user_id', 'address_id')
+        ->withPivot('is_default')
+        ->withTimestamps();
+    }
 }

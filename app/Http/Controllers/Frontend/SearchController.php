@@ -21,7 +21,7 @@ class SearchController extends Controller
     {
         //dd($request->all());
 
-        $request->category_list;
+        $category_list=$request->category_list;
         $category_search_key=$request->category_search_key;
         $publisher_search_key=$request->publisher_search_key;
         $price=$request->price;
@@ -31,39 +31,39 @@ class SearchController extends Controller
 
         if($category_search_key!=null || $writer_search_key!=null || $publisher_search_key!=null){
 
-
-            if($category_search_key!=null){
-    
-                $book_categories=Category::where('name', 'LIKE', '%' . $category_search_key. '%')->get();
-                //dd($book_categories);
-                $category_ids=[];
-                foreach($book_categories as $book_category){
-    
-                    $category_ids[]=$book_category->category_id ;
-                }
-                //dd($category_ids);
-    
-                $book_categories=BookCategory::whereIn('category_id',$category_ids)->get();
             
-                //dd($book_categories);
-                $book_ids=[];
-                foreach($book_categories as $book_category){
+            // if($category_search_key!=null){
     
-                    $book_ids[]=$book_category->book_id;
-                }
-                //dd($book_ids);
+            //     $book_categories=Category::where('name', 'LIKE', '%' . $category_search_key. '%')->get();
+            //     //dd($book_categories);
+            //     $category_ids=[];
+            //     foreach($book_categories as $book_category){
+    
+            //         $category_ids[]=$book_category->category_id ;
+            //     }
+            //     //dd($category_ids);
+    
+            //     $book_categories=BookCategory::whereIn('category_id',$category_ids)->get();
+            
+            //     //dd($book_categories);
+            //     $book_ids=[];
+            //     foreach($book_categories as $book_category){
+    
+            //         $book_ids[]=$book_category->book_id;
+            //     }
+            //     //dd($book_ids);
                 
-                if($book_ids!=null){
+            //     if($book_ids!=null){
     
-                    $bookID=Book::with('authors')->whereIn('book_id',$book_ids)->get();
+            //         $bookID=Book::with('authors')->whereIn('book_id',$book_ids)->get();
         
-                    //dd($bookID);
-                }else{
-                    $bookID=[];
-                }
+            //         //dd($bookID);
+            //     }else{
+            //         $bookID=[];
+            //     }
     
     
-            }
+            // }
     
             if($writer_search_key!=null){
     
@@ -88,7 +88,12 @@ class SearchController extends Controller
                 
                 if($book_ids!=null){
     
-                    $bookID=Book::with('authors')->whereIn('book_id',$book_ids)->get();
+                    $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
         
                     //dd($bookID);
                 }else{
@@ -111,7 +116,12 @@ class SearchController extends Controller
                 
                 if($publication_ids!=null){
     
-                    $bookID=Book::with('authors')->whereIn('publication_id',$publication_ids)->get();
+                    $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publication_ids)->get();
+
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
         
                     //dd($bookID);
                 }else{
@@ -140,7 +150,12 @@ class SearchController extends Controller
                 $unique=array_unique($book_list);
                 //dd($unique);
     
-                $bookID=Book::with('authors')->whereIn('book_id',$unique)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$unique)->get();
+
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
                 //dd($bookID);
     
                 return response()->json([
@@ -150,8 +165,11 @@ class SearchController extends Controller
 
             }elseif($publisher_list){
 
-
-                $bookID=Book::with('authors')->whereIn('publication_id',$publisher_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publisher_list)->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
 
                 //dd($bookID);
     
@@ -162,17 +180,41 @@ class SearchController extends Controller
             }elseif($price!=null){
 
                 if($price==100){
-                    $bookID=Book::with('authors')->whereBetween('regular_price', [0, 100])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [0, 100])->get();
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
                 }elseif($price==500){
-                    $bookID=Book::with('authors')->whereBetween('regular_price', [100, 500])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [100, 500])->get();
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
                 }elseif($price==1000){
-                    $bookID=Book::with('authors')->whereBetween('regular_price', [500, 1000])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [500, 1000])->get();
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
                 }elseif($price==1500){
-                    $bookID=Book::with('authors')->whereBetween('regular_price', [1000, 2000])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [1000, 2000])->get();
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
                 }elseif($price==2000){
-                    $bookID=Book::with('authors')->where('regular_price', '=>',2000)->get();
+                    $bookID=Book::with('authors','reviews')->where('regular_price', '=>',2000)->get();
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
                 }else{        
-                    $bookID=Book::with('authors')->get();
+                    $bookID=Book::with('authors','reviews')->get();
+                    foreach($bookID as $book){
+                        $rating=getTotalRating($book->reviews);
+                        $book->rating=$rating;
+                    }
                 }
                
                 //dd($bookID);
@@ -181,19 +223,43 @@ class SearchController extends Controller
                     'success' => true,
                     'book_list' => $bookID,
                 ]);
+            }elseif($category_list!=null){
+                
+                $book_categories=BookCategory::whereIn('category_id',$category_list)->get();
+        
+            //dd($book_categories);
+            $book_ids=[];
+            foreach($book_categories as $book_category){
+
+                $book_ids[]=$book_category->book_id;
             }
+            //dd($book_ids);
+            
+            $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+            foreach($bookID as $book){
+                $rating=getTotalRating($book->reviews);
+                $book->rating=$rating;
+            }
+                //dd($bookID);
+    
+                return response()->json([
+                    'success' => true,
+                    'book_list' => $bookID,
+                ]);
 
-            else{
+            }else{
 
-                $books=Book::with('authors')->get();
+                $books=Book::with('authors','reviews')->get();
+                foreach($books as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
                 return response()->json([
                     'success' => true,
                     'book_list' => $books,
                 ]);
 
             }
-
-
 
     }
     
@@ -239,7 +305,12 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
     
                 //dd($bookID);
             }else{
@@ -274,7 +345,12 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
     
                 //dd($bookID);
             }else{
@@ -297,7 +373,12 @@ class SearchController extends Controller
             
             if($publication_ids!=null){
 
-                $bookID=Book::whereIn('publication_id',$publication_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publication_ids)->get();
+
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
     
                 //dd($bookID);
             }else{
@@ -337,7 +418,12 @@ class SearchController extends Controller
                 }
                 //dd($book_list);
     
-                $bookID=Book::whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+                
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
     
                 //dd($bookID);
                 
@@ -361,15 +447,37 @@ class SearchController extends Controller
             }
 
             if($price==100){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [0, 100])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [0, 100])->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
+
+
             }elseif($price==500){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [100, 500])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [100, 500])->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }elseif($price==1000){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [500, 1000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [500, 1000])->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }elseif($price==1500){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [1000, 2000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [1000, 2000])->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }elseif($price==2000){
-                $bookID=Book::whereIn('book_id',$book_list)->where('regular_price', '=>',2000)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('regular_price', '=>',2000)->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }else{
 
                 $book_authors=BookAuthor::where('author_id',$author_id)->get();
@@ -379,7 +487,12 @@ class SearchController extends Controller
                     $book_list[]=$book_author->book_id;
                 }
     
-                $bookID=Book::whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }
            
             //dd($bookID);
@@ -400,7 +513,12 @@ class SearchController extends Controller
             }
             //dd($book_list);
 
-            $bookID=Book::whereIn('book_id',$book_list)->whereIn('publication_id',$publisher_list)->get();
+            $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereIn('publication_id',$publisher_list)->get();
+
+            foreach($bookID as $book){
+                $rating=getTotalRating($book->reviews);
+                $book->rating=$rating;
+            }
 
             //dd($bookID);
 
@@ -424,7 +542,12 @@ class SearchController extends Controller
             $unique=array_unique($book_list);
             //dd($unique);
 
-            $bookID=Book::whereIn('book_id',$unique)->get();
+            $bookID=Book::with('authors','reviews')->whereIn('book_id',$unique)->get();
+
+            foreach($bookID as $book){
+                $rating=getTotalRating($book->reviews);
+                $book->rating=$rating;
+            }
             //dd($bookID);
 
             return response()->json([
@@ -440,7 +563,13 @@ class SearchController extends Controller
                     $book_list[]=$book_author->book_id;
                 }
 
-                $bookID=Book::whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
+                
                 return response()->json([
                     'success' => true,
                     'book_list' => $bookID,
@@ -500,7 +629,12 @@ class SearchController extends Controller
 
             if($book_ids!=null){
 
-                $bookID=Book::with('authors')->whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+    
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
 
             }else{
                 $bookID=[];
@@ -541,21 +675,26 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors')->whereIn('book_id',$book_ids)->get();
-
-                $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                $author_id=[];
-                foreach($books_id as $book_id){
-
-                    $author_id[]=$book_id->author_id;
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+    
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
                 }
 
-                $authors=Author::whereIn('author_id',$author_id)->get();
+                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
+                // $author_id=[];
+                // foreach($books_id as $book_id){
 
-                foreach($authors as $author){
+                //     $author_id[]=$book_id->author_id;
+                // }
 
-                    $bookID['author_name']=$author->name;
-                }
+                // $authors=Author::whereIn('author_id',$author_id)->get();
+
+                // foreach($authors as $author){
+
+                //     $bookID['author_name']=$author->name;
+                // }
     
                 //dd($bookID);
             }else{
@@ -596,21 +735,26 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors')->whereIn('book_id',$book_ids)->get();
-
-                $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                $author_id=[];
-                foreach($books_id as $book_id){
-
-                    $author_id[]=$book_id->author_id;
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+    
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
                 }
 
-                $authors=Author::whereIn('author_id',$author_id)->get();
+                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
+                // $author_id=[];
+                // foreach($books_id as $book_id){
 
-                foreach($authors as $author){
+                //     $author_id[]=$book_id->author_id;
+                // }
 
-                    $author_name=$author->name;
-                }
+                // $authors=Author::whereIn('author_id',$author_id)->get();
+
+                // foreach($authors as $author){
+
+                //     $author_name=$author->name;
+                // }
     
                 //dd($bookID);
             }else{
@@ -654,21 +798,27 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors')->with('authors')->whereIn('book_id',$book_ids)->get();
-
-                $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                $author_id=[];
-                foreach($books_id as $book_id){
-
-                    $author_id[]=$book_id->author_id;
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
                 }
+                
 
-                $authors=Author::whereIn('author_id',$author_id)->get();
+                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
+                // $author_id=[];
+                // foreach($books_id as $book_id){
 
-                foreach($authors as $author){
+                //     $author_id[]=$book_id->author_id;
+                // }
 
-                    $author_name=$author->name;
-                }
+                // $authors=Author::whereIn('author_id',$author_id)->get();
+
+                // foreach($authors as $author){
+
+                //     $author_name=$author->name;
+                // }
     
                 //dd($bookID);
             }else{
@@ -702,7 +852,7 @@ class SearchController extends Controller
                 $book_ids2[]=$book_ID->book_id;
             }
 
-            $book_IDs2=Book::whereIn('publication_id',$publisher_list)->get();
+            $book_IDs2=Book::whereIn('publication_id',$publisher_list)->whereIn('book_id',$book_ids2)->get();
             //dd($book_IDs2);
             $bookID=[];
             foreach($book_IDs2 as $book_IDs){
@@ -713,21 +863,26 @@ class SearchController extends Controller
             //dd($bookID);
             if($bookID!=null){
 
-                $bookID=Book::with('authors')->whereIn('book_id',$bookID)->get();
-
-                $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                $author_id=[];
-                foreach($books_id as $book_id){
-
-                    $author_id[]=$book_id->author_id;
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->get();
+                
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
                 }
 
-                $authors=Author::whereIn('author_id',$author_id)->get();
+                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
+                // $author_id=[];
+                // foreach($books_id as $book_id){
 
-                foreach($authors as $author){
+                //     $author_id[]=$book_id->author_id;
+                // }
 
-                    $author_name=$author->name;
-                }
+                // $authors=Author::whereIn('author_id',$author_id)->get();
+
+                // foreach($authors as $author){
+
+                //     $author_name=$author->name;
+                // }
     
                 //dd($bookID);
             }else{
@@ -752,15 +907,36 @@ class SearchController extends Controller
             }
 
             if($price==100){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [0, 100])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [0, 100])->get();
+                
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }elseif($price==500){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [100, 500])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [100, 500])->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }elseif($price==1000){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [500, 1000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [500, 1000])->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }elseif($price==1500){
-                $bookID=Book::whereIn('book_id',$book_list)->whereBetween('regular_price', [1000, 2000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [1000, 2000])->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }elseif($price==2000){
-                $bookID=Book::whereIn('book_id',$book_list)->where('regular_price', '=>',2000)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('regular_price', '=>',2000)->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }else{
                 
                 $book_categories=BookCategory::where('category_id', $category_id)->get();
@@ -771,27 +947,37 @@ class SearchController extends Controller
                     $book_ids[]=$book_category->book_id;
                 }
     
-                $bookID=Book::whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
+                }
             }
 
             $author_name="";
             if($bookID!=null){
 
-                $bookID=Book::with('authors')->whereIn('book_id',$bookID)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->get();
 
-                $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                $author_id=[];
-                foreach($books_id as $book_id){
-
-                    $author_id[]=$book_id->author_id;
+                
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
                 }
 
-                $authors=Author::whereIn('author_id',$author_id)->get();
+                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
+                // $author_id=[];
+                // foreach($books_id as $book_id){
 
-                foreach($authors as $author){
+                //     $author_id[]=$book_id->author_id;
+                // }
 
-                    $author_name=$author->name;
-                }
+                // $authors=Author::whereIn('author_id',$author_id)->get();
+
+                // foreach($authors as $author){
+
+                //     $author_name=$author->name;
+                // }
     
                 //dd($bookID);
             }else{
@@ -822,21 +1008,29 @@ class SearchController extends Controller
             $author_name="";
             if($bookID!=null){
 
-                $bookID=Book::with('authors')->whereIn('book_id',$bookID)->get();
-
-                $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                $author_id=[];
-                foreach($books_id as $book_id){
-
-                    $author_id[]=$book_id->author_id;
+                // $bookID=Book::with('authors')->whereIn('book_id',$bookID)->get();
+                
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->get();
+                
+                foreach($bookID as $book){
+                    $rating=getTotalRating($book->reviews);
+                    $book->rating=$rating;
                 }
+                // dd($bookID);
 
-                $authors=Author::whereIn('author_id',$author_id)->get();
+                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
+                // $author_id=[];
+                // foreach($books_id as $book_id){
 
-                foreach($authors as $author){
+                //     $author_id[]=$book_id->author_id;
+                // }
 
-                    $author_name=$author->name;
-                }
+                // $authors=Author::whereIn('author_id',$author_id)->get();
+
+                // foreach($authors as $author){
+
+                //     $author_name=$author->name;
+                // }
     
                 //dd($bookID);
             }else{

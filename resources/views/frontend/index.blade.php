@@ -150,7 +150,7 @@
     </section>
 
     <!-- most selling books -->
-    <section class="most_selling_book_section">
+    {{-- <section class="most_selling_book_section">
         <div class="container">
             <div class="sc_title_wrapper">
                 <h1 class="sc_title">সর্বাধিক বিক্রিত বই</h1>
@@ -318,7 +318,7 @@
                 </a>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <!-- writers -->
     <section class="pt-120 pb-56">

@@ -69,5 +69,11 @@ function getTotalRating($reviews) {
     $totalReviews = $reviews->count();
     $totalSum     = $reviews->sum('rating');
 
-    return round($totalSum / $totalReviews,1);
+    if($totalReviews >0){
+        return round($totalSum / $totalReviews,1);
+    }else{
+        return 0;
+    }
+
+  
 }

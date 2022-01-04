@@ -12,10 +12,10 @@ $(document).ready(function () {
   })
 
   //pohone and otp toggale
-  $('.btn_tg_sub').on('click', function() {
-    $('.phone_number').addClass('d-none');
-    $('.otp_change').toggleClass('d-none');
-  })
+  // $('.btn_tg_sub').on('click', function() {
+  //   $('.phone_number').addClass('d-none');
+  //   $('.otp_change').toggleClass('d-none');
+  // })
 
 
   // ratin >> rateyo acitvation

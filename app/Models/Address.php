@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderBook extends Model
+class Address extends Model
 {
     use HasFactory;
+    
+    protected $primaryKey = 'address_id';
 
-    protected $primaryKey = 'order_book_id';
+    protected $guarded = [];
 }

@@ -89,7 +89,7 @@ $publications = HomePageController::all_publication();
               
                 @auth
                 <li class="nav-item user_login_icon">
-                    <a href="{{route('customer.profile')}}"><img src="{{ asset('frontend/assets/images/profile/profile-icon.png') }}" alt=""></a>
+                    <a href="{{route('customer.profile')}}"><img src="{{ asset( auth()->user()->image == null ? 'frontend/assets/images/profile/profile-icon.png' : 'images/'.auth()->user()->image) }}" alt=""></a>
                     <div class="user_login_dropdown">
                         <ul>
                             <li><a href="my-profile.html">আমার প্রোফাইল</a></li>
@@ -117,13 +117,13 @@ $publications = HomePageController::all_publication();
                                 <h1>লগ ইন করুন</h1>
                             </div>
                             <div class="form_wrapper">
-                                <form class="login_auth_box">
+                                <form class="login_auth_box" id="loginModalForm" method="POST">@csrf
                                     <div class="row">
                                         <div class="col-12 mb-3">
                                             <input class="form-control form-control-lg phone_number" type="text"
-                                                placeholder="আপনার ফোন নম্বর">
+                                                placeholder="আপনার ফোন নম্বর" name="number">
 
-                                                <input class="form-control form-control-lg otp_change d-none" type="password"
+                                                <input class="form-control form-control-lg otp_change d-none" name="otp" type="password"
                                                 placeholder="পাসওয়ার্ড">
 
                                         </div>
@@ -197,8 +197,10 @@ $publications = HomePageController::all_publication();
                             <h1 class="mega_menu_title">বিষয় সমূহ</h1>
                         </div>
                         <div class="col-6 text-end">
-                            <button class="writer_btn">সব বিষয় দেখুন <img
-                                    src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button>
+                            <a href="{{ route('frontend.topics')}}"><button class="writer_btn">সব বিষয় দেখুন <img
+                                src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a>
+                            {{-- <button class="writer_btn">সব বিষয় দেখুন <img
+                                    src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button> --}}
                         </div>
                     </div>
                     <div class="row mega_link_box">
@@ -224,8 +226,8 @@ $publications = HomePageController::all_publication();
                             <h1 class="mega_menu_title">লেখকগণ</h1>
                         </div>
                         <div class="col-6 text-end">
-                            <button class="writer_btn">সব লেখকদের দেখুন <img
-                                    src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button>
+                            <a href="{{ route('frontend.authors')}}"><button class="writer_btn">সব লেখকদের দেখুন <img
+                                src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a>   
                         </div>
                     </div>
                     <div class="row mega_link_box"> 
@@ -265,8 +267,13 @@ $publications = HomePageController::all_publication();
             <button data-bs-dismiss="offcanvas" class="canvasClose"><img src="{{ asset('frontend/assets/images/icons/close.svg') }}"
                     alt=""></button>
             <div>
-                <img src="{{ asset('frontend/assets/images/icons/demoUserImg.svg') }}" alt="">
-                {{-- <h1>লগইন / সাইন ইন</h1> --}}
+               
+               
+               
+
+                @auth
+                <img src="{{ asset(auth()->user()->image == null ?'frontend/assets/images/icons/demoUserImg.svg' : 'images/'.auth()->user()->image) }}" alt="">
+
                 <div class="sm_user_login">
                     <button class="" type="button" data-bs-toggle="collapse" data-bs-target="#smUserDropdown" aria-controls="smUserDropdown"
                         aria-expanded="false" aria-label="">
@@ -278,15 +285,25 @@ $publications = HomePageController::all_publication();
                             <li><a href="my-profile.html">আমার প্রোফাইল</a></li>
                             <li><a href="checkout1.html">আমার অর্ডারস </a></li>
                             <li><a href="my-profile.html">পছন্দের তালিকা</a></li>
-                            <li><a href="/">সাইন আউট</a></li>
+                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">সাইন আউট</a>
+                               
+                                <form id="logout-form" action="{{ route('frontend.logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                                    </li>
                         </ul>
                     </div>
                 </div>
+
+                @else 
+                <img src="{{ asset('frontend/assets/images/icons/demoUserImg.svg') }}" alt="">
+               <a href="{{route('frontend.login')}}"><h1>লগইন / সাইন ইন</h1></a>  
+                @endauth
             </div>
         </div>
         <div class="side_body">
             <ul class="side_menu">
-                <li><a href="/">হোম</a></li>
+                <li><a href="{{route('frontend.home')}}">হোম</a></li>
                 <li>
                     <a class="dropdown_link" href="javascript:void(0)">প্রকাশনী</a>
                     <ul class="multi_level d-none">

@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\SocialMediaController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\Frontend\BookController as FrontendBookController;
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\ReviewController;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Frontend\WishlistController;
 use App\Http\Controllers\frontend\WriterController;
 use App\Http\Controllers\frontend\ProfileController;
 use App\Http\Controllers\Frontend\SearchController;
+use App\Http\Controllers\Frontend\SidebarSearchController;
 use App\Http\Controllers\Frontend\SocialLoginController;
 use App\Http\Controllers\Frontend\TopicController;
 use Illuminate\Support\Facades\Artisan;
@@ -112,16 +114,22 @@ Route::get('/clear-cache', function () {
 Route::get('/', [HomePageController::class, 'index'])->name('frontend.home');
 Route::get('/book/{book}/details', [FrontendBookController::class, 'bookDetails'])->name('frontend.book.details');
 
-Route::get('/authors', [WriterController::class, 'index'])->name('frontend.authors');
+// Route::get('/authors', [WriterController::class, 'index'])->name('frontend.authors');
 
 Route::post('/add-to-cart', [CartController::class, 'addTocart'])->name('add.cart');
 Route::post('/remove-cart', [CartController::class, 'deleteCart'])->name('remove.cart');
 Route::post('/increase-cart', [CartController::class, 'increaseCart'])->name('increase.cart.qty');
 Route::post('/decrease-cart', [CartController::class, 'decreaseCart'])->name('decrease.cart.qty');
 
+Route::get('checkout',[CheckoutController::class,'checkOut'])->name('frontend.checkout');
+
 Route::get('/sign-in', [LoginController::class, 'index'])->name('frontend.login');
 Route::get('/send-otp', [LoginController::class, 'sendOtp'])->name('frontend.otp.send');
+
 Route::post('/verify-otp', [LoginController::class, 'verifyOtp'])->name('frontend.otp.verification');
+
+Route::post('/send-otp', [LoginController::class, 'otpSend'])->name('send.otp');
+Route::post('/otp-verify', [LoginController::class, 'otpVerification'])->name('verify.otp');
 
 Route::post('store-rating', [ReviewController::class, 'store'])->name('store.review');
 Route::post('store-whishlist', [WishlistController::class, 'store'])->name('store.whislist')->middleware('auth');
@@ -150,3 +158,9 @@ Route::get('login/google', [SocialLoginController::class, 'redirectToGoogle'])->
 Route::get('login/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
 
 Route::post('/frontend-logout',[LoginController::class,'logout'])->name('frontend.logout');
+
+
+//search topic sidebar
+Route::post('/sidebar/filter/author', [SidebarSearchController::class, 'author_sidebar_filter'])->name('author.sidebar.filter');
+Route::post('/sidebar/filter/publisher', [SidebarSearchController::class, 'publisher_sidebar_filter'])->name('publisher.sidebar.filter');
+Route::post('/sidebar/filter/category', [SidebarSearchController::class, 'category_sidebar_filter'])->name('category.sidebar.filter');
