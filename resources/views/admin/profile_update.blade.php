@@ -43,7 +43,7 @@
                                 <p class="ms-directions"></p>
 
                                 <div class="ms-panel-body">
-                                    <form method="POST" action="{{ route('profile.update') }}" id="changeProfile"
+                                    <form method="POST" action="{{ route('admin.profile.update') }}" id="changeProfile"
                                         enctype="multipart/form-data"> @csrf
                                         <div class="row">
                                             <div class="col-md-4">

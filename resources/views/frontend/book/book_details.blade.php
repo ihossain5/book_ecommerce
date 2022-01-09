@@ -85,7 +85,7 @@
                             </div>
 
                             <div class="book_add_btn">
-                                <button onclick="addToWishlist({{ $book->book_id }})"><img
+                                <button type="button" onclick="addToWishlist({{ $book->book_id }})"><img
                                         src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"
                                         alt=""></button>
                                 <button onclick="addToCart({{ $book->book_id }})"><img
@@ -388,7 +388,7 @@
 
 @endsection
 @section('page-js')
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
     <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
 
     <script>
@@ -564,7 +564,7 @@
         $(document).on('submit', '.reviewStoreForm', function(e) {
             e.preventDefault();
             $.ajax({
-                url: config.routes.store,
+                url: "{!! route('store.review') !!}",
                 method: "POST",
                 data: new FormData(this),
                 contentType: false,
@@ -599,15 +599,14 @@
         // add to wishlist   
         function addToWishlist(id) {
             $.ajax({
-                type: "POST",
-                url: config.routes.addWishlist,
+                url: "{!! route('store.whislist') !!}",
+                method: "POST",
                 data: {
                     id: id,
+                    _token: "{{ csrf_token() }}"
                 },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                dataType: 'JSON',
+                dataType: "json",
+
                 success: function(response) {
                     if (response.success == true) {
                         $('.whislistCounter').html(response.data.whislist);

@@ -1,6 +1,6 @@
 @extends('layouts.admin.master')
 @section('title')
-    Publications
+Invoice 
 @endsection
 @section('pageCss')
 
@@ -15,15 +15,15 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between mb-4">
                             <div class="ms-header-text">
-                                <h4 class="mt-0 header-title">All Publications</h4>
+                                <h4 class="mt-0 header-title">All Invoices </h4>
                             </div>
-                            <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
+                            {{-- <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
                                 name="button" id="addButton" data-toggle="modal" data-target="#add"> Add
                                 New
-                            </button>
+                            </button> --}}
                         </div>
                         <div class="table-responsive">
-                            <table id="publicationtable" class="table table-bordered dt-responsive nowrap"
+                            <table id="invoice_table" class="table table-bordered dt-responsive nowrap"
                                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                 <thead>
                                     <tr>
@@ -72,5 +72,11 @@
 @endsection
 
 @section('pageScripts')
-
+<script>
+$(document).ready(function() {
+$('#invoice_table').DataTable({
+    "ordering": false,
+});
+});
+</script>
 @endsection

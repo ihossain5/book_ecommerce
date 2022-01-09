@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\BookUpdateRequest;
 use App\Models\Book;
+use App\Models\BookReview;
 use App\Models\FeatureAttribute;
 use App\Service\AuthorService;
 use App\Service\BookService;
@@ -138,5 +139,15 @@ class BookController extends Controller {
     public function getPdf(Book $book) {
         return $this->success($book->book_preview);
     }
+
+    public function book_review($id) {
+        
+        $book_reivews=BookReview::with('user')->where('book_id',$id)->get();
+        $book_info=Book::where('book_id',$id)->first();
+        $book_name=$book_info->title;
+        return view('admin.book.book_review',compact('book_reivews','book_name'));
+    }
+
+
 }
  

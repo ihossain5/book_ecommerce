@@ -52,23 +52,23 @@
                             <div class="form_group">
                                 <label for="areaWiseName" class="form-label">নাম</label>
                                 <input type="text" name="name" class="form-control" id="areaWiseName"
-                                    placeholder="আপনার নাম" value="{{ $default_address->name }}">
+                                    placeholder="আপনার নাম" value="{{ $default_address->name ?? ''}}">
                             </div>
                             <div class="form_group">
                                 <label for="areaWisePhone" class="form-label">মোবাইল</label>
                                 <input type="text" name="phone" class="form-control" id="areaWisePhone"
-                                    placeholder="আপনার মোবাইল" value="{{ $default_address->mobile }}">
+                                    placeholder="আপনার মোবাইল" value="{{ $default_address->mobile ?? '' }}">
                             </div>
                             <div class="form_group">
                                 <label for="areaWisePhone" class="form-label">বিভাগ</label>
                                 <input type="text" name="division" class="form-control" id="division"
-                                    placeholder="আপনার মোবাইল" value="{{ $default_address->division }}">
+                                    placeholder="আপনার মোবাইল" value="{{ $default_address->division ?? ''}}">
                             </div>
 
                             <div class="form_group">
                                 <label for="areaWisePhone" class="form-label">জেলা</label>
                                 <input type="text" name="district" class="form-control" id="default_distric"
-                                    placeholder="আপনার মোবাইল" value="{{ $default_address->district }}">
+                                    placeholder="আপনার মোবাইল" value="{{ $default_address->district ?? '' }}">
                             </div>
                             {{-- <div class="form_group">
                             <label for="division" class="form-label">বিভাগ</label>
@@ -89,7 +89,7 @@
                             <div class="form_group">
                                 <label for="address" class="form-label">ঠিকানা</label>
                                 <textarea name="address" class="form-control" id="address" cols="30" rows="4"
-                                    placeholder="ঠিকানা">{{ $default_address->address }}</textarea>
+                                    placeholder="ঠিকানা">{{ $default_address->address ?? ''}}</textarea>
                             </div>
                             <h3 class="pt-5 mt-5">পেমেন্ট তথ্য</h3>
 
@@ -166,11 +166,22 @@
                                     <div>
                                         ডেলিভারি ফি
                                     </div>
-                                    <div class="deliveryFee">
-                                        <input type="hidden" name="delivery_fee" id="deliveryFee" value="{{ $default_address->inside_dhaka_city == 1 ? $cartService->insideDhakadeliveryFee : $cartService->outsideDhakadeliveryFee}}">
+                                    @if (!empty($default_address))
+                                     <input type="hidden" name="delivery_fee" id="deliveryFee" value="{{ $default_address->inside_dhaka_city == 1 ? $cartService->insideDhakadeliveryFee : $cartService->outsideDhakadeliveryFee}}">
+                                     <div class="deliveryFee">
+                                       
                                         {{ $default_address->inside_dhaka_city == 1 ? englishTobangla($cartService->insideDhakadeliveryFee) : englishTobangla($cartService->outsideDhakadeliveryFee) }}
                                         টাকা
                                     </div>
+                                    @else 
+                                    <input type="hidden" name="delivery_fee" id="deliveryFee" value="0">
+                                    <div class="deliveryFee">
+                                      {{englishTobangla(0)}}
+                                       
+                                       টাকা
+                                   </div>
+                                    @endif
+                                  
                                 </div>
                                 <div class="cart_fees">
                                     <div>
@@ -191,7 +202,13 @@
                                     placeholder="এখানে লিখুন..."></textarea>
                             </div>
                             <div>
-                                <button type="submit" class="confirm_bn">অর্ডার কনফার্ম করুন</button>
+                                {{-- <button type="submit" class="confirm_bn">অর্ডার কনফার্ম করুন</button> --}}
+                                <button type="button" class="confirm_bn" id="sslczPayBtn"
+                                token="if you have any token validation"
+                                postdata=""
+                                order="If you already have the transaction generated for current order"
+                                endpoint="/pay-via-ajax"> অর্ডার কনফার্ম করুন
+                        </button>
                             </div>
                         </div>
 
@@ -205,6 +222,29 @@
 
 @section('page-js')
     <script>
+
+var obj = {};
+    obj.name = $('#areaWiseName').val();
+    obj.phone = $('#areaWisePhone').val();
+    obj.division = $('#division').val();
+    obj.district = $('#default_distric').val();
+    obj.address = $('#address').val();
+    obj.deliveryFee = $('#deliveryFee').val();
+    obj.info = $('#addInfo').val();
+
+    $('#sslczPayBtn').prop('postdata', obj);
+
+
+(function (window, document) {
+        var loader = function () {
+            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
+            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
+            tag.parentNode.insertBefore(script, tag);
+        };
+
+        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
+    })(window, document);
+    
         $(document).on('change', '#areaSelect', function() {
 
 
@@ -259,6 +299,8 @@
                 }); //ajax end
             }
         })
+
+
 
         function format_value(val) {
             var number = Number(val.replace(/[^0-9\.-]+/g, ""));

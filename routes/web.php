@@ -25,9 +25,14 @@ use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\SidebarSearchController;
 use App\Http\Controllers\Frontend\SocialLoginController;
 use App\Http\Controllers\Frontend\TopicController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +56,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::get('/password-change', [AdminController::class, 'passwordChange'])->name('password.change');
     Route::post('/password-update', [AdminController::class, 'updatePassword'])->name('password.update');
     Route::get('/profile-update', [AdminController::class, 'profile'])->name('user.profile');
-    Route::post('/profile-update', [AdminController::class, 'profileUpdate'])->name('profile.update');
+    Route::post('/profile-update', [AdminController::class, 'profileUpdate'])->name('admin.profile.update');
 
 //* employee route start */
     Route::get('/admins', [AdminController::class, 'allAdmin'])->name('admin.index');
@@ -62,48 +67,52 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
     Route::post('/admin/delete', [AdminController::class, 'destroy'])->name('admin.delete');
 //* employee route end */
 
-/* category route start */
+//* category route start */
     Route::resource('category', CategoryController::class);
     Route::post('update-asdasd', [CategoryController::class, 'updateStatus'])->name('category.status.update');
     Route::post('update-category', [CategoryController::class, 'update'])->name('update.category');
-/* category route end */
+//* category route end */
 
-/* feature attribute route start */
+//* feature attribute route start */
     Route::resource('feature-attributes', FeatureAttributeController::class);
-/* publications  route start */
+//* publications  route start */
     Route::resource('publications', PublicationController::class);
-/* author  route start */
+//* author  route start */
     Route::resource('authors', AuthorController::class);
-/* book route start */
+//* book route start */
     Route::resource('books', BookController::class);
     Route::post('/book/status/update/', [BookController::class, 'updateStatus'])->name('books.status.update');
     Route::get('get/{book}/pdf/', [BookController::class, 'getPdf'])->name('book.get.pdf');
+    Route::get('/book/review/{id}', [BookController::class, 'book_review'])->name('book.review');
 
-// Slider start
+//* Slider start
     Route::resource('sliders', SliderController::class);
-// Slider end
+//* Slider end
 
-// Social Media start
+//* Social Media start
     Route::get('/social', [SocialMediaController::class, 'index'])->name('socials');
     Route::post('/social/store', [SocialMediaController::class, 'store'])->name('socials.store');
     Route::post('/social/edit', [SocialMediaController::class, 'edit'])->name('socials.edit');
     Route::post('/social/update', [SocialMediaController::class, 'update'])->name('socials.update');
     Route::post('/social/delete', [SocialMediaController::class, 'destroy'])->name('socials.delete');
-// Social Media end
+//* Social Media end
 
-// Contact start
+//* Contact start
     Route::get('/contact', [ContactController::class, 'index'])->name('contacts');
     Route::post('/contact/store', [ContactController::class, 'store'])->name('contacts.store');
     Route::post('/contact/edit', [ContactController::class, 'edit'])->name('contacts.edit');
     Route::post('/contact/update', [ContactController::class, 'update'])->name('contacts.update');
     Route::post('/contact/delete', [ContactController::class, 'destroy'])->name('contacts.delete');
-// Contact end
+//* Contact end
 
-// Contact start
+//* Contact start
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/order/{order}', [OrderController::class, 'downloadInvoice'])->name('order.invoice.download');
+    Route::get('/order_manage', [OrderController::class, 'order_info'])->name('order.info');
+    Route::post('/order/manage/edit', [OrderController::class, 'order_view'])->name('order.view');
+    Route::post('/order/manage/change/status', [OrderController::class, 'order_change_status'])->name('order.change.status');
 
-// Contact end
+//* Contact end
 
 });
 //* password reset start */
@@ -119,7 +128,7 @@ Route::get('/clear-cache', function () {
     return "Finished";
 });
 
-// frontend route start
+//* frontend route start
 Route::get('/', [HomePageController::class, 'index'])->name('frontend.home');
 Route::get('/book/{book}/details', [FrontendBookController::class, 'bookDetails'])->name('frontend.book.details');
 
@@ -152,11 +161,19 @@ Route::get('/topics/name/{id}', [TopicController::class, 'topic_name'])->name('f
 Route::post('/search/book/details', [SearchController::class, 'book_detials_filter'])->name('book.details.filter');
 Route::post('/search/topics', [SearchController::class, 'topic_filter'])->name('topics.filter');
 
-Route::get('/book/list', [FrontendBookController::class, 'index'])->name('frontend.books');
+Route::get('/books', [FrontendBookController::class, 'index'])->name('frontend.books');
 
 // Viewer profile start
 Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+Route::get('/profile/address/{id}', [ProfileController::class, 'address_details'])->name('profile.address.detail');
+Route::post('/profile/add/address', [ProfileController::class, 'add_address'])->name('profile.address.add');
+Route::post('/profile/delete/address', [ProfileController::class, 'destroy'])->name('profile.address.delete');
+Route::post('/profile/primary/address', [ProfileController::class, 'primary_address'])->name('profile.address.primary');
+Route::post('/profile/address/update', [ProfileController::class, 'address_update'])->name('profile.address.update');
+Route::post('/profile/my/order', [ProfileController::class, 'my_orders'])->name('profile.my.order');
+
 // Viewer profile end
 
 Route::post('/search/books/filter', [SearchController::class, 'book_filter'])->name('book.filter');
@@ -177,3 +194,21 @@ Route::post('/sidebar/filter/category', [SidebarSearchController::class, 'catego
 Route::post('/customer-address',[CustomerAddressController::class,'getAddress'])->name('get.customer.address');
 
 Route::post('/order-place',[CheckoutController::class,'placeOrder'])->name('order.place');
+
+
+
+
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'paymentSuccess']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END

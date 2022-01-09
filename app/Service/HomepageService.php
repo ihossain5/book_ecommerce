@@ -8,7 +8,7 @@ use App\Models\Category;
 Class HomepageService {
 
     function latestBook() {
-        return Book::with('authors', 'publication','reviews')->latest()->limit(8)->get();
+        return Book::with('authors', 'publication','reviews')->where('is_visible', 1)->latest()->limit(8)->get();
     }
 
     function featureCategories() {
@@ -20,7 +20,7 @@ Class HomepageService {
     }
 
     function popularBooks(){
-        return Book::where('is_available', 1)->where('is_visible',1)->with( 'authors', 'publication','reviews','orders')->withCount([
+        return Book::where('is_visible',1)->with( 'authors', 'publication','reviews','orders')->withCount([
             'orders as counted_order' => function ($query) {
                 $query->where('order_status_id', 3);
             }])->orderBy('counted_order', 'DESC')->get();

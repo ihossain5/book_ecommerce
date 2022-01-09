@@ -183,15 +183,20 @@
     margin-bottom: 5.2rem;
 }
 
-.confirm_bn {
-    font-weight     : bold;
-    font-size       : 2rem;
-    line-height     : 3rem;
-    color           : #FFFFFF;
-    padding         : 1.2rem;
-    background-color: #4F7F6C;
-    border          : none;
-    width           : 100%;
+#sslczPayBtn.confirm_bn::before, 
+#sslczPayBtn.confirm_bn::after {
+    content: none !important;
+}
+#sslczPayBtn.confirm_bn {
+    font-weight     : bold !important;
+    font-size       : 2rem !important;
+    line-height     : 3rem !important;
+    color           : #FFFFFF !important;
+    padding         : 1.2rem !important;
+    background-color: #4F7F6C !important;
+    border          : none !important;
+    width           : 100% !important;
+    height           : auto !important;
 }
 
 .checkout_box2 {

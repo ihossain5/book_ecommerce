@@ -92,9 +92,9 @@ $publications = HomePageController::all_publication();
                     <a href="{{route('customer.profile')}}"><img src="{{ asset( auth()->user()->image == null ? 'frontend/assets/images/profile/profile-icon.png' : 'images/'.auth()->user()->image) }}" alt=""></a>
                     <div class="user_login_dropdown">
                         <ul>
-                            <li><a href="my-profile.html">আমার প্রোফাইল</a></li>
-                            <li><a href="checkout1.html">আমার অর্ডারস </a></li>
-                            <li><a href="my-profile.html">পছন্দের তালিকা</a></li>
+                            <li><a href="{{ route('customer.profile') }}">আমার প্রোফাইল</a></li>
+                            <li><a href="{{ route('customer.profile') }}">আমার অর্ডারস </a></li>
+                            <li><a href="{{ route('customer.profile') }}">পছন্দের তালিকা</a></li>
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">সাইন আউট</a>
                                
                         <form id="logout-form" action="{{ route('frontend.logout') }}" method="POST" class="d-none">
@@ -282,9 +282,9 @@ $publications = HomePageController::all_publication();
                     </button>
                     <div class="sm_user_login_dropdown collapse" id=smUserDropdown>
                         <ul>
-                            <li><a href="my-profile.html">আমার প্রোফাইল</a></li>
-                            <li><a href="checkout1.html">আমার অর্ডারস </a></li>
-                            <li><a href="my-profile.html">পছন্দের তালিকা</a></li>
+                            <li><a href="{{ route('customer.profile') }}">আমার প্রোফাইল</a></li>
+                            <li><a href="{{ route('customer.profile') }}">আমার অর্ডারস </a></li>
+                            <li><a href="{{ route('customer.profile') }}">পছন্দের তালিকা</a></li>
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">সাইন আউট</a>
                                
                                 <form id="logout-form" action="{{ route('frontend.logout') }}" method="POST" class="d-none">

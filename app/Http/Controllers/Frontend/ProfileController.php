@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Order;
+use App\Models\Address;
+use App\Models\UserAddress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -17,81 +20,11 @@ class ProfileController extends Controller {
      */
     public function index() {
         $user_info = Auth::user();
-
-        return view('frontend.profile.my_profile', compact('user_info'));
+        $id=$user_info->id;
+        $user_orders=Order::where('user_id',$id)->get();
+        return view('frontend.profile.my_profile', compact('user_info','user_orders'));
     }
-
-    public function update(Request $request) {
-        //dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'name'  => 'required|max:100',
-            'phone' => 'max:2000',
-            'dob'   => 'max:100',
-            'email' => 'required|max:100',
-            'photo' => 'max:700|mimes:jpg,png,jpeg,svg|dimensions:width=190,height=190',
-
-        ]);
-        if ($validator->fails()) {
-            $data          = array();
-            $data['error'] = $validator->errors()->all();
-            return response()->json([
-                'success' => false,
-                'data'    => $data,
-            ]);
-        } else {
-            $user_info = Auth::user();
-            $user_id   = $user_info->id;
-            $user      = User::find($user_id);
-
-            $image = $request->photo;
-
-            //dd($viewer->photo);
-            if ($image) {
-                if ($user->image != "avatar/default.png") {
-                    File::delete('images/' . $user->image);
-                }
-
-                $image_name = hexdec(uniqid());
-                $image_ext  = strtolower($image->getClientOriginalExtension());
-
-                $image_full_name    = $image_name . '.' . $image_ext;
-                $image_upload_path  = 'avatar/';
-                $image_upload_path1 = 'images/avatar/';
-                $image_url          = $image_upload_path . $image_full_name;
-                $success            = $image->move($image_upload_path1, $image_full_name);
-            } else {
-                $image_url = $user->image;
-            }
-
-            $user['name']          = $request->name;
-            $user['phone']         = $request->phone;
-            $user['date_of_birth'] = $request->dob;
-            $user['email']         = $request->email;
-            $user['image']         = $image_url;
-            $user->update();
-
-            // if(session()->has('isLogin')){
-            //     session()->pull('isLogin');
-
-            //     session()->flush();
-            //     session()->put('isLogin', $user);
-            // }
-
-            $data            = array();
-            $data['message'] = 'Profile Updated successfully';
-            $data['name']    = $user->name;
-            $data['phone']   = $user->phone;
-            $data['dob']     = $user->dob;
-            $data['email']   = $user->email;
-            $data['photo']   = $user->photo;
-            $data['id']      = $user_id;
-
-            return response()->json([
-                'success' => true,
-                'data'    => $data,
-            ]);
-        }
-    }
+   
     
     public function photoUpdate(Request $request){
         if (Auth::check()) {
@@ -122,4 +55,237 @@ class ProfileController extends Controller {
             return view('frontend.profile.my_profile');
         }
     }
+
+
+    public function address_details($id) {
+       
+        $address_info=Address::where('address_id',$id)->first();
+        return response()->json($address_info);
+    }
+    
+    public function address_update(Request $request) {
+       
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+
+            'modal_name'       => 'required|max:100',
+            'modal_phone'       => 'required|max:11',
+            'modal_division'       => 'required|max:50',
+            'modal_district'       => 'required|max:50',
+            'modal_address'       => 'required|max:500',
+            'isInsideDhaka'       => 'required|integer',
+            'address_id'       => 'required',
+        ]);
+        if ($validator->fails()) {
+            $data          = array();
+            $data['error'] = $validator->errors()->all();
+            return response()->json([
+                'success' => false,
+                'data'    => $data,
+            ]);
+        } else {
+           
+        
+            
+            $address = Address::with('user_address')->find($request->address_id);
+
+            $is_default=0;
+            foreach($address->user_address as $Address_pivot){
+                $is_default=$Address_pivot->pivot->is_default;
+            }
+        
+            $address['name']       = $request->modal_name;
+            $address['mobile']       = $request->modal_phone;
+            $address['division']       = $request->modal_division;
+            $address['district']       = $request->modal_district;
+            $address['address']       = $request->modal_address;
+            $address['inside_dhaka_city']       = $request->isInsideDhaka;
+           
+            $address->update();
+
+            $data                   = array();
+            $data['message']        = 'Address Updated successfully';
+            $data['name']          = $address->name;
+            $data['mobile']          = $address->mobile;
+            $data['division']=$address->division;
+            $data['district']       = $address->district;
+            $data['address']       = $address->address;
+            $data['inside_dhaka_city']       = $address->inside_dhaka_city;
+            $data['is_default']       = $is_default;
+
+            $data['id']          = $request->address_id;
+
+            return response()->json([
+                'success' => true,
+                'data'    => $data,
+            ]);
+        }
+    }
+
+
+    
+    
+    public function primary_address(Request $request) {
+       
+        $user_info = Auth::user();
+        $id=$user_info->id;
+        
+        $address_infos=UserAddress::where('user_id',$id)->get();
+
+        foreach($address_infos as $address_info){
+            $address_info['is_default']  = 0;
+            $address_info->update();
+        }
+
+        
+        $user_addrress=UserAddress::where('address_id',$request->id)->first();
+        //dd($user_addrress);
+        $user_addrress['is_default']  = 1;
+        $user_addrress->update();
+
+        $addresses=User::with('addresses')->where('id',$id)->first();
+
+        $data = array();
+        $data['message'] = 'Primary address successfully checked';
+        
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data,
+            'user_address'    => $addresses,
+        ]);
+    }
+    
+    
+    public function add_address(Request $request) {
+       
+       //dd($request->all())
+        $validator = Validator::make($request->all(), [
+            'modal_new_name'   => 'required|max:100',
+            'modal_new_phone'   => 'required|max:11',
+            'modal_new_division'   => 'required|max:100',
+            'modal_new_district'   => 'required|max:100',
+            'modal_new_address'   => 'required|max:500',
+            'is_inside_dhaka'=>'required|max:200',
+        ]);
+
+        if ($validator->fails()) {
+            $data          = array();
+            $data['error'] = $validator->errors()->all();
+            return response()->json([
+                'success' => false,
+                'data'    => $data,
+            ]);
+        }else {
+        $address = Address::create([
+            'name' => $request->modal_new_name,
+            'mobile' => $request->modal_new_phone,
+            'division' => $request->modal_new_division,
+            'district' => $request->modal_new_district,
+            'address' => $request->modal_new_address,
+            'inside_dhaka_city' => $request->is_inside_dhaka,
+
+        ]);
+
+        $user_info = Auth::user();
+        $id=$user_info->id;
+
+        $isExist=UserAddress::where("user_id",$id)->where("is_default",1)->doesntExist();
+        //dd($isExist);
+
+        $is_default_add=1;
+        if (!$isExist) {
+            $is_default_add=0;
+        }
+
+        $address->user_address()->attach($id,array('is_default' => $is_default_add));
+
+        $data = array();
+        $data['message'] = 'Address Added Successfully';
+        
+        
+
+        return response()->json([
+            'success' => true,
+            'data'    => $data,
+            'address'=>$address,
+            'is_default'=>$is_default_add,
+        ]);
+        
+        }
+    
+    }
+
+    public function update(Request $request) {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'name'  => 'required|max:100',
+            'phone' => 'max:2000',
+            'dob'   => 'max:100',
+            'email' => 'required|max:100',
+
+        ]);
+        if ($validator->fails()) {
+            $data          = array();
+            $data['error'] = $validator->errors()->all();
+            return response()->json([
+                'success' => false,
+                'data'    => $data,
+            ]);
+        } else {
+            $user_info = Auth::user();
+            $user_id   = $user_info->id;
+            $user      = User::find($user_id);
+
+
+            $user['name']          = $request->name;
+            $user['phone']         = $request->phone;
+            $user['date_of_birth'] = $request->dob;
+            $user['email']         = $request->email;
+            $user->update();
+
+            $data            = array();
+            $data['message'] = 'Profile Updated successfully';
+            $data['name']    = $user->name;
+            $data['phone']   = $user->phone;
+            $data['dob']     = $user->dob;
+            $data['email']   = $user->email;
+            $data['id']      = $user_id;
+
+            return response()->json([
+                'success' => true,
+                'data'    => $data,
+            ]);
+        }
+    }
+
+    public function destroy(Request $request)
+    {
+        //dd($request->all());
+        $address = Address::findOrFail($request->id);
+
+        $user_address=UserAddress::where('user_address_id',$request->id)->first();
+        $is_default=$user_address->is_default;
+    
+        if ($is_default==0) {
+            $address->delete();
+
+            $data            = array();
+            $data['message'] = 'Address deleted successfully';
+            $data['id']      = $request->id;
+            return response()->json([
+                'success' => true,
+                'data'    => $data,
+            ]);
+        } else {
+            $data            = array();
+            $data['message'] = 'You can not deleted Primary Address!';
+            return response()->json([
+                'success' => false,
+                'data'    => $data,
+            ]);
+        }
+    }
+
+    
 }

@@ -20,8 +20,12 @@ class Order extends Model {
         $this->attributes['total'] = floatval(preg_replace('/[^\d.]/', '', $total));
     }
 
-    public function setSubTotalAttribute($subTotal) {
-        $this->attributes['subtotal'] = floatval(preg_replace('/[^\d.]/', '', $subTotal));
+    public function setAmountAttribute($amount) {
+        $this->attributes['amount'] = floatval(preg_replace('/[^\d.]/', '', $amount));
+    }
+
+    public function setSubTotalAttribute($subtotal) {
+        $this->attributes['subtotal'] = floatval(preg_replace('/[^\d.]/', '', $subtotal));
     }
 
     public function books() {

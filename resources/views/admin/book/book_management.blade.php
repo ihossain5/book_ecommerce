@@ -172,6 +172,10 @@
                                                     </td>
 
                                                     <td>
+                                                        <a type='button' class='btn btn-outline-primary'
+                                                        href="{{ route('book.review', $book->book_id) }}"><i
+                                                            class='fa fa-file'></i></a>
+
                                                         <button type='button' class='btn btn-outline-dark'
                                                             onclick='viewBook({{ $book->book_id }})'><i
                                                                 class='fa fa-eye'></i>

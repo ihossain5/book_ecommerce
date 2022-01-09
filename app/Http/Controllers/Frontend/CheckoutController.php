@@ -17,15 +17,22 @@ class CheckoutController extends Controller {
 
             $user->load('addresses');
 
-            foreach ($user->addresses as $address) {
-                if ($address->pivot->is_default == 1) {
-                    $default_address = $address;
+            if (count($user->addresses) > 0) {
+                foreach ($user->addresses as $address) {
+                    if ($address->pivot->is_default == 1) {
+                        $default_address = $address;
+                    }
                 }
-            }
-            if ($default_address->inside_dhaka_city == 1) {
-                $total = $this->totalAmount($cartService->subTotal(), $cartService->insideDhakadeliveryFee);
+
+                if ($default_address->inside_dhaka_city == 1) {
+                    $total = $this->totalAmount($cartService->subTotal(), $cartService->insideDhakadeliveryFee);
+                } else {
+                    $total = $this->totalAmount($cartService->subTotal(), $cartService->outsideDhakadeliveryFee);
+                }
+
             } else {
-                $total = $this->totalAmount($cartService->subTotal(), $cartService->outsideDhakadeliveryFee);
+                $total           = $this->totalAmount($cartService->subTotal(), 0);
+                $default_address = [];
             }
 
             return view('frontend.checkout.checkout', compact('user', 'cartService', 'default_address', 'total'));
@@ -77,7 +84,7 @@ class CheckoutController extends Controller {
 
         $cartService->destroy();
 
-        Session::flash('success','Order has been placed');
+        Session::flash('success', 'Order has been placed');
 
         return $this->success($order);
 

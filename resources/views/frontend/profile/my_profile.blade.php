@@ -68,20 +68,24 @@
                             @csrf
                             <div class="input_fild">
                                 <label>নাম</label>
-                                <input type="text" class="form-control" placeholder="আপনার নাম" name="name" value="{{ $user_info->name  }}">
+                                <input type="text" class="form-control" placeholder="আপনার নাম" name="name"
+                                    value="{{ $user_info->name  }}">
                             </div>
                             <div class="input_fild">
                                 <label>ফোন নম্বর</label>
-                                <input type="text" class="form-control" placeholder="আপনার ফোন নম্বর" name="phone" value="{{ $user_info->phone  }}">
+                                <input type="text" class="form-control" placeholder="আপনার ফোন নম্বর" name="phone"
+                                    value="{{ $user_info->phone  }}">
                             </div>
                             <div class="input_fild">
                                 <label>ইমেইল অ্যাড্রেস</label>
-                                <input type="email" class="form-control" placeholder="আপনার ইমেইল অ্যাড্রেস" name="email" value="{{ $user_info->email  }}">
+                                <input type="email" class="form-control" placeholder="আপনার ইমেইল অ্যাড্রেস"
+                                    name="email" value="{{ $user_info->email  }}">
                             </div>
 
                             <div class="input_fild">
                                 <label>জন্ম তারিখ</label>
-                                <input type="text" class="form-control" placeholder="আপনার জন্ম তারিখ" name="dob" value="{{ $user_info->date_of_birth  }}">
+                                <input type="text" class="form-control" placeholder="আপনার জন্ম তারিখ" name="dob"
+                                    value="{{ $user_info->date_of_birth  }}">
                             </div>
 
                             {{-- <a href="" class="submit_btn">সেভ করুন</a> --}}
@@ -91,68 +95,216 @@
                         </form>
                     </div>
                     <div role="tabpanel" class="tab-pane " id="area_info">
-                        <ul class="my_address_details">
-                            <li class="address_loc_details">
+                        <ul class="my_address_details" id="user_address_list">
+                            @if(!empty($user_info->addresses))
+                            @foreach($user_info->addresses as $address)
+                            <li class="address_loc_details address_id{{$address->address_id}}">
                                 <div class="address_loc_desc">
-                                    <p class="address_loc"><span>জেলা:</span> ঢাকা </p>
-                                    <p class="address_loc"><span>এরিয়া:</span> গুলশান</p>
-                                    <p class="address_loc"><span>ঠিকানা</span> হাউস ২৩, রোড ৪, গুলশান ২, ঢাকা</p>
-                                    <p class="address_loc"><span>মোবাইল:</span> ০১৭১১১১১১১১</p>
+                                    <p class="address_loc"><span>বিভাগ: </span>{{$address->division}}</p>
+                                    <p class="address_loc"><span>জেলা: </span>{{$address->district}}</p>
+                                    <p class="address_loc"><span>ঠিকানা: </span>{{$address->address}}</p>
+                                    <p class="address_loc"><span>মোবাইল: </span>{{$address->mobile}}</p>
                                 </div>
                                 <div class="address_loc_edit">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="permanent_address" value="">
-                                        <label class="form-check-label"> প্রাথমিক ঠিকানা</label>
+                                        @if($address->pivot->is_default==1)
+                                        <input class="form-check-input" type="checkbox" name="permanent_address"
+                                        value="" onclick="primaryAddress({{ $address->address_id }})" checked>
+                                        @else
+                                        <input class="form-check-input" type="checkbox" name="permanent_address"
+                                        value="" onclick="primaryAddress({{ $address->address_id }})">
+                                        @endif
+                                       
+                                        <label class="form-check-label"> প্রাথমিক ঠিকানা </label>
                                     </div>
                                     <div class="address_loc_buttons">
-                                        <a class="edit" href="my-profile-edit.html"></a>
-                                        <button class="delete"></button>
+
+                                        <button type="button" class="edit address_info"
+                                            data-id="{{ $address->address_id }}">
+
+                                            <button class="delete"
+                                                onclick="deleteAddress({{ $address->address_id }})"></button>
                                     </div>
                                 </div>
                             </li>
-                            <li class="address_loc_details">
-                                <div class="address_loc_desc">
-                                    <p class="address_loc"><span>জেলা:</span> ঢাকা </p>
-                                    <p class="address_loc"><span>এরিয়া:</span> গুলশান</p>
-                                    <p class="address_loc"><span>ঠিকানা</span> হাউস ২৩, রোড ৪, গুলশান ২, ঢাকা</p>
-                                    <p class="address_loc"><span>মোবাইল:</span> ০১৭১১১১১১১১</p>
-                                </div>
-                                <div class="address_loc_edit">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="permanent_address" value="">
-                                        <label class="form-check-label" > প্রাথমিক ঠিকানা</label>
-                                    </div>
-                                    <div class="address_loc_buttons">
-                                        <a class="edit" href="my-profile-edit.html"></a>
-                                        <button class="delete"></button>
-                                    </div>
-                                </div>
-                            </li>
+                            @endforeach
+                            @endif
                         </ul>
-                        <a href="" class="submit_btn">নতুন ঠিকানা যোগ করুন</a>
+                        <button type="button" class="submit_btn" data-bs-toggle="modal"
+                            data-bs-target="#addNewAddressModal">নতুন ঠিকানা যোগ করুন</button>
+
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">ঠিকানা পরিবর্তন করুন</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="edit_address_modal">
+                                    @csrf
+                                    <div class="container">
+                                        <div class="row">
+                                            <input type="hidden" id="address_id"   name="address_id">
+                                            <div class="col-12 text-center circular">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input " type="radio"
+                                                        name="isInsideDhaka" id="select_dhaka" value="1">
+                                                    <label class="form-check-label" for="inlineRadio1">ঢাকা
+                                                        সিটি</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="isInsideDhaka" id="unselect_dhaka" value="0">
+                                                    <label class="form-check-label" for="inlineRadio2">ঢাকা সিটির
+                                                        বাইরে</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <div class="input_fild_modal">
+                                                    <label>নাম</label>
+                                                    <input type="text" class="form-control" id="modal_name"
+                                                        placeholder="আপনার নাম" name="modal_name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <div class="input_fild_modal">
+                                                    <label>ফোন নম্বর</label>
+                                                    <input type="text" class="form-control" id="modal_phone"
+                                                        placeholder="আপনার ফোন নম্বর" name="modal_phone">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <label>বিভাগ</label>
+                                                <input type="text" class="form-control" id="modal_district"
+                                                    placeholder="আপনার বিভাগ" name="modal_division">
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <label>এরিয়া</label>
+                                                <input type="text" class="form-control" id="modal_area"
+                                                    placeholder="আপনার এরিয়া" name="modal_district">
+                                            </div>
+                                            <div class="col-12 cols">
+                                                <div class="input_fild_modal d-block">
+                                                    <label>ঠিকানা</label>
+                                                    <textarea placeholder="আপনার ঠিকানা" id="modal_address"
+                                                        class="form-control" name="modal_address"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="submit_btn">সেভ করুন</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Address Modal -->
+                <div class="modal fade" id="addNewAddressModal" tabindex="-1" aria-labelledby="addNewAddress"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addNewAddressModal">নতুন ঠিকানা যোগ করুন</h5>
+                                <button type="button" class="btn-close" id="addAddressModalClose"
+                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="new_address_model">
+                                    @csrf
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 text-center circular">
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input " type="radio"
+                                                        name="is_inside_dhaka" value="1">
+                                                    <label class="form-check-label" for="inlineRadio1">ঢাকা
+                                                        সিটি</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio"
+                                                        name="is_inside_dhaka" value="0">
+                                                    <label class="form-check-label" for="inlineRadio2">ঢাকা সিটির
+                                                        বাইরে</label>
+                                                </div>
+                                                <label id="is_inside_dhaka-error" class="error mt-2 text-danger"
+                                                    for="is_inside_dhaka"></label>
+                                            </div>
+
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <div class="input_fild_modal">
+                                                    <label>নাম</label>
+                                                    <input type="text" class="form-control" placeholder="আপনার নাম"
+                                                        name="modal_new_name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <div class="input_fild_modal">
+                                                    <label>ফোন নম্বর</label>
+                                                    <input type="text" class="form-control"
+                                                        placeholder="আপনার ফোন নম্বর" name="modal_new_phone">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <input type="text" class="form-control" placeholder="আপনার বিভাগ"
+                                                    name="modal_new_division">
+                                            </div>
+                                            <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
+                                                <input type="text" class="form-control" placeholder="আপনার এরিয়া"
+                                                    name="modal_new_district">
+                                            </div>
+                                            <div class="col-12 cols">
+                                                <div class="input_fild_modal d-block">
+                                                    <label>ঠিকানা</label>
+                                                    <textarea placeholder="আপনার ঠিকানা" class="form-control"
+                                                        name="modal_new_address"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="submit_btn">সেভ করুন</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     <div role="tabpanel" class="tab-pane" id="order_info">
                         <ul class="orders_lists">
+                            @if(!empty($user_orders))
+                            @foreach($user_orders as $user_order)
                             <li class="order_details">
                                 <div class="code_and_delevery">
-                                    <p class="order_code">অর্ডার কোডঃ <span>#10102</span></p>
-                                    <h3 class="order_sign delevery">ডেলিভারড</h3>
+                                    <p class="order_code">অর্ডার কোডঃ <span>#{{ $user_order->id }}</span></p>
+                                    @if($user_order->order_status_id==1)
+                                        <h3 class="order_sign panding">পেন্ডিং</h3>
+                                    @elseif ($user_order->order_status_id==2)
+                                        <h3 class="order_sign delevery">ডেলিভারিং</h3>
+                                    @elseif($user_order->order_status_id==3)  
+                                        <h3 class="order_sign delevery">কমপ্লিট</h3>
+                                    @else
+                                        <h3 class="order_sign panding">ক্যানসেল</h3>
+                                    @endif
+                                    
                                 </div>
                                 <div class="price_date">
-                                    <h3 class="order_price">মোট ৪৮০ টাকা</h3>
-                                    <p class="order_date">২১ ডিসেম্বর, ২০২১</p>
+                                    <h3 class="order_price">মোট {{ englishTobangla($user_order->total) }} টাকা</h3>
+                                    {{-- <p class="order_date">{{ englishTobangla(Carbon\Carbon::parse($user_order->created_at)->format('d F, Y')) }}</p> --}}
+                                    {{-- <p class="order_date">{{ formatDate($user_order->created_at) }}</p> --}}
+                                    <p class="order_date">{{ banglaDate($user_order->created_at)}}</p>
                                 </div>
                             </li>
-                            <li class="order_details">
-                                <div class="code_and_delevery">
-                                    <p class="order_code">অর্ডার কোডঃ <span>#10102</span></p>
-                                    <h3 class="order_sign panding">পেন্ডিং</h3>
-                                </div>
-                                <div class="price_date">
-                                    <h3 class="order_price">মোট ৪৮০ টাকা</h3>
-                                    <p class="order_date">২১ ডিসেম্বর, ২০২১</p>
-                                </div>
-                            </li>
+                            @endforeach
+                            @endif
+                            @if($user_orders->isEmpty())
+                            <div class="col offset-4">
+                                <h1 class="">অর্ডার নেই</h1>
+                            </div>
+                            @endif  
                         </ul>
 
                     </div>
@@ -298,6 +450,431 @@
                     }
                 },
             }); //ajax end
-        });         
+        });
+
+
+            $(document).ready(function() {
+            $("#edit_profile_form").validate({
+
+                rules: {
+                  name: {
+                        required: true,
+                        maxlength: 100,
+                    },
+                    phone: {
+                        required: true,
+                        maxlength: 11,
+                    },
+                    email: {
+                        required: true,
+                        email:true,
+                    },
+                    dob: {
+                        required: true,
+                    },
+                },
+                messages: {
+                  name: {
+                        required: 'Please insert name',
+                    },
+                    phone: {
+                        required: 'Please insert phone',
+                    },
+                    dob: {
+                        required: 'Please insert date of birth',
+                    },
+                    email: {
+                        required:  'Please insert email',
+
+                    },
+                },
+                errorPlacement: function(label, element) {
+                    label.addClass('mt-2 text-danger');
+                    label.insertAfter(element);
+                },
+            });
+        });
+        //end
+
+        $(document).off('submit', '#edit_profile_form');
+            $(document).on('submit', '#edit_profile_form', function(event) {
+                event.preventDefault();
+                $.ajax({
+
+                    url: "{!! route('profile.update') !!}",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(response) {
+
+                        if (response.success == true) {
+
+                          if (response.data.message) {
+                           
+                            toastr['success'](response.data.message);
+                            }
+                        }else {
+                         
+
+                        }
+
+                      }
+
+
+                    })
+                  });
+
+
+    $(document).on('click','.address_info',function(){
+        var id =$(this).data('id');
+    
+
+        $.get('/profile/address/'+id,function(data){
+            if(data.inside_dhaka_city==1){
+                $( "#select_dhaka" ).prop( "checked", true );
+            }else{
+                $( "#unselect_dhaka" ).prop( "checked", true );
+            }
+           
+
+
+          $('#exampleModal #address_id').val(data.address_id);
+          $('#exampleModal #modal_name').val(data.name);
+          $('#exampleModal #modal_phone').val(data.mobile);
+          $('#exampleModal #modal_district').val(data.division);
+          $('#exampleModal #modal_area').val(data.district);
+          $('#exampleModal #modal_address').val(data.address);
+          $('#exampleModal #select_dhaka').val(data.inside_dhaka_city);
+        
+        $('#exampleModal').modal('show');  
+        
+        })
+    })
+
+
+
+    $(document).ready(function() {
+            $("#edit_address_modal").validate({
+                rules: {
+                    is_inside_dhaka: {
+                        required: true,
+                    },
+                    modal_new_name: {
+                        required: true,
+                        maxlength: 100,
+                    },
+                    modal_new_phone: {
+                        required: true,
+                        maxlength: 11,
+                        minlength: 11,
+                        digits:true,
+                    },
+                    modal_new_district: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                    modal_new_area: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                    modal_new_address: {
+                        required: true,
+                        maxlength: 500,
+                    },
+                },
+                messages: {
+                    is_inside_dhaka: {
+                        required: 'Please select one',
+                    },
+                    modal_new_name: {
+                        required: 'Please insert name',
+                    },
+                    modal_new_phone: {
+                        required: 'Please insert phone',
+                    },
+                    modal_new_district: {
+                        required:  'Please insert division',
+
+                    },
+                    modal_new_area: {
+                        required:  'Please insert area',
+
+                    },
+                    modal_new_address: {
+                        required:  'Please insert address',
+
+                    },
+                },
+                errorPlacement: function(label, element) {
+                    label.addClass('mt-2 text-danger');
+                    label.insertAfter(element);
+                },
+            });
+        });
+
+     $(document).off('submit', '#edit_address_modal');
+            $(document).on('submit', '#edit_address_modal', function(event) {
+                event.preventDefault();
+                $.ajax({ 
+                    url: "{!! route('profile.address.update') !!}",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success == true) {
+                        $('.address_id' + response.data.id).html(
+                                `<div class="address_loc_desc">
+                                    <p class="address_loc"><span>বিভাগ: </span>${response.data.division}</p>
+                                    <p class="address_loc"><span>জেলা: </span>${response.data.district}</p>
+                                    <p class="address_loc"><span>ঠিকানা: </span>${response.data.address}</p>
+                                    <p class="address_loc"><span>মোবাইল: </span>${response.data.mobile}</p>
+                                </div>
+                                <div class="address_loc_edit">
+                                    <div class="form-check">
+                                        ${ (response.data.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${response.data.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${response.data.address_id})">`)
+
+                                            
+                                        }
+                                    </div>
+                                    <div class="address_loc_buttons">
+
+                                        <button type="button" class="edit address_info"
+                                            data-id="${response.data.id}">
+
+                                            <button class="delete"
+                                                onclick="deleteAddress(${response.data.id})"></button>
+                                    </div>
+                                </div>`
+                            );
+
+                            if (response.data.message) {
+                                $('#exampleModal').trigger('click');
+                                $('#edit_address_modal')[0].reset();
+
+                                toastr['success'](response.data.message);
+                            }
+                        }else{
+                            toastr['error'](response.data.error);
+                        }
+                        
+
+                    }, //success end
+                });
+            });
+
+    $(document).ready(function() {
+            $("#new_address_model").validate({
+
+                rules: {
+                    is_inside_dhaka: {
+                        required: true,
+                    },
+                    modal_new_name: {
+                        required: true,
+                        maxlength: 100,
+                    },
+                    modal_new_phone: {
+                        required: true,
+                        maxlength: 11,
+                        minlength: 11,
+                        digits:true,
+                    },
+                    modal_new_district: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                    modal_new_area: {
+                        required: true,
+                        maxlength: 50,
+                    },
+                    modal_new_address: {
+                        required: true,
+                        maxlength: 500,
+                    },
+                },
+                messages: {
+                    is_inside_dhaka: {
+                        required: 'Please select one',
+                    },
+                    modal_new_name: {
+                        required: 'Please insert name',
+                    },
+                    modal_new_phone: {
+                        required: 'Please insert phone',
+                    },
+                    modal_new_district: {
+                        required:  'Please insert division',
+
+                    },
+                    modal_new_area: {
+                        required:  'Please insert area',
+
+                    },
+                    modal_new_address: {
+                        required:  'Please insert address',
+
+                    },
+                },
+                errorPlacement: function(label, element) {
+                    label.addClass('mt-2 text-danger');
+                    label.insertAfter(element);
+                },
+            });
+        });
+        //end
+
+        $(document).off('submit', '#new_address_model');
+            $(document).on('submit', '#new_address_model', function(event) {
+                //alert('submit');
+                event.preventDefault();
+                $.ajax({
+                    url:  "{!! route('profile.address.add') !!}",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function(response) {
+
+                        if(response.success==true){
+                            $('#addAddressModalClose').trigger('click');
+                            $('#new_address_model')[0].reset();
+                            $('#user_address_list').append(`<li class="address_loc_details address_id${response.address.address_id}">
+                                <div class="address_loc_desc">
+                                    <p class="address_loc"><span>বিভাগ: </span>${response.address.division}</p>
+                                    <p class="address_loc"><span>জেলা: </span>${response.address.district}</p>
+                                    <p class="address_loc"><span>ঠিকানা: </span>${response.address.address}</p>
+                                    <p class="address_loc"><span>মোবাইল: </span>${response.address.mobile}</p>
+                                </div>
+                                <div class="address_loc_edit">
+                                    <div class="form-check"> 
+
+                                        ${ (response.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${response.address.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${response.address.address_id})">`)
+   
+                                        }
+
+
+                                       
+                                        <label class="form-check-label"> প্রাথমিক ঠিকানা </label>
+                                    </div>
+                                    <div class="address_loc_buttons">
+
+                                        <button type="button" class="edit address_info"
+                                            data-id="${response.address.address_id}">
+
+                                            <button class="delete"
+                                                onclick="deleteAddress(${response.address.address_id})"></button> 
+                                    </div>
+                                </div>
+                            </li>`);
+
+                            // <input class="form-check-input" type="checkbox" name="permanent_address"
+                            //             value="" onclick="primaryAddress(${response.address.address_id})">
+                            toastr['success'](response.data.message);
+
+                        }else{
+                            toastr['error'](response.data.error);
+                        }
+                      }
+
+                    })
+                  });
+
+        // delete address
+        function deleteAddress(id) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{!! route('profile.address.delete') !!}",
+                        data: {
+                            id: id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.success === true) {
+                                toastr['success'](response.data.message);
+                                $('.address_id'+ response.data.id).remove();
+                            } else {
+                                toastr['error'](response.data.message);
+                            }
+                        }
+                    });    
+            }
+       //primary address     
+      function primaryAddress(id) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{!! route('profile.address.primary') !!}",
+                        data: {
+                            id: id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.success === true) {
+
+                                $("#user_address_list").empty();
+                                if(response.user_address.length!=0){
+                                
+                                    $.each(response.user_address.addresses, function(index, val) {
+                                        console.log(val);
+                                    $('#user_address_list').append(`<li class="address_loc_details address_id${val.address_id}">
+                                <div class="address_loc_desc">
+                                    <p class="address_loc"><span>বিভাগ: </span>${val.division}</p>
+                                    <p class="address_loc"><span>জেলা: </span>${val.district}</p>
+                                    <p class="address_loc"><span>ঠিকানা: </span>${val.address}</p>
+                                    <p class="address_loc"><span>মোবাইল: </span>${val.mobile}</p>
+                                </div>
+                                <div class="address_loc_edit">
+                                    <div class="form-check">
+                                        ${ (val.pivot.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${val.address_id})">`)
+
+                                            
+                                        }
+
+                                        <label class="form-check-label"> প্রাথমিক ঠিকানা </label>
+                                    </div>
+                                    <div class="address_loc_buttons">
+
+                                        <button type="button" class="edit address_info"
+                                            data-id="${val.address_id}">
+
+                                            <button class="delete"
+                                                onclick="deleteAddress(${val.address_id})"></button>
+                                    </div>
+                                </div>
+                            </li>`)
+                                    });
+                                    
+                                }else{
+                                    $('#user_address_list').append(`<h1>No data!</h1>`);
+                                    }
+                                
+                                toastr['success'](response.data.message);
+
+
+                               
+                            } else {
+                                toastr['error'](response.message);
+                            }
+                        }
+                    });    
+            }
+        //end
+        
+        //end          
 </script>
 @endsection
