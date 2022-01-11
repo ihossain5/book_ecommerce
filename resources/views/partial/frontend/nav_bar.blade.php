@@ -46,15 +46,18 @@ $publications = HomePageController::all_publication();
             </ul>
 
             <ul class="navbar-nav ms-auto align-items-center">
-                <form>
-                    <div class="nav_search">
-                        <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search">
-                        <button><img src="{{ asset('frontend/assets/images/icons/search.svg') }}" alt=""></button>
+                <form class="position-relative" action="{{ route('book.filter.search') }}">
+                    @csrf
+                    <div class="nav_search" >
+                        <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search" id="navbar_search" name="navbar_search"  onkeypress="book_search_method()" onkeyup="book_search_method()">
+                        <button type="submit"><img src="{{ asset('frontend/assets/images/icons/search.svg') }}" alt=""></button>
+                      
                     </div>
+                    <div  id="nav_bar_search_div"  class="position-absolute left-0 right-0 search_div" ></div>
                 </form>
 
                 <li class="nav-item">
-                    <a class="nav-link badge_link position-relative" href="{{route('customer.profile')}}">
+                    <a class="nav-link badge_link position-relative" href="{{route('customer.profile')}}#wishlist">
                         <img src="{{ asset('frontend/assets/images/icons/love-icon.svg') }}" alt="">
                         <span
                             class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
@@ -93,8 +96,8 @@ $publications = HomePageController::all_publication();
                     <div class="user_login_dropdown">
                         <ul>
                             <li><a href="{{ route('customer.profile') }}">আমার প্রোফাইল</a></li>
-                            <li><a href="{{ route('customer.profile') }}">আমার অর্ডারস </a></li>
-                            <li><a href="{{ route('customer.profile') }}">পছন্দের তালিকা</a></li>
+                            <li><a href="{{ route('customer.profile') }}#orders">আমার অর্ডারস </a></li>
+                            <li><a href="{{ route('customer.profile') }}#wishlist">পছন্দের তালিকা</a></li>
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">সাইন আউট</a>
                                
                         <form id="logout-form" action="{{ route('frontend.logout') }}" method="POST" class="d-none">
@@ -169,19 +172,20 @@ $publications = HomePageController::all_publication();
                             <h1 class="mega_menu_title">প্রকাশনী</h1>
                         </div>
                         <div class="col-6 text-end">
-                            <button class="writer_btn">সব লেখকদের দেখুন <img
-                                    src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button>
+                            <a href="{{ route('frontend.publishers')}}"><button class="writer_btn">সব প্রকাশনী দেখুন <img
+                                src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a>
                         </div>
                     </div>
                     <div class="row mega_link_box">
-
+                        @if (!empty($publications))
                         @foreach ($publications as $publication)
                         <div class="col-3">
                             <ul class="mega_writer_link">
-                                <li><a href="#"> {{$publication->name}}</a></li>
+                                <li><a href="{{ route('frontend.publishers.name', $publication->publication_id ) }}"> {{$publication->name}}</a></li>
                             </ul>
                         </div> 
                         @endforeach
+                        @endif
                         
                     </div>
                 </div>
@@ -204,6 +208,7 @@ $publications = HomePageController::all_publication();
                         </div>
                     </div>
                     <div class="row mega_link_box">
+                        @if(!empty($categories))
                         @foreach ($categories as $category)
                         <div class="col-3">
                             <ul class="mega_writer_link">
@@ -211,6 +216,7 @@ $publications = HomePageController::all_publication();
                             </ul>
                         </div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
 
@@ -231,6 +237,7 @@ $publications = HomePageController::all_publication();
                         </div>
                     </div>
                     <div class="row mega_link_box"> 
+                        @if(!empty($authors))
                         @foreach ($authors as $author)
                          
                         <div class="col-3">
@@ -239,6 +246,7 @@ $publications = HomePageController::all_publication();
                             </ul>
                         </div>
                         @endforeach
+                        @endif
                     </div>
                 </div>
 
@@ -307,20 +315,23 @@ $publications = HomePageController::all_publication();
                 <li>
                     <a class="dropdown_link" href="javascript:void(0)">প্রকাশনী</a>
                     <ul class="multi_level d-none">
+                        @if(!empty($publications))
                         @foreach ($publications as $publication)
-                            <li><a href="#">{{$publication->name}}</a></li>
+                            <li><a href="{{ route('frontend.publishers.name', $publication->publication_id) }}">{{$publication->name}}</a></li>
                         @endforeach
-                        {{-- <li><a href="#"><button class="writer_btn">সব প্রকাশনী দেখুন <img
-                                        src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li> --}}
+                        @endif
+                        <li><a href="{{ route('frontend.publishers') }}"><button class="writer_btn">সব প্রকাশনী দেখুন <img
+                                        src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li>
                     </ul>
                 </li>
                 <li>
                     <a class="dropdown_link" href="javascript:void(0)">বিষয়</a>
                     <ul class="multi_level d-none">
-
+                        @if(!empty($categories))
                         @foreach ($categories as $category)
                             <li><a href="{{ route('frontend.topics.name', $category->category_id ) }}">{{ $category->name }}</a></li>
                         @endforeach
+                        @endif
                         <li><a href="{{ route('frontend.topics')}}"><button class="writer_btn">সব বিষয় দেখুন <img
                                         src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li>
                     </ul>
@@ -328,10 +339,11 @@ $publications = HomePageController::all_publication();
                 <li>
                     <a class="dropdown_link" href="javascript:void(0)">লেখক</a>
                     <ul class="multi_level d-none">
-
+                        @if(!empty($authors))
                         @foreach ($authors as $author)
                         <li><a href="{{ route('frontend.author.details', $author->author_id ) }}">{{ $author->name }}</a></li>
                         @endforeach
+                        @endif
                         <li><a href="{{ route('frontend.authors')}}"><button class="writer_btn">সব লেখক দেখুন <img
                                         src="{{ asset('frontend/assets/images/icons/fi_arrow-right.svg') }}" alt=""></button></a></li>
                     </ul>

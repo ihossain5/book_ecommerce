@@ -95,7 +95,7 @@
 
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="cashOnDel">
+                                    <input class="form-check-input" type="radio" value="" id="cashOnDel">
                                     <label class="form-check-label" for="cashOnDel">
                                         ক্যাশ অন ডেলিভারি
                                     </label>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="bkash">
+                                    <input class="form-check-input" type="radio" value="" id="bkash">
                                     <label class="form-check-label" for="bkash">
                                         বিকাশ/নগদ
                                     </label>
@@ -111,7 +111,7 @@
                             </div>
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="creditDabit">
+                                    <input class="form-check-input" type="radio" value="" id="creditDabit">
                                     <label class="form-check-label" for="creditDabit">
                                         ক্রেডিট/ডেবিট কার্ড
                                     </label>
@@ -202,8 +202,8 @@
                                     placeholder="এখানে লিখুন..."></textarea>
                             </div>
                             <div>
-                                {{-- <button type="submit" class="confirm_bn">অর্ডার কনফার্ম করুন</button> --}}
-                                <button type="button" class="confirm_bn" id="sslczPayBtn"
+                                <button type="button" onclick="validateForm()" class="confirm_bn">অর্ডার কনফার্ম করুন</button>
+                                <button type="button" class="confirm_bn d-none" id="sslczPayBtn"
                                 token="if you have any token validation"
                                 postdata=""
                                 order="If you already have the transaction generated for current order"
@@ -348,32 +348,49 @@ var obj = {};
 
         $(document).on('submit', '.checkoutForm', function(e) {
             e.preventDefault();
-            $.ajax({
-                url: "{!! route('order.place') !!}",
-                method: "post",
-                data: new FormData(this),
-                contentType: false,
-                cache: false,
-                processData: false,
-                dataType: "json",
-                success: function(response) {
-                    if (response.success == true) {
-                        var url = '{{ route('frontend.home') }}';
-                         location.replace(url);
+            // $.ajax({
+            //     url: "{!! route('order.place') !!}",
+            //     method: "post",
+            //     data: new FormData(this),
+            //     contentType: false,
+            //     cache: false,
+            //     processData: false,
+            //     dataType: "json",
+            //     success: function(response) {
+            //         if (response.success == true) {
+            //             var url = '{{ route('frontend.home') }}';
+            //              location.replace(url);
 
-                    } //success end
+            //         } //success end
 
-                },
-                error: function(error) {
-                    if (error.status == 422) {
-                        $.each(error.responseJSON.errors, function(i, message) {
-                            toastr['error'](message);
-                        });
+            //     },
+            //     error: function(error) {
+            //         if (error.status == 422) {
+            //             $.each(error.responseJSON.errors, function(i, message) {
+            //                 toastr['error'](message);
+            //             });
 
-                    }
-                },
-            }); //ajax end
+            //         }
+            //     },
+            // }); //ajax end
 
         });
+
+        function validateForm(){
+            $('.checkoutForm').submit();
+            // $('#sslczPayBtn').trigger('click');
+            var name = $('#areaWiseName').val();
+            var phone = $('#areaWisePhone').val();
+            var division = $('#division').val();
+            var default_distric = $('#default_distric').val();
+            var address = $('#address').val();
+            var deliveryFee = $('#deliveryFee').val();
+
+            if(name == '' || phone == '' || division == '' || default_distric == '' || address == ''  || deliveryFee == '' ){
+
+            }else{
+                $('#sslczPayBtn').trigger('click');
+            }
+        }
     </script>
 @endsection

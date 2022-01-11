@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap.min.css') }}">
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/jquery.rateyo.min.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 @yield('page-css')
 <style>
     .toast-message {
@@ -21,4 +22,13 @@
         background-image: none !important;
     }
 
+    .search_div{
+        width:100%;
+        background-color: white;
+        border-radius: 0 0 8px 8px;
+    }
+    .search_div a{
+        display: block;
+        padding:5px;
+    }
 </style>

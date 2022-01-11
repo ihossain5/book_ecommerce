@@ -4,20 +4,48 @@ namespace App\Http\Controllers\Frontend;
 use App\Models\Author;
 use App\Models\Publication;
 use App\Models\Category;
+use App\Models\Book;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class SidebarSearchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function book_search(Request $request)
     {
-        //
+        //dd($request->all());
+        $key=$request->navbar_search;
+        $books = Book::with('authors')->where('title', 'like', '%' .$key. '%')->where('is_visible',1)->paginate(12);
+        $authors=Author::orderBy('name')->get();
+        $categories=Category::orderBy('name')->get();
+        $publications=Publication::orderBy('name')->get();
+
+        return view('frontend.book.books',compact('books','authors','categories','publications'));
+
     }
+
+    public function getBook(Request $request){
+
+        //dd($request->all());
+        $search = $request->search;
+
+        if($search == ''){
+            $response =null;
+        }else{
+        
+            $books = Book::select('book_id','title')->where('title', 'like', '%' .$search . '%')->where('is_visible',1)->limit(5)->get();
+            $response = array();
+            foreach($books as $book){
+            $response[] = array("value"=>$book->book_id,"label"=>$book->title);
+            }
+        }   
+        
+
+        return response()->json([
+            'success' => true,
+            'value' => $response,
+            
+        ]);
+     }
     
     
     public function author_sidebar_filter(Request $request)
@@ -66,8 +94,6 @@ class SidebarSearchController extends Controller
                 'message' => 'all author!',
                 
             ]);
-            
-         
         }else{
             $publication_list=Publication::orderBy('name')->get();
             
@@ -80,6 +106,8 @@ class SidebarSearchController extends Controller
         }
         
     }
+
+
     public function category_sidebar_filter(Request $request)
     {
         //dd($request->all());
@@ -108,71 +136,5 @@ class SidebarSearchController extends Controller
             ]);
         }
         
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

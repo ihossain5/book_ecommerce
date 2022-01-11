@@ -1,9 +1,68 @@
 @extends('layouts.frontend.master')
 @section('title', 'Book Details')
 
+@section('meta')
+    <meta property="og:url" content="{{ url()->current() }}" />
+
+    <meta property="og:title" content="{{ $book->title }}" />
+    <meta property="og:description" content="{{ $book->long_description }}" />
+    <meta property="og:image" content="{{ asset($book->cover_image) }}" />
+@endsection
+
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/book-details.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <style>
+        #shareModal button {
+            border: 0;
+            outline: none;
+            background: transparent;
+            width: 2.1rem;
+            height: 2.1rem;
+            position: absolute;
+            top: 2.4rem;
+            right: 2.4rem;
+            z-index: 1;
+        }
+
+        #shareModal .modal-content {
+            border-radius: 1.6rem;
+        }
+
+        #shareModal .modal-body {
+            padding: 2.4rem 6rem 4rem 4rem;
+        }
+
+        #shareModal h6 {
+            font-size: 1.8rem;
+            line-height: 2.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5.8rem;
+        }
+
+        @media (min-width: 576px) {
+            #shareModal .modal-dialog {
+                max-width: 446px;
+            }
+        }
+
+        #shareModal .social-share {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #shareModal a {
+            display: inline-block;
+            border-radius: 8px;
+            max-width: 5.6rem;
+            width: 100%;
+        }
+
+    </style>
 @endsection
 
 @section('content')
@@ -63,9 +122,10 @@
                                 </h2>
 
                                 <div class="d-flex rating_box">
-                                    <div class="rating ratingDetails ratingId0" data-rating="{{$rating}}"></div>
+                                    <div class="rating ratingDetails ratingId0" data-rating="{{ $rating }}"></div>
                                     <div>
-                                        <span>({{ englishTobangla($rating) }} / ({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</span>
+                                        <span>({{ englishTobangla($rating) }} /
+                                            ({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</span>
                                     </div>
                                 </div>
 
@@ -91,7 +151,8 @@
                                 <button onclick="addToCart({{ $book->book_id }})"><img
                                         src="{{ asset('frontend/assets/images/icons/shopping_cart_black_24dp (1).svg') }}"
                                         alt=""></button>
-                                <button><img src="{{ asset('frontend/assets/images/icons/share_black_24dp 1.svg') }}"
+                                <button onclick="share()"><img
+                                        src="{{ asset('frontend/assets/images/icons/share_black_24dp 1.svg') }}"
                                         alt=""></button>
                             </div>
                         </div>
@@ -127,9 +188,10 @@
                         </h2>
 
                         <div class="d-flex rating_box">
-                            <div class="rating ratingId0" data-rating="{{$rating}}"></div>
+                            <div class="rating ratingId0" data-rating="{{ $rating }}"></div>
                             <div>
-                                <span>({{ englishTobangla($rating) }} / ({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</span>
+                                <span>({{ englishTobangla($rating) }} /
+                                    ({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</span>
                             </div>
                         </div>
 
@@ -263,7 +325,7 @@
         <div class="container">
             <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
                 @if (!empty($related_books))
-                    @foreach ($related_books as $related_book)
+                    @foreach ($related_books as $key => $related_book)
                         <div class="col">
                             <div class="book_card_wrapper">
                                 <div class="image_wrapper">
@@ -273,20 +335,21 @@
                                             src="{{ asset('images/' . $related_book->cover_image) }}" alt="book image">
                                     </a>
                                     @if ($related_book->discounted_percentage != null || $related_book->discounted_percentage != 0)
-                                    <div class="red_tag">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49"
-                                            fill="none">
-                                            <path
-                                                d="M23.7645 0.798398C24.1606 0.368447 24.8394 0.368447 25.2355 0.798399L29.1564 5.05469C29.4184 5.33912 29.821 5.44698 30.1901 5.33167L35.7138 3.60607C36.2718 3.43175 36.8597 3.77117 36.9878 4.34156L38.2552 9.98808C38.3399 10.3654 38.6346 10.6601 39.0119 10.7448L44.6584 12.0122C45.2288 12.1403 45.5682 12.7282 45.3939 13.2862L43.6683 18.8099C43.553 19.179 43.6609 19.5816 43.9453 19.8436L48.2016 23.7645C48.6316 24.1606 48.6316 24.8394 48.2016 25.2355L43.9453 29.1564C43.6609 29.4184 43.553 29.821 43.6683 30.1901L45.3939 35.7138C45.5682 36.2718 45.2288 36.8597 44.6584 36.9878L39.0119 38.2552C38.6346 38.3399 38.3399 38.6346 38.2552 39.0119L36.9878 44.6584C36.8597 45.2288 36.2718 45.5682 35.7138 45.3939L30.1901 43.6683C29.821 43.553 29.4184 43.6609 29.1564 43.9453L25.2355 48.2016C24.8394 48.6316 24.1606 48.6316 23.7645 48.2016L19.8436 43.9453C19.5816 43.6609 19.179 43.553 18.8099 43.6683L13.2862 45.3939C12.7282 45.5682 12.1403 45.2288 12.0122 44.6584L10.7448 39.0119C10.6601 38.6346 10.3654 38.3399 9.98808 38.2552L4.34156 36.9878C3.77117 36.8597 3.43175 36.2718 3.60607 35.7138L5.33167 30.1901C5.44698 29.821 5.33912 29.4184 5.05469 29.1564L0.798398 25.2355C0.368447 24.8394 0.368447 24.1606 0.798399 23.7645L5.05469 19.8436C5.33912 19.5816 5.44698 19.179 5.33167 18.8099L3.60607 13.2862C3.43175 12.7282 3.77117 12.1403 4.34156 12.0122L9.98808 10.7448C10.3654 10.6601 10.6601 10.3654 10.7448 9.98808L12.0122 4.34156C12.1403 3.77117 12.7282 3.43175 13.2862 3.60607L18.8099 5.33167C19.179 5.44698 19.5816 5.33912 19.8436 5.05469L23.7645 0.798398Z"
-                                                fill="#D20202" />
-                                        </svg>
-                                        <p>{{$related_book->discounted_percentage}}%</p>
-                                    </div>
+                                        <div class="red_tag">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49"
+                                                viewBox="0 0 49 49" fill="none">
+                                                <path
+                                                    d="M23.7645 0.798398C24.1606 0.368447 24.8394 0.368447 25.2355 0.798399L29.1564 5.05469C29.4184 5.33912 29.821 5.44698 30.1901 5.33167L35.7138 3.60607C36.2718 3.43175 36.8597 3.77117 36.9878 4.34156L38.2552 9.98808C38.3399 10.3654 38.6346 10.6601 39.0119 10.7448L44.6584 12.0122C45.2288 12.1403 45.5682 12.7282 45.3939 13.2862L43.6683 18.8099C43.553 19.179 43.6609 19.5816 43.9453 19.8436L48.2016 23.7645C48.6316 24.1606 48.6316 24.8394 48.2016 25.2355L43.9453 29.1564C43.6609 29.4184 43.553 29.821 43.6683 30.1901L45.3939 35.7138C45.5682 36.2718 45.2288 36.8597 44.6584 36.9878L39.0119 38.2552C38.6346 38.3399 38.3399 38.6346 38.2552 39.0119L36.9878 44.6584C36.8597 45.2288 36.2718 45.5682 35.7138 45.3939L30.1901 43.6683C29.821 43.553 29.4184 43.6609 29.1564 43.9453L25.2355 48.2016C24.8394 48.6316 24.1606 48.6316 23.7645 48.2016L19.8436 43.9453C19.5816 43.6609 19.179 43.553 18.8099 43.6683L13.2862 45.3939C12.7282 45.5682 12.1403 45.2288 12.0122 44.6584L10.7448 39.0119C10.6601 38.6346 10.3654 38.3399 9.98808 38.2552L4.34156 36.9878C3.77117 36.8597 3.43175 36.2718 3.60607 35.7138L5.33167 30.1901C5.44698 29.821 5.33912 29.4184 5.05469 29.1564L0.798398 25.2355C0.368447 24.8394 0.368447 24.1606 0.798399 23.7645L5.05469 19.8436C5.33912 19.5816 5.44698 19.179 5.33167 18.8099L3.60607 13.2862C3.43175 12.7282 3.77117 12.1403 4.34156 12.0122L9.98808 10.7448C10.3654 10.6601 10.6601 10.3654 10.7448 9.98808L12.0122 4.34156C12.1403 3.77117 12.7282 3.43175 13.2862 3.60607L18.8099 5.33167C19.179 5.44698 19.5816 5.33912 19.8436 5.05469L23.7645 0.798398Z"
+                                                    fill="#D20202" />
+                                            </svg>
+                                            <p>{{ $related_book->discounted_percentage }}%</p>
+                                        </div>
                                     @endif
                                 </div>
                                 <div class="content_wrapper book_card_content">
                                     <div class="rating">
-                                        <div class="rateYo"></div>
+                                        <div class="rateYo ratSerialId{{ $key }}"
+                                            data-user_rating="{{ getTotalRating($related_book->reviews) }}"></div>
                                     </div>
                                     <h3 class="title">{{ $related_book->title }}</h3>
                                     <p class="author">
@@ -386,6 +449,32 @@
         </section>
     @endauth
 
+    <div class="share d-none">
+        {!! $shareComponent !!}
+    </div>
+    <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <button type="button" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="{{ asset('frontend/assets/icons/close_icon.svg') }}" alt="close-icon"
+                        class="img-fluid">
+                </button>
+                <div class="modal-body">
+                    <h6>SHare this book</h6>
+                    <div class="social-share">
+                        <a href="javascript:void(0)" onclick="shareToLinkedin()" class="share-link"><img
+                                src="{{ asset('frontend/assets/icons/linkedin.svg') }}" alt="linkedin"></a>
+                        <a href="javascript:void(0)" onclick="shareToTwitter()" class="share-link"><img
+                                src="{{ asset('frontend/assets/icons/twitter.svg') }}" alt="twitter"></a>
+                        <a href="javascript:void(0)" onclick="shareToFacebook()" class="share-link"><img
+                                src="{{ asset('frontend/assets/icons/facebook.svg') }}" alt="facebook"></a>
+                        <a href="javascript:void(0)" onclick="shareToWhatsapp()" class="share-link"><img
+                                src="{{ asset('frontend/assets/icons/whatsapp.svg') }}" alt="whatsapp"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('page-js')
 
@@ -501,18 +590,6 @@
 
         })
 
-        // ratin >> rateyo acitvation
-        $(".rateYo").rateYo({
-            starWidth: "20px",
-            normalFill: "none",
-            ratedFill: "#F2C94C",
-            rating: 4,
-            readOnly: true,
-            starSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">
-  <path d="M10 1.34175L12.1223 6.62665L12.2392 6.91794L12.5524 6.93918L18.2345 7.32445L13.8641 10.976L13.6232 11.1772L13.6998 11.4817L15.0892 17.0047L10.2659 13.9765L10 13.8096L9.73415 13.9765L4.91081 17.0047L6.30024 11.4817L6.37683 11.1772L6.13594 10.976L1.76551 7.32445L7.44757 6.93918L7.76076 6.91794L7.87773 6.62665L10 1.34175Z" stroke="#F2C94C"/>
-  </svg>`
-        });
-
         // ratin readonly >> rateyo acitvation
         $(".rating.ratingReadOnly").rateYo({
             starWidth: "20px",
@@ -621,6 +698,28 @@
                     }
                 },
             });
+        }
+
+        // social share
+        function shareToFacebook() {
+            $('.fa-facebook-square').trigger('click');
+        }
+
+        function shareToTwitter() {
+            $('.fa-twitter').trigger('click');
+        }
+
+        function shareToLinkedin() {
+            $('.fa-linkedin').trigger('click');
+        }
+
+        function shareToWhatsapp() {
+            $('.fa-whatsapp').trigger('click');
+        }
+
+        function share() {
+            $('#shareModal').modal('show');
+            $('.social-button').attr('target', 'blank');
         }
     </script>
 @endsection

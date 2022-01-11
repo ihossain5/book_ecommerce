@@ -28,7 +28,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Payment ID</th>
+                                        {{-- <th>Payment ID</th> --}}
                                         <th>Order Status</th>
                                         <th>Total</th>
                                         <th>Name</th>
@@ -41,14 +41,26 @@
                                         @foreach ($orders as $order)
                                             <tr class="publication{{ $order->order_id }}">
                                                 <td>{{ $order->id }}</td>
-                                                <td>{{ $order->paymentMethod->payment_method }}</td>
-                                                <td class="change_status{{ $order->order_id }}">{{ $order->status->name }}</td>
+                                                {{-- <td>{{ $order->order_status->name }}</td> --}}
+                                                {{-- <td>{{ $order->paymentMethod->payment_method }}</td> --}}
+                                                <td class="change_status{{ $order->order_id }}">
+                                                    @if($order->order_status_id==1)
+                                                    <small class='badge badge-warning'> {{ $order->order_status->name }}</small>
+                                                    @elseif($order->order_status_id==2)
+                                                    <small class='badge badge-info'> {{ $order->order_status->name }}</small>
+                                                    @elseif($order->order_status_id==3) 
+                                                    <small class='badge badge-success'> {{ $order->order_status->name }}</small>
+                                                    @else
+                                                    <small class='badge badge-danger'> {{ $order->order_status->name }}</small> 
+                                                    @endif
+                                                   
+                                                </td>
                                                 <td>{{ $order->total }}</td>
                                                 <td>{{ $order->name }}</td>
                                                 <td>                                                    
                                                     <div class="form-group">
-                                                        <select name="edit_status" class="form-control status_dropdown{{ $order->order_id }}" id="edit_status{{ $order->order_id }}" onchange="order_change_status({{ $order->order_id }})" 
-                                                            {{ ($order->order_status_id==4 || $order->order_status_id==3)?'disabled':''}}>
+                                                        <select name="edit_status" class="form-control status_dropdown{{ $order->order_id }}" id="edit_status{{ $order->order_id }}" onchange="order_change_status({{ $order->order_id }})">
+                                                          {{-- {{ ($order->order_status_id==4 || $order->order_status_id==3)?'disabled':''}} --}}
                                                             <option value="">Select</option>
                                                             @foreach ($order_statuses as $order_status)
                                                                 @if($order_status->order_status_id==$order->order_status_id)
@@ -63,8 +75,17 @@
                                                 </td>
 
                                                 <td class="actionBtn text-center">
+                                                    <a href="{{route('order.invoice.download',[$order->order_id])}}">
+                                                        <button type='button' class='btn btn-outline-primary'
+                                                        ><i
+                                                             class='fa fa-file-text-o'></i>
+                                                         </button>
+                                                      </a>
                                                     <button type='button' class='btn btn-outline-purple'
                                                         onclick='viewOrderInfo({{$order->order_id }})'><i class='fa fa-eye'></i></button>
+                                                        <button type='button' name='delete' class="btn btn-outline-danger "
+                                                        onclick="deleteOrderInfo({{$order->order_id }})"><i
+                                                            class="mdi mdi-delete "></i></button>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -187,7 +208,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                         $('.payment_id').html(response.data.payment_id)
                         $('#view_order_id').html(response.data.order_id)
                         $('#view_payment_method').html(response.data.payment_method.payment_method)
-                        $('#view_payment_status').html(response.data.status.name)
+                        $('#view_payment_status').html(response.data.order_status.name)
 
                         $('#view_customer_name').html(response.data.name??'N/A')
                         $('#view_customer_email').html(response.data.user.email??'N/A')
@@ -233,9 +254,18 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
         function order_change_status(id){
 
             var status=$('#edit_status'+id).val();
-
             console.log(id, status)
-
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to change order status",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+        
                 $.ajax({
                 url:"{!! route('order.change.status') !!}",
                 method: "POST",
@@ -247,19 +277,63 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
-                        $('.change_status' + response.data.id).html(response.data.status_name);
-
-                        if(response.data.status_id==3 || response.data.status_id==4){
-                                $('.status_dropdown' + response.data.id).attr('disabled',true);
-                                
-                            }else{
-                                $('.status_dropdown' + response.data.id).removeAttr('disabled');
-                            }
-
+                        $('.change_status' + response.data.id).html((response.data.status_id==1?`<small class='badge badge-warning'>${response.data.status_name}</small>`:(response.data.status_id==2)?` <small class='badge badge-info'>${response.data.status_name}</small>`:(response.data.status_id==3)?` <small class='badge badge-success'>${response.data.status_name}</small>`:`<small class='badge badge-danger'>${response.data.status_name}</small>`
+                        ));
                     } //success end
 
                 }
-            });   
+            }); 
+                }  
+            });
+        }
+
+        // delete deleteOrderInfo
+        function deleteOrderInfo(id) {
+            //alert(id)
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Order information will be deleted",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: "Post",
+                        url: "{!! route('order.delete') !!}",
+                        data: {
+                            id:id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.success === true) {
+                                toastr['success'](response.data.message);
+
+                                $('#order_info_table').DataTable().row('.publication' + id)
+                                    .remove()
+                                    .draw();
+                            } else {
+                                toastr['error'](response.data.message);
+                            }
+                        },
+                        error: function(error) {
+                            if (error.status == 404) {
+
+                                toastr['error']("Data not found");
+                            }
+                            if (error.status == 500) {
+                                toastr['error'](response.data.message);
+                            }
+                        },
+                    });
+
+                }
+            })
+
+
         }
 
 </script>

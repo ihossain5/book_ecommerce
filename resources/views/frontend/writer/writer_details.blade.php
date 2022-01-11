@@ -195,7 +195,7 @@
                 <div class="right_grid_content">
                     <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4" id="author_book_list">
                         @if(!empty($books))
-                        @foreach ($books as $book)
+                        @foreach ($books as $key=>$book)
                         <div class="col">
                             <div class="book_card_wrapper">
                                 <div class="image_wrapper">
@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="content_wrapper book_card_content">
                                     <div class="rating">
-                                        <div class="rateYo" data-user_rating="{{getTotalRating($book->reviews)}}"></div>
+                                        <div class="rateYo ratSerialId{{ $key }}" data-user_rating="{{getTotalRating($book->reviews)}}"></div>
                                     </div>
                                     <h3 class="title">{{ $book->title }}</h3>
                                     <p class="author"> 
@@ -239,7 +239,7 @@
                             </div>
                         </div>
                         @endforeach
-                    @endif
+                     @endif
                     
                         @if($books->isEmpty())
                         <div class="col offset-4">
@@ -249,7 +249,7 @@
                     </div>
                 </div>
                 <!-- pagination -->
-                    {{-- @include('partial.frontend.pagination') --}}
+                {{$books->links('partial.frontend.pagination')}}
                 
             </div>
         </div>

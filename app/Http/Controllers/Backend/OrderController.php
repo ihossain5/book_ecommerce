@@ -20,7 +20,7 @@ class OrderController extends Controller
 
     public function downloadInvoice(Order $order){
 
-        $order->load('paymentMethod','status','user');
+        $order->load('books');
 
         $pdf        = PDF::loadView('admin.orders.order_invoice', [
             'order'       => $order,
@@ -35,16 +35,14 @@ class OrderController extends Controller
 
     public function order_info(){
 
-        $orders = Order::with('status','paymentMethod')->orderBy('order_id','DESC')->get();
+        $orders = Order::with('order_status','paymentMethod')->latest()->get();
         $order_statuses=OrderStatus::all();
         //dd($orders);
         return view('admin.orders.order_info',compact('orders','order_statuses'));
     }
     public function order_view(Request $request){
 
-        //$request->id;
-        //dd($request->all());
-        $all_orders = Order::with('books','status','user','paymentMethod')->where('order_id',$request->id)->first();
+        $all_orders = Order::with('books','order_status','user','paymentMethod')->where('order_id',$request->id)->first();
     
         //dd($all_orders);
         if ($all_orders) {
@@ -63,10 +61,7 @@ class OrderController extends Controller
 
     public function order_change_status(Request $request)
     {
-        //dd($request->all());
 
-        //$request->status_id;
-        //$request->book_id;
         $validator = Validator::make($request->all(), [
             'status_id'       => 'required',
             'order_id'       => 'required',
@@ -80,7 +75,7 @@ class OrderController extends Controller
             ]);
         } else {
 
-            $order = Order::with('status')->find($request->order_id);
+            $order = Order::with('order_status')->find($request->order_id);
 
             $order['order_status_id']  = $request->status_id;
             $order->update();
@@ -103,5 +98,30 @@ class OrderController extends Controller
                 'data'    => $data,
             ]);
         }
+    }
+
+
+    public function destroy(Request $request)
+    {
+           //dd($request->all());
+           $order = Order::where('order_id',$request->id)->first();
+            if ($order) {
+                $order->delete();
+
+                $data            = array();
+                $data['message'] = 'Order deleted successfully';
+                $data['id']      = $request->id;
+                return response()->json([
+                    'success' => true,
+                    'data'    => $data,
+                ]);
+            } else {
+                $data            = array();
+                $data['message'] = 'Order can not deleted!';
+                return response()->json([
+                    'success' => false,
+                    'data'    => $data,
+                ]);
+            }
     }
 }

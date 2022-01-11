@@ -85,7 +85,7 @@
             <div class="container">
                 <div class="new_published_book_carousel owl-carousel control_design">
                     @if (!empty($books))
-                    @foreach ($books as $book)
+                    @foreach ($books as $key=>$book)
                     <div class="item">
                         <div class="new_published_card">
                             <div class="image_wrapper">
@@ -107,7 +107,7 @@
                                 @endif
                      
                                 <div class="rating">
-                                    <div class="rateYo" data-user_rating="{{getTotalRating($book->reviews)}}"></div>
+                                    <div class="rateYo ratSerialId{{ $key }}" data-user_rating="{{getTotalRating($book->reviews)}}"></div>
                                 </div>
                                 <h3 class="title">{{$book->title}}</h3>
                                 <p class="author">
@@ -371,7 +371,7 @@
             <div class="container">
                 <div class="most_selling_book_carousel common_carousel owl-carousel">
                     @if (!empty($popularBooks))
-                        @foreach ($popularBooks as $popularBook)
+                        @foreach ($popularBooks as $key=>$popularBook)
                         @if (count($popularBook->orders) > 0)
                         <div class="item">
                             <div class="book_card_wrapper">
@@ -394,7 +394,7 @@
                                 <div class="content_wrapper book_card_content">
                                     
                                     <div class="rating">
-                                        <div class="rateYo" data-user_rating="{{getTotalRating($popularBook->reviews)}}"></div>
+                                        <div class="rateYo ratSerialId{{ $key }}" data-user_rating="{{getTotalRating($popularBook->reviews)}}"></div>
                                     </div>
                                     <h3 class="title">{{$popularBook->title}}</h3>
                                     <p class="author">

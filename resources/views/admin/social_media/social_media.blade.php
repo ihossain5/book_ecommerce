@@ -99,7 +99,7 @@
 						<label>Logo (max: 600 KB) (size: )</label>
 						<div class="custom-file">
 							<input type="file" name="add_photo" class="custom-file-input dropify"
-                                data-errors-position="outside" data-allowed-file-extensions='["jpeg", "jpg", "png"]'
+                                data-errors-position="outside" data-allowed-file-extensions='["jpeg", "jpg", "png","svg"]'
                                 data-max-file-size="0.6M" data-height="120">
 						</div>
 					</div>
@@ -144,7 +144,7 @@
 						<label>Logo (max: 600 KB) (size: )</label>
 						<div class="custom-file circular_pdf">
 							<input type="file" name="edit_photo" class="custom-file-input dropify"
-                                data-errors-position="outside" data-allowed-file-extensions='["jpeg", "jpg", "png"]'
+                                data-errors-position="outside" data-allowed-file-extensions='["jpeg", "jpg", "png","svg"]'
                                 data-max-file-size="0.6M" data-height="120" >
 						</div>
 					</div>

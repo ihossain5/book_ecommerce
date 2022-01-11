@@ -81,7 +81,13 @@
                             <span> Book Management </span>
                         </a>
                     </li>
-                    <li class="has_sub">
+                    <li>
+                        <a href="{{ route('order.info') }}" class="waves-effect">
+                            <i class="fa fa-cart-arrow-down"></i>
+                            <span>Order Management</span>
+                        </a>
+                    </li>
+                    {{-- <li class="has_sub">
                         <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-cart-arrow-down"></i><span> Order Management  <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>
                             </span></a>
                         <ul class="list-unstyled">
@@ -98,6 +104,13 @@
                                 </a>
                             </li>
                         </ul>
+                    </li> --}}
+
+                    <li>
+                        <a href="{{ route('customer.order') }}" class="waves-effect">
+                            <i class="fa fa-book"></i>
+                            <span> Customer Management </span>
+                        </a>
                     </li>
 
                     <li class="has_sub">

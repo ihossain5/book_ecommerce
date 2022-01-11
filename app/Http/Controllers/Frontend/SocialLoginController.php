@@ -10,8 +10,11 @@ use Laravel\Socialite\Facades\Socialite;
 
 class SocialLoginController extends Controller
 {
+   
+
         // Google login
         public function redirectToGoogle() {
+            session()->put('previous_url', url()->previous());
            return Socialite::driver('google')->with(["prompt" => "select_account"])->redirect();
        }
    
@@ -50,9 +53,22 @@ class SocialLoginController extends Controller
        }
 
        protected function redirectCustomer(){
+        if(Auth::user()->ban == 1){
+            Auth::logout();
+            return redirect()->route('frontend.home')->with('error','Sorry! You have no permission to access this');
 
-            return redirect()->route('frontend.home');
+        }else{
+            // if($this->previous_url == route('frontend.checkout')){
+            //     $url= route('frontend.checkout');
+            // }else{
+            //     $url= $this->previous_url;
+            // }
+            // session()->forget('previous_url');
+  
+            return redirect()->to(session()->get('previous_url'));
             
+        }
+       
     
       
     }

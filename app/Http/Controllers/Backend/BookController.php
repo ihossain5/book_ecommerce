@@ -143,9 +143,18 @@ class BookController extends Controller {
     public function book_review($id) {
         
         $book_reivews=BookReview::with('user')->where('book_id',$id)->get();
+
+        $sum=0;
+        $count=0;
+        foreach($book_reivews as $book_reivew){
+            $sum=$sum+$book_reivew->rating;
+            $count++;
+        }
+        
+        $avg_rating=$sum/$count;
         $book_info=Book::where('book_id',$id)->first();
         $book_name=$book_info->title;
-        return view('admin.book.book_review',compact('book_reivews','book_name'));
+        return view('admin.book.book_review',compact('book_reivews','book_name','avg_rating','count'));
     }
 
 

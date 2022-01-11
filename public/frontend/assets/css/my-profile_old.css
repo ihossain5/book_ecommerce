@@ -1,0 +1,423 @@
+@import "common.css";
+@import "header.css";
+@import "cards.css";
+@import "footer.css";
+
+/* ==upload picture== */
+.upload-picture {
+    text-align: center;
+}
+.upload-picture img {
+    width: 16rem;
+    height: 16rem;
+    border-radius: 50%;
+}
+input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    top: 0;
+    left: 0;
+}
+
+.upload-picture .upload-picture-inner {
+    margin-bottom: 4.8rem;
+}
+.upload-picture .edit-icon {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background: var(--black);
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+    top: 75%;
+    right: 5.5%;
+}
+.upload-picture .edit-icon svg {
+    width: 3.2rem;
+    height: 3.2rem;
+    line-height: 3.2rem;
+    padding: .7rem;
+}
+.upload-picture label {
+    cursor: pointer;
+    position: relative;
+}
+.my_profile_body{
+    margin-top: 4.8rem;
+}
+
+.my_profile_body .nav-tabs {
+    max-width: 72rem;
+    width: 100%;
+    margin: 0 auto;
+    position     : relative;
+    border       : none;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.my_profile_body .tab-content .tab-pane {
+    max-width: 72rem;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 4rem;
+
+}
+.my_profile_body .address_loc_details {
+    border: 1px solid #AEC4BB;
+    padding: 1.3rem 2.7rem;
+    border-radius: 10px;
+    margin-bottom: 1.2rem;
+}
+.my_profile_body .tab-content .my_address_details{
+    padding: 0 8rem;
+}
+.my_profile_body .tab-content .my_address_details .address_loc>span {
+    color: #4F7F6C;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_edit .form-check-label{
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    color: #797979;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons {
+    text-align: end;
+    padding-top: 2.8rem;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons .edit{
+    background: url("../images/icons/Edit.svg");
+    width: 34px;
+    height: 34px;
+    display: inline-block;
+    margin-right: .8rem;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons .delete{
+    background: url("../images/icons/Delete.svg");
+    width: 34px;
+    height: 34px;
+    display: inline-block;
+}
+.my_profile_body .tab-content .my_address_details .address_loc_buttons button{
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+
+
+.form-check-input[type=radio] {
+    border-radius: 2px;
+}
+.my_profile_body .tab-content .my_address_details .form-check-input:checked{
+    background-color: #4F7F6C;
+    border-color: #4F7F6C;
+}
+.my_profile_body .tab-content .my_address_details .form-check-input:checked[type=radio] {
+    background-image: url("../images/icons/radio-chack.svg");
+    border: 0;
+}
+.my_profile_body .tab-content .my_address_details .form-check-input:focus {
+    border-color: #AEC4BB;
+    outline: 0;
+    box-shadow: none;
+}
+.my_profile_body .tab-content .my_address_details .address_loc{
+    padding-bottom: .9rem;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.6rem;
+    color: #797979;
+}
+.my_profile_body .tab-content .tab-pane.books_choice{
+    max-width: 91rem;
+}
+.circular{
+    padding-bottom: 4rem;
+}
+
+.circular .form-check-input[type=radio] {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    border: 4px solid #AEC4BB;
+
+}
+
+.my_profile_body .tab-content .input_fild{
+    padding: 1.4rem 17rem 0;
+
+}
+.modal-header .btn-close {
+    padding: 0.5rem 2rem;
+    margin: -2rem -.5rem -.5rem auto;
+}
+.modal-header .btn-close:focus {
+    box-shadow: none;
+}
+.my_profile_body .modal-dialog {
+    max-width: 700px;
+}
+.modal-content {
+    border-radius: 1.3rem;
+}
+.my_profile_body .modal-dialog .modal-body {
+    padding: 7rem 5rem;
+}
+.my_profile_body .modal-dialog .modal-title {
+    font-size: 2.8rem;
+    line-height: 3.1rem;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+}
+.my_profile_body .modal-body .input_fild_modal{
+    padding: 1.4rem 0 .5rem;
+}
+.circular{
+    padding-bottom: 4rem;
+}
+
+.my_profile_body .modal-body .circular .form-check-input[type=radio] {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    border: 4px solid #AEC4BB;
+
+}
+.my_profile_body .modal-body .circular .form-check-input:checked{
+    border: 4px solid #AEC4BB;
+}
+.my_profile_body .modal-body .circular .form-check-input:checked[type=radio] {
+    background-image: url("../images/icons/circular-radio-center.svg");
+    border: 4px solid #AEC4BB;
+}
+.my_profile_body .modal-body .circular .form-check-input:focus {
+    border-color: none;
+    outline: 0;
+    box-shadow: none;
+}
+.my_profile_body .tab-content label{
+    display: block;
+    padding-bottom: .4rem;
+}
+.my_profile_body .tab-content label,
+.my_profile_body .tab-content .form-control,
+.my_profile_body .tab-content select{
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    font-weight: 700;
+}
+.my_profile_body .tab-content select,
+.my_profile_body .tab-content .form-control{
+    width: 100%;
+    padding: 1.2rem;
+    margin: .2rem;
+    border-color: #000000;
+    color: #828282;
+}
+.my_profile_body .tab-content select,
+.my_profile_body .tab-content .form-control:focus{
+    border-color: #000;
+}
+
+.my_profile_body .tab-content .submit_btn{
+    display: block;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 2.4rem;
+    color: #fff;
+    background: var(--blue);
+}
+.my_profile_body .tab-content .submit_btn{
+    margin-left: 17rem;
+    margin-right: 17rem;
+    margin-top: 3.2rem;
+    padding: 1.2rem;
+    border: 1px solid var(--blue);
+
+}
+.my_profile_body .tab-content button.submit_btn {
+    margin: 3.2rem 50% 0;
+    transform: translateX(-50%);
+    padding: 1.2rem;
+    width: 35.5rem;
+    border: 1px solid var(--blue);
+}
+.my_profile_body .nav-tabs a {
+    font-family   : 'Ruposhi Bangla Unicode';
+    display       : inline-block;
+    font-size     : 2rem;
+    line-height   : 2.6rem;
+    font-weight   : 400;
+    color: var(--gray);
+    text-transform: capitalize;
+    background    : none;
+    outline       : none;
+    padding-bottom: 1.7rem;
+    position      : relative;
+}
+
+.my_profile_body .nav-tabs a.active {
+    font-weight: 700;
+    color: #000;
+}
+
+.my_profile_body .nav-tabs a.active::before {
+    content   : '';
+    position  : absolute;
+    bottom    : -1px;
+    left      : 0;
+    width     : 100%;
+    height    : 2px;
+    background: var(--gray);
+}
+
+.my_profile_body .order_details,
+.my_profile_body .address_loc_details {
+    display: flex;
+    justify-content: space-between;
+}
+.my_profile_body .order_details {
+    border: 2px solid #F2F2F2;
+    padding: 2.4rem 2.4rem 2.2rem;
+}
+.my_profile_body .order_details p{
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 2.6rem;
+    color: #4F4F4F;
+}
+.my_profile_body .order_details p>span{
+    font-size: 1.4rem;
+    line-height: 2.6rem;
+    font-weight: 500;
+    font-family: "inter",sans-serif;
+}
+.my_profile_body .order_details .order_code{
+    padding-bottom: 1.7rem;
+}
+.my_profile_body .order_details .order_price{
+    font-size: 2rem;
+    line-height: 2.6rem;
+    font-weight: 700;
+    padding-bottom: 2.4rem;
+}
+.my_profile_body .order_details .order_sign{
+    padding: .8rem 5.2rem;
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+    font-family: 700;
+}
+.my_profile_body .order_details .delevery{
+    background: #2196531A;
+    color: #219653;
+    padding: .8rem 4rem;
+}
+.my_profile_body .order_details .panding{
+    background: #F2994A1A;
+    color: #F2994A;
+}
+.book_cards_section .row {
+    margin-top: -4.2rem;
+    margin-bottom: -4.2rem;
+    margin-left: -7.6rem;
+    margin-right: -7.6rem;
+}
+.book_cards_section .row>* {
+    padding-top: 4.2rem;
+    padding-bottom: 4.2rem;
+    padding-left: 7.6rem;
+    padding-right: 7.6rem;
+}
+@media (max-width: 991px) {
+    .book_cards_section .row {
+        margin-top: -4.2rem;
+        margin-bottom: -4.2rem;
+        margin-left: -3rem;
+        margin-right: -3rem;
+    }
+    .book_cards_section .row>* {
+        padding-top: 4.2rem;
+        padding-bottom: 4.2rem;
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    .my_profile_body .tab-content .input_fild {
+        padding: 1.4rem 1rem;
+    }
+    .my_profile_body .tab-content .submit_btn{
+        margin: 3.2rem 0 0;
+        padding: 1.2rem;
+    }
+    .my_profile_body .order_details {
+        padding: 2.4rem 1rem 2.2rem;
+    }
+    
+    .my_profile_body .tab-content label {
+        margin-bottom: 1rem;
+    }
+}
+@media (max-width: 767.98px) {
+    
+    .my_profile_body .address_loc_details {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .my_profile_body .tab-content .my_address_details {
+        padding: 0;
+    }
+    .my_profile_body .tab-content .my_address_details .address_loc_buttons {
+        padding-top: 0;
+        display: inline-block;
+    }
+    .my_profile_body .tab-content .my_address_details .address_loc_edit .form-check-label{
+        margin-bottom: 0;
+    }
+    .my_profile_body .tab-content .my_address_details .address_loc_edit{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .my_profile_body .address_loc_details {
+        padding: 1.3rem 1.8rem;
+    }
+    .book_cards_section .row {
+        margin-left: -2.4rem;
+        margin-right: -2.4rem;
+    }
+    .book_cards_section .row>* {
+        padding-left: 2.4rem;
+        padding-right: 2.4rem;
+    }
+    .my_profile_body .nav-tabs a {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+    }
+    .my_profile_body .tab-content .tab-pane.edit .input_fild_modal {
+        padding: 1.4rem 1rem 0;
+    }
+    .my_profile_body .modal-dialog .modal-title {
+        text-align: start;
+    }
+    .my_profile_body .modal-dialog .modal-body {
+        padding: 1rem 0;
+    }
+    .circular {
+        padding-bottom: 2rem;
+    }
+    .my_profile_body .tab-content select option{
+        width: 100px;
+    }
+    .my_profile_body .modal-body .submit_btn {
+        margin: 3.2rem 25px 0;
+    }
+    
+}

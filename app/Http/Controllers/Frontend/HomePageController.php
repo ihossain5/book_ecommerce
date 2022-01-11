@@ -7,6 +7,7 @@ use App\Models\Author;
 use App\Models\Category;
 use App\Models\Publication;
 use App\Service\HomepageService;
+use App\Models\SocialMedia;
 
 class HomePageController extends Controller {
     public function index(HomepageService $homepageService) {
@@ -27,12 +28,16 @@ class HomePageController extends Controller {
     }
 
     public static function all_category() {
-        return Category::all();
+        return Category::where('is_nav',1)->get();
 
     }
 
     public static function all_publication() {
         return Publication::all();
+
+    }
+    public static function footer() {
+        return SocialMedia::all();
 
     }
 }

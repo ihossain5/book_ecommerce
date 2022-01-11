@@ -25,6 +25,22 @@ class ProfileController extends Controller {
         return view('frontend.profile.my_profile', compact('user_info','user_orders'));
     }
    
+    public function profile_order_view(Request $request) {
+
+        //dd($request->all());
+        //dd($id);
+        $user_info = Auth::user();
+        $id=$user_info->id;
+        $user_orders=Order::with('books','order_status','user','paymentMethod')->where('user_id',$id)->where('order_id',$request->id)->first();
+        
+        //dd( $user_orders);
+        return response()->json([
+            'success' => true,
+            'data'    => $user_orders,
+        ]);
+
+    }
+   
     
     public function photoUpdate(Request $request){
         if (Auth::check()) {

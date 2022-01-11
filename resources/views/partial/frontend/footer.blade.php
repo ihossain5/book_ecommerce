@@ -1,4 +1,8 @@
-    <!-- footer -->
+@php
+use App\Http\Controllers\Frontend\HomePageController;
+    $footer = HomePageController::footer();
+@endphp
+<!-- footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer_inner_one">
@@ -78,7 +82,18 @@
                             <h6>সামাজিক যোগাযোগ মাধ্যম</h6>
                             <div class="social_wrapper">
                                 <ul>
-                                    <li>
+                                    @if (!empty($footer))
+                                    @foreach ($footer as $item)
+                                        <li>
+                                            <a href="{{ $item->url }}" target="_blank">
+                                                <img class="img-fluid" src="{{ asset('images/' . $item->logo) }}"
+                                                    alt="{{ $item->name }}" />
+                                            </a>
+                                        </li>
+
+                                    @endforeach
+                                    @endif
+                                    {{-- <li>
                                         <a href="#" target="_blank">
                                             <img class="img-fluid" src="{{ asset('frontend/assets/images/icons/facebook.svg') }}"
                                                 alt="facebook" />
@@ -101,7 +116,7 @@
                                             <img class="img-fluid" src="{{ asset('frontend/assets/images/icons/instagram.svg') }}"
                                                 alt="instagram" />
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>

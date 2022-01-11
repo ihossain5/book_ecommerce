@@ -171,6 +171,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Meneses\LaravelMpdf\LaravelMpdfServiceProvider::class,
+        Jorenvh\Share\Providers\ShareServiceProvider::class,
 
 
         /*
@@ -238,6 +239,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Share' => Jorenvh\Share\ShareFacade::class,
     ],
 
 ];

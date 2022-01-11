@@ -84,7 +84,7 @@ class CheckoutController extends Controller {
 
         $cartService->destroy();
 
-        Session::flash('success', 'Order has been placed');
+        Session::flash('success','Order has been placed');
 
         return $this->success($order);
 

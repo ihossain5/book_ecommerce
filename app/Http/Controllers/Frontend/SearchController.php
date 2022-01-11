@@ -31,40 +31,6 @@ class SearchController extends Controller
 
         if($category_search_key!=null || $writer_search_key!=null || $publisher_search_key!=null){
 
-            
-            // if($category_search_key!=null){
-    
-            //     $book_categories=Category::where('name', 'LIKE', '%' . $category_search_key. '%')->get();
-            //     //dd($book_categories);
-            //     $category_ids=[];
-            //     foreach($book_categories as $book_category){
-    
-            //         $category_ids[]=$book_category->category_id ;
-            //     }
-            //     //dd($category_ids);
-    
-            //     $book_categories=BookCategory::whereIn('category_id',$category_ids)->get();
-            
-            //     //dd($book_categories);
-            //     $book_ids=[];
-            //     foreach($book_categories as $book_category){
-    
-            //         $book_ids[]=$book_category->book_id;
-            //     }
-            //     //dd($book_ids);
-                
-            //     if($book_ids!=null){
-    
-            //         $bookID=Book::with('authors')->whereIn('book_id',$book_ids)->get();
-        
-            //         //dd($bookID);
-            //     }else{
-            //         $bookID=[];
-            //     }
-    
-    
-            // }
-    
             if($writer_search_key!=null){
     
                 $book_authors=Author::where('name', 'LIKE', '%' . $writer_search_key. '%')->get();
@@ -88,7 +54,7 @@ class SearchController extends Controller
                 
                 if($book_ids!=null){
     
-                    $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                    $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
 
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
@@ -116,7 +82,7 @@ class SearchController extends Controller
                 
                 if($publication_ids!=null){
     
-                    $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publication_ids)->get();
+                    $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publication_ids)->where('is_visible',1)->get();
 
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
@@ -150,7 +116,7 @@ class SearchController extends Controller
                 $unique=array_unique($book_list);
                 //dd($unique);
     
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$unique)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$unique)->where('is_visible',1)->get();
 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -165,7 +131,7 @@ class SearchController extends Controller
 
             }elseif($publisher_list){
 
-                $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publisher_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publisher_list)->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
@@ -180,37 +146,37 @@ class SearchController extends Controller
             }elseif($price!=null){
 
                 if($price==100){
-                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [0, 100])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('discounted_price', [0, 100])->where('is_visible',1)->get();
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
                         $book->rating=$rating;
                     }
                 }elseif($price==500){
-                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [100, 500])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('discounted_price', [100, 500])->where('is_visible',1)->get();
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
                         $book->rating=$rating;
                     }
                 }elseif($price==1000){
-                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [500, 1000])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('discounted_price', [500, 1000])->where('is_visible',1)->get();
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
                         $book->rating=$rating;
                     }
                 }elseif($price==1500){
-                    $bookID=Book::with('authors','reviews')->whereBetween('regular_price', [1000, 2000])->get();
+                    $bookID=Book::with('authors','reviews')->whereBetween('discounted_price', [1000, 2000])->where('is_visible',1)->get();
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
                         $book->rating=$rating;
                     }
                 }elseif($price==2000){
-                    $bookID=Book::with('authors','reviews')->where('regular_price', '=>',2000)->get();
+                    $bookID=Book::with('authors','reviews')->where('discounted_price', '=>',2000)->where('is_visible',1)->get();
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
                         $book->rating=$rating;
                     }
                 }else{        
-                    $bookID=Book::with('authors','reviews')->get();
+                    $bookID=Book::with('authors','reviews')->where('is_visible',1)->get();
                     foreach($bookID as $book){
                         $rating=getTotalRating($book->reviews);
                         $book->rating=$rating;
@@ -235,7 +201,7 @@ class SearchController extends Controller
             }
             //dd($book_ids);
             
-            $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+            $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
             foreach($bookID as $book){
                 $rating=getTotalRating($book->reviews);
                 $book->rating=$rating;
@@ -249,7 +215,7 @@ class SearchController extends Controller
 
             }else{
 
-                $books=Book::with('authors','reviews')->get();
+                $books=Book::with('authors','reviews')->where('is_visible',1)->get();
                 foreach($books as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
@@ -305,7 +271,7 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -345,7 +311,7 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -373,7 +339,7 @@ class SearchController extends Controller
             
             if($publication_ids!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publication_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('publication_id',$publication_ids)->where('is_visible',1)->get();
 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -418,7 +384,7 @@ class SearchController extends Controller
                 }
                 //dd($book_list);
     
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('is_visible',1)->get();
                 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -447,7 +413,7 @@ class SearchController extends Controller
             }
 
             if($price==100){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [0, 100])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [0, 100])->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
@@ -455,25 +421,25 @@ class SearchController extends Controller
 
 
             }elseif($price==500){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [100, 500])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [100, 500])->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
             }elseif($price==1000){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [500, 1000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [500, 1000])->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
             }elseif($price==1500){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [1000, 2000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [1000, 2000])->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
             }elseif($price==2000){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('regular_price', '=>',2000)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('discounted_price', '=>',2000)->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
@@ -487,7 +453,7 @@ class SearchController extends Controller
                     $book_list[]=$book_author->book_id;
                 }
     
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('is_visible',1)->get();
 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -513,7 +479,7 @@ class SearchController extends Controller
             }
             //dd($book_list);
 
-            $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereIn('publication_id',$publisher_list)->get();
+            $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereIn('publication_id',$publisher_list)->where('is_visible',1)->get();
 
             foreach($bookID as $book){
                 $rating=getTotalRating($book->reviews);
@@ -542,7 +508,7 @@ class SearchController extends Controller
             $unique=array_unique($book_list);
             //dd($unique);
 
-            $bookID=Book::with('authors','reviews')->whereIn('book_id',$unique)->get();
+            $bookID=Book::with('authors','reviews')->whereIn('book_id',$unique)->where('is_visible',1)->get();
 
             foreach($bookID as $book){
                 $rating=getTotalRating($book->reviews);
@@ -563,7 +529,7 @@ class SearchController extends Controller
                     $book_list[]=$book_author->book_id;
                 }
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('is_visible',1)->get();
 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -598,9 +564,6 @@ class SearchController extends Controller
        $price=$request->price;
        $publisher_list=$request->publisher_list;
        $writer_list=$request->writer_list;
-
-    //    $author_info=Author::where('author_id',$author_id)->first();
-    //    $author_name= $author_info->name;
        
        if($category_search_key!=null || $writer_search_key!=null || $publisher_search_key!=null){
 
@@ -629,7 +592,7 @@ class SearchController extends Controller
 
             if($book_ids!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
     
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
@@ -675,28 +638,13 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
     
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
 
-                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                // $author_id=[];
-                // foreach($books_id as $book_id){
-
-                //     $author_id[]=$book_id->author_id;
-                // }
-
-                // $authors=Author::whereIn('author_id',$author_id)->get();
-
-                // foreach($authors as $author){
-
-                //     $bookID['author_name']=$author->name;
-                // }
-    
-                //dd($bookID);
             }else{
                 $bookID=[];
             }
@@ -735,28 +683,13 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
     
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
 
-                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                // $author_id=[];
-                // foreach($books_id as $book_id){
-
-                //     $author_id[]=$book_id->author_id;
-                // }
-
-                // $authors=Author::whereIn('author_id',$author_id)->get();
-
-                // foreach($authors as $author){
-
-                //     $author_name=$author->name;
-                // }
-    
-                //dd($bookID);
             }else{
                 $bookID=[];
                 $author_name="";
@@ -798,29 +731,13 @@ class SearchController extends Controller
             
             if($book_ids!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_ids)->where('is_visible',1)->get();
                 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
                 
-
-                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                // $author_id=[];
-                // foreach($books_id as $book_id){
-
-                //     $author_id[]=$book_id->author_id;
-                // }
-
-                // $authors=Author::whereIn('author_id',$author_id)->get();
-
-                // foreach($authors as $author){
-
-                //     $author_name=$author->name;
-                // }
-    
-                //dd($bookID);
             }else{
                 $bookID=[];
                 $author_name="";
@@ -863,28 +780,12 @@ class SearchController extends Controller
             //dd($bookID);
             if($bookID!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->where('is_visible',1)->get();
                 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
-
-                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                // $author_id=[];
-                // foreach($books_id as $book_id){
-
-                //     $author_id[]=$book_id->author_id;
-                // }
-
-                // $authors=Author::whereIn('author_id',$author_id)->get();
-
-                // foreach($authors as $author){
-
-                //     $author_name=$author->name;
-                // }
-    
-                //dd($bookID);
             }else{
                 $bookID=[];
                 $author_name="";
@@ -907,32 +808,32 @@ class SearchController extends Controller
             }
 
             if($price==100){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [0, 100])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [0, 100])->where('is_visible',1)->get();
                 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
             }elseif($price==500){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [100, 500])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [100, 500])->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
             }elseif($price==1000){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [500, 1000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [500, 1000])->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
             }elseif($price==1500){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('regular_price', [1000, 2000])->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->whereBetween('discounted_price', [1000, 2000])->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
             }elseif($price==2000){
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('regular_price', '=>',2000)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('discounted_price', '=>',2000)->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
@@ -947,7 +848,7 @@ class SearchController extends Controller
                     $book_ids[]=$book_category->book_id;
                 }
     
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('is_visible',1)->get();
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
@@ -957,7 +858,7 @@ class SearchController extends Controller
             $author_name="";
             if($bookID!=null){
 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->where('is_visible',1)->get();
 
                 
                 foreach($bookID as $book){
@@ -965,21 +866,6 @@ class SearchController extends Controller
                     $book->rating=$rating;
                 }
 
-                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                // $author_id=[];
-                // foreach($books_id as $book_id){
-
-                //     $author_id[]=$book_id->author_id;
-                // }
-
-                // $authors=Author::whereIn('author_id',$author_id)->get();
-
-                // foreach($authors as $author){
-
-                //     $author_name=$author->name;
-                // }
-    
-                //dd($bookID);
             }else{
                 $bookID=[];
                 $author_name="";
@@ -1010,29 +896,13 @@ class SearchController extends Controller
 
                 // $bookID=Book::with('authors')->whereIn('book_id',$bookID)->get();
                 
-                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->get();
+                $bookID=Book::with('authors','reviews')->whereIn('book_id',$bookID)->where('is_visible',1)->get();
                 
                 foreach($bookID as $book){
                     $rating=getTotalRating($book->reviews);
                     $book->rating=$rating;
                 }
-                // dd($bookID);
 
-                // $books_id=BookAuthor::whereIn('book_id',$bookID)->get();
-                // $author_id=[];
-                // foreach($books_id as $book_id){
-
-                //     $author_id[]=$book_id->author_id;
-                // }
-
-                // $authors=Author::whereIn('author_id',$author_id)->get();
-
-                // foreach($authors as $author){
-
-                //     $author_name=$author->name;
-                // }
-    
-                //dd($bookID);
             }else{
                 $bookID=[];
                 $author_name="";
@@ -1049,69 +919,8 @@ class SearchController extends Controller
     
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
+    
 }

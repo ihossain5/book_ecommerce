@@ -24,13 +24,24 @@ class BookController extends Controller
 
         $related_books = collect($books)->unique('book_id');
 
+        $url = route('frontend.book.details',$book->book_id);
+
+        $shareComponent = \Share::page(
+            $url
+        )
+        ->facebook()
+        ->twitter()
+        ->linkedin()
+        ->whatsapp();       
+    
+
         if(count($book->reviews)>0){
             $rating = $this->getTotalRating($book->reviews);
         }else{
             $rating = 0;
         }
 
-       return view('frontend.book.book_details',compact('book','related_books','rating'));
+       return view('frontend.book.book_details',compact('book','related_books','rating','shareComponent'));
     }
 
     private function getTotalRating($reviews) {
@@ -43,8 +54,7 @@ class BookController extends Controller
 
     public function index()
     {
-        
-        $books=Book::with('authors')->get();
+        $books=Book::with('authors')->where('is_visible',1)->paginate(12);
 
         $authors=Author::orderBy('name')->get();
         $categories=Category::orderBy('name')->get();

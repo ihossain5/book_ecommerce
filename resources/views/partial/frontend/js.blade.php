@@ -40,7 +40,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @endif
 
 
-    var config = {
+    var routeConfig = {
         routes: {
             login: "{!! route('send.otp') !!}",
             verifyOtp: "{!! route('verify.otp') !!}",
@@ -95,7 +95,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: config.routes.login,
+            url: routeConfig.routes.login,
             data: new FormData(this),
             contentType: false,
             cache: false,
@@ -121,7 +121,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         e.preventDefault();
         $.ajax({
             type: "POST",
-            url: config.routes.verifyOtp,
+            url: routeConfig.routes.verifyOtp,
             data: new FormData(this),
             contentType: false,
             cache: false,
@@ -143,5 +143,36 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     }
             },
         });
-    })
+    })  
+    
+function book_search_method(){
+
+    var search=$('#navbar_search').val();
+    $.ajax({
+        url:"{{route('book.filter.autocomplete')}}",
+        type: 'post',
+        dataType: "json",
+        data: {
+            search:search,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function( data ) {   
+        $('#nav_bar_search_div').empty();
+            if(data.value==null){
+                $('#nav_bar_search_div').empty();
+            }else{
+                if(data.value.length!=0){
+                $.each(data.value, function(index, val) {
+                var book_details_url = '{{ route('frontend.book.details', ':id') }}';
+                book_details_url = book_details_url.replace(':id', val.value);
+                            //console.log(val);
+                        $('#nav_bar_search_div').append(`<a href="${book_details_url}" class="btn_buy_now"><li class="bg-white rounded-pill" style="color:black">${val.label}</li></a>`)
+                        });
+                    }else{
+                        $('#nav_bar_search_div').append(`<li>পাওয়া যায়নি!</li>`);
+                    }
+            }
+        }
+    });
+};
 </script>
