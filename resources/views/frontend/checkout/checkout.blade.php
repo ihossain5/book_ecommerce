@@ -52,7 +52,7 @@
                             <div class="form_group">
                                 <label for="areaWiseName" class="form-label">নাম</label>
                                 <input type="text" name="name" class="form-control" id="areaWiseName"
-                                    placeholder="আপনার নাম" value="{{ $default_address->name ?? ''}}">
+                                    placeholder="আপনার নাম" value="{{ $default_address->name ?? '' }}">
                             </div>
                             <div class="form_group">
                                 <label for="areaWisePhone" class="form-label">মোবাইল</label>
@@ -62,7 +62,7 @@
                             <div class="form_group">
                                 <label for="areaWisePhone" class="form-label">বিভাগ</label>
                                 <input type="text" name="division" class="form-control" id="division"
-                                    placeholder="আপনার মোবাইল" value="{{ $default_address->division ?? ''}}">
+                                    placeholder="আপনার মোবাইল" value="{{ $default_address->division ?? '' }}">
                             </div>
 
                             <div class="form_group">
@@ -89,13 +89,15 @@
                             <div class="form_group">
                                 <label for="address" class="form-label">ঠিকানা</label>
                                 <textarea name="address" class="form-control" id="address" cols="30" rows="4"
-                                    placeholder="ঠিকানা">{{ $default_address->address ?? ''}}</textarea>
+                                    placeholder="ঠিকানা">{{ $default_address->address ?? '' }}</textarea>
                             </div>
                             <h3 class="pt-5 mt-5">পেমেন্ট তথ্য</h3>
 
+
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" name="paymentMethod" type="radio" value="" id="cashOnDel">
+                                    <input class="form-check-input" name="paymentMethod" type="radio" id="cashOnDel"
+                                        value="1">
                                     <label class="form-check-label" for="cashOnDel">
                                         ক্যাশ অন ডেলিভারি
                                     </label>
@@ -103,7 +105,7 @@
                             </div>
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" name="paymentMethod" type="radio" value="" id="bkash">
+                                    <input class="form-check-input" name="paymentMethod" type="radio" id="bkash" value="2">
                                     <label class="form-check-label" for="bkash">
                                         বিকাশ/নগদ
                                     </label>
@@ -111,18 +113,20 @@
                             </div>
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" name="paymentMethod" type="radio" value="" id="creditDabit">
+                                    <input class="form-check-input" name="paymentMethod" type="radio" id="creditDabit"
+                                        value="3">
                                     <label class="form-check-label" for="creditDabit">
                                         ক্রেডিট/ডেবিট কার্ড
                                     </label>
                                 </div>
                             </div>
+                            <label id="paymentMethod-error" class="error h3 text-danger" for="paymentMethod"></label>
 
                             <!-- <div class="form_group">
-                                <label for="address" class="form-label">আরও তথ্য</label>
-                                <textarea name="address" class="form-control" id="address" cols="30" rows="4"
-                                    placeholder="এখানে লিখুন..."></textarea>
-                            </div> -->
+                                                            <label for="address" class="form-label">আরও তথ্য</label>
+                                                            <textarea name="address" class="form-control" id="address" cols="30" rows="4"
+                                                                placeholder="এখানে লিখুন..."></textarea>
+                                                        </div> -->
                         </div>
                     </div>
                 </div>
@@ -138,7 +142,8 @@
                                     @foreach ($cartService->getCartContent() as $cartItem)
                                         <div class="check_cart_item">
                                             <div>{{ englishTobangla($cartItem->qty) }}টি
-                                                <span>{{ $cartItem->name }}</span></div>
+                                                <span>{{ $cartItem->name }}</span>
+                                            </div>
                                             <div>
                                                 {{ englishTobangla($cartItem->price * $cartItem->qty) }} টাকা
                                                 <del>
@@ -167,27 +172,29 @@
                                         ডেলিভারি ফি
                                     </div>
                                     @if (!empty($default_address))
-                                     <input type="hidden" name="delivery_fee" id="deliveryFee" value="{{ $default_address->inside_dhaka_city == 1 ? $cartService->insideDhakadeliveryFee : $cartService->outsideDhakadeliveryFee}}">
-                                     <div class="deliveryFee">
-                                       
-                                        {{ $default_address->inside_dhaka_city == 1 ? englishTobangla($cartService->insideDhakadeliveryFee) : englishTobangla($cartService->outsideDhakadeliveryFee) }}
-                                        টাকা
-                                    </div>
-                                    @else 
-                                    <input type="hidden" name="delivery_fee" id="deliveryFee" value="0">
-                                    <div class="deliveryFee">
-                                      {{englishTobangla(0)}}
-                                       
-                                       টাকা
-                                   </div>
+                                        <input type="hidden" name="delivery_fee" id="deliveryFee"
+                                            value="{{ $default_address->inside_dhaka_city == 1 ? $cartService->insideDhakadeliveryFee : $cartService->outsideDhakadeliveryFee }}">
+                                        <div class="deliveryFee">
+
+                                            {{ $default_address->inside_dhaka_city == 1 ? englishTobangla($cartService->insideDhakadeliveryFee) : englishTobangla($cartService->outsideDhakadeliveryFee) }}
+                                            টাকা
+                                        </div>
+                                    @else
+                                        <input type="hidden" name="delivery_fee" id="deliveryFee" value="0">
+                                        <div class="deliveryFee">
+                                            {{ englishTobangla(0) }}
+
+                                            টাকা
+                                        </div>
                                     @endif
-                                  
+
                                 </div>
                                 <div class="cart_fees">
                                     <div>
                                         টোটাল
                                     </div>
-                                    <input type="hidden" name="subtotal" id="total" value="{{ $cartService->subTotal() }}">
+                                    <input type="hidden" name="subtotal" id="total"
+                                        value="{{ $cartService->subTotal() }}">
 
                                     <div class="grandTotal">
 
@@ -198,17 +205,17 @@
 
                             <div class="form_group">
                                 <label for="addInfo" class="form-label">বিশেষ নোট</label>
-                                <textarea name="addInfo" class="form-control" id="addInfo" cols="30" rows="4"
+                                <textarea name="addInfo" class="form-control" id="notes" cols="30" rows="4"
                                     placeholder="এখানে লিখুন..."></textarea>
                             </div>
                             <div>
-                                <button type="button" onclick="validateForm()" class="confirm_bn">অর্ডার কনফার্ম করুন</button>
+                                <button type="button" onclick="validateForm()" class="confirm_bn">অর্ডার কনফার্ম
+                                    করুন</button>
                                 <button type="button" class="confirm_bn d-none" id="sslczPayBtn"
-                                token="if you have any token validation"
-                                postdata=""
-                                order="If you already have the transaction generated for current order"
-                                endpoint="/pay-via-ajax"> অর্ডার কনফার্ম করুন
-                        </button>
+                                    token="if you have any token validation" postdata=""
+                                    order="If you already have the transaction generated for current order"
+                                    endpoint="/pay-via-ajax"> অর্ডার কনফার্ম করুন
+                                </button>
                             </div>
                         </div>
 
@@ -222,29 +229,19 @@
 
 @section('page-js')
     <script>
+        (function(window, document) {
+            var loader = function() {
+                var script = document.createElement("script"),
+                    tag = document.getElementsByTagName("script")[0];
+                script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(
+                    7);
+                tag.parentNode.insertBefore(script, tag);
+            };
 
-var obj = {};
-    obj.name = $('#areaWiseName').val();
-    obj.phone = $('#areaWisePhone').val();
-    obj.division = $('#division').val();
-    obj.district = $('#default_distric').val();
-    obj.address = $('#address').val();
-    obj.deliveryFee = $('#deliveryFee').val();
-    obj.info = $('#addInfo').val();
+            window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload",
+                loader);
+        })(window, document);
 
-    $('#sslczPayBtn').prop('postdata', obj);
-
-
-(function (window, document) {
-        var loader = function () {
-            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-            script.src = "https://sandbox.sslcommerz.com/embed.min.js?" + Math.random().toString(36).substring(7);
-            tag.parentNode.insertBefore(script, tag);
-        };
-
-        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
-    })(window, document);
-    
         $(document).on('change', '#areaSelect', function() {
 
 
@@ -314,6 +311,9 @@ var obj = {};
                 name: {
                     required: true,
                 },
+                paymentMethod: {
+                    required: true,
+                },
                 phone: {
                     required: true,
                     digits: true,
@@ -359,7 +359,7 @@ var obj = {};
             //     success: function(response) {
             //         if (response.success == true) {
             //             var url = '{{ route('frontend.home') }}';
-            //              location.replace(url);
+            //             location.replace(url);
 
             //         } //success end
 
@@ -372,25 +372,99 @@ var obj = {};
 
             //         }
             //     },
-            // }); //ajax end
-
+            // }); //ajax end  
         });
 
-        function validateForm(){
+        var name;
+        var phone;
+        var division;
+        var default_distric;
+        var address;
+        var deliveryFee;
+        var addInfo;
+
+        function validateForm() {
             $('.checkoutForm').submit();
-            // $('#sslczPayBtn').trigger('click');
-            var name = $('#areaWiseName').val();
-            var phone = $('#areaWisePhone').val();
-            var division = $('#division').val();
-            var default_distric = $('#default_distric').val();
-            var address = $('#address').val();
-            var deliveryFee = $('#deliveryFee').val();
 
-            if(name == '' || phone == '' || division == '' || default_distric == '' || address == ''  || deliveryFee == '' ){
+            var slecetMethod = $("input:radio[name=paymentMethod]:checked").val();
 
-            }else{
-                $('#sslczPayBtn').trigger('click');
+            name = $('#areaWiseName').val();
+            phone = $('#areaWisePhone').val();
+            division = $('#division').val();
+            default_distric = $('#default_distric').val();
+            address = $('#address').val();
+            deliveryFee = $('#deliveryFee').val();
+            addInfo = $('#addInfo').val();
+
+            if ($('.checkoutForm').valid() == true) {
+                var obj = {};
+                obj.name = $('#areaWiseName').val();
+                obj.phone = $('#areaWisePhone').val();
+                obj.division = $('#division').val();
+                obj.district = $('#default_distric').val();
+                obj.address = $('#address').val();
+                obj.deliveryFee = $('#deliveryFee').val();
+                obj.notes = $('#notes').val();
+
+
+                $('#sslczPayBtn').prop('postdata', obj);
+
+                if (slecetMethod == 1) {
+
+                    checkoutByCash();
+                } else if (slecetMethod == 3 || slecetMethod == 2) {
+
+
+                    if (name == '' || phone == '' || division == '' || default_distric == '' || address == '' ||
+                        deliveryFee ==
+                        '') {
+                        toastr['error']('Please fill up all fields');
+                    } else {
+                        $('#sslczPayBtn').trigger('click');
+                    }
+                }
             }
+
+
+
+
+
+            // $('#sslczPayBtn').trigger('click');
+
+        }
+
+        function checkoutByCash() {
+            $.ajax({
+                url: "{!! route('order.place') !!}",
+                method: "post",
+                data: {
+                    name: name,
+                    phone: phone,
+                    division: division,
+                    district: default_distric,
+                    address: address,
+                    delivery_fee: deliveryFee,
+                    addInfo: addInfo,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        var url = '{{ route('frontend.home') }}';
+                        location.replace(url);
+
+                    } //success end
+
+                },
+                error: function(error) {
+                    if (error.status == 422) {
+                        $.each(error.responseJSON.errors, function(i, message) {
+                            toastr['error'](message);
+                        });
+
+                    }
+                },
+            }); //ajax end  
         }
     </script>
 @endsection

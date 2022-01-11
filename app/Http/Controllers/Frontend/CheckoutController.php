@@ -18,6 +18,8 @@ class CheckoutController extends Controller {
             $user->load('addresses');
 
             if (count($user->addresses) > 0) {
+
+
                 foreach ($user->addresses as $address) {
                     if ($address->pivot->is_default == 1) {
                         $default_address = $address;
@@ -33,6 +35,7 @@ class CheckoutController extends Controller {
             } else {
                 $total           = $this->totalAmount($cartService->subTotal(), 0);
                 $default_address = [];
+                return redirect()->route('customer.profile','#address')->with('error','Please first add your primary address');
             }
 
             return view('frontend.checkout.checkout', compact('user', 'cartService', 'default_address', 'total'));
@@ -43,6 +46,7 @@ class CheckoutController extends Controller {
     }
 
     public function placeOrder(OrderStoreRequest $request, CartService $cartService) {
+        dd($request->all());
         $total = $cartService->subTotal();
         // $order = new Order();
 
@@ -64,14 +68,15 @@ class CheckoutController extends Controller {
             'user_id'         => auth()->user()->id,
             'payment_id'      => 1,
             'order_status_id' => 1,
-            'id'              => 1,
+            'id'              => getMaxId(),
             'name'            => $request->name,
-            'mobile'          => $request->phone,
+            'phone'           => $request->phone,
             'division'        => $request->division,
             'district'        => $request->district,
             'address'         => $request->address,
             'delivery_fee'    => $request->delivery_fee,
-            'subtotal'        => $request->subtotal,
+            'notes'           => $request->addInfo,
+            'subtotal'        => $total,
             'total'           => $this->totalAmount($cartService->subTotal(), $request->delivery_fee),
         ]);
 
@@ -84,7 +89,7 @@ class CheckoutController extends Controller {
 
         $cartService->destroy();
 
-        Session::flash('success','Order has been placed');
+        Session::flash('success', 'Order has been placed');
 
         return $this->success($order);
 

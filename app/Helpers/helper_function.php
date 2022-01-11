@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -86,4 +87,15 @@ function getTotalRating($reviews) {
     }else{
         return 0;
     }
+}
+
+// order maz id
+ function getMaxId() {
+    $max = Order::max('id');
+    if ($max == null) {
+        $id = str_pad(1, 4, '0', STR_PAD_LEFT);
+    } else {
+        $id = str_pad(++$max, 4, '0', STR_PAD_LEFT);
+    }
+    return $id;
 }

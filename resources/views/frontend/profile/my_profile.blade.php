@@ -287,8 +287,7 @@
                                                     <span>#{{ $user_order->id }}</span>
                                                 </p> --}}
 
-                                                <p class="order_code" >অর্ডার কোডঃ <span role="button" data-bs-toggle="modal"
-                                                    data-bs-target="#orderHistoryModal">#{{ $user_order->id }}</span></p>
+                                                <p class="order_code" >অর্ডার কোডঃ <span >#{{ $user_order->id }}</span></p>
 
                                                 @if ($user_order->order_status_id == 1)
                                                     <h3 class="order_sign panding">পেন্ডিং</h3>
@@ -497,6 +496,11 @@
             var order_infoTab = new bootstrap.Tab(firstTabEl)
 
             order_infoTab.show()
+        }else if(location.hash == '#address'){
+            var firstTabEl = document.querySelector('#area_info-tab')
+            var addressTab = new bootstrap.Tab(firstTabEl)
+
+            addressTab.show()
         }
 
 
@@ -934,11 +938,12 @@
                         $('#order_total').html(engToBangla(response.data.total));
                         $('#order_status').html(response.data.order_status.name);
                         $('#order_id').html(response.data.id);
+                        $('#order_note').html(response.data.notes ?? 'N/A');
 
 
                         $("#order_status").empty();
-                        $('#order_status').append(response.order_status_id==1?`<span class="delevery-pending" id="order_status">পেন্ডিং</span>`:
-                        response.order_status_id==2?`<span class="delevery-success" id="order_status">ডেলিভারিং</span>`:response.order_status_id==3?`কমপ্লিট`:`<span class="delevery-pending">ক্যানসেল</span>`
+                        $('#order_status').append(response.data.order_status_id==1?`<span class="delevery-pending" id="order_status">পেন্ডিং</span>`:
+                        response.data.order_status_id==2?`<span class="delevery-success" id="order_status">ডেলিভারিং</span>`:response.data.order_status_id==3?`কমপ্লিট`:`<span class="delevery-pending">ক্যানসেল</span>`
                         )
                      
                         $('#orderHistoryModal').modal('show');

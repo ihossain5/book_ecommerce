@@ -21,6 +21,7 @@ class SslCommerzPaymentController extends Controller {
 
     public function payViaAjax(Request $request, CartService $cartService) {
         $dataArray = $request->get('cart_json');
+
         $data      = json_decode($dataArray, true);
 
         $grandTotal = $this->totalAmount($cartService->subTotal(), $data['deliveryFee']);
@@ -63,6 +64,7 @@ class SslCommerzPaymentController extends Controller {
                 'name'            => $data['name'],
                 'email'           => $data['email'] ?? null,
                 'phone'           => $data['phone'],
+                'notes'           => $data['notes'],
                 'amount'          => $data['total_amount'],
                 'status'          => 'Pending',
                 'address'         => $data['address'],
@@ -74,7 +76,7 @@ class SslCommerzPaymentController extends Controller {
                 'district'        => $data['district'],
                 'user_id'         => auth()->user()->id,
                 'order_status_id' => 1,
-                'id'              => $this->getMaxId(),
+                'id'              => getMaxId(),
             ]);
 
 
@@ -96,15 +98,7 @@ class SslCommerzPaymentController extends Controller {
 
     }
 
-    public function getMaxId() {
-        $max = Order::max('id');
-        if ($max == null) {
-            $id = str_pad(1, 4, '0', STR_PAD_LEFT);
-        } else {
-            $id = str_pad(++$max, 4, '0', STR_PAD_LEFT);
-        }
-        return $id;
-    }
+
 
     public function paymentSuccess(Request $request, CartService $cartService) {
         // echo "Transaction is Successful";

@@ -27,7 +27,7 @@ class OrderStoreRequest extends FormRequest {
             'district'     => 'required|max:255|string',
             'address'      => 'required|max:5000|string',
             'delivery_fee' => 'required|max:255',
-            'subtotal'     => 'required',
+            // 'subtotal'     => 'required',
         ];
     }
 }

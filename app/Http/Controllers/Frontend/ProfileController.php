@@ -21,7 +21,7 @@ class ProfileController extends Controller {
     public function index() {
         $user_info = Auth::user();
         $id=$user_info->id;
-        $user_orders=Order::where('user_id',$id)->get();
+        $user_orders=Order::where('user_id',$id)->latest()->get();
         return view('frontend.profile.my_profile', compact('user_info','user_orders'));
     }
    
