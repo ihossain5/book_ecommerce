@@ -46,7 +46,7 @@
                                                 
                                                 <td>{{ $user->sex??'N/A' }}</td>
                                                 <td class="change_status{{ $user->id }}">
-                                                    @if($user->ban==0)
+                                                    @if($user->is_ban==0)
                                                         <small class='label btn-success'>Active</small>
                                                      @else
                                                         <small class='label btn-danger'>Blocked</small>
@@ -247,7 +247,7 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                         $('#user_gender').html(response.data.sex??'N/A')
                         $('#user_contact').html(response.data.phone??'N/A')
                         $('#user_address').html(response.data.address??'N/A')
-                        $('#ban').html(response.data.ban==1?`Yes`:`No`)
+                        $('#ban').html(response.data.is_ban==1?`Yes`:`No`)
                         if(response.data.image==null){
                             $("#view_photo").attr("src", no_image_path);
                         }else{

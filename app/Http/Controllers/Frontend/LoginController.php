@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\OtpVerifyRequest;
 use App\Models\User;
 use App\Service\LoginService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
@@ -28,11 +29,21 @@ class LoginController extends Controller
 
         $url = url('') . $parsedUrl['path'];
 
-        if ($url != route('frontend.otp.send')) {
-            $loginService->send($number);
+        try {
+            if ($url != route('frontend.otp.send')) {
+                $loginService->send($number);
+             }
+
+             return view('frontend.auth.login_verification', compact('number'));
+
+        } catch (Exception $e) {
+
+           return redirect()->back()->with('error',$e->getMessage());
         }
 
-        return view('frontend.auth.login_verification', compact('number'));
+      
+
+       
     }
 
     public function otpSend (Request $request, LoginService $loginService){

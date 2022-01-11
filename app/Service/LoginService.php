@@ -2,6 +2,8 @@
 namespace App\Service;
 
 use App\Models\User;
+use ErrorException;
+use Exception;
 
 Class LoginService {
 
@@ -34,6 +36,9 @@ Class LoginService {
         $user = $this->storeUser($randomDigit, $number);
         
         if ($user) {
+            if($user->is_ban == 1){
+                 throw new ErrorException('Sorry! You have no permission to access this');
+            }
             return $this->sendOTP($to, $text);
         }
 
