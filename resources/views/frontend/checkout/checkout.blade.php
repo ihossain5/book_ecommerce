@@ -95,7 +95,7 @@
 
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" value="" id="cashOnDel">
+                                    <input class="form-check-input" name="paymentMethod" type="radio" value="" id="cashOnDel">
                                     <label class="form-check-label" for="cashOnDel">
                                         ক্যাশ অন ডেলিভারি
                                     </label>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" value="" id="bkash">
+                                    <input class="form-check-input" name="paymentMethod" type="radio" value="" id="bkash">
                                     <label class="form-check-label" for="bkash">
                                         বিকাশ/নগদ
                                     </label>
@@ -111,7 +111,7 @@
                             </div>
                             <div class="form_group">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" value="" id="creditDabit">
+                                    <input class="form-check-input" name="paymentMethod" type="radio" value="" id="creditDabit">
                                     <label class="form-check-label" for="creditDabit">
                                         ক্রেডিট/ডেবিট কার্ড
                                     </label>

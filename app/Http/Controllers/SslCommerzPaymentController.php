@@ -74,7 +74,7 @@ class SslCommerzPaymentController extends Controller {
                 'district'        => $data['district'],
                 'user_id'         => auth()->user()->id,
                 'order_status_id' => 1,
-                'id'              => 1,
+                'id'              => $this->getMaxId(),
             ]);
 
 
@@ -94,6 +94,16 @@ class SslCommerzPaymentController extends Controller {
             ]]);
         }
 
+    }
+
+    public function getMaxId() {
+        $max = Order::max('id');
+        if ($max == null) {
+            $id = str_pad(1, 4, '0', STR_PAD_LEFT);
+        } else {
+            $id = str_pad(++$max, 4, '0', STR_PAD_LEFT);
+        }
+        return $id;
     }
 
     public function paymentSuccess(Request $request, CartService $cartService) {

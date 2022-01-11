@@ -954,5 +954,68 @@
         }
         //end
 
+        //primary address     
+      function primaryAddress(id) {
+                    $.ajax({
+                        type: "POST",
+                        url: "{!! route('profile.address.primary') !!}",
+                        data: {
+                            id: id,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        dataType: 'JSON',
+                        success: function(response) {
+                            if (response.success === true) {
+
+                                $("#user_address_list").empty();
+                                if(response.user_address.length!=0){
+                                
+                                    $.each(response.user_address.addresses, function(index, val) {
+                                        console.log(val);
+                                    $('#user_address_list').append(`<li class="address_loc_details address_id${val.address_id}">
+                                <div class="address_loc_desc">
+                                    <p class="address_loc"><span>বিভাগ: </span>${val.division}</p>
+                                    <p class="address_loc"><span>জেলা: </span>${val.district}</p>
+                                    <p class="address_loc"><span>ঠিকানা: </span>${val.address}</p>
+                                    <p class="address_loc"><span>মোবাইল: </span>${val.mobile}</p>
+                                </div>
+                                <div class="address_loc_edit">
+                                    <div class="form-check">
+                                        ${ (val.pivot.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                            value="" onclick="primaryAddress(${val.address_id})">`)
+
+                                            
+                                        }
+
+                                        <label class="form-check-label"> প্রাথমিক ঠিকানা </label>
+                                    </div>
+                                    <div class="address_loc_buttons">
+
+                                        <button type="button" class="edit address_info"
+                                            data-id="${val.address_id}">
+
+                                            <button class="delete"
+                                                onclick="deleteAddress(${val.address_id})"></button>
+                                    </div>
+                                </div>
+                            </li>`)
+                                    });
+                                    
+                                }else{
+                                    $('#user_address_list').append(`<h1>No data!</h1>`);
+                                    }
+                                
+                                toastr['success'](response.data.message);
+
+
+                               
+                            } else {
+                                toastr['error'](response.message);
+                            }
+                        }
+                    });    
+            }
+        //end
     </script>
 @endsection
