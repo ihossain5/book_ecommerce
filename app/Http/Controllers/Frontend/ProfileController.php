@@ -19,10 +19,17 @@ class ProfileController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $user_info = Auth::user();
-        $id=$user_info->id;
-        $user_orders=Order::where('user_id',$id)->latest()->get();
-        return view('frontend.profile.my_profile', compact('user_info','user_orders'));
+
+        if (Auth::check()) {
+            $user_info = Auth::user();
+            $id=$user_info->id;
+            $user_orders=Order::where('user_id',$id)->latest()->get();
+            return view('frontend.profile.my_profile', compact('user_info','user_orders'));
+       } else {
+            return redirect()->route('frontend.login');
+       }
+        
+       
     }
    
     public function profile_order_view(Request $request) {

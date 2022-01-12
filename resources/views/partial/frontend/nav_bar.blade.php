@@ -126,8 +126,9 @@ $publications = HomePageController::all_publication();
                                             <input class="form-control form-control-lg phone_number" type="text"
                                                 placeholder="আপনার ফোন নম্বর" name="number">
 
-                                                <input class="form-control form-control-lg otp_change d-none" name="otp" type="password"
-                                                placeholder="পাসওয়ার্ড">
+                                                <input class="form-control form-control-lg otp_change d-none loginModalOtp" name="otp" type="number"
+                                                placeholder="আপনার ওটিপি">
+                                                
 
                                         </div>
 
@@ -145,7 +146,7 @@ $publications = HomePageController::all_publication();
                                                     alt="">Google</button></a>
                                     </div>
                                     <div class="col-6">
-                                        <a href="#">
+                                        <a href="{{ route('login.facebook') }}">
                                             <button><img src="{{ asset('frontend/assets/images/icons/Facebook_f_logo_(2019) 1.svg') }}"
                                                     alt="">Facebook</button>
                                         </a>

@@ -11,7 +11,7 @@
     <div class="container">
         <div class="sc_title_wrapper">
             <h1 class="sc_title">নতুন প্রকাশিত বই</h1>
-            <div class="btn_box">
+            {{-- <div class="btn_box">
                 <select class="btn_more">
                     <option value="" disabled selected hidden>সর্ট করুন
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15"
@@ -24,7 +24,7 @@
                     <option value="2">Two</option>
                     <option value="3">Three</option>
                 </select>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="container">

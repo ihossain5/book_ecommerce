@@ -11,7 +11,6 @@ use Laravel\Socialite\Facades\Socialite;
 class SocialLoginController extends Controller
 {
    
-
         // Google login
         public function redirectToGoogle() {
             session()->put('previous_url', url()->previous());

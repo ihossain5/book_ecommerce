@@ -62,6 +62,10 @@
             width: 100%;
         }
 
+        .pdfobject-container {
+            height: 60rem;
+        }
+
     </style>
 @endsection
 
@@ -85,7 +89,7 @@
                             <img class="hero_img serial12" src="{{ asset('images/' . $book->backside_image) }}"
                                 alt="{{ $book->title }}">
                             <div class="read_btn_box">
-                                <button class="read_something_btn"><img
+                                <button class="read_something_btn" onclick="readBook({{ $book->book_id }})"><img
                                         src="{{ asset('frontend/assets/images/icons/fi_file-text.svg') }}"
                                         alt="{{ $book->title }}">
                                     একটু
@@ -475,10 +479,29 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="pdfModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              {{-- <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5> --}}
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="pdf_viewer"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
 @endsection
 @section('page-js')
 
     <script src="{{ asset('frontend/assets/js/owl.carousel.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.6/pdfobject.min.js"
+    integrity="sha512-B+t1szGNm59mEke9jCc5nSYZTsNXIadszIDSLj79fEV87QtNGFNrD6L+kjMSmYGBLzapoiR9Okz3JJNNyS2TSg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         $('.writer_details_carousel').owlCarousel({
@@ -612,6 +635,7 @@
             routes: {
                 store: "{!! route('store.review') !!}",
                 addWishlist: "{!! route('store.whislist') !!}",
+                getPdf: "{!! route('book.get.pdf', ':id') !!}",
             }
         };
 
@@ -721,5 +745,37 @@
             $('#shareModal').modal('show');
             $('.social-button').attr('target', 'blank');
         }
+
+     // read book function
+     function readBook(id) {
+            var path = window.location.origin;
+            var url = config.routes.getPdf;
+            url = url.replace(':id', id);
+
+            $.ajax({
+                url: url,
+                method: "get",
+                data: {
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        PDFObject.embed(path + "/pdfs/" + response.data, ".pdf_viewer");
+                        $('#pdfModal').modal('show');
+                    } else if (response.success == false) {
+                        toastr["error"](response.data);
+
+                    }
+                }, //success end
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastr["error"]('Data not found');
+                    }
+                },
+
+            }); //ajax end
+
+        }   
     </script>
 @endsection

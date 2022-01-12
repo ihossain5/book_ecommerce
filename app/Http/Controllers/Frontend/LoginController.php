@@ -14,10 +14,16 @@ use Illuminate\Support\Facades\URL;
 class LoginController extends Controller
 {
     public function index (){
+        if(Auth::check()){
+            return redirect()->route('frontend.home');
+        }
         return view('frontend.auth.login');
     }
 
     public function sendOtp (Request $request, LoginService $loginService){
+        if(Auth::check()){
+            return redirect()->route('frontend.home');
+        }
 
         $this->validate($request,[
             'number'=> 'required|min:11|max:11'
@@ -41,12 +47,11 @@ class LoginController extends Controller
            return redirect()->back()->with('error',$e->getMessage());
         }
 
-      
-
        
     }
 
     public function otpSend (Request $request, LoginService $loginService){
+        // dd($request->all());
 
         $this->validate($request,[
             'number'=> 'required|min:11|max:11'
@@ -54,9 +59,16 @@ class LoginController extends Controller
 
         $number = $request->number;
 
-        // $loginService->send($number);
+        try {
+            $loginService->send($number);
 
-        return $this->success($number);
+            return $this->success($number);
+
+        } catch (Exception $e) {
+
+           return $this->error($e->getMessage());
+        }
+
     }
 
     public function otpVerification (Request $request){

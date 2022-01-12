@@ -240,9 +240,7 @@
         </div><!-- /.modal-dialog -->
     </div>
     <!-- Edit  Modal End -->
-    <!-- view  Modal -->
-    <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog"
-        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
@@ -251,27 +249,25 @@
                 </div>
                 <div class="modal-body">
                     <div class="col-xl-12 col-md-12">
-                        <div class="ms-form-group">
-                            <p class="pt-2 pb-2">
-                                <strong>Name:</strong> <span id="view_name"></span><br>
-                                <strong>Description:</strong> <span id="view_description"></span><br>
+                        <div class="ms-form-group view-modal">
+                            <p class="pb-3">
+                                <strong>Category Name:</strong> <span id="view_name"></span><br>
+                                <strong>Category Description:</strong> <span id="view_description"></span><br>
+                                <strong>Category Photo :</strong><br>
+                                <img class="mt-2" src="" id="view_image">
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer view-modal-footer">
-                    <button id="editBtn" type="button" data-dismiss="modal"
-                        class="btn btn-block btn-primary waves-effect waves-light" onclick="editCategory()">
-                        Edit
-                    </button>
-                    <button type="button" onclick="deleteCategory()"
-                        class="btn btn-block delete_btn btn-danger waves-effect waves-light">
-                        Delete
-                    </button>
-                    <button type="submit" data-dismiss="modal" class="btn btn-block btn-success waves-effect waves-light">
-                        Done
-                    </button>
+                <div class="col-md-12 ">
+                    <div class="row">
+
+                        <div class="col-md-12 ">
+                        <button data-dismiss="modal" class="btn btn-block btnAccept mb-3 "> Done</button>
+                        </div>
+                    </div>
                 </div>
+
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div>
@@ -441,7 +437,43 @@
             });
         });
 
+        function viewCategory(id) {
+            var url = "{!! route('category.edit', ':id') !!}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                method: "get",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        $('#view_name').text(response.data.name);
+                        $('#view_description').text(response.data.description);
 
+                        if (response.data.photo != null) {
+                            $('#view_image').attr('src', imagesUrl + response.data.photo);
+                        }
+                        $('#viewModal').modal('show');
+
+                    } //success end
+
+                },
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastMixin.fire({
+                            icon: 'error',
+                            animation: true,
+                            title: "" + 'Data not found' + ""
+                        });
+
+
+                    }
+                },
+            }); //ajax end
+        }
         //edit a category
         function editCategory(id) {
             var url = "{!! route('category.edit', ':id') !!}";

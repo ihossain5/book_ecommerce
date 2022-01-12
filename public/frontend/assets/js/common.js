@@ -65,6 +65,7 @@ $('.new_mega_menu').mouseleave(function () {
 $('.filter_clear_btn').click(function () {
   console.log($(this).data('input_name'))
   $(`input[name ="${$(this).data('input_name')}"]`).prop("checked", false);
+  book_fetch();
 })
 
 // Enable Tooltip

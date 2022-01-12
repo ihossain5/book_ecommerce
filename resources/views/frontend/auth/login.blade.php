@@ -47,7 +47,7 @@
                         <a href="{{route('login.google')}}" class="google"><img
                                 src="{{ asset('frontend/assets/images/icons/Google__G__Logo.svg') }}"
                                 alt="google img">Google</a>
-                        <a href="" class="facebook"><img
+                        <a href="{{ route('login.facebook') }}" class="facebook"><img
                                 src="{{ asset('frontend/assets/images/icons/Facebook_f_logo.svg') }}"
                                 alt="google img">Facebook</a>
                     </div>
@@ -59,7 +59,7 @@
 
 @endsection
 @section('page-js')
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
     <script>
         $(".loginForm").validate({
             rules: {

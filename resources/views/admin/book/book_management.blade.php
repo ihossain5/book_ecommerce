@@ -849,6 +849,7 @@
                 delete: "{!! route('books.destroy', ':id') !!}",
                 updateStatus: "{!! route('books.status.update') !!}",
                 getPdf: "{!! route('book.get.pdf', ':id') !!}",
+                getReview: "{!! route('book.review', ':id') !!}",
             }
         };
 
@@ -866,6 +867,9 @@
                 dataType: "json",
                 success: function(response) {
                     if (response.success == true) {
+                        var review_url = config.routes.getReview;
+                        review_url = review_url.replace(':id', response.data.book_id);
+
                         var bookTable = $('#bookTable').DataTable();
                         var row = $('<tr>')
                             .append(`<td><img class="img-fluid" src="${imagesUrl}` +
@@ -895,6 +899,9 @@
 
 
                             .append(`<td>
+                                <a type='button' class='btn btn-outline-primary'
+                                                        href="${review_url}"><i
+                                                            class='fa fa-file'></i></a>
                             <button type='button' class='btn btn-outline-dark' onclick='viewBook(${response.data.book_id})'>
                                   <i class='fa fa-eye'></i>
                              </button>
@@ -1176,6 +1183,8 @@
                 success: function(response) {
 
                     if (response.success == true) {
+                        var review_url = config.routes.getReview;
+                        review_url = review_url.replace(':id', response.data.book_id);
                         $('.book' + response.data.book_id).html(
                             `
                             <td>
@@ -1203,6 +1212,9 @@
                                 </td>
 
                                 <td>
+                                    <a type='button' class='btn btn-outline-primary'
+                                                        href="${review_url}"><i
+                                                            class='fa fa-file'></i></a>
                                     <button type='button' class='btn btn-outline-dark' onclick='viewBook(${response.data.book_id})'>
                                        <i class='fa fa-eye'></i>
                                     </button>

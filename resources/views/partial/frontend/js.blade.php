@@ -69,7 +69,29 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         },
     });
 
-    $(".login_auth_box").validate({
+    // $(".login_auth_box").validate({
+    //     rules: {
+    //         otp: {
+    //             required: true,
+    //             digits: true,
+    //             minlength: 6,
+    //             maxlength: 6,
+    //         },
+
+
+    //     },
+    //     messages: {
+    //         otp: {
+    //             required: 'Please insert your otp code',
+    //         },
+    //     },
+    //     errorPlacement: function(label, element) {
+    //         label.addClass('h3 text-danger');
+    //         label.insertAfter(element);
+    //     },
+    // });
+
+    $("#otpCheckForm").validate({
         rules: {
             otp: {
                 required: true,
@@ -77,8 +99,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 minlength: 6,
                 maxlength: 6,
             },
-
-
         },
         messages: {
             otp: {
@@ -107,19 +127,39 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     $('.otp_change').toggleClass('d-none');
 
                     $('#loginModalForm').attr('id','otpCheckForm');
+                }else{
+                    toastr['error'](response.data);
                 }
             },
             error: function(error) {
-                if (error.status == 404) {
 
-                }
+                if (error.status == 422) {
+                        $.each(error.responseJSON.errors, function(i, message) {
+                          toastr['error'](message);
+                        });
+
+                    }
             },
         });
     })
 
     $(document).on('submit', '#otpCheckForm', function(e) {
         e.preventDefault();
-        $.ajax({
+
+        var otp = $('.loginModalOtp').val();
+        if(otp == ''){
+            $('.loginModalOtp').after(`
+            <label id="otp-error" class="error h3 text-danger" for="otp">Please insert your otp code</label>
+            `);
+        }else if(otp.length < 6 || otp.length > 6 ){
+            $('.loginModalOtp').after(`
+            <label id="otp-error" class="error h3 text-danger" for="otp">Please provide a valide otp code</label>
+            `);
+        }
+        else{
+            $('#otp-error').addClass('d-none');
+
+            $.ajax({
             type: "POST",
             url: routeConfig.routes.verifyOtp,
             data: new FormData(this),
@@ -143,6 +183,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                     }
             },
         });
+        }
+
+       
     })  
     
 function book_search_method(){
@@ -175,4 +218,8 @@ function book_search_method(){
         }
     });
 };
+
+
+
+
 </script>

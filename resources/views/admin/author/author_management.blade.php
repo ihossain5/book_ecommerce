@@ -170,8 +170,7 @@
     <!-- Edit  Modal End -->
 
         <!-- view  Modal -->
-        <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog"
-        aria-labelledby="mySmallModalLabel" aria-hidden="true">
+ <div class="modal fade bs-example-modal-center" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block">
@@ -185,7 +184,7 @@
                                 <strong>Author Name:</strong> <span id="view_name"></span><br>
                                 <strong>Author Description:</strong> <span id="view_description"></span><br>
                                 <strong>Author Photo :</strong><br>
-                                <img class="mt-2" src="" id="view_image" style="width: 100%;">
+                                <img class="mt-2" src="" id="view_image">
                             </p>
                         </div>
                     </div>

@@ -111,9 +111,10 @@
                     <div class="card m-b-30">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-4">
-                                <div class="ms-header-text">
-                                    <h4 class="mt-0 header-title">Book Name- {{ $book_name }} <span style="padding-left:150px">Total Reviews: {{ $count }}</span></h4>
-                                    <h4 class="mt-0 header-title"><span style="padding-left:370px">Avg Rating: {{ $avg_rating }}</span></h4>
+                                <div class="ms-header-text mx-auto">
+                                    <h4 class="mt-0 header-title">{{ $book_name }}</h4>
+                                    <h4 class="mt-0 header-title">Total Reviews: {{ $book_info->reviews->count() }}</h4>
+                                    <h4 class="mt-0 header-title">Avg Rating: {{ getTotalRating($book_info->reviews) }}</h4>
                                 </div>
                             </div>
                             <div class="table-responsive">

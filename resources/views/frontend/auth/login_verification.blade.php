@@ -45,15 +45,15 @@
                         </div>
                     @endif
 
-                    <p><span class="font_inter">{{ $number }} </span> নাম্বারে পাঠান ওটিপি বসান</p>
-                    <form action="{{ route('frontend.otp.verification') }}" method="POST">@csrf
+                    <p><span class="font_inter">{{ $number }} </span> নাম্বারে ওটিপি পাঠানো হয়েছে </p>
+                    <form action="{{ route('frontend.otp.verification') }}" class="loginForm" method="POST">@csrf
                         <div class="input_fild">
                             <input type="text" name="otp" placeholder="আপনার ওটিপি" name="">
-                            <input type="hidden" name="phone" value="{{ $number }}">
+                            <input type="hidden" id="number" name="phone" value="{{ $number }}">
                         </div>
                         <div class="submit_btns">
                             <button href="" class="submit">সাবমিট করুন</button>
-                            <button href="" class="otp">আবার ওটিপি পাঠান</button>
+                            <button type="button" onclick="sendOtpAgain()" class="otp">আবার ওটিপি পাঠান</button>
                         </div>
                     </form>
                     <h3>অথবা গুগল/ফেসবুক দিয়ে লগ ইন করুন,</h3>
@@ -74,4 +74,60 @@
 
 @endsection
 @section('page-js')
+<script>
+    $(".loginForm").validate({
+        rules: {
+            otp: {
+                required: true,
+                digits: true,
+                minlength: 6,
+                maxlength: 6,
+            },
+
+
+        },
+        messages: {
+            otp: {
+                required: 'Please insert your otp code',
+            },
+        },
+        errorPlacement: function(label, element) {
+            label.addClass('h1 text-danger');
+            label.insertAfter(element);
+        },
+    });
+
+    function sendOtpAgain(){
+        var number = $('#number').val();
+        $.ajax({
+                url: routeConfig.routes.login,
+                method: "post",
+                data: {
+                    number: number,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(response) {
+                    if (response.success == true) {
+                        toastr['success']('পুনরায়  ওটিপি পাঠানো হয়েছে ');
+                    } else{
+                    toastr['error'](response.data);
+                }
+
+                },
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastr['error']('Data not found');
+
+                    }
+                    if (error.status == 422) {
+                        $.each(error.responseJSON.errors, function(i, message) {
+                          toastr['error'](message);
+                        });
+
+                    }
+                },
+            }); //ajax end
+    }
+</script>
 @endsection

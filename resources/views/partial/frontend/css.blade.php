@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 @yield('page-css')
 <style>
+    
     .toast-message {
         color: #ffffff;
         font-family: 'inter';
@@ -31,4 +32,17 @@
         display: block;
         padding:5px;
     }
+
+    input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0;
+            /* <-- Apparently some margin are still there even though it's hidden */
+        }
+
+    input[type=number] {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
 </style>

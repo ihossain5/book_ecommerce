@@ -49,6 +49,8 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
 
+Route::get('get/{book}/pdf/', [BookController::class, 'getPdf'])->name('book.get.pdf');
+
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware('admin');
     Route::get('/password-change', [AdminController::class, 'passwordChange'])->name('password.change');
@@ -80,7 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 /* book route start */
     Route::resource('books', BookController::class);
     Route::post('/book/status/update/', [BookController::class, 'updateStatus'])->name('books.status.update');
-    Route::get('get/{book}/pdf/', [BookController::class, 'getPdf'])->name('book.get.pdf');
+    
     Route::get('/book/review/{id}', [BookController::class, 'book_review'])->name('book.review');
 
 // Slider start
@@ -192,6 +194,9 @@ Route::post('/photo/update', [ProfileController::class, 'photoUpdate'])->name('p
 // Google login
 Route::get('login/google', [SocialLoginController::class, 'redirectToGoogle'])->name('login.google');
 Route::get('login/google/callback', [SocialLoginController::class, 'handleGoogleCallback']);
+
+Route::get('login/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('login/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
 
 Route::post('/frontend-logout',[LoginController::class,'logout'])->name('frontend.logout');
 
