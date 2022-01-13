@@ -151,6 +151,8 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
         $('#order_info_table').DataTable({
             "ordering": false,
         });
+
+        $('.customer_management').addClass('active')
     });
 
         function viewOrderInfo (id) {
@@ -167,7 +169,10 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 
                         $('.payment_id').html(response.data.payment_id)
                         $('#view_order_id').html(response.data.order_id)
-                        $('#view_payment_method').html(response.data.payment_method.payment_method)
+                        if(response.data.payment_id != null){
+                            $('#view_payment_method').html(response.data.payment_method.payment_method)
+                        }
+                       
                         $('#view_payment_status').html(response.data.order_status.name)
 
                         $('#view_customer_name').html(response.data.name??'N/A')

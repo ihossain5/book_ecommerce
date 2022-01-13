@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminStoreRequest;
+use App\Mail\SendMail;
+use App\Mail\SendMain;
 use App\Models\Invoice;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -50,7 +53,8 @@ class AdminController extends Controller {
         $user = Auth::user();
         $this->validate($request, [
             'name'        => 'required|max:100',
-            'phone'       => 'required|max:20',
+            'phone'       => 'required|max:11|min:11
+            ',
             'email'       => 'required|max:100|email|unique:users,email,' . $user->id,
 
         ]);
@@ -84,7 +88,7 @@ class AdminController extends Controller {
     }
 
     public function allAdmin() {
-        $employees = User::all();
+        $employees = User::where('is_admin',1)->get();
         return view('admin.employee', compact('employees'));
     }
 
@@ -132,19 +136,29 @@ class AdminController extends Controller {
                 // $img = Image::make($image)->resize(680, 437);
                 // $img->save($upload_path1 . $image_full_name, 60);
             }
-            $random   = Str::random(20);
+            $token   = Str::random(20);
             $employee = User::create([
                 'name'        => $request->name,
                 'email'       => $request->email,
                 'phone'       => $request->phone,
-                'password'    => bcrypt($random),
+                'password'    => bcrypt($token),
+                'token'    => $token,
                 'image'       => $profile_image_image_url,
                 'is_admin'    => 1,
             ]);
-            Mail::send('password_mail', ['password' => $random, 'email' => $request->email], function ($message) use ($request) {
-                $message->to($request->email);
-                $message->subject('Greetings');
-            });
+            // Mail::send('password_mail', ['password' => $random, 'email' => $request->email], function ($message) use ($request) {
+            //     $message->to($request->email);
+            //     $message->subject('Greetings');
+            // });
+
+            $maildata = [
+                'title'   => 'Geetings from Bhorer Kagoj Prokashan',
+                'message' => 'You are invited to use Bhorer Kagoj Prokashan. You can now register here for free',
+                'url'     => route('send.email', [$token]),
+            ];
+            Mail::to($request->email)->send(new SendMail($maildata));
+
+
             $data                = array();
             $data['message']     = 'Admin added successfully';
             $data['name']        = $employee->name;
@@ -295,5 +309,45 @@ class AdminController extends Controller {
             ]);
         }
 
+    }
+
+    public function registerNewAdmin($token) {
+        // dd($token);
+        $user = User::where('token', $token)->first();
+        if ($user) {
+            if ($user->is_verified == 0) {
+                return view('admin.admin-management.admin_register', compact('user'));
+            } else {
+                abort('404');
+            }
+        } else {
+            abort('404');
+        }
+
+    }
+
+    
+    public function userSignUp(AdminStoreRequest $request) {
+        $user  = User::where('email', $request->email)->first();
+        // $photo = $request->image;
+        // if ($photo) {
+        //     $path    = 'avatar/';
+        //     $img_url = storeImage($photo, $path, 200, 200);
+        // }
+        $user->update($request->validated() + [
+            'token'       => null,
+            // 'image'       => $img_url,
+            'is_verified' => 1,
+        ]);
+        if ($user) {
+            Auth::login($user);
+            if (Auth::user()->is_super_admin == 1 || Auth::user()->is_admin == 1 ) {
+                return redirect()->route('dashboard');
+            } else {
+                Auth::logout();
+                return redirect()->back()->withErrors(['error' => 'Sorry! You have no permission to access this']);
+            }
+
+        }
     }
 }

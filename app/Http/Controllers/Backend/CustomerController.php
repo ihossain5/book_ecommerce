@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CustomerSendSmsRequest;
 use App\Models\Order;
 use App\Models\User;
+use App\Traits\SmsTrait;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller {
+
+    use SmsTrait;
     /**
      * Display a listing of the resource.
      *
@@ -69,7 +74,7 @@ class CustomerController extends Controller {
                 $is_ban['is_ban'] = 0;
                 $is_ban->update();
                 $data            = array();
-                $data['message'] = 'User Unblocked';
+                $data['message'] = 'User has unblocked';
 
                 $data['status'] = $is_ban->ban;
                 $data['id']     = $request->user_id;
@@ -85,7 +90,7 @@ class CustomerController extends Controller {
 
                 $is_ban->update();
 
-                $data['message'] = 'User Blocked';
+                $data['message'] = 'User has been blocked';
                 $data['status']  = $is_ban->ban;
                 $data['id']      = $request->user_id;
 
@@ -95,6 +100,20 @@ class CustomerController extends Controller {
                 ]);
             }
 
+        }
+    }
+
+    public function sendSms(CustomerSendSmsRequest $request){
+
+        try {
+
+            $this->smsSend($request->phone, strip_tags($request->message));
+
+            return $this->success('Your message has been sent');
+
+        } catch (Exception $e) {
+
+            return $this->error($e->getMessage());
         }
     }
 

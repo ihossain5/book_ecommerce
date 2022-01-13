@@ -409,7 +409,7 @@
                                 animation: true,
                                 title: "" + response.data.message + ""
                             });
-
+                            $('#add').modal('hide')
                         }
 
 
@@ -424,7 +424,7 @@
                 }, //success end
 
                 beforeSend: function() {
-                    $('#add').modal('hide');
+                    // $('#add').modal('hide');
                     $('.preloader').empty();
                     $('.preloader').addClass('ajax_loader').append(
                         `<div class='preloader'>

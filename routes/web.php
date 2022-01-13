@@ -118,6 +118,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 // Customer Order start
     Route::get('/customer/orders', [CustomerController::class, 'index'])->name('customer.order');
     Route::get('/customer/orders/{id}', [CustomerController::class, 'order_review'])->name('customer.order.review');
+    Route::post('/customer/send-sms', [CustomerController::class, 'sendSms'])->name('customer.send.sms');
 // Customer Order  end
 // ban start
     Route::post('/user/ban', [CustomerController::class, 'user_ban'])->name('user.ban');
@@ -125,6 +126,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 // ban end
 
 });
+
+Route::get('/send-email/{token}', [AdminController::class, 'registerNewAdmin'])->name('send.email');
+Route::post('/admin/sign-up', [AdminController::class, 'userSignUp'])->name('admin.sign.up');
 
 //* password reset start */
 Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('forgot.password');

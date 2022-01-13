@@ -107,7 +107,7 @@
                     </li> --}}
 
                     <li>
-                        <a href="{{ route('customer.order') }}" class="waves-effect">
+                        <a href="{{ route('customer.order') }}" class="waves-effect customer_management">
                             <i class="fa fa-book"></i>
                             <span> Customer Management </span>
                         </a>

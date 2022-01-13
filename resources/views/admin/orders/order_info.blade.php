@@ -75,10 +75,11 @@
                                                 </td>
 
                                                 <td class="actionBtn text-center">
+
                                                     <a href="{{route('order.invoice.download',[$order->order_id])}}">
                                                         <button type='button' class='btn btn-outline-primary'
                                                         ><i
-                                                             class='fa fa-file-text-o'></i>
+                                                             class='fa fa-download'></i>
                                                          </button>
                                                       </a>
                                                     <button type='button' class='btn btn-outline-purple'
@@ -207,7 +208,10 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 
                         $('.payment_id').html(response.data.payment_id)
                         $('#view_order_id').html(response.data.order_id)
-                        $('#view_payment_method').html(response.data.payment_method.payment_method)
+                        if(response.data.payment_id != null){
+                            $('#view_payment_method').html(response.data.payment_method.payment_method)
+                        }
+                      
                         $('#view_payment_status').html(response.data.order_status.name)
 
                         $('#view_customer_name').html(response.data.name??'N/A')
