@@ -46,7 +46,7 @@ class CheckoutController extends Controller {
     }
 
     public function placeOrder(OrderStoreRequest $request, CartService $cartService) {
-        dd($request->all());
+        // dd($request->all());
         $total = $cartService->subTotal();
         // $order = new Order();
 

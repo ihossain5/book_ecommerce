@@ -41,11 +41,11 @@
 
         <div class="card">
             <div class="card-body">
-                <h3 class="text-center m-0">App Logo</h3>
+                {{-- <h3 class="text-center m-0">App Logo</h3> --}}
                 <h3 class="text-center m-0">
                     <a href="" class="logo logo-admin">
-                        {{-- <img src="{{asset('backend/assets/images/logo_dark.png')}}" height="30"
-                            alt="logo"> --}}
+                        <img src="{{asset('images/logo.png')}}" height="30"
+                            alt="logo">
                         {{-- <h5>Admin Dashboard</h5> --}}
                     </a>
                 </h3>

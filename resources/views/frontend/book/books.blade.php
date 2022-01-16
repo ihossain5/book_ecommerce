@@ -385,7 +385,8 @@
                                     </div>
                                     <div class="content_wrapper book_card_content">
                                         <div class="rating">
-                                        <div class="rateYo" data-user_rating="${val.rating}"></div>
+                                        <div class="rateYo ratSerialId${index}" data-user_rating="${val.rating}"></div>
+                                        
                                     </div>
                                         <h3 class="title">${val.title}</h3>
                                         <p class="author">${$.map( val.authors, function( n ) {
@@ -401,6 +402,7 @@
                                     </div>
                                 </div>
                             </div>`)
+                            rateYo();
                             });
                         }else{
                             $('#book_list').append(` <div class="col offset-4">

@@ -403,6 +403,7 @@ setMenuHeight();
                                     </div>
                                 </div>
                             </div>`)
+                            rateYo();
                             });
                         }else{
                             $('#author_book_list').append(` <div class="col offset-4">

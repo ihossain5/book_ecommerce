@@ -37,11 +37,11 @@
                             <div class="form_group">
                                 <label for="areaSelect" class="form-label">ঠিকানা নির্বাচন করুন</label>
                                 <select class="form-select" id="areaSelect">
-                                    <option value="">ঠিকানা নির্বাচন করুন</option>
+                                    {{-- <option value="">ঠিকানা নির্বাচন করুন</option> --}}
                                     @if (!empty($user->addresses))
                                         @foreach ($user->addresses as $address)
                                             <option value="{{ $address->address_id }}"
-                                                {{ $address->inside_dhaka_city == 1 ? 'selected' : '' }}>
+                                                {{ $address->pivot->is_default == 1 ? 'selected' : '' }}>
                                                 {{ $address->name }},{{ $address->mobile }},{{ $address->address }},{{ $address->inside_dhaka_city == 1 ? 'Inside Dhaka city' : 'Outside Dhaka city' }}
                                             </option>
                                         @endforeach
@@ -205,7 +205,7 @@
 
                             <div class="form_group">
                                 <label for="addInfo" class="form-label">বিশেষ নোট</label>
-                                <textarea name="addInfo" class="form-control" id="notes" cols="30" rows="4"
+                                <textarea name="note" class="form-control" id="notes" cols="30" rows="4"
                                     placeholder="এখানে লিখুন..."></textarea>
                             </div>
                             <div>
@@ -276,12 +276,12 @@
                                 newTotal = total + 60;
 
                                 $('.deliveryFee').html(engToBangla(60) + ' টাকা');
-                                $('#deliveryFee').html(60);
+                                $('#deliveryFee').val(60);
                             } else {
 
                                 newTotal = total + 120;
                                 $('.deliveryFee').html(engToBangla(120) + ' টাকা');
-                                $('#deliveryFee').html(120);
+                                $('#deliveryFee').val(120);
                             }
                             $('.grandTotal').html(engToBangla(newTotal) + ' টাকা');
 
@@ -394,7 +394,7 @@
             default_distric = $('#default_distric').val();
             address = $('#address').val();
             deliveryFee = $('#deliveryFee').val();
-            addInfo = $('#addInfo').val();
+            addInfo = $('#notes').val();
 
             if ($('.checkoutForm').valid() == true) {
                 var obj = {};

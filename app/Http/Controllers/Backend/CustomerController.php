@@ -24,7 +24,7 @@ class CustomerController extends Controller {
         return view('admin.customer.customers', compact('users'));
     }
     public function order_review($id) {
-        $user_orders = Order::where('user_id', $id)->get();
+        $user_orders = Order::where('user_id', $id)->latest()->get();
         $user_info   = User::where('id', $id)->first();
         $user_name   = $user_info->name;
 

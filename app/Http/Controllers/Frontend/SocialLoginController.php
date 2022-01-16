@@ -52,7 +52,7 @@ class SocialLoginController extends Controller
        }
 
        protected function redirectCustomer(){
-        if(Auth::user()->ban == 1){
+        if(Auth::user()->is_ban == 1){
             Auth::logout();
             return redirect()->route('frontend.home')->with('error','Sorry! You have no permission to access this');
 

@@ -3,7 +3,11 @@
     User Orders
 @endsection
 @section('pageCss')
-
+<style>
+    #viewModal span{
+        font-weight: 400;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -35,7 +39,17 @@
                                         @foreach ($user_orders as $user_order)
                                             <tr class="publication{{ $user_order->order_id }}">
                                                 <td>{{ $user_order->id }}</td>
-                                                <td>{{ $user_order->order_status->name }}</td>
+                                                <td>
+                                                    @if($user_order->order_status_id==1)
+                                                    <small class='badge badge-warning'> {{ $user_order->order_status->name }}</small>
+                                                    @elseif($user_order->order_status_id==2)
+                                                    <small class='badge badge-info'> {{ $user_order->order_status->name }}</small>
+                                                    @elseif($user_order->order_status_id==3) 
+                                                    <small class='badge badge-success'> {{ $user_order->order_status->name }}</small>
+                                                    @else
+                                                    <small class='badge badge-danger'> {{ $user_order->order_status->name }}</small> 
+                                                    @endif
+                                                </td>
                                                 <td>{{ $user_order->total }}</td>
                                                 <td>{{ $user_order->name }}</td>
                                                 
@@ -80,7 +94,8 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <h6>Customer Contact: <span id="view_customer_contact"></span></h6>
                             <h6>Customer Address: <span id="view_customer_address"></span></h6>
                             <h6>Payment Method: <span id="view_payment_method"></span></h6>
-                            <h6>Payment Status: <span id="view_payment_status"></span></h6>
+                            <h6>Order Status: <span id="view_payment_status"></span></h6>
+                            <h6>Note: <span id="view_note"></span></h6>
                         </div>
                         <div class="col-6">
                             
@@ -167,18 +182,17 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                 success: function(response) {
                     if (response.success == true) {
                 
-                        $('.payment_id').html(response.data.payment_id)
-                        $('#view_order_id').html(response.data.order_id)
-                        if(response.data.payment_id != null){
-                            $('#view_payment_method').html(response.data.payment_method.payment_method)
-                        }
-                       
+                        $('.payment_id').html(response.data.payment_id??'N/A')
+                        $('#view_order_id').html(response.data.id)
+
+                        $('#view_payment_method').html((response.data.payment_id==null)?`N/A`:response.data.payment_method.payment_method)
                         $('#view_payment_status').html(response.data.order_status.name)
 
                         $('#view_customer_name').html(response.data.name??'N/A')
                         $('#view_customer_email').html(response.data.user.email??'N/A')
-                        $('#view_customer_contact').html(response.data.mobile??'N/A')
+                        $('#view_customer_contact').html(response.data.phone??'N/A')
                         $('#view_customer_address').html(response.data.address??'N/A')
+                        $('#view_note').html( response.data.notes == null ? 'N/A' : response.data.notes != '' ? response.data.notes : 'N/A')
                         
                         $(".apeend_tbody").empty();
                         $.each(response.data.books, function(key, val) {

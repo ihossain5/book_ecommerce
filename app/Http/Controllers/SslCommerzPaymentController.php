@@ -24,6 +24,7 @@ class SslCommerzPaymentController extends Controller {
 
         $data      = json_decode($dataArray, true);
 
+
         $grandTotal = $this->totalAmount($cartService->subTotal(), $data['deliveryFee']);
 
         $data['tran_id'] = uniqid(); // tran_id must be unique

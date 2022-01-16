@@ -382,7 +382,7 @@ setMenuHeight();
                                     </div>
                                     <div class="content_wrapper book_card_content">
                                         <div class="rating">
-                                            <div class="rateYo" data-user_rating="${val.rating}"></div>
+                                            <div class="rateYo ratSerialId${index}" data-user_rating="${val.rating}"></div>
                                         </div>
                                     
 
@@ -400,6 +400,8 @@ setMenuHeight();
                                     </div>
                                 </div>
                             </div>`)
+                            rateYo();
+
                             });
                         }else{
                             $('#author_book_list').append(` <div class="col offset-4">

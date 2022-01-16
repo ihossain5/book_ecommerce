@@ -282,9 +282,9 @@
 
         $(document).ready(function() {
             // data table
-            // $('#employeeTable').DataTable({
-            //     "ordering": false,
-            // });
+            $('#employeeTable').DataTable({
+                "ordering": false,
+            });
             // dropify table
             $('.dropify').dropify();
             $('.signature_input_box').hide();
@@ -414,6 +414,7 @@
 
 
                     } else {
+                        $('#add').modal('hide')
                         html = `<div class="alert alert-danger text-center" role="alert">
                                     <strong>${response.data.error}</strong>.
                                 </div>

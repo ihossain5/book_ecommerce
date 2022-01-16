@@ -31,7 +31,7 @@ class PublisherController extends Controller
         $categories=Category::orderBy('name')->get();
         $publications=Publication::orderBy('name')->get();
 
-        $books=Book::with('authors','reviews')->where('publication_id',$id)->paginate(12);
+        $books=Book::with('authors','reviews')->where('is_visible',1)->where('publication_id',$id)->paginate(12);
 
         $publicaiton_info=Publication::where('publication_id',$id)->first();
         $publication_name=$publicaiton_info->name;

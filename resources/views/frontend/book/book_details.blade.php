@@ -435,7 +435,7 @@
                                     <div>
                                         <h2>by <span>{{ $review->user->name }}</span>
                                             {{ formatDate($review->created_at) }}</h2>
-                                        <div class="userRating ratSerialId{{ $key }}"
+                                        <div class="userRating userRatSerialId{{ $key }}"
                                             data-user_rating="{{ $review->rating }}"></div>
                                     </div>
                                 </div>
@@ -545,11 +545,11 @@
 
             for (let i = 0; i < $('.userRating').length; i++) {
 
-                $(`.ratSerialId${i}`).rateYo({
+                $(`.userRatSerialId${i}`).rateYo({
                     starWidth: "22px",
                     ratedFill: "#F2C94C",
                     normalFill: "none",
-                    rating: $(`.ratSerialId${i}`).data('user_rating'),
+                    rating: $(`.userRatSerialId${i}`).data('user_rating'),
                     readOnly: true,
                     spacing: "5px",
                     starSvg: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="none">

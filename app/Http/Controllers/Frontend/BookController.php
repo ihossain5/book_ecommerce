@@ -17,7 +17,7 @@ class BookController extends Controller
         
         $books = [];
         foreach($book->authors as $author ){
-            foreach($author->books->where('book_id','!=', $book->book_id) as $author_book){
+            foreach($author->books->where('book_id','!=', $book->book_id)->where('is_visible',1) as $author_book){
                 $books [] = $author_book;
             }
         }

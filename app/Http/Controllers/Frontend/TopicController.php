@@ -39,7 +39,7 @@ class TopicController extends Controller
         }
 
 
-        $books=Book::with('authors','reviews')->whereIn('book_id',$book_list)->paginate(12);
+        $books=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('is_visible',1)->paginate(12);
 
         // foreach($books as $book){
         //     $rating=getTotalRating($book->reviews);

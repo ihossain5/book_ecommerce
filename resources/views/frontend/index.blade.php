@@ -372,7 +372,7 @@
                 <div class="most_selling_book_carousel common_carousel owl-carousel">
                     @if (!empty($popularBooks))
                         @foreach ($popularBooks as $key=>$popularBook)
-                        @if (count($popularBook->orders) > 0)
+                        @if ($popularBook->counted_order > 0)
                         <div class="item">
                             <div class="book_card_wrapper">
                                 <div class="image_wrapper">
