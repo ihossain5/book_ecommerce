@@ -221,13 +221,13 @@ class AdminController extends Controller {
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee) {
+    public function update(Request $request) {
         // dd($request->all());
         $employee  = User::findOrFail($request->hidden_id);
         $validator = Validator::make($request->all(), [
             'name'          => 'required|max:50',
             'email'         => 'required|max:50|email|unique:users,email,' . $employee->id,
-            'phone'         => 'required|max:50',
+            'phone'         => 'required|max:50|unique:users,phone,' . $employee->id,
             'profile_image' => 'nullable|max:600|mimes:jpg,png,jpeg',
         ]);
         if ($validator->fails()) {

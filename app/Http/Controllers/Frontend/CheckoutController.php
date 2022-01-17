@@ -11,7 +11,12 @@ use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller {
     public function checkOut(CartService $cartService) {
+        if($cartService->numberOfCartQty()<=0){
+            return redirect()->back()->with('error','Please add book to your cart first');
+        }
         if (Auth::check()) {
+
+          
 
             $user = auth()->user();
 

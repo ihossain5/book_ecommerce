@@ -19,7 +19,7 @@ Class CartService {
     }
 
     public function add($id) {
-        $book = $this->bookservice->find($id);
+        $book = $this->bookservice->checkAvailAbility($id);
 
         $auhtors_name = $book->authors->pluck('name');
 

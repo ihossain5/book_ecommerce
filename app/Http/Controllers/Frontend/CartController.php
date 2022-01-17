@@ -18,7 +18,7 @@ class CartController extends Controller {
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return $this->error($e->getMessage());
         }
 
     }
@@ -31,7 +31,7 @@ class CartController extends Controller {
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return $this->error($e->getMessage());
         }
 
     }
@@ -43,7 +43,7 @@ class CartController extends Controller {
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return $this->error($e->getMessage());
         }
 
     }
@@ -58,7 +58,7 @@ class CartController extends Controller {
 
         } catch (Exception $e) {
 
-            return $e->getMessage();
+            return $this->error($e->getMessage());
         }
 
     }

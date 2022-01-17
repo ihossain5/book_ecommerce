@@ -22,6 +22,8 @@ function addToCart(id){
                 
                 appendToCart(response);
                 toastr["success"](response.data.message);
+            }else{
+                toastr["error"](response.data);
             }
         },
         error: function(error) {
@@ -34,7 +36,7 @@ function addToCart(id){
 
 //increase a cart qty 
 function increaseQuantity(rowId){
-    console.log(rowId);
+
     var oldQty = $('.cartQty' + rowId).html();
 
     $.ajax({
@@ -48,8 +50,11 @@ function increaseQuantity(rowId){
         success: function(response) {
             if (response.success == true) {
                   setCartAmount(response,rowId);
-            } //success end
-        },
+            }else{
+                toastr["error"](response.data);
+            }
+             
+        },//success end
         error: function(error) {
             if (error.status == 404) {
                 toastr["error"](response.data.message)

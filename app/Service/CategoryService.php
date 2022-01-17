@@ -28,12 +28,12 @@ Class CategoryService {
     }
 
     /** update a category */
-    function update($id, $data) {
+    function update($id, $data, $photo = null) {
         $category = $this->find($id);
 
-        $photo = $data['photo'];
+        // $photo = $data['photo'];
 
-        if ($photo) {
+        if ($photo != null) {
             deleteImage($category->photo);
             $photo_url = $this->uploadPhoto($photo);
         } else {

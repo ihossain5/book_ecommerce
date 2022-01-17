@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 use App\Models\Category;
 use App\Service\CategoryService;
 use Exception;
@@ -41,7 +42,6 @@ class CategoryController extends Controller {
         }
     }
 
-
     public function edit(Category $category) {
         return $this->success($category);
     }
@@ -53,10 +53,12 @@ class CategoryController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, CategoryService $categoryService) {
+    public function update(CategoryUpdateRequest $request, CategoryService $categoryService) {
 
         try {
-            $category = $categoryService->update($request->hidden_id, $request->validated());
+            $photo    = $request->photo;
+
+            $category = $categoryService->update($request->hidden_id, $request->validated(),$photo);
 
             $message = 'Category updated successfully';
 
@@ -106,12 +108,12 @@ class CategoryController extends Controller {
 
     }
 
-        // response message function
-        function responseMessage($message, $category = null) {
-            $data             = array();
-            $data['message']  = $message;
-            $data['category'] = $category;
-            return $data;
-        }
+    // response message function
+    function responseMessage($message, $category = null) {
+        $data             = array();
+        $data['message']  = $message;
+        $data['category'] = $category;
+        return $data;
+    }
 
 }

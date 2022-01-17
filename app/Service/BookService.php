@@ -1,6 +1,7 @@
 <?php
 namespace App\Service;
 
+use App\Exceptions\BookNotAvailAbleException;
 use App\Models\Book;
 
 Class BookService {
@@ -202,6 +203,17 @@ Class BookService {
         return $book;
     }
 
+     /** check book availability */
+    function checkAvailAbility($id){
+
+        $book = $this->find($id);
+
+        if($book->is_available != 1){
+            throw new BookNotAvailAbleException('Book is not available');
+        }
+
+        return $book;
+    }
 
 
 }

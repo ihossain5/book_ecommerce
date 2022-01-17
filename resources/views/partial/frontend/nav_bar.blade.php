@@ -92,7 +92,7 @@ $publications = HomePageController::all_publication();
               
                 @auth
                 <li class="nav-item user_login_icon">
-                    <a href="{{route('customer.profile')}}"><img src="{{ asset( auth()->user()->image == null ? 'frontend/assets/images/profile/profile-icon.png' : 'images/'.auth()->user()->image) }}" alt=""></a>
+                    <a href="{{route('customer.profile')}}"><img src="{{ asset(auth()->user()->image == null ?'frontend/assets/images/icons/demoUserImg.svg' : 'images/'.auth()->user()->image) }}" alt=""></a>
                     <div class="user_login_dropdown">
                         <ul>
                             <li><a href="{{ route('customer.profile') }}">আমার প্রোফাইল</a></li>
@@ -260,10 +260,13 @@ $publications = HomePageController::all_publication();
 <div class="container mobile_search">
     <div class="row">
         <div class="col-12">
+            <form action="{{ route('book.filter.search') }}">
             <div class="nav_search">
-                <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search">
+                <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search" name="navbar_search"  onkeypress="book_search_method()" onkeyup="book_search_method()">
                 <button><img src="{{ asset('frontend/assets/images/icons/search.svg') }}" alt=""></button>
             </div>
+
+        </form>
         </div>
     </div>
 </div>
@@ -286,14 +289,14 @@ $publications = HomePageController::all_publication();
                 <div class="sm_user_login">
                     <button class="" type="button" data-bs-toggle="collapse" data-bs-target="#smUserDropdown" aria-controls="smUserDropdown"
                         aria-expanded="false" aria-label="">
-                        রায়হান কবির
+                        {{auth()->user()->name ?? ''}}
                         <img src="{{ asset('frontend/assets/images/icons/down-arrow-white.svg') }}" alt="arrow">
                     </button>
                     <div class="sm_user_login_dropdown collapse" id=smUserDropdown>
                         <ul>
                             <li><a href="{{ route('customer.profile') }}">আমার প্রোফাইল</a></li>
-                            <li><a href="{{ route('customer.profile') }}">আমার অর্ডারস </a></li>
-                            <li><a href="{{ route('customer.profile') }}">পছন্দের তালিকা</a></li>
+                            <li><a href="{{ route('customer.profile') }}#orders">আমার অর্ডারস </a></li>
+                            <li><a href="{{ route('customer.profile') }}#wishlist">পছন্দের তালিকা</a></li>
                             <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">সাইন আউট</a>
                                
                                 <form id="logout-form" action="{{ route('frontend.logout') }}" method="POST" class="d-none">

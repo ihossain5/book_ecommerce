@@ -36,9 +36,9 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        // $this->renderable(function (QueryException $e, $request) {
-        //     return redirect()->back()->with('error','Database connection is failed. Please try again later');
-        // });
+        $this->renderable(function (QueryException $e, $request) {
+            return redirect()->back()->with('error','Database connection is failed. Please try again later');
+        });
 
     }
 
