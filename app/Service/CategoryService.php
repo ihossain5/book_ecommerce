@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use App\Models\Category;
+use ErrorException;
 
 Class CategoryService {
 
@@ -31,6 +32,12 @@ Class CategoryService {
     function update($id, $data, $photo = null) {
         $category = $this->find($id);
 
+        $precedance_exits = Category::where('category_id','!=' , $id)->where('precedance',$data['precedance'])->first();
+
+        if($precedance_exits){
+            throw new ErrorException('This precedance is already taken');
+        }
+
         // $photo = $data['photo'];
 
         if ($photo != null) {
@@ -43,6 +50,7 @@ Class CategoryService {
         $category->update([
             'name'        => $data['name'],
             'description' => $data['description'],
+            'precedance'  => $data['precedance'],
             'photo'       => $photo_url,
         ]);
 

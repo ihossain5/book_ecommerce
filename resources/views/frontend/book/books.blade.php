@@ -10,7 +10,7 @@
 <section class="fillter_with_grid_section books_page pt-20 pb-120">
     <div class="container">
         <div class="sc_title_wrapper">
-            <h1 class="sc_title">নতুন প্রকাশিত বই</h1>
+            {{-- <h1 class="sc_title">নতুন প্রকাশিত বই</h1> --}}
             {{-- <div class="btn_box">
                 <select class="btn_more">
                     <option value="" disabled selected hidden>সর্ট করুন
@@ -372,7 +372,7 @@
                                             <img class="img-fluid w-100" src="{{ asset('images/${val.cover_image}') }}"
                                                 alt="book image">
                                         </a>
-                                        ${(val.discounted_percentage != null || val.discounted_percentage != 0)?`
+                                        ${ val.discounted_percentage != 0?`
                                     <div class="red_tag">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49"
                                             fill="none">
@@ -393,7 +393,7 @@
                                             return n.name;
                                         })}</p>
                                         <div class="price_wrapper">
-                                            ${(val.discounted_percentage != null || val.discounted_percentage != 0)?`
+                                            ${ val.discounted_percentage != 0?`
                                             <h6 class="discount">${engToBangla(val.regular_price) } টাকা</h6>
                                             <h5 class="regular">${engToBangla(val.discounted_price) } টাকা</h5>`:
                                             `<h5 class="regular">${engToBangla(val.discounted_price)} টাকা</h5>`}

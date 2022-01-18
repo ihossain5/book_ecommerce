@@ -70,8 +70,6 @@
 @endsection
 
 @section('content')
-
-
     <section class="book_details_sec pt-20">
         <div class="container">
             <div class="row">
@@ -171,7 +169,7 @@
                 <div class="col-12">
                     <div class="details_wraper mobile_details">
                         <h6>কোডঃ <span>{{ $book->isbn }}</span></h6>
-                        <h1>পিতা</h1>
+                        <h1>{{ $book->title }}</h1>
                         <h2>লেখকঃ
                             <span>
                                 @if (!empty($book->authors))
@@ -261,18 +259,17 @@
                                     <tr>
                                         <td>Author</td>
                                         <td>
-                                            <a href="#">
-                                                @foreach ($book->authors as $author)
+                                            @foreach ($book->authors as $author)
+                                            <a href="{{route('frontend.author.details',[$author->author_id])}}">
                                                     {{ $author->name }} @if (!$loop->last) , @endif
-                                                @endforeach
-
                                             </a>
+                                            @endforeach
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>Publisher</td>
                                         <td>
-                                            <a href="#">
+                                            <a href="{{route('frontend.publishers.name',[$book->publication->publication_id])}}">
                                                 {{ $book->publication->name }}
                                             </a>
                                         </td>

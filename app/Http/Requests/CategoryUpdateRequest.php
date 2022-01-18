@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+
 class CategoryUpdateRequest extends FormRequest
 {
     /**
@@ -25,7 +26,9 @@ class CategoryUpdateRequest extends FormRequest
         return [
             'name'        => 'required|max:255|string',
             'description' => 'required|max:10000|string',
+            'precedance'  => 'required',
             'photo'       => 'nullable|max:300|image|mimes:png,jpg,jpeg',
+            // 'precedance'  => ['required', Rule::unique('categories')->ignore($this->hidden_id)],
         ];
     }
     public function messages() {

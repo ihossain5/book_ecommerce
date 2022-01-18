@@ -11,5 +11,5 @@ class Publication extends Model
 
     protected $primaryKey = 'publication_id';
 
-    protected $fillable = ['name','photo','description'];
+    protected $fillable = ['name','photo','description','precedance'];
 }

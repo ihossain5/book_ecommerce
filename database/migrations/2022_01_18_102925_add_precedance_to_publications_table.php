@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBanToUsersTable extends Migration
+class AddPrecedanceToPublicationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddBanToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_ban')->default(0);
+        Schema::table('publications', function (Blueprint $table) {
+            $table->integer('precedance')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddBanToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('is_ban');
+        Schema::table('publications', function (Blueprint $table) {
+            $table->dropColumn('precedance');
         });
     }
 }

@@ -298,7 +298,7 @@ setMenuHeight();
                 }
             };
         function book_fetch(id) {
-           
+
     
             var publication_id=$('#publication_id').val();
             
@@ -369,7 +369,7 @@ setMenuHeight();
                                             <img class="img-fluid w-100" src="{{ asset('images/${val.cover_image}') }}"
                                                 alt="book image">
                                         </a>
-                                        ${(val.discounted_percentage != null || val.discounted_percentage != 0)?`
+                                        ${ val.discounted_percentage != 0?`
                                     <div class="red_tag">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49"
                                             fill="none">
@@ -391,7 +391,7 @@ setMenuHeight();
                                             return n.name;
                                         })}</p>
                                         <div class="price_wrapper">
-                                            ${(val.discounted_percentage != null || val.discounted_percentage != 0)?`
+                                            ${ val.discounted_percentage != 0?`
                                             <h6 class="discount">${engToBangla(val.regular_price) } টাকা</h6>
                                             <h5 class="regular">${engToBangla(val.discounted_price) } টাকা</h5>`:
                                             `<h5 class="regular">${engToBangla(val.discounted_price)} টাকা</h5>`}

@@ -167,6 +167,10 @@
                             <input type="text" class="form-control" name="name" placeholder="Type name" />
                         </div>
                         <div class="form-group">
+                            <label>Category Precedance</label>
+                            <input type="text" class="form-control" name="precedance" placeholder="Type precedance" />
+                        </div>
+                        <div class="form-group">
                             <label>Category Description</label>
                             <textarea name="description" id="" class="form-control" cols="30" rows="5"></textarea>
                         </div>
@@ -213,6 +217,10 @@
                             <input type="text" class="form-control" id="edit_name" name="name" placeholder="Type name" />
                         </div>
                         <div class="form-group">
+                            <label>Category Precedance</label>
+                            <input type="text" class="form-control" id="edit_precedance" name="precedance" placeholder="Type precedance" />
+                        </div>
+                        <div class="form-group">
                             <label>Category Description</label>
                             <textarea name="description" id="edit_description" class="form-control" cols="30"
                                 rows="5"></textarea>
@@ -252,6 +260,7 @@
                         <div class="ms-form-group view-modal">
                             <p class="pb-3">
                                 <strong>Category Name:</strong> <span id="view_name"></span><br>
+                                <strong>Category Precedance:</strong> <span id="view_precedance"></span><br>
                                 <strong>Category Description:</strong> <span id="view_description"></span><br>
                                 <strong>Category Photo :</strong><br>
                                 <img class="mt-2" src="" id="view_image">
@@ -298,6 +307,10 @@
                     photo: {
                         required: true,
                     },
+                    precedance: {
+                        required: true,
+                        digits: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -325,6 +338,10 @@
                     description: {
                         required: true,
                         maxlength: 10000,
+                    },
+                    precedance: {
+                        required: true,
+                        digits: true,
                     },
                 },
                 messages: {
@@ -451,6 +468,7 @@
                 success: function(response) {
                     if (response.success == true) {
                         $('#view_name').text(response.data.name);
+                        $('#view_precedance').text(response.data.precedance);
                         $('#view_description').text(response.data.description);
 
                         if (response.data.photo != null) {
@@ -490,6 +508,7 @@
                     if (response.success == true) {
                         $('#edit_name').val(response.data.name)
                         $('#edit_description').val(response.data.description)
+                        $('#edit_precedance').val(response.data.precedance)
                         $('#hidden_id').val(response.data.category_id)
 
                         if (response.data.photo) {
@@ -592,7 +611,7 @@
                         toastMixin.fire({
                             icon: 'error',
                             animation: true,
-                            title: "" + response.data.error + ""
+                            title: "" + response.data + ""
                         });
 
                     }

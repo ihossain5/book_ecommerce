@@ -28,7 +28,9 @@ class OrderController extends Controller
             'default_font' => 'nikosh',
         ]);
 
-        return $pdf->download('invoice.pdf');
+        $name = 'invoice-' . $order->id;
+
+        return $pdf->download($name.'.pdf');
     }
 
 

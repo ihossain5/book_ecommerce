@@ -188,9 +188,9 @@
                                                             placeholder="আপনার বিভাগ" name="modal_division">
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
-                                                        <label>এরিয়া</label>
+                                                        <label>জেলা </label>
                                                         <input type="text" class="form-control" id="modal_area"
-                                                            placeholder="আপনার এরিয়া" name="modal_district">
+                                                            placeholder="আপনার জেলা" name="modal_district">
                                                     </div>
                                                     <div class="col-12 cols">
                                                         <div class="input_fild_modal d-block">
@@ -259,7 +259,7 @@
                                                             name="modal_new_division">
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
-                                                        <input type="text" class="form-control" placeholder="আপনার এরিয়া"
+                                                        <input type="text" class="form-control" placeholder="আপনার জেলা"
                                                             name="modal_new_district">
                                                     </div>
                                                     <div class="col-12 cols">

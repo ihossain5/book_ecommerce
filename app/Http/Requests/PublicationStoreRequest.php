@@ -23,6 +23,7 @@ class PublicationStoreRequest extends FormRequest {
         return [
             'name'        => 'required|max:255|string',
             'description' => 'required|max:10000|string',
+            'precedance' => 'required',
             'photo'       => 'required|max:600|image|mimes:png,jpg,jpeg',
         ];
     }

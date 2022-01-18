@@ -28,7 +28,7 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request, CategoryService $categoryService) {
-
+        dd($request->all());
         try {
             $category = $categoryService->store($request->validated());
 
@@ -54,7 +54,7 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryUpdateRequest $request, CategoryService $categoryService) {
-
+        // dd($request->all());
         try {
             $photo    = $request->photo;
 

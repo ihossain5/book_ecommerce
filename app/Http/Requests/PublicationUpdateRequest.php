@@ -4,15 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PublicationUpdateRequest extends FormRequest
-{
+class PublicationUpdateRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -25,6 +23,7 @@ class PublicationUpdateRequest extends FormRequest
         return [
             'name'        => 'required|max:255|string',
             'description' => 'required|max:10000|string',
+            'precedance'  => 'required',
             'photo'       => 'max:600|image|mimes:png,jpg,jpeg',
         ];
     }

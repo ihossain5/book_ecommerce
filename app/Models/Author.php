@@ -10,7 +10,7 @@ class Author extends Model {
 
     protected $primaryKey = 'author_id';
 
-    protected $fillable = ['name', 'photo', 'description'];
+    protected $fillable = ['name', 'photo', 'description','precedance'];
 
     //books relation
     public function books() {

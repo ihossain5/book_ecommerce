@@ -251,19 +251,7 @@
 @section('pageScripts')
 
     <script type='text/javascript'>
-        var toastMixin = Swal.mixin({
-            toast: true,
-            title: 'General Title',
-            animation: false,
-            position: 'top-right',
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        });
+
         var config = {
             routes: {
                 add: "{!! route('admin.store') !!}",

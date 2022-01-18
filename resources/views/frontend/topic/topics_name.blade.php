@@ -299,8 +299,7 @@ setMenuHeight();
                 }
             };
         function book_fetch(id) {
-           
-    
+
             var category_id=$('#category_id').val();
             
     
@@ -357,14 +356,15 @@ setMenuHeight();
                     },
                     dataType: "json",
                     success: function(response) {
-    
+                        // alert('asdas');
                         $("#author_book_list").empty();
                         if(response.book_list.length!=0){
-                            
+                            // alert('asdas');
                             $.each(response.book_list, function(index, val) {
                                 var book_details_url = '{{ route('frontend.book.details', ':id') }}';
                                 book_details_url = book_details_url.replace(':id', val.book_id);
                                 //console.log(val);
+                                
                             $('#author_book_list').append(`  <div class="col">
                                 <div class="book_card_wrapper">
                                     <div class="image_wrapper">
@@ -372,7 +372,7 @@ setMenuHeight();
                                             <img class="img-fluid w-100" src="{{ asset('images/${val.cover_image}') }}"
                                                 alt="book image">
                                         </a>
-                                        ${(val.discounted_percentage != null || val.discounted_percentage != 0)?`
+                                        ${val.discounted_percentage != 0?`
                                     <div class="red_tag">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49"
                                             fill="none">
@@ -394,7 +394,7 @@ setMenuHeight();
                                             return n.name;
                                         })}</p>
                                         <div class="price_wrapper">
-                                            ${(val.discounted_percentage != null || val.discounted_percentage != 0)?`
+                                            ${val.discounted_percentage != 0?`
                                             <h6 class="discount">${engToBangla(val.regular_price) } টাকা</h6>
                                             <h5 class="regular">${engToBangla(val.discounted_price) } টাকা</h5>`:
                                             `<h5 class="regular">${engToBangla(val.discounted_price)} টাকা</h5>`}

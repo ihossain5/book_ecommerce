@@ -1,6 +1,7 @@
 <?php
 namespace App\Service;
 
+use App\Exceptions\PrecedanceExistException;
 use App\Models\Publication;
 
 Class PublicationService {
@@ -12,6 +13,13 @@ Class PublicationService {
 
     /** store a publication */
     function store($data, $photo) {
+
+        $precedance_exists = Publication::where('precedance', $data['precedance'])->first();
+
+        if ($precedance_exists) {
+            throw new PrecedanceExistException('This precedance is taken');
+        }
+
 
         $photo_url = $this->uploadPhoto($photo);
 
@@ -27,6 +35,12 @@ Class PublicationService {
 
     function updatePublication($publication, $request){
         $photo  = $request->photo;
+
+        $precedance_exists = Publication::where('publication_id', '!=', $publication->publication_id)->where('precedance', $request->precedance)->first();
+
+        if ($precedance_exists) {
+            throw new PrecedanceExistException('This precedance is taken');
+        }
         
         if($photo){
             deleteImage($publication->photo);
@@ -37,6 +51,7 @@ Class PublicationService {
         $publication->update([
             'name'        => $request->name,
             'description' => $request->description,
+            'precedance' => $request->precedance,
             'photo'       => $photo_url,
 
         ]);

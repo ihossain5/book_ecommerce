@@ -19,23 +19,21 @@ class HomePageController extends Controller {
 
         $popularBooks = $homepageService->popularBooks();
 
-        // dd($popularBooks);
-
         return view('frontend.index', compact('books', 'featureCategories','authors','popularBooks'));
     }
 
     public static function all_authors() {
-        return Author::all();
+        return Author::orderBy('precedance','ASC')->get();
 
     }
 
     public static function all_category() {
-        return Category::where('is_nav',1)->get();
+        return Category::where('is_nav',1)->orderBy('precedance','ASC')->get();
 
     }
 
     public static function all_publication() {
-        return Publication::all();
+        return Publication::orderBy('precedance','ASC')->get();
 
     }
     public static function footer() {
