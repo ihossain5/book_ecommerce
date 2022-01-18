@@ -58,6 +58,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('offers.index') }}" class="waves-effect">
+                            <i class="fa fa-list-alt"></i>
+                            <span> Offer Management </span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('feature-attributes.index') }}" class="waves-effect">
                             <i class="fa fa-certificate"></i>
                             <span> Feature Attribute </span>

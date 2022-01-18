@@ -14,7 +14,9 @@ class CreateOfferBooksTable extends Migration
     public function up()
     {
         Schema::create('offer_books', function (Blueprint $table) {
-            $table->id();
+            $table->id('offer_book_id');
+            $table->foreignId('offer_id')->references('offer_id')->on('offers')->cascadeOnDelete();
+            $table->foreignId('book_id')->references('book_id')->on('books')->cascadeOnDelete();
             $table->timestamps();
         });
     }

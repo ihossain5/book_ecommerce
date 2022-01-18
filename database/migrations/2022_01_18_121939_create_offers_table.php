@@ -14,7 +14,9 @@ class CreateOffersTable extends Migration
     public function up()
     {
         Schema::create('offers', function (Blueprint $table) {
-            $table->id();
+            $table->id('offer_id');
+            $table->string('title');
+            $table->boolean('is_visible')->default(1);
             $table->timestamps();
         });
     }

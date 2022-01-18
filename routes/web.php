@@ -27,6 +27,8 @@ use App\Http\Controllers\Frontend\SocialLoginController;
 use App\Http\Controllers\Frontend\TopicController;
 use App\Http\Controllers\Frontend\PublisherController;
 use App\Http\Controllers\Backend\CustomerController;
+use App\Http\Controllers\Backend\OfferController;
+
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
@@ -88,6 +90,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 // Slider start
     Route::resource('sliders', SliderController::class);
 // Slider end
+
+/* offers  route start */
+Route::resource('offers', OfferController::class);
+
+Route::post('offer-update', [OfferController::class,'updateStatus'])->name('offer.update.status');
 
 // Social Media start
     Route::get('/social', [SocialMediaController::class, 'index'])->name('socials');
