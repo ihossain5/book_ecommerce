@@ -119,6 +119,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="{{ route('discount.offer.index') }}" class="waves-effect customer_management">
+                            <i class="fa fa-book"></i>
+                            <span> Discount Offer Management </span>
+                        </a>
+                    </li>
+
                     <li class="has_sub">
                         <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-web"></i><span> Website
                                 Content <span class="float-right"><i class="mdi mdi-chevron-right"></i></span>

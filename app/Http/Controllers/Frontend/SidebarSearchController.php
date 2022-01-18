@@ -32,7 +32,9 @@ class SidebarSearchController extends Controller
             $response =null;
         }else{
         
-            $books = Book::select('book_id','title')->where('title', 'like', '%' .$search . '%')->where('is_visible',1)->limit(5)->get();
+            $books = Book::where('title', 'like', '%' .$search . '%')
+            ->orwhere('slug', 'like', '%' .$search . '%')
+            ->where('is_visible',1)->limit(5)->get();
             $response = array();
             foreach($books as $book){
             $response[] = array("value"=>$book->book_id,"label"=>$book->title);

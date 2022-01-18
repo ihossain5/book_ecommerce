@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Category;
+use App\Models\Offer;
 use App\Models\Publication;
 use App\Service\HomepageService;
 use App\Models\SocialMedia;
@@ -29,6 +30,10 @@ class HomePageController extends Controller {
 
     public static function all_category() {
         return Category::where('is_nav',1)->orderBy('precedance','ASC')->get();
+
+    }
+    public static function offers() {
+        return Offer::where('is_visible',1)->get();
 
     }
 

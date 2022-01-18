@@ -27,8 +27,9 @@ use App\Http\Controllers\Frontend\SocialLoginController;
 use App\Http\Controllers\Frontend\TopicController;
 use App\Http\Controllers\Frontend\PublisherController;
 use App\Http\Controllers\Backend\CustomerController;
+use App\Http\Controllers\Backend\DiscountOfferController;
 use App\Http\Controllers\Backend\OfferController;
-
+use App\Http\Controllers\Frontend\OfferController as FrontendOfferController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
@@ -93,8 +94,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 
 /* offers  route start */
 Route::resource('offers', OfferController::class);
-
 Route::post('offer-update', [OfferController::class,'updateStatus'])->name('offer.update.status');
+
+/* discount offer route start */
+Route::get('/discount-offer', [DiscountOfferController::class, 'index'])->name('discount.offer.index');
+Route::get('/discount-offer/{discountOffer}/edit', [DiscountOfferController::class, 'edit'])->name('discount.offer.edit');
+Route::put('/discount-offer/{discountOffer}/update', [DiscountOfferController::class, 'update'])->name('discount.offer.update');
+Route::post('/discount-offer/status', [DiscountOfferController::class, 'updateStatus'])->name('discount.offer.update.status');
 
 // Social Media start
     Route::get('/social', [SocialMediaController::class, 'index'])->name('socials');
@@ -210,6 +216,8 @@ Route::get('login/facebook', [SocialLoginController::class, 'redirectToFacebook'
 Route::get('login/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
 
 Route::post('/frontend-logout',[LoginController::class,'logout'])->name('frontend.logout');
+
+Route::get('offers/{offer}',[FrontendOfferController::class,'offerBooks'])->name('get.offer.book');
 
 
 //search topic sidebar

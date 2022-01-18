@@ -3,6 +3,7 @@ use App\Http\Controllers\Frontend\HomePageController;
 $authors = HomePageController::all_authors();
 $categories = HomePageController::all_category();
 $publications = HomePageController::all_publication();
+$offers = HomePageController::offers();
 
 @endphp
 
@@ -43,6 +44,14 @@ $publications = HomePageController::all_publication();
                         লেখক
                     </a>
                 </li>
+                @foreach ($offers as $offer)
+                <li class="nav-item dropdown dropdown_content">
+                    <a class="nav-link " href="{{route('get.offer.book',[$offer->offer_id])}}"
+                        role="button">
+                        {{$offer->title}}
+                    </a>
+                </li>
+                @endforeach
             </ul>
 
             <ul class="navbar-nav ms-auto align-items-center">
