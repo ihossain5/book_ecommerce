@@ -58,7 +58,7 @@ $offers = HomePageController::offers();
                 <form class="position-relative" action="{{ route('book.filter.search') }}">
                     @csrf
                     <div class="nav_search" >
-                        <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search" id="navbar_search" name="navbar_search"  onkeypress="book_search_method()" onkeyup="book_search_method()">
+                        <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search" id="navbar_search" name="navbar_search" onkeyup="book_search_method()">
                         <button type="submit"><img src="{{ asset('frontend/assets/images/icons/search.svg') }}" alt=""></button>
                       
                     </div>
@@ -271,7 +271,7 @@ $offers = HomePageController::offers();
         <div class="col-12">
             <form action="{{ route('book.filter.search') }}">
             <div class="nav_search">
-                <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search" name="navbar_search"  onkeypress="book_search_method()" onkeyup="book_search_method()">
+                <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search" name="navbar_search"  onkeyup="book_search_method()">
                 <button><img src="{{ asset('frontend/assets/images/icons/search.svg') }}" alt=""></button>
             </div>
 

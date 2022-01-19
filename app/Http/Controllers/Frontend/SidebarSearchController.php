@@ -14,18 +14,22 @@ class SidebarSearchController extends Controller
     {
         //dd($request->all());
         $key=$request->navbar_search;
-        $books = Book::with('authors')->where('title', 'like', '%' .$key. '%')->where('is_visible',1)->paginate(12);
+        $books = Book::with('authors')->where('title', 'like', '%' .$key. '%')
+        ->orwhere('slug', 'like', '%' .$key . '%')
+        ->where('is_visible',1)->paginate(12);
         $authors=Author::orderBy('name')->get();
         $categories=Category::orderBy('name')->get();
         $publications=Publication::orderBy('name')->get();
 
-        return view('frontend.book.books',compact('books','authors','categories','publications'));
+        $title = 'Searched for "'. $key .'"' ;
+
+        return view('frontend.book.offer_books',compact('books','authors','categories','publications','title'));
 
     }
 
     public function getBook(Request $request){
 
-        //dd($request->all());
+        // dd($request->all());
         $search = $request->search;
 
         if($search == ''){

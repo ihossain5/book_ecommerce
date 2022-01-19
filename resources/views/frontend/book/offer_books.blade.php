@@ -77,7 +77,7 @@
         </div>
     </div>
     <!-- pagination -->
-
+    {{$books->links('partial.frontend.pagination')}}
 </section>
 
 @endsection

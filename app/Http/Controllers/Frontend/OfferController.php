@@ -17,7 +17,7 @@ class OfferController extends Controller {
 
         $offer->load('books', 'books.authors');
 
-        $books = $offer->books;
+        $books = $offer->books()->paginate(12);
 
         return view('frontend.book.offer_books', compact('offer','books','title'));
     }
