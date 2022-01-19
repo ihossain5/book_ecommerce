@@ -1,8 +1,8 @@
 {{-- <script src="{{ asset('frontend/assets/js/vendor/jquery-3.6.0.min.js') }}"></script> --}}
 <!-- Jquery CDNJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('frontend/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/jquery.rateyo.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/common.js') }}"></script>
@@ -190,30 +190,34 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     function book_search_method() {
 
         var search = $('#navbar_search').val();
+        var search_mobile = $('#navbar_search_mobile').val();
+        //var search =$("input[name='navbar_search']").val();
+        //alert(search)
         $.ajax({
             url: "{{ route('book.filter.autocomplete') }}",
             type: 'post',
             dataType: "json",
             data: {
                 search: search,
+                search_mobile: search_mobile,
                 _token: "{{ csrf_token() }}"
             },
             success: function(data) {
-                $('#nav_bar_search_div').empty();
+                $('.nav_bar_search_div').empty();
                 if (data.value == null) {
-                    $('#nav_bar_search_div').empty();
+                    $('.nav_bar_search_div').empty();
                 } else {
                     if (data.value.length != 0) {
                         $.each(data.value, function(index, val) {
                             var book_details_url = '{{ route('frontend.book.details', ':id') }}';
                             book_details_url = book_details_url.replace(':id', val.value);
                             //console.log(val);
-                            $('#nav_bar_search_div').append(
+                            $('.nav_bar_search_div').append(
                                 `<a href="${book_details_url}" class="btn_buy_now"><li class="bg-white rounded-pill" style="color:black">${val.label}</li></a>`
                                 )
                         });
                     } else {
-                        $('#nav_bar_search_div').append(`<li>পাওয়া যায়নি!</li>`);
+                        $('.nav_bar_search_div').append(`<li>পাওয়া যায়নি!</li>`);
                     }
                 }
             }
