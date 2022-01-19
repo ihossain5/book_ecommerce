@@ -38,6 +38,7 @@ class BookController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(BookStoreRequest $request, BookService $bookService) {
+
         try {
             $book = $bookService->store($request);
 
@@ -82,7 +83,7 @@ class BookController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(BookUpdateRequest $request, Book $book, BookService $bookService) {
-        // dd($request->all());
+
         try {
             $book = $bookService->updateBook($book, $request);
 

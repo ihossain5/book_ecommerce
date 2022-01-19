@@ -188,7 +188,7 @@
         <div class="sc_title_wrapper">
             <h1 class="sc_title">সর্বাধিক বিক্রিত বই</h1>
             <div class="btn_box d-none d-lg-block">
-                <a href="{{route('frontend.books')}}" class="btn_more">
+                <a href="{{route('frontend.more.sell.books')}}" class="btn_more">
                     সব দেখুন
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                         <path d="M2.5 6H9.5" stroke="black" stroke-width="1.5" stroke-linecap="round"

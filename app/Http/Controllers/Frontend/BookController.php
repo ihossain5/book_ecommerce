@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Models\Author;
 use App\Models\Category;
 use App\Models\Publication;
+use App\Service\HomepageService;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -61,6 +62,24 @@ class BookController extends Controller
         $publications=Publication::orderBy('name')->get();
         //dd( $books);
         return view('frontend.book.books',compact('books','authors','categories','publications'));
+    }
+
+    public function getPopularBooks(HomepageService $homepageService){
+
+        $books = $homepageService->popularBooks();
+
+        $offer_id = null;
+
+        $title = 'সর্বাধিক বিক্রিত বই';
+
+        $authors = Author::orderBy('name')->get();
+
+        $categories = Category::orderBy('name')->get();
+
+        $publications = Publication::orderBy('name')->get();
+
+        return view('frontend.book.offer_books', compact('books', 'title', 'offer_id', 'authors', 'categories', 'publications'));
+        
     }
 
 }

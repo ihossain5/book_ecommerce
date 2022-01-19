@@ -224,13 +224,19 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>ISBN Number</label>
-                                    <input type="text" class="form-control" name="isbn" placeholder="Type isbn number" />
+                                    <label>Title (English)</label>
+                                    <input type="text" class="form-control" name="slug" placeholder="Type title" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>ISBN Number</label>
+                                    <input type="text" class="form-control" name="isbn" placeholder="Type isbn number" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Select Publication</label>
                                     <select name="publication_id" class="form-control" id="">
@@ -418,6 +424,15 @@
                                         placeholder="Type title" />
                                 </div>
                             </div>
+                  
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Title (English)</label>
+                                    <input type="text" class="form-control" name="slug" id="edit_slug" placeholder="Type title" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>ISBN Number</label>
@@ -425,9 +440,7 @@
                                         placeholder="Type isbn number" />
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Select Publication</label>
                                     <select name="publication_id" class="form-control" id="edit_publication_id">
@@ -1042,7 +1055,7 @@
                     if (response.success == true) {
                         $('#edit_title').val(response.data.title)
                         $('#edit_isbn').val(response.data.isbn)
-                        $('#edit_isbn').val(response.data.isbn)
+                        $('#edit_slug').val(response.data.slug)
                         $('#edit_publication_id').val(response.data.publication_id)
 
 

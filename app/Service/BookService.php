@@ -114,6 +114,7 @@ Class BookService {
         // DB::transaction(function () use ($data, $cover_photo, $back_photo, $preview_book, $book) {
 
         $book->title                 = $data->title;
+        $book->slug                 = $data->slug;
         $book->isbn                  = $data->isbn;
         $book->publication_id        = $data->publication_id;
         $book->short_description     = $data->short_description;

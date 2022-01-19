@@ -190,6 +190,7 @@ Route::post('/search/book/details', [SearchController::class, 'book_detials_filt
 Route::post('/search/topics', [SearchController::class, 'topic_filter'])->name('topics.filter');
 
 Route::get('/book/list', [FrontendBookController::class, 'index'])->name('frontend.books');
+Route::get('/books', [FrontendBookController::class, 'getPopularBooks'])->name('frontend.more.sell.books');
 
 // Viewer profile start
 Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile');
