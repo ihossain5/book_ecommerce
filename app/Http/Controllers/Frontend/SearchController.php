@@ -306,7 +306,7 @@ class SearchController extends Controller
 
             if ($offer_id != null) {
 
-                $offer_books = OfferBooks::where('offer_id', $offer_id)->get();
+                $offer_books = OfferBooks::where('offer_id', $offer_id)->whereIn('book_id', $book_ids)->get();
                 $book_ids = [];
                 foreach ($offer_books as $offer_book) {
 
