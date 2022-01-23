@@ -67,3 +67,18 @@ var tooltipTriggerList = [].slice.call(
 var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
 });
+
+// $('.nav_search input').mouseenter(function () {
+//     $('.autoCompleteBox').addClass('autoCompleteBoxShow')
+//   })
+//   $('.nav_search input').mouseleave(function () {
+//     $('.autoCompleteBox').removeClass('autoCompleteBoxShow')
+//   })
+  
+//   $('.autoCompleteBox').mouseenter(function () {
+//     $('.autoCompleteBox').addClass('autoCompleteBoxShow')
+//   })
+  
+//   $('.autoCompleteBox').mouseleave(function () {
+//     $('.autoCompleteBox').removeClass('autoCompleteBoxShow')
+//   })

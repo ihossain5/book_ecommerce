@@ -1,20 +1,53 @@
 .footer {
     background: #F9F9F9;
+    padding-top: 19rem;
 }
 .footer .logo_wrapper {
     max-width: 34.9rem;
     width    : 100%;
-    margin   : 0 auto;
+    /* margin   : 0 auto; */
 }
 .footer h6 {
     display: block;
     font-weight   : 700;
-    font-size: 1.8rem;
+    font-size: 2rem;
     padding-right: 3rem;
     text-transform: uppercase;
-    color         : var(--blue);
+    color         : #13A89E;
     margin-bottom : 2.4rem;
     font-family: 'Ruposhi Bangla Unicode';
+}
+
+
+.website_address a{
+    font-weight: normal;
+    font-size: 2rem;
+    line-height: 3rem;
+    color: #979797;    
+}
+
+.icon li::before{
+    color: #13A89E;
+    content: "\2022"; 
+    font-size: 2rem;
+    font-weight: bold;
+    display: inline-block;
+    width: 1.1rem;
+    /* margin-left: -1.5em; */
+  }
+
+.icon a{
+    font-size: 2rem;
+    line-height: 3rem;
+    color: #979797;
+}
+
+.right_border{
+    border-right: 1px solid #4F7F6C;
+}
+
+.center_content{
+    padding-left: 10rem;
 }
 
 .footer_inner_one {
@@ -100,6 +133,45 @@
     display  : inline-block;
     max-width: 3.5rem;
 }
+
+.social_link_box{
+    text-align: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    border-top: 1px solid #4F7F6C;
+}
+
+
+.social_link_box li a img{
+    height: 3.5rem;
+    width: 3.5rem;
+}
+
+.social_link_box  li a{
+    margin-right: 2.6rem;
+}
+
+.acceptPayment{
+    padding-top: 3rem;
+    padding-bottom: 1.8rem;
+    text-align: center;
+    border-top: 1px solid #4F7F6C;
+}
+
+.acceptPayment img{
+    max-width: 40.5rem;
+    width: 100%;
+}
+.acceptPayment h6{
+    font-family: 'inter';
+    font-weight: 500;
+    font-size: 2rem;
+    line-height: 2.4rem;
+    color: #979797;
+    text-transform: capitalize;
+    margin-top: 2.7rem;
+}
+
 @media (min-width: 1600px) {
     .footer .footer_inner_two{
         max-width: 1380px;
@@ -140,6 +212,14 @@
     .copywight {
         padding-bottom: 11px;
     }
+
+    .right_border{
+        border-right:none;
+    }
+
+    .center_content{
+        padding-left: 0;
+    }
 }
 
 
@@ -156,6 +236,7 @@
 
     .footer .logo_wrapper {
         max-width: 22.7rem;
+        margin: auto;
     }
 
     .footer h4 {

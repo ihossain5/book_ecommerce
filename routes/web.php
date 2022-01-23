@@ -30,6 +30,7 @@ use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DiscountOfferController;
 use App\Http\Controllers\Backend\OfferController;
 use App\Http\Controllers\Frontend\OfferController as FrontendOfferController;
+use App\Http\Controllers\Frontend\RegisterController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
@@ -169,7 +170,18 @@ Route::post('/decrease-cart', [CartController::class, 'decreaseCart'])->name('de
 
 Route::get('checkout',[CheckoutController::class,'checkOut'])->name('frontend.checkout');
 
+// sign in routes
 Route::get('/sign-in', [LoginController::class, 'index'])->name('frontend.login');
+Route::post('/sign-in', [LoginController::class, 'signIn'])->name('frontend.sign.in');
+
+// Route::get('/sign-in', [LoginController::class, 'index'])->name('frontend.sign.in');
+
+// sign up routes
+Route::get('/sign-up', [RegisterController::class, 'index'])->name('frontend.register');
+Route::post('/sign-up', [RegisterController::class, 'signUp'])->name('frontend.sign.up');
+
+Route::get('/register', [RegisterController::class, 'sendOtp'])->name('frontend.send.otp');
+
 Route::get('/send-otp', [LoginController::class, 'sendOtp'])->name('frontend.otp.send');
 
 Route::post('/verify-otp', [LoginController::class, 'verifyOtp'])->name('frontend.otp.verification');

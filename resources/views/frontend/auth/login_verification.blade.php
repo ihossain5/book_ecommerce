@@ -46,7 +46,7 @@
                     @endif
 
                     <p><span class="font_inter">{{ $number }} </span> নাম্বারে ওটিপি পাঠানো হয়েছে </p>
-                    <form action="{{ route('frontend.otp.verification') }}" class="loginForm" method="POST">@csrf
+                    <form action="{{ route('frontend.otp.verification') }}" class="otpVerifyForm" method="POST">@csrf
                         <div class="input_fild">
                             <input type="text" name="otp" placeholder="আপনার ওটিপি" name="">
                             <input type="hidden" id="number" name="phone" value="{{ $number }}">
@@ -75,7 +75,7 @@
 @endsection
 @section('page-js')
 <script>
-    $(".loginForm").validate({
+    $(".otpVerifyForm").validate({
         rules: {
             otp: {
                 required: true,

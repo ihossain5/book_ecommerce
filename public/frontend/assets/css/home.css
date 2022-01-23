@@ -13,14 +13,34 @@
     background-color: var(--blue);
     border-radius: 1.5rem;
     box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
+    max-width: 33.5rem;
+    margin: auto;
+    position: relative;
 }
-.searvices_section .searvices .searvices_content{
+
+.searvices_section .searvices::after{
+    content: '';
+    position: absolute;
+    height: 0px;
+    border-bottom: 2px dashed #BDBDBD;
     width: 100%;
+    top: 0;
+    left: 100%;
+    bottom: 0;
+    margin: auto;
+}
+
+.searvices_section .row>div:last-child .searvices::after{
+    display: none;    
+}
+
+.searvices_section .searvices .searvices_content{
+      width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10rem 0;
+    padding: 3.3rem 0;
 }
 .searvices_section .searvices .searvices_content .Service_img{
     margin-bottom: 2.1rem;
@@ -200,6 +220,19 @@
     /* .new_published_card .image_wrapper img {
         transform: scale(1);
     } */
+    .searvices_section .searvices{
+        margin-bottom: 7rem;
+    }
+
+    .searvices_section .searvices::after{
+        height: 100%;
+        border-right: 2px dashed #BDBDBD;
+        width: 0;
+        left: 0;
+        right: 0;
+        top: 355px;
+        margin: auto;
+    }
 }
 
 @media (max-width: 767.98px) {
@@ -232,10 +265,11 @@
     .new_published_card {
         justify-content: center;
     }
-    .searvices_section .searvices .searvices_content{
-        padding: 0 ;        
-    }
 
+    .searvices_section .searvices::after{
+        top: 275px;
+    }
+   
 }
 @media (max-width: 575.98px) {
     .most_selling_carousel_wrapper .container{
@@ -252,6 +286,10 @@
     } 
     .new_published_book_carousel .item {
         padding: 6rem 2rem 8rem 2rem;
+    }
+
+    .searvices_section .searvices::after{
+        top: 320px;
     }
 }
 

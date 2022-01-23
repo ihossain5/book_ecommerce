@@ -40,14 +40,14 @@ $offers = HomePageController::offers();
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown_content" data-mege_menu_id="writers_menu">
-                    <a class="nav-link custom_nav_link dropdown-toggle last_item" href="javascript:void(0)"
+                    <a class="nav-link custom_nav_link dropdown-toggle " href="javascript:void(0)"
                         role="button">
                         লেখক
                     </a>
                 </li>
                 @foreach ($offers as $offer)
                 <li class="nav-item dropdown dropdown_content">
-                    <a class="nav-link " href="{{route('get.offer.book',[$offer->offer_id])}}" role="button">
+                    <a class="nav-link {{$loop->last ? 'last_item': ''}}" href="{{route('get.offer.book',[$offer->offer_id])}}" role="button">
                         {{$offer->title}}
                     </a>
                 </li>
@@ -62,10 +62,11 @@ $offers = HomePageController::offers();
                             id="navbar_search" name="navbar_search" onkeyup="book_search_method()">
                         <button type="submit"><img src="{{ asset('frontend/assets/images/icons/search.svg') }}"
                                 alt=""></button>
+                                <div class="autoCompleteBox"></div>
 
                     </div>
-                    <div id="nav_bar_search_div" class="position-absolute left-0 right-0 search_div nav_bar_search_div">
-                    </div>
+                    {{-- <div id="nav_bar_search_div" class="position-absolute left-0 right-0 search_div nav_bar_search_div">
+                    </div> --}}
                 </form>
 
                 <li class="nav-item">
@@ -136,14 +137,17 @@ $offers = HomePageController::offers();
                                 <h1>লগ ইন করুন</h1>
                             </div>
                             <div class="form_wrapper">
-                                <form class="login_auth_box" id="loginModalForm" method="POST">@csrf
+                                <form class="login_auth_box loginForm" id="loginModalForm" method="POST">@csrf
                                     <div class="row">
                                         <div class="col-12 mb-3">
                                             <input class="form-control form-control-lg phone_number" type="text"
                                                 placeholder="আপনার ফোন নম্বর" name="number">
 
-                                            <input class="form-control form-control-lg otp_change d-none loginModalOtp"
-                                                name="otp" type="number" placeholder="আপনার ওটিপি">
+                                        </div>
+                                        <div class="col-12 mb-3">
+
+                                            <input class="form-control form-control-lg otp_change loginModalOtp"
+                                                name="password" type="password" placeholder="আপনার পাসওয়ার্ড">
 
 
                                         </div>
@@ -169,6 +173,9 @@ $offers = HomePageController::offers();
                                                     alt="">Facebook</button>
                                         </a>
                                     </div>
+                                </div>
+                                <div class="new_account_create">
+                                    <a type="button" href="{{ route('frontend.send.otp') }}">নতুন অ্যাকাউন্ট তৈরি করুন</a>
                                 </div>
                             </div>
                         </div>
@@ -291,9 +298,10 @@ $offers = HomePageController::offers();
                     <input type="text" placeholder="এখানে বই খুঁজুন" aria-label="Search" class="navbar_search_key"
                         id="navbar_search_mobile" name="navbar_search" onkeyup="book_search_method()">
                     <button><img src="{{ asset('frontend/assets/images/icons/search.svg') }}" alt=""></button>
+                    <div class="autoCompleteBox"></div>
                 </div>
-                <div id="nav_bar_search_div1" class="position-absolute left-0 right-0 search_div nav_bar_search_div">
-                </div>
+                {{-- <div id="nav_bar_search_div1" class="position-absolute left-0 right-0 search_div nav_bar_search_div">
+                </div> --}}
             </form>
         </div>
     </div>

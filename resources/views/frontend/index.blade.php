@@ -279,7 +279,7 @@
 </section>
 
 <!-- Searvices Section -->
-<section class="searvices_section py-120">
+{{-- <section class="searvices_section py-120">
     <div class="container">
         <div class="searvices">
             <div class="row">
@@ -314,7 +314,49 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
+
+    <!-- Searvices Section -->
+    <section class="searvices_section py-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="searvices">
+                        <div class="searvices_content">
+                            <img class="Service_img" src="{{asset('frontend/assets/images/home/Servicee 1.svg')}}" alt="social-media-image">
+                            <h3 class="Service_text">উন্নত সেবা</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="searvices">
+
+                        <div class="searvices_content">
+                            <img class="Service_img" src="{{asset('frontend/assets/images/home/COD 1.svg')}}" alt="social-media-image">
+                            <h3 class="Service_text">ক্যাশ অন ডেলিভারি</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="searvices">
+                        <div class="searvices_content">
+                            <img class="Service_img" src="{{asset('frontend/assets/images/home/Track Order 1.svg')}}"
+                                alt="social-media-image">
+                            <h3 class="Service_text">অর্ডার ট্র্যাকিং</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="searvices">
+                        <div class="searvices_content">
+                            <img class="Service_img" src="{{asset('frontend/assets/images/home/Box 1.svg')}}" alt="social-media-image">
+                            <h3 class="Service_text">সন্তোষজনক অভিজ্ঞতা</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
 

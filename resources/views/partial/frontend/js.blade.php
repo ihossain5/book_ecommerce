@@ -1,8 +1,8 @@
 {{-- <script src="{{ asset('frontend/assets/js/vendor/jquery-3.6.0.min.js') }}"></script> --}}
 <!-- Jquery CDNJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('frontend/assets/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/jquery.rateyo.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/js/common.js') }}"></script>
@@ -47,27 +47,27 @@
         }
     };
 
-    $("#loginModalForm").validate({
-        rules: {
-            number: {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11,
-            },
+    // $("#loginModalForm").validate({
+    //     rules: {
+    //         number: {
+    //             required: true,
+    //             digits: true,
+    //             minlength: 11,
+    //             maxlength: 11,
+    //         },
 
 
-        },
-        messages: {
-            number: {
-                required: 'Please insert your mobile number',
-            },
-        },
-        errorPlacement: function(label, element) {
-            label.addClass('h3 text-danger');
-            label.insertAfter(element);
-        },
-    });
+    //     },
+    //     messages: {
+    //         number: {
+    //             required: 'Please insert your mobile number',
+    //         },
+    //     },
+    //     errorPlacement: function(label, element) {
+    //         label.addClass('h3 text-danger');
+    //         label.insertAfter(element);
+    //     },
+    // });
 
     // $(".login_auth_box").validate({
     //     rules: {
@@ -111,37 +111,37 @@
         },
     });
 
-    $(document).on('submit', '#loginModalForm', function(e) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: routeConfig.routes.login,
-            data: new FormData(this),
-            contentType: false,
-            cache: false,
-            processData: false,
-            dataType: "json",
-            success: function(response) {
-                if (response.success == true) {
-                    $('.phone_number').addClass('d-none');
-                    $('.otp_change').toggleClass('d-none');
+    // $(document).on('submit', '#loginModalForm', function(e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: "POST",
+    //         url: routeConfig.routes.login,
+    //         data: new FormData(this),
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false,
+    //         dataType: "json",
+    //         success: function(response) {
+    //             if (response.success == true) {
+    //                 $('.phone_number').addClass('d-none');
+    //                 $('.otp_change').toggleClass('d-none');
 
-                    $('#loginModalForm').attr('id', 'otpCheckForm');
-                } else {
-                    toastr['error'](response.data);
-                }
-            },
-            error: function(error) {
+    //                 $('#loginModalForm').attr('id', 'otpCheckForm');
+    //             } else {
+    //                 toastr['error'](response.data);
+    //             }
+    //         },
+    //         error: function(error) {
 
-                if (error.status == 422) {
-                    $.each(error.responseJSON.errors, function(i, message) {
-                        toastr['error'](message);
-                    });
+    //             if (error.status == 422) {
+    //                 $.each(error.responseJSON.errors, function(i, message) {
+    //                     toastr['error'](message);
+    //                 });
 
-                }
-            },
-        });
-    })
+    //             }
+    //         },
+    //     });
+    // })
 
     $(document).on('submit', '#otpCheckForm', function(e) {
         e.preventDefault();
@@ -203,21 +203,40 @@
                 _token: "{{ csrf_token() }}"
             },
             success: function(data) {
-                $('.nav_bar_search_div').empty();
+                $('.autoCompleteBox').empty();
                 if (data.value == null) {
-                    $('.nav_bar_search_div').empty();
+                    $('.autoCompleteBox').empty();
                 } else {
                     if (data.value.length != 0) {
                         $.each(data.value, function(index, val) {
                             var book_details_url = '{{ route('frontend.book.details', ':id') }}';
                             book_details_url = book_details_url.replace(':id', val.value);
                             //console.log(val);
-                            $('.nav_bar_search_div').append(
-                                `<a href="${book_details_url}" class="btn_buy_now"><li class="bg-white rounded-pill" style="color:black">${val.label}</li></a>`
-                                )
+                            $('.autoCompleteBox').append(
+                                `<a href="${book_details_url}">
+                                        <div class="d-flex justify-content-between auto_complete_item">
+                                            <div class="d-flex justify-content-start">
+                                                <div>
+                                                    <img src="${location.origin}/images/${val.image}" alt="">
+                                                </div>
+                                                <div>
+                                                    <h2>${val.title}</h2>
+                                                    <h5>
+                                                        ${ $.map( val.authors, function( n ) {
+                                                                return n.name;
+                                                            })}
+                                                        </h5>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <h1>${val.price} টাকা</h1>
+                                            </div>
+                                        </div>
+                                    </a>`
+                            )
                         });
                     } else {
-                        $('.nav_bar_search_div').append(`<li>পাওয়া যায়নি!</li>`);
+                        $('.autoCompleteBox').append(`<h1>পাওয়া যায়নি!</h1>`);
                     }
                 }
             }
@@ -239,4 +258,62 @@
             });
         }
     }
+
+    $(".loginForm").validate({
+        rules: {
+            number: {
+                required: true,
+                digits: true,
+                minlength: 11,
+                maxlength: 11,
+            },
+            password: {
+                required: true,
+                minlength: 8,
+
+            },
+
+
+        },
+        messages: {
+            number: {
+                required: 'Please insert your mobile number',
+            },
+        },
+        errorPlacement: function(label, element) {
+            label.addClass('h1 text-danger');
+            label.insertAfter(element);
+        },
+    });
+
+    $(document).off('submit', '.loginForm');
+    $(document).on('submit', '.loginForm', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "{!! route('frontend.sign.in') !!}",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            dataType: "json",
+            success: function(response) {
+                if (response.success == true) {
+                    location.reload();
+                } else {
+                    toastr['error'](response.data);
+                }
+            },
+            error: function(error) {
+                if (error.status == 422) {
+                    $.each(error.responseJSON.errors, function(i, message) {
+                        toastr['error'](message);
+                    });
+
+                }
+            },
+        });
+
+    });
 </script>
