@@ -65,9 +65,9 @@
                 </div>
                 <div>
                     <div class="search_group search_key">
-                        {{-- <input class="form-control" placeholder="খুঁজে দেখুন" type="text" name="search_key"
-                            id="category_search_key" onkeypress="book_fetch()" onkeyup="book_fetch()"> --}}
-                            <input class="form-control" placeholder="খুঁজে দেখুন" type="text" name="category_search_key_sidebar" id="category_search_key_sidebar" onkeypress="category_filter_sidebar_filter()" onkeyup="category_filter_sidebar_filter()">
+                        <input class="form-control" placeholder="খুঁজে দেখুন" type="text" name="search_key"
+                            id="category_search_key" onkeypress="book_fetch()" onkeyup="book_fetch()">
+                            
                         <button><img src="{{ asset('frontend/assets/images/icons/search_black_24dp1.svg') }}"
                                 alt=""></button>
                     </div>
