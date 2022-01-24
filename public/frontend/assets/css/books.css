@@ -64,6 +64,11 @@
     margin-top: -1px;
 }
 
+.form_chack_container {
+    height: 245px;
+    overflow: auto;
+}
+
 .form-check-input:checked[type=radio] {
     background-image: url('../images/icons/radioCenterCirle.svg');
 }
@@ -222,8 +227,37 @@ select.btn_more {
 .form-check-input[type=checkbox] {
     border: 1px solid #AEC4BB;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
 
 /*  ==responsive== */
+
+@media (max-width: 1679.98px) {
+    .form_chack_container {
+        height: 250px;
+        overflow: auto;
+    }
+    .form_chack_container .form-check-label {
+        font-size: 1.8rem;
+    }
+}
 @media (max-width: 991.98px) {
     .books_page .sc_title_wrapper {
         text-align: left;

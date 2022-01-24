@@ -1,6 +1,6 @@
 .footer {
     background: #F9F9F9;
-    padding-top: 19rem;
+    padding-top: 9rem;
 }
 .footer .logo_wrapper {
     max-width: 34.9rem;
@@ -14,6 +14,7 @@
     padding-right: 3rem;
     text-transform: uppercase;
     color         : #13A89E;
+    color         : var(--blue);
     margin-bottom : 2.4rem;
     font-family: 'Ruposhi Bangla Unicode';
 }

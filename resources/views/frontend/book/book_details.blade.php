@@ -144,19 +144,25 @@
                                     </h3>
                                 </div>
                                 <button class="buy_btn" onclick="addToCart({{ $book->book_id }})">Buy Now</button>
+                                <div class="book_add_btn">
+                                    <button type="button" onclick="addToWishlist({{ $book->book_id }})"><img
+                                            src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"
+                                            alt=""></button>
+                                    <button onclick="addToCart({{ $book->book_id }})"><img
+                                            src="{{ asset('frontend/assets/images/icons/shopping_cart_black_24dp (1).svg') }}"
+                                            alt=""></button>
+                                    <button onclick="share()"><img
+                                            src="{{ asset('frontend/assets/images/icons/share_black_24dp 1.svg') }}"
+                                            alt=""></button>
+                                </div>                   
+                            </div>
+                            <div class="deilvery_info">
+                                <p>ক্যাশ অন ডেলিভারি</p>
+                                <p>৭ দিন ফেরতযোগ্য</p>
+                                <p>ডেলিভারি ফি ৫০ টাকা</p>
                             </div>
 
-                            <div class="book_add_btn">
-                                <button type="button" onclick="addToWishlist({{ $book->book_id }})"><img
-                                        src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"
-                                        alt=""></button>
-                                <button onclick="addToCart({{ $book->book_id }})"><img
-                                        src="{{ asset('frontend/assets/images/icons/shopping_cart_black_24dp (1).svg') }}"
-                                        alt=""></button>
-                                <button onclick="share()"><img
-                                        src="{{ asset('frontend/assets/images/icons/share_black_24dp 1.svg') }}"
-                                        alt=""></button>
-                            </div>
+               
                         </div>
 
                     </div>
@@ -210,6 +216,22 @@
                             </h3>
                         </div>
                         <button class="buy_btn" onclick="addToCart({{ $book->book_id }})">Buy Now</button>
+                        <div class="book_add_btn">
+                            <button type="button" onclick="addToWishlist({{ $book->book_id }})"><img
+                                    src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"
+                                    alt=""></button>
+                            <button onclick="addToCart({{ $book->book_id }})"><img
+                                    src="{{ asset('frontend/assets/images/icons/shopping_cart_black_24dp (1).svg') }}"
+                                    alt=""></button>
+                            <button onclick="share()"><img
+                                    src="{{ asset('frontend/assets/images/icons/share_black_24dp 1.svg') }}"
+                                    alt=""></button>
+                        </div>  
+                        <div class="deilvery_info">
+                            <p>ক্যাশ অন ডেলিভারি</p>
+                            <p>৭ দিন ফেরতযোগ্য</p>
+                            <p>ডেলিভারি ফি ৫০ টাকা</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,10 +370,10 @@
                                     @endif
                                 </div>
                                 <div class="content_wrapper book_card_content">
-                                    <div class="rating">
+                                    {{-- <div class="rating">
                                         <div class="rateYo ratSerialId{{ $key }}"
                                             data-user_rating="{{ getTotalRating($related_book->reviews) }}"></div>
-                                    </div>
+                                    </div> --}}
                                     <h3 class="title">{{ $related_book->title }}</h3>
                                     <p class="author">
                                         @if (!empty($related_book->authors))

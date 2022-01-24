@@ -6,7 +6,7 @@
 .book_details_box {
     background   : #FDF7EE;
     border-radius: 10px;
-    min-height   : 790px;
+    min-height   : 800px;
 }
 
 .box_relative {
@@ -180,24 +180,38 @@
     width        : 80%;
 }
 
-.book_add_btn {
+.deilvery_info {
     position  : absolute;
     top       : 10%;
     right     : 30px;
     bottom    : 0;
     max-height: 250px;
     margin    : auto;
+    border-left: 1px solid #E0E0E0;
+    padding   : 0 8.6rem;
+}
+.desktop_details .deilvery_info{
+    display: none;
+}
+.deilvery_info p{
+    padding-bottom  : 2.9rem;
+    font-weight     : bold;
+    font-size       : 16px;
+    line-height     : 28px;
+    color           : #4F7F6C;
+}
+.book_add_btn {
+    padding-top: 5rem;
 }
 
 .book_add_btn button {
     background-color: #FFFFFF;
     border          : none;
-    margin-bottom   : 2.1rem;
+    margin-right    : 2.1rem;
     height          : 6.3rem;
     width           : 6.3rem;
     padding         : 1.7rem;
     border-radius   : 50%;
-    display         : block;
 
 
 }
@@ -514,7 +528,25 @@
     color      : #000000;
 
 }
-
+@media (max-width: 1679.98px) {
+    .deilvery_info {
+        padding: 0 0 0 3.6rem;
+    }
+}
+@media (max-width: 1366px) {
+    .box_relative .deilvery_info{
+        display: none;
+    }
+    .desktop_details .deilvery_info{
+        display: block;
+        position: relative;
+        border: 0;
+    }
+    .deilvery_info p {
+        padding: 2.9rem 1.6rem;
+        display: inline-block;
+    }
+}
 @media (max-width: 1199.98px) {
 
     .details_wraper {
@@ -554,6 +586,20 @@
     .desktop_details {
         display: none;
     }
+    .box_relative .deilvery_info{
+        display: none;
+    }
+    .mobile_details .deilvery_info {
+        position: relative;
+        display: block;
+        padding: 0;
+        right: 0;
+        border: 0;
+    }
+    .mobile_details .deilvery_info p{
+        display: block;
+        padding: 0.5rem 0;
+    }
 
     .mobile_details {
         display: block;
@@ -566,7 +612,8 @@
     }
 
     .book_add_btn {
-        padding-top: 500px;
+        padding-top: 10px;
+        padding-bottom: 10px;
     }
 
     .details_wraper {
@@ -641,7 +688,7 @@
     }
 
     .book_add_btn {
-        padding-top: 150px;
+        /* padding-top: 150px; */
         right      : 10px;
     }
 
@@ -672,6 +719,10 @@
         line-height: initial;
         padding    : 10px;
     }
+    .deilvery_info {
+        padding: 0 8.6rem;
+    }
+
 }
 
 @media (max-width: 600.98px) {

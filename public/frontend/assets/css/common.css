@@ -12,17 +12,35 @@
     padding-bottom: 2rem;
 }
 
-.pb-56, .py-56 {
+/* .pb-56, .py-56 {
     padding-bottom: 5.6rem;
 }
 .pt-56, .py-56 {
     padding-top: 5.6rem;
+} */
+.pb-56, .py-56 {
+    padding-bottom: 3.2rem;
+}
+.pt-56, .py-56 {
+    padding-top: 3.2rem;
 }
 
-.pt-120, .py-120 {
+/* .pt-120, .py-120 {
     padding-top: 12rem;
 }
 .pb-120, .py-120 {
+    padding-bottom: 12rem;
+} */
+.pt-120, .py-120 {
+    padding-top: 6rem;
+}
+.pb-120, .py-120 {
+    padding-bottom: 6rem;
+}
+.pt-12, .py-12 {
+    padding-top: 12rem;
+}
+.pb-12, .py-12 {
     padding-bottom: 12rem;
 }
 
@@ -40,7 +58,7 @@
     right: 0;
 }
 .sc_title {
-    font-size: 4rem;
+    font-size: 3.5rem;
     line-height: 6rem;
     font-weight: bold;
     color: var(--blue);
@@ -85,15 +103,19 @@ a.btn_more {
     top: -1rem;
     right: -1rem;
 }
+.red_tag svg {
+    width: 3.8rem;
+    height: 3.8rem;
+}
 .red_tag img {
     position: relative;
 }
 
 .red_tag  p{
-    margin-top: -65%;
-    transform: translate(27%);
-    font-size: 12px;
-    line-height: 14px;
+    margin-top: -67%;
+    transform: translate(22%);
+    font-size: 10px;
+    line-height: 12px;
     font-weight: bold;
     color: #fff;
     font-family: 'inter',sans-serif;
@@ -123,9 +145,16 @@ a.btn_more {
 .banner_with_title{
     position: relative;
 }
-
+.banner_title_image {
+    border-radius: 1.2rem;
+    height: 15rem;
+    overflow: hidden;
+}
 .banner_with_title img{
-    border-radius: 25px;
+    width: 100%;
+    height: 15rem;
+    object-fit: cover;
+    object-position: center center;
 }
 .banner_with_title .banner_title{
     position: absolute;
@@ -139,6 +168,17 @@ a.btn_more {
 }
 
 /* ==banner slider==  */
+.banner_slider .owl-item .item {
+    height: 150px;
+    border-radius: 1.2rem;
+    overflow: hidden;
+}
+.banner_slider .owl-item .item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    object-position: center center;
+}
 .banner_slider .owl-dots{
     text-align: center;
     position: absolute;
@@ -223,6 +263,7 @@ a.btn_more {
     .common_carousel .owl-dots{
         text-align: center;
         width: 100%;
+        height: 1.1rem;
     }
     .new_published_book_carousel .owl-dots .owl-dot,
     .common_carousel .owl-dots .owl-dot{
@@ -256,6 +297,12 @@ a.btn_more {
     .banner_with_title .banner_title {
         font-size: 3rem;
     }
+    .common_carousel .owl-dots {
+        margin-top: 3.2rem;
+    }
+    .sc_title_wrapper {
+        margin-bottom: 0;
+    }
 
     /* ==red tag== */
     .red_tag {
@@ -269,12 +316,12 @@ a.btn_more {
     }
 
     /* ==banner slider== */
-    .banner_slider .owl-carousel {
+    /* .banner_slider .owl-carousel {
         min-height: 10.9rem;
-    }
-    .banner_slider .owl-carousel .item img {
+    } */
+    /* .banner_slider .owl-carousel .item img {
         min-height: 10.9rem;
         object-fit: cover;
         object-position: center center;
-    }
+    } */
 }

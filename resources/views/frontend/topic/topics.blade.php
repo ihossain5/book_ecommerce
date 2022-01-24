@@ -20,7 +20,7 @@
 
 <section class="book_card_with_bg_section pb-120">
     <div class="container">
-        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-5">
             
             @if(!empty($categories))
             @foreach ($categories as $category)

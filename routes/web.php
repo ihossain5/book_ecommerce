@@ -219,6 +219,9 @@ Route::post('/order/my/order', [ProfileController::class, 'profile_order_view'])
 // Viewer profile end
 
 Route::post('/search/books/filter', [SearchController::class, 'book_filter'])->name('book.filter');
+
+Route::post('/search/popular/filter', [SearchController::class, 'popularBookFilter'])->name('popular.book.filter');
+
 Route::post('/photo/update', [ProfileController::class, 'photoUpdate'])->name('profile.photo.update');
 
 // Google login

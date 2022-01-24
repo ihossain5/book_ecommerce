@@ -6,7 +6,7 @@
                     <h1>ফিল্টার করুন</h1>
                 </div>
                 <div>
-                    <img src="{{asset('frontend/assets/images/icons/filterIcon.svg')}}" alt="">
+                    <img src="{{ asset('frontend/assets/images/icons/filterIcon.svg') }}" alt="">
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
                     <h1>ফিল্টার করুন</h1>
                 </div>
                 <div>
-                    <img src="{{asset('frontend/assets/images/icons/filterIcon.svg')}}" alt="">
+                    <img src="{{ asset('frontend/assets/images/icons/filterIcon.svg') }}" alt="">
                 </div>
             </div>
         </div>
@@ -39,19 +39,21 @@
                                 alt=""></button>
                     </div>
                 </div>
-                <span id="author_list_div">
-                    @if(!empty($authors))
-                    @foreach ($authors as $author)
-                    <div class="form-check">
-                        <input class="form-check-input writer_id" type="checkbox" name="writer"
-                            id="writer{{ $author->author_id }}" onclick="book_fetch()">
-                        <label class="form-check-label" for="writer{{ $author->author_id }}">
-                            {{ $author->name }}
-                        </label>
-                    </div>
-                    @endforeach
+                <div class="form_chack_container" id="author_list_div">
+                    @if (!empty($authors))
+                        @foreach ($authors as $author)
+
+                            <div class="form-check">
+                                <input class="form-check-input writer_id" type="checkbox" name="writer"
+                                    id="writer{{ $author->author_id }}" onclick="book_fetch()">
+                                <label class="form-check-label" for="writer{{ $author->author_id }}">
+                                    {{ $author->name }}
+                                </label>
+                            </div>
+
+                        @endforeach
                     @endif
-                </span>
+                </div>
             </div>
 
             <!-- Subject -->
@@ -63,25 +65,27 @@
                 </div>
                 <div>
                     <div class="search_group search_key">
-                        <input class="form-control" placeholder="খুঁজে দেখুন" type="text" name="search_key"
-                            id="category_search_key" onkeypress="book_fetch()" onkeyup="book_fetch()">
+                        {{-- <input class="form-control" placeholder="খুঁজে দেখুন" type="text" name="search_key"
+                            id="category_search_key" onkeypress="book_fetch()" onkeyup="book_fetch()"> --}}
+                            <input class="form-control" placeholder="খুঁজে দেখুন" type="text" name="category_search_key_sidebar" id="category_search_key_sidebar" onkeypress="category_filter_sidebar_filter()" onkeyup="category_filter_sidebar_filter()">
                         <button><img src="{{ asset('frontend/assets/images/icons/search_black_24dp1.svg') }}"
                                 alt=""></button>
                     </div>
                 </div>
+                <div class="form_chack_container">
+                    @if (!empty($categories))
+                        @foreach ($categories as $category)
+                            <div class="form-check">
+                                <input class="form-check-input category_id" type="checkbox" name="priceDiscount"
+                                    id="discountPrice{{ $category->category_id }}" onclick="book_fetch()">
+                                <label class="form-check-label" for="discountPrice{{ $category->category_id }}">
+                                    {{ $category->name }}
 
-                @if(!empty($categories))
-                @foreach ($categories as $category)
-                <div class="form-check">
-                    <input class="form-check-input category_id" type="checkbox" name="priceDiscount"
-                        id="discountPrice{{$category->category_id }}" onclick="book_fetch()">
-                    <label class="form-check-label" for="discountPrice{{$category->category_id }}">
-                        {{$category->name}}
-
-                    </label>
+                                </label>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
-                @endforeach
-                @endif
             </div>
 
             <!-- Price -->
@@ -91,47 +95,49 @@
                     <button class="filter_clear_btn" data-input_name="price"> মুছে ফেলুন <img
                             src="{{ asset('frontend/assets/images/icons/close_black_24dp1.svg') }}" alt=""></button>
                 </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="price" id="radioPrice1" onclick="book_fetch()"
-                        value="100">
-                    <label class="form-check-label" for="radioPrice1">
-                        ০-১০০
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="price" id="radioPrice2" onclick="book_fetch()"
-                        value="500">
-                    <label class="form-check-label" for="radioPrice2">
-                        ১০০-৫০০
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="price" id="radioPrice3" onclick="book_fetch()"
-                        value="1000">
-                    <label class="form-check-label" for="radioPrice3">
-                        ৫০০-১০০০
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="price" id="radioPrice4" onclick="book_fetch()"
-                        value="1500">
-                    <label class="form-check-label" for="radioPrice4">
-                        ১০০০-২০০০
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="price" id="radioPrice5" onclick="book_fetch()"
-                        value="2000">
-                    <label class="form-check-label" for="radioPrice5">
-                        ২০০০+
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="price" id="radioPrice6" onclick="book_fetch()">
-                    <label class="form-check-label" for="radioPrice6">
-                        সকল
-                    </label>
+                <div class="form_chack_container">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="price" id="radioPrice1"
+                            onclick="book_fetch()" value="100">
+                        <label class="form-check-label" for="radioPrice1">
+                            ০-১০০
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="price" id="radioPrice2"
+                            onclick="book_fetch()" value="500">
+                        <label class="form-check-label" for="radioPrice2">
+                            ১০০-৫০০
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="price" id="radioPrice3"
+                            onclick="book_fetch()" value="1000">
+                        <label class="form-check-label" for="radioPrice3">
+                            ৫০০-১০০০
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="price" id="radioPrice4"
+                            onclick="book_fetch()" value="1500">
+                        <label class="form-check-label" for="radioPrice4">
+                            ১০০০-২০০০
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="price" id="radioPrice5"
+                            onclick="book_fetch()" value="2000">
+                        <label class="form-check-label" for="radioPrice5">
+                            ২০০০+
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="price" id="radioPrice6"
+                            onclick="book_fetch()">
+                        <label class="form-check-label" for="radioPrice6">
+                            সকল
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -157,20 +163,22 @@
                     </div>
                 </div>
 
-                <span id="publication_list_div">
-                    @if(!empty($publications))
-                    @foreach ($publications as $publication)
-                    <div class="form-check">
-                        <input class="form-check-input publisher_id" type="checkbox" name="publisher"
-                            id="publisher{{$publication->publication_id}}" onclick="book_fetch()">
-                        <label class="form-check-label" for="publisher{{$publication->publication_id}}">
-                            {{$publication->name}}
+                {{-- <span id="publication_list_div"> --}}
+                    <div class="form_chack_container" id="publication_list_div">
+                    @if (!empty($publications))
+                        @foreach ($publications as $publication)
+                            <div class="form-check">
+                                <input class="form-check-input publisher_id" type="checkbox" name="publisher"
+                                    id="publisher{{ $publication->publication_id }}" onclick="book_fetch()">
+                                <label class="form-check-label" for="publisher{{ $publication->publication_id }}">
+                                    {{ $publication->name }}
 
-                        </label>
-                    </div>
-                    @endforeach
+                                </label>
+                            </div>
+                        @endforeach
                     @endif
-                </span>
+                </div>
+                {{-- </span> --}}
             </div>
         </div>
     </div>

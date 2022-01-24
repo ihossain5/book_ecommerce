@@ -92,7 +92,7 @@
     ///////////////////////////////backend page codes////////////////////////////////////////
     var book_fetch_config = {
                 routes: {
-                    filter: "{!! route('book.filter') !!}",
+                    filter: "{!! route('popular.book.filter') !!}",
                     author_filter: "{!! route('author.sidebar.filter') !!}",
                     publisher_filter: "{!! route('publisher.sidebar.filter') !!}",
                     category_filter: "{!! route('category.sidebar.filter') !!}",
@@ -170,7 +170,8 @@
                                 var book_details_url = '{{ route('frontend.book.details', ':id') }}';
                                 book_details_url = book_details_url.replace(':id', val.book_id);
                                 //console.log(val);
-                            $('#book_list').append(`<div class="col">
+                                if(val.counted_order >0){
+                                    $('#book_list').append(`<div class="col">
                                 <div class="book_card_wrapper">
                                     <div class="image_wrapper">
                                         <a href="${book_details_url}" class="d-block text-reset">
@@ -203,6 +204,8 @@
                                     </div>
                                 </div>
                             </div>`)
+                                }
+                          
                             rateYo();
                             });
                         }else{
