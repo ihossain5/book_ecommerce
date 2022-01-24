@@ -47,7 +47,7 @@ $offers = HomePageController::offers();
                 </li>
                 @foreach ($offers as $offer)
                 <li class="nav-item dropdown dropdown_content">
-                    <a class="nav-link {{$loop->last ? 'last_item': ''}}" href="{{route('get.offer.book',[$offer->offer_id])}}" role="button">
+                    <a class="nav-link custom_nav_link {{$loop->last ? 'last_item': ''}}" href="{{route('get.offer.book',[$offer->offer_id])}}" role="button">
                         {{$offer->title}}
                     </a>
                 </li>

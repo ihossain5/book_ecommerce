@@ -78,7 +78,7 @@ class BookController extends Controller
 
         $publications = Publication::orderBy('name')->get();
 
-        return view('frontend.book.offer_books', compact('books', 'title', 'offer_id', 'authors', 'categories', 'publications'));
+        return view('frontend.book.popular_books', compact('books', 'title', 'offer_id', 'authors', 'categories', 'publications'));
         
     }
 

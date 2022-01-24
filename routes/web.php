@@ -113,10 +113,10 @@ Route::post('/discount-offer/status', [DiscountOfferController::class, 'updateSt
 
 // Contact start
     Route::get('/contact', [ContactController::class, 'index'])->name('contacts');
-    Route::post('/contact/store', [ContactController::class, 'store'])->name('contacts.store');
+    // Route::post('/contact/store', [ContactController::class, 'store'])->name('contacts.store');
     Route::post('/contact/edit', [ContactController::class, 'edit'])->name('contacts.edit');
     Route::post('/contact/update', [ContactController::class, 'update'])->name('contacts.update');
-    Route::post('/contact/delete', [ContactController::class, 'destroy'])->name('contacts.delete');
+    // Route::post('/contact/delete', [ContactController::class, 'destroy'])->name('contacts.delete');
 // Contact end
 
 // Contact start

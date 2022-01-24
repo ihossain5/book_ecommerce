@@ -22,14 +22,14 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-4">
                                 <div class="ms-header-text">
-                                    <h4 class="mt-0 header-title">Contact</h4>
+                                    <h4 class="mt-0 header-title">Contact Information</h4>
                                 </div>
                                
-                                    <button type="button"
+                                    {{-- <button type="button"
                                         class="btn btn-outline-purple float-right waves-effect waves-light" name="button"
                                         id="addButton" data-toggle="modal" data-target="#ContactAddModal"> Add
                                         New
-                                    </button>
+                                    </button> --}}
                                
                             </div>
                             <span class="showError"></span>
@@ -64,9 +64,9 @@
                                                     <button type='button' class='btn btn-outline-purple '
                                                         onclick='editContact({{ $contact->id }})'><i
                                                             class='mdi mdi-pencil'></i></button>
-                                                    <button type='button' name='delete' class="btn btn-outline-danger "
+                                                    {{-- <button type='button' name='delete' class="btn btn-outline-danger "
                                                         onclick="deleteContact({{ $contact->id }})"><i
-                                                            class="mdi mdi-delete "></i></button>
+                                                            class="mdi mdi-delete "></i></button> --}}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -270,10 +270,9 @@
         });
         var config = {
             routes: {
-                add: "{!! route('contacts.store') !!}",
                 edit: "{!! route('contacts.edit') !!}",
                 update: "{!! route('contacts.update') !!}",
-                delete: "{!! route('contacts.delete') !!}",
+
             }
         };
 
@@ -576,9 +575,7 @@
                             <button type='button' class='btn btn-outline-purple' onclick='editContact(${response.data.id})'>
                                 <i class='mdi mdi-pencil'></i>
                             </button>
-                            <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteContact(${response.data.id})">
-                                <i class="mdi mdi-delete "></i>
-                            </button>
+                    
                         </td>
                                 `
                             );

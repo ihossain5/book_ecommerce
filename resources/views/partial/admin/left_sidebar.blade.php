@@ -147,7 +147,7 @@
                                 <li>
                                     <a href="{{ route('contacts') }}" class="waves-effect">
                                         <i class="fa fa-address-card-o"></i>
-                                        <span>Contacts</span>
+                                        <span>Contact Information</span>
                                     </a>
                                 </li>
                             {{-- @endif --}}

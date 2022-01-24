@@ -1,6 +1,7 @@
 @php
 use App\Http\Controllers\Frontend\HomePageController;
     $footer = HomePageController::footer();
+    $appInfo = HomePageController::appInfo();
 @endphp
 <!-- footer -->
     {{-- <footer class="footer">
@@ -128,17 +129,15 @@ use App\Http\Controllers\Frontend\HomePageController;
                     <h6>ভোরের কাগজ প্রকাশন</h6>
                     <ul class="website_address ">
                         <li>
-                            <a href="" onclick="return false">কর্ণফুলী মিডিয়া পয়েন্ট তৃতীয় তলা, ৭০ <br>
-                                শহীদ সাংবাদিক সেলিনা পারভীন সড়ক,<br>
-                                মালিবাগ, ঢাকা-১২১৭, বাংলাদেশ
+                            <a href="" onclick="return false">{{$appInfo->address}}</a>
                         </li>
                         <li>
-                            <a href="" onclick="return false">পিএবিএক্স: <span class="last_link_inter">09612112200,
-                                    58316483,</span></a>
+                            <a href="" onclick="return false">পিএবিএক্স: <span class="last_link_inter">{{$appInfo->pabx}}
+                                    </a>
                         </li>
                         <li class="last_link_li">
-                            <a href="mailto:bhorerkagojprokashan@gmail.com"
-                                class="last_link_inter">bhorerkagojprokashan@gmail.com
+                            <a href="mailto:{{$appInfo->email}}"
+                                class="last_link_inter">{{$appInfo->email}}
                             </a>
                         </li>
 
@@ -227,7 +226,7 @@ use App\Http\Controllers\Frontend\HomePageController;
         <div class="container">
             <div class="footer_inner_four">
                 <div class="copywight">
-                    <p>© Copyright <span>Bhorer Kagoj Prokashon</span></p>
+                    <p>© Copyright <span>{{$appInfo->name}}</span></p>
                 </div>
                 <div class="ar_reserved">
                     <p>All rights reserved.</p>

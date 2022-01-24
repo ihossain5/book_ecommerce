@@ -118,9 +118,9 @@ class OfferController extends Controller {
      */
     public function destroy(Offer $offer) {
 
-        $offer->delete();
+        // $offer->delete();
 
-        $offer->message = 'Offer deleted successfully';
+        // $offer->message = 'Offer deleted successfully';
 
         return $this->success($offer);
     }

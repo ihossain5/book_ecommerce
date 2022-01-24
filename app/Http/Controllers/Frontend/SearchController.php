@@ -21,7 +21,7 @@ class SearchController extends Controller
      */
     public function book_filter(Request $request)
     {
-        //dd($request->all());
+        dd($request->all());
 
         $offer_id = $request->offer_id;
         $category_list = $request->category_list;

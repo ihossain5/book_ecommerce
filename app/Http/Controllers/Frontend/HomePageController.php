@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Offer;
 use App\Models\Publication;
 use App\Service\HomepageService;
@@ -43,6 +44,9 @@ class HomePageController extends Controller {
     }
     public static function footer() {
         return SocialMedia::all();
+    }
 
+    public static function appInfo() {
+        return Contact::first();
     }
 }

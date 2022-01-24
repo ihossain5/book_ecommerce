@@ -116,10 +116,10 @@
                                 <div class="ms-header-text">
                                     <h4 class="mt-0 header-title">All Offers</h4>
                                 </div>
-                                <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
+                                {{-- <button type="button" class="btn btn-outline-purple float-right waves-effect waves-light"
                                     name="button" id="addButton" data-toggle="modal" data-target="#add"> Add
                                     New
-                                </button>
+                                </button> --}}
                             </div>
                             <div class="table-responsive">
                                 <table id="offerTable" class="table table-bordered dt-responsive nowrap"
@@ -165,9 +165,9 @@
                                                             onclick='editOffer({{ $offer->offer_id }})'><i
                                                                 class='mdi mdi-pencil'></i></button>
 
-                                                        <button type='button' name='delete' class="btn btn-outline-danger "
+                                                        {{-- <button type='button' name='delete' class="btn btn-outline-danger "
                                                             onclick="deleteOffer({{ $offer->offer_id }})"><i
-                                                                class="mdi mdi-delete "></i></button>
+                                                                class="mdi mdi-delete "></i></button> --}}
 
                                                     </td>
                                                 </tr>
@@ -638,9 +638,7 @@
                                     <button type='button' class='btn btn-outline-info' onclick='editOffer(${response.data.offer_id})'>
                                         <i class='mdi mdi-pencil'></i>
                                     </button>
-                                    <button type='button'  name='delete' class="btn btn-outline-danger"onclick="deleteOffer(${response.data.offer_id})">
-                                        <i class="mdi mdi-delete "></i>
-                                    </button>
+
                                 </td>
                                 `
                         );
