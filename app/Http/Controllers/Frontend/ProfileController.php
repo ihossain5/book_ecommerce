@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
+
 use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Order;
@@ -12,13 +13,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class ProfileController extends Controller {
+class ProfileController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
 
         if (Auth::check()) {
             $user_info = Auth::user();
@@ -33,10 +36,10 @@ class ProfileController extends Controller {
         } else {
             return redirect()->route('frontend.login');
         }
-
     }
 
-    public function profile_order_view(Request $request) {
+    public function profile_order_view(Request $request)
+    {
 
         //dd($request->all());
         //dd($id);
@@ -49,10 +52,10 @@ class ProfileController extends Controller {
             'success' => true,
             'data'    => $user_orders,
         ]);
-
     }
 
-    public function photoUpdate(Request $request) {
+    public function photoUpdate(Request $request)
+    {
         if (Auth::check()) {
             $this->validate($request, [
                 'photo' => 'required|max:300|image|mimes:png,jpg,jpeg',
@@ -69,7 +72,6 @@ class ProfileController extends Controller {
                 $data['message'] = 'Profile photo has been updated';
 
                 return $this->success($data);
-
             } else {
                 return response()->json([
                     'success' => false,
@@ -82,7 +84,8 @@ class ProfileController extends Controller {
         }
     }
 
-    public function address_details($id) {
+    public function address_details($id)
+    {
 
         $address_info = Address::where('address_id', $id)->first();
 
@@ -101,7 +104,8 @@ class ProfileController extends Controller {
         return $this->success($data);
     }
 
-    public function address_update(Request $request) {
+    public function address_update(Request $request)
+    {
 
         // dd($request->all());
         $validator = Validator::make($request->all(), [
@@ -203,7 +207,8 @@ class ProfileController extends Controller {
         ]);
     }
 
-    public function add_address(Request $request) {
+    public function add_address(Request $request)
+    {
 
         //    dd($request->all());
         $validator = Validator::make($request->all(), [
@@ -258,12 +263,11 @@ class ProfileController extends Controller {
                 'address'    => $address,
                 'is_default' => $is_default_add,
             ]);
-
         }
-
     }
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name'  => 'required|max:100',
@@ -305,7 +309,8 @@ class ProfileController extends Controller {
         }
     }
 
-    public function destroy(Request $request) {
+    public function destroy(Request $request)
+    {
         //dd($request->all());
         $address = Address::findOrFail($request->id);
 
@@ -332,12 +337,12 @@ class ProfileController extends Controller {
         }
     }
 
-    public function getDistrict(Request $request) {
+    public function getDistrict(Request $request)
+    {
         $division = Division::findOrFail($request->id);
 
         $districts = $division->districts;
 
         return $this->success($districts);
     }
-
 }
