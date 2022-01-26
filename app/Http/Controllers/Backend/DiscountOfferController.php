@@ -39,7 +39,7 @@ class DiscountOfferController extends Controller {
     function uploadPhoto($photo) {
         $path = 'discount-offfer/';
 
-        $photo_url = storeImage($photo, $path, 277, 369);
+        $photo_url = storeImage($photo, $path, 400, 270);
 
         return $photo_url;
     }

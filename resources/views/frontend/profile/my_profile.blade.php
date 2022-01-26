@@ -56,9 +56,8 @@
                                 অর্ডার</a>
                         </li>
                         <li role="presentation">
-                            <a class="wishlistTab" id="settings-tab" data-bs-toggle="tab"
-                                data-bs-target="#settings" type="button" role="tab" aria-controls="settings"
-                                aria-selected="false">পছন্দের তালিকা</a>
+                            <a class="wishlistTab" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings"
+                                type="button" role="tab" aria-controls="settings" aria-selected="false">পছন্দের তালিকা</a>
                         </li>
                     </ul>
 
@@ -184,13 +183,22 @@
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
                                                         <label>বিভাগ</label>
-                                                        <input type="text" class="form-control" id="modal_district"
-                                                            placeholder="আপনার বিভাগ" name="modal_division">
+                                                        {{-- <input type="text" class="form-control" id="modal_district"
+                                                            placeholder="আপনার বিভাগ" name="modal_division"> --}}
+                                                        <select name="modal_division" id="editDivisionSelectBox"
+                                                            class="form-control">
+                                                            <option value="">আপনার বিভাগ</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
                                                         <label>জেলা </label>
-                                                        <input type="text" class="form-control" id="modal_area"
-                                                            placeholder="আপনার জেলা" name="modal_district">
+                                                        {{-- <input type="text" class="form-control" id="modal_area"
+                                                            placeholder="আপনার জেলা" name="modal_district"> --}}
+
+                                                        <select name="modal_district" id="editDistrictSelectBox"
+                                                            class="form-control">
+                                                            <option value="">আপনার জেলা</option>
+                                                        </select>
                                                     </div>
                                                     <div class="col-12 cols">
                                                         <div class="input_fild_modal d-block">
@@ -255,12 +263,25 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
-                                                        <input type="text" class="form-control" placeholder="আপনার বিভাগ"
-                                                            name="modal_new_division">
+                                                        {{-- <input type="text" class="form-control" placeholder="আপনার বিভাগ"
+                                                            name="modal_new_division"> --}}
+                                                        <select name="modal_new_division" id="divisionSelectBox"
+                                                            class="form-control">
+                                                            <option value="">আপনার বিভাগ</option>
+                                                            @foreach ($divisions as $division)
+                                                                <option value="{{ $division->id }}">
+                                                                    {{ $division->bn_name }}</option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                     <div class="col-md-6 col-lg-6 col-sm-12 col-12 cols">
-                                                        <input type="text" class="form-control" placeholder="আপনার জেলা"
-                                                            name="modal_new_district">
+                                                        {{-- <input type="text" class="form-control" placeholder="আপনার জেলা"
+                                                            name="modal_new_district"> --}}
+                                                        <select name="modal_new_district" id="districtSelectBox"
+                                                            class="form-control">
+                                                            <option value="">আপনার জেলা</option>
+
+                                                        </select>
                                                     </div>
                                                     <div class="col-12 cols">
                                                         <div class="input_fild_modal d-block">
@@ -281,13 +302,16 @@
                             <ul class="orders_lists">
                                 @if (!empty($user_orders))
                                     @foreach ($user_orders as $user_order)
-                                        <li class="order_details" onclick="order_view({{ $user_order->order_id }})" style="cursor:pointer">
+                                        <li class="order_details" onclick="order_view({{ $user_order->order_id }})"
+                                            style="cursor:pointer">
                                             <div class="code_and_delevery">
                                                 {{-- <p class="order_code">অর্ডার কোডঃ
                                                     <span>#{{ $user_order->id }}</span>
                                                 </p> --}}
 
-                                                <p class="order_code" >অর্ডার কোডঃ <span >#{{ $user_order->id }}</span></p>
+                                                <p class="order_code">অর্ডার কোডঃ
+                                                    <span>#{{ $user_order->id }}</span>
+                                                </p>
 
                                                 @if ($user_order->order_status_id == 1)
                                                     <h3 class="order_sign panding">পেন্ডিং</h3>
@@ -352,7 +376,7 @@
                                         </div>
                                     </div> --}}
                                         @if (!empty(auth()->user()->wishlists))
-                                            @foreach (auth()->user()->wishlists as $key=>$wishlist)
+                                            @foreach (auth()->user()->wishlists as $key => $wishlist)
                                                 <div class="col">
                                                     <div class="book_card_wrapper">
                                                         <div class="image_wrapper">
@@ -414,62 +438,63 @@
             </div>
         </div>
     </section>
-        <!-- Order History Modal -->
-        <div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-lg">
-                <div class="modal-content order-history-content">
-    
-                    <button class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close"><img
-                            src="{{ asset('frontend/assets/images/icons/add_circle.svg') }}" alt=""></button>
-                    <div class="modal-body">
-                        <div class="row align-items-center pb-5">
-                            <div class="col-md-6 order-header">
-                                <h1>অর্ডার কোডঃ #<span id="order_id"></span></h1>
-                                <h5 id="order_date"></h5>
-                            </div>
-                            <div class="col-md-6 text-start text-md-end" id="order_status">
-                                <span class="delevery-success" id="order_status"></span>
-                                <!-- <span class="delevery-pending">ডেলিভারড</span> -->
-                            </div>
+    <!-- Order History Modal -->
+    <div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content order-history-content">
+
+                <button class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close"><img
+                        src="{{ asset('frontend/assets/images/icons/add_circle.svg') }}" alt=""></button>
+                <div class="modal-body">
+                    <div class="row align-items-center pb-5">
+                        <div class="col-md-6 order-header">
+                            <h1>অর্ডার কোডঃ #<span id="order_id"></span></h1>
+                            <h5 id="order_date"></h5>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 order-item-box">
-                                <ul id="book_list">
-                            
-                                </ul>
-                            </div>
-                            <div class="col-md-6 order-price-box">
-                                <ul>
-                                    <li>
-                                        <span>সাব টোটাল</span>
-                                        <span id="order_sub_total"></span>
-                                    </li>
-                                    {{-- <li>
+                        <div class="col-md-6 text-start text-md-end" id="order_status">
+                            <span class="delevery-success" id="order_status"></span>
+                            <!-- <span class="delevery-pending">ডেলিভারড</span> -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 order-item-box">
+                            <ul id="book_list">
+
+                            </ul>
+                        </div>
+                        <div class="col-md-6 order-price-box">
+                            <ul>
+                                <li>
+                                    <span>সাব টোটাল</span>
+                                    <span id="order_sub_total"></span>
+                                </li>
+                                {{-- <li>
                                         <span>ভ্যাট</span>
                                         <span id="order_vat"></span>
                                     </li> --}}
-                                    <li>
-                                        <span>ডেলিভারি ফি</span>
-                                        <span id="order_delivery"></span>
-                                    </li>
-                                    <li>
-                                        <span>টোটাল</span>
-                                        <span id="order_total"></span>
-                                    </li>
-                                </ul>
-                            </div>
+                                <li>
+                                    <span>ডেলিভারি ফি</span>
+                                    <span id="order_delivery"></span>
+                                </li>
+                                <li>
+                                    <span>টোটাল</span>
+                                    <span id="order_total"></span>
+                                </li>
+                            </ul>
                         </div>
-    
-                        <div class="row">
-                            <div class="col-12 special-note">
-                                <h1>বিশেষ নোট</h1>
-                                <h3 id="order_note"></h3>
-                            </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 special-note">
+                            <h1>বিশেষ নোট</h1>
+                            <h3 id="order_note"></h3>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 @endsection
 @section('page-js')
 
@@ -479,11 +504,11 @@
             routes: {
                 imageUpdate: "{!! route('profile.photo.update') !!}",
                 order_single: "{!! route('my.order.single') !!}",
-                
+
             }
         };
 
-       
+
 
         if (location.hash == '#wishlist') {
             var firstTabEl = document.querySelector('#settings-tab')
@@ -496,7 +521,7 @@
             var order_infoTab = new bootstrap.Tab(firstTabEl)
 
             order_infoTab.show()
-        }else if(location.hash == '#address'){
+        } else if (location.hash == '#address') {
             var firstTabEl = document.querySelector('#area_info-tab')
             var addressTab = new bootstrap.Tab(firstTabEl)
 
@@ -623,8 +648,8 @@
             var id = $(this).data('id');
 
 
-            $.get('/profile/address/' + id, function(data) {
-                if (data.inside_dhaka_city == 1) {
+            $.get('/profile/address/' + id, function(response) {
+                if (response.data.address_info.inside_dhaka_city == 1) {
                     $("#select_dhaka").prop("checked", true);
                 } else {
                     $("#unselect_dhaka").prop("checked", true);
@@ -632,13 +657,30 @@
 
 
 
-                $('#exampleModal #address_id').val(data.address_id);
-                $('#exampleModal #modal_name').val(data.name);
-                $('#exampleModal #modal_phone').val(data.mobile);
-                $('#exampleModal #modal_district').val(data.division);
-                $('#exampleModal #modal_area').val(data.district);
-                $('#exampleModal #modal_address').val(data.address);
-                $('#exampleModal #select_dhaka').val(data.inside_dhaka_city);
+                $('#exampleModal #address_id').val(response.data.address_info.address_id);
+                $('#exampleModal #modal_name').val(response.data.address_info.name);
+                $('#exampleModal #modal_phone').val(response.data.address_info.mobile);
+
+                $('#exampleModal #modal_address').val(response.data.address_info.address);
+                $('#exampleModal #select_dhaka').val(response.data.address_info.inside_dhaka_city);
+
+                //division
+                $('#editDivisionSelectBox').empty();
+                $.each(response.data.divisions, function(i, value) {
+                    $('#editDivisionSelectBox').append(
+                        `<option value="${value.id}" ${value.bn_name == response.data.address_info.division ? 'selected': ''}>${value.bn_name}</option>`
+                    );
+                })
+
+                //district
+                $('#editDistrictSelectBox').empty();
+                $.each(response.data.districts, function(j, district) {
+                    $('#editDistrictSelectBox').append(
+                        `<option value="${district.id}" ${district.bn_name == response.data.address_info.district ? 'selected': ''}>${district.bn_name}</option>`
+                    );
+                })
+
+
 
                 $('#exampleModal').modal('show');
 
@@ -650,51 +692,55 @@
         $(document).ready(function() {
             $("#edit_address_modal").validate({
                 rules: {
-                    is_inside_dhaka: {
+                    isInsideDhaka: {
                         required: true,
                     },
-                    modal_new_name: {
+                    modal_name: {
                         required: true,
                         maxlength: 100,
                     },
-                    modal_new_phone: {
+                    modal_phone: {
                         required: true,
                         maxlength: 11,
                         minlength: 11,
                         digits: true,
                     },
-                    modal_new_district: {
+                    modal_district: {
                         required: true,
-                        maxlength: 50,
+                    },
+                    modal_division: {
+                        required: true,
                     },
                     modal_new_area: {
                         required: true,
                         maxlength: 50,
                     },
-                    modal_new_address: {
+                    modal_address: {
                         required: true,
                         maxlength: 500,
                     },
                 },
                 messages: {
-                    is_inside_dhaka: {
+                    isInsideDhaka: {
                         required: 'Please select one',
                     },
-                    modal_new_name: {
+                    modal_name: {
                         required: 'Please insert name',
                     },
-                    modal_new_phone: {
+                    modal_phone: {
                         required: 'Please insert phone',
                     },
-                    modal_new_district: {
-                        required: 'Please insert division',
-
+                    modal_district: {
+                        required: 'Please select district',
+                    },
+                    modal_division: {
+                        required: 'Please select division',
                     },
                     modal_new_area: {
                         required: 'Please insert area',
 
                     },
-                    modal_new_address: {
+                    modal_address: {
                         required: 'Please insert address',
 
                     },
@@ -729,8 +775,8 @@
                                 <div class="address_loc_edit">
                                     <div class="form-check">
                                         ${ (response.data.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                            value="" onclick="primaryAddress(${response.data.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                            value="" onclick="primaryAddress(${response.data.address_id})">`)
+                                                                                value="" onclick="primaryAddress(${response.data.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                value="" onclick="primaryAddress(${response.data.address_id})">`)
 
                                             
                                         }
@@ -782,6 +828,9 @@
                         required: true,
                         maxlength: 50,
                     },
+                    modal_new_division: {
+                        required: true,
+                    },
                     modal_new_area: {
                         required: true,
                         maxlength: 50,
@@ -802,8 +851,10 @@
                         required: 'Please insert phone',
                     },
                     modal_new_district: {
-                        required: 'Please insert division',
-
+                        required: 'Please select district',
+                    },
+                    modal_new_division: {
+                        required: 'Please select division',
                     },
                     modal_new_area: {
                         required: 'Please insert area',
@@ -850,8 +901,8 @@
                                     <div class="form-check"> 
 
                                         ${ (response.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                            value="" onclick="primaryAddress(${response.address.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                            value="" onclick="primaryAddress(${response.address.address_id})">`)
+                                                                                value="" onclick="primaryAddress(${response.address.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                value="" onclick="primaryAddress(${response.address.address_id})">`)
    
                                         }
 
@@ -907,7 +958,7 @@
             //alert(id)
             $.ajax({
                 type: "POST",
-                url:  config.routes.order_single,
+                url: config.routes.order_single,
                 // url:  "{!! route('my.order.single') !!}",
                 data: {
                     id: id,
@@ -918,10 +969,10 @@
                     if (response.success === true) {
 
                         $("#book_list").empty();
-                       
+
                         $.each(response.data.books, function(index, val) {
                             console.log(val);
-                        $('#book_list').append(`<li>
+                            $('#book_list').append(`<li>
                                         <div>
                                             <span>${engToBangla(val.pivot.quantity)}টি</span>
                                             <span>${val.title}</span>
@@ -942,16 +993,16 @@
 
 
                         $("#order_status").empty();
-                        $('#order_status').append(response.data.order_status_id==1?`<span class="delevery-pending" id="order_status">পেন্ডিং</span>`:
-                        response.data.order_status_id==2?`<span class="delevery-success" id="order_status">ডেলিভারিং</span>`:response.data.order_status_id==3?`কমপ্লিট`:`<span class="delevery-pending">ক্যানসেল</span>`
+                        $('#order_status').append(response.data.order_status_id == 1 ?
+                            `<span class="delevery-pending" id="order_status">পেন্ডিং</span>` :
+                            response.data.order_status_id == 2 ?
+                            `<span class="delevery-success" id="order_status">ডেলিভারিং</span>` : response
+                            .data.order_status_id == 3 ? `কমপ্লিট` :
+                            `<span class="delevery-pending">ক্যানসেল</span>`
                         )
-                     
+
                         $('#orderHistoryModal').modal('show');
-                    }
-
-                        
-
-                    else {
+                    } else {
                         toastr['error'](response.message);
                     }
                 }
@@ -960,24 +1011,24 @@
         //end
 
         //primary address     
-      function primaryAddress(id) {
-                    $.ajax({
-                        type: "POST",
-                        url: "{!! route('profile.address.primary') !!}",
-                        data: {
-                            id: id,
-                            _token: "{{ csrf_token() }}"
-                        },
-                        dataType: 'JSON',
-                        success: function(response) {
-                            if (response.success === true) {
+        function primaryAddress(id) {
+            $.ajax({
+                type: "POST",
+                url: "{!! route('profile.address.primary') !!}",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.success === true) {
 
-                                $("#user_address_list").empty();
-                                if(response.user_address.length!=0){
-                                
-                                    $.each(response.user_address.addresses, function(index, val) {
-                                        console.log(val);
-                                    $('#user_address_list').append(`<li class="address_loc_details address_id${val.address_id}">
+                        $("#user_address_list").empty();
+                        if (response.user_address.length != 0) {
+
+                            $.each(response.user_address.addresses, function(index, val) {
+                                console.log(val);
+                                $('#user_address_list').append(`<li class="address_loc_details address_id${val.address_id}">
                                 <div class="address_loc_desc">
                                     <p class="address_loc"><span>বিভাগ: </span>${val.division}</p>
                                     <p class="address_loc"><span>জেলা: </span>${val.district}</p>
@@ -987,8 +1038,8 @@
                                 <div class="address_loc_edit">
                                     <div class="form-check">
                                         ${ (val.pivot.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                            value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                            value="" onclick="primaryAddress(${val.address_id})">`)
+                                                                value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                value="" onclick="primaryAddress(${val.address_id})">`)
 
                                             
                                         }
@@ -1005,22 +1056,126 @@
                                     </div>
                                 </div>
                             </li>`)
-                                    });
-                                    
-                                }else{
-                                    $('#user_address_list').append(`<h1>No data!</h1>`);
-                                    }
-                                
-                                toastr['success'](response.data.message);
+                            });
 
-
-                               
-                            } else {
-                                toastr['error'](response.message);
-                            }
+                        } else {
+                            $('#user_address_list').append(`<h1>No data!</h1>`);
                         }
-                    });    
-            }
+
+                        toastr['success'](response.data.message);
+
+
+
+                    } else {
+                        toastr['error'](response.message);
+                    }
+                }
+            });
+        }
         //end
+
+        $(document).on('change', '#divisionSelectBox', function() {
+
+            var id = $(this).val();
+
+            if (id == '') {
+                emptyDistrictBox();
+            } else {
+
+                $.ajax({
+                    url: "{!! route('district.division') !!}",
+                    type: 'post',
+                    dataType: "json",
+                    data: {
+                        id: id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        if (response.success == true) {
+                            emptyDistrictBox();
+
+                            $.each(response.data, function(key, val) {
+                                $('#districtSelectBox').append(
+                                    `<option value="${val.bn_name}">${val.bn_name}</option>`
+                                )
+                            });
+
+                        } //success end
+                    },
+                    error: function(error) {
+                        if (error.status == 404) {
+                            toastr["error"](response.data.message)
+                        } else if (error.status == 422) {
+                            $.each(error.responseJSON.errors, function(i, message) {
+                                toastr["error"](message)
+                            });
+                        }
+                    },
+                }); //ajax end
+
+            }
+
+
+        });
+
+        function emptyDistrictBox() {
+            $('#districtSelectBox').empty();
+
+            $('#districtSelectBox').append(
+                `<option value="">আপনার জেলা</option>`
+            )
+        }
+
+        function emptyEditDistrictBox() {
+            $('#editDistrictSelectBox').empty();
+
+            $('#editDistrictSelectBox').append(
+                `<option value="">আপনার জেলা</option>`
+            )
+        }
+
+        $(document).on('change', '#editDivisionSelectBox', function() {
+
+            var id = $(this).val();
+
+            if (id == '') {
+                emptyEditDistrictBox();
+            } else {
+
+                $.ajax({
+                    url: "{!! route('district.division') !!}",
+                    type: 'post',
+                    dataType: "json",
+                    data: {
+                        id: id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(response) {
+                        if (response.success == true) {
+                            emptyEditDistrictBox();
+
+                            $.each(response.data, function(key, val) {
+                                $('#editDistrictSelectBox').append(
+                                    `<option value="${val.bn_name}">${val.bn_name}</option>`
+                                )
+                            });
+
+                        } //success end
+                    },
+                    error: function(error) {
+                        if (error.status == 404) {
+                            toastr["error"](response.data.message)
+                        } else if (error.status == 422) {
+                            $.each(error.responseJSON.errors, function(i, message) {
+                                toastr["error"](message)
+                            });
+                        }
+                    },
+                }); //ajax end
+
+            }
+
+
+        });
     </script>
 @endsection

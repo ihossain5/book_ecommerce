@@ -207,6 +207,7 @@ Route::get('/books', [FrontendBookController::class, 'getPopularBooks'])->name('
 // Viewer profile start
 Route::get('/profile', [ProfileController::class, 'index'])->name('customer.profile');
 Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+Route::post('get-district', [ProfileController::class, 'getDistrict'])->name('district.division');
 
 Route::get('/profile/address/{id}', [ProfileController::class, 'address_details'])->name('profile.address.detail');
 Route::post('/profile/add/address', [ProfileController::class, 'add_address'])->name('profile.address.add');

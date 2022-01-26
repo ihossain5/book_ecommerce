@@ -316,4 +316,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         });
 
     });
+
+// for discount modal
+    // $(window).on('load', function() {
+    //     $('#discountModal').modal('show');
+
+    //     setTimeout(function() {
+    //         $('#discountModal').modal('hide');
+    //     }, 10000);
+    // });
 </script>
