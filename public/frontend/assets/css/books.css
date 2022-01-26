@@ -341,6 +341,9 @@ select.btn_more {
     .writer_details_content .writer_details_text {
         padding: 2.7rem 2rem 3.7rem;
     }
+    select.btn_more {
+        padding: .4rem 1rem;
+    }
 }
 
 @media (max-width: 575.98px) {

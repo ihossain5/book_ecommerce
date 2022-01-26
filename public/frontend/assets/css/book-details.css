@@ -688,7 +688,7 @@
     }
 
     .book_add_btn {
-        /* padding-top: 150px; */
+        padding-top: 3rem;
         right      : 10px;
     }
 
@@ -701,6 +701,9 @@
         margin-top: 2rem;
     }
 
+    .details_wraper {
+        margin-top: 52px;
+    }
     .details_wraper h1 {
         font-size: 30px;
     }
@@ -721,6 +724,42 @@
     }
     .deilvery_info {
         padding: 0 8.6rem;
+    }
+    .book_description {
+        padding-bottom: 2rem;
+    }
+    .book_details_sec {
+        padding-top: 28px;
+        padding-bottom: 12px;
+    }
+    .rating_heading h2 {
+        font-size: 2.8rem;
+        line-height: 3.8rem;
+        padding-bottom: 0;
+        /* margin-bottom: 0; */
+    }
+    .rating_section .rating_content {
+        text-align: center;
+        padding: 0 0 4.4rem;
+    }
+    .rating_text_box {
+        padding: 1.5rem 1.5rem;
+        margin-bottom: 4.2rem;
+    }
+    .user_rating_box {
+        padding-top: 3.2rem;
+        padding-bottom: 3.2rem;
+    }
+    .rating_msg p {
+        font-size: 1.7rem;
+        line-height: 2.4rem;
+    }
+    .rating_user>div:first-child {
+        height: 4.2rem;
+        width: 4.2rem;
+    }
+    .rating_user {
+        margin-bottom: 1.4rem;
     }
 
 }

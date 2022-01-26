@@ -33,7 +33,7 @@ class PublisherController extends Controller
 
         $books=Book::with('authors','reviews')->where('is_visible',1)->where('publication_id',$id)->paginate(12);
 
-        $publicaiton_info=Publication::where('publication_id',$id)->first();
+        $publicaiton_info=Publication::findOrFail($id);
         $publication_name=$publicaiton_info->name;
         //dd($publication_name);
         return view('frontend.publisher.publisher_books',compact('authors','categories','publications','books','publication_name','publicaiton_info'));

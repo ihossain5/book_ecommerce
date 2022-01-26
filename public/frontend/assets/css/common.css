@@ -12,12 +12,6 @@
     padding-bottom: 2rem;
 }
 
-/* .pb-56, .py-56 {
-    padding-bottom: 5.6rem;
-}
-.pt-56, .py-56 {
-    padding-top: 5.6rem;
-} */
 .pb-56, .py-56 {
     padding-bottom: 3.2rem;
 }
@@ -25,18 +19,13 @@
     padding-top: 3.2rem;
 }
 
-/* .pt-120, .py-120 {
-    padding-top: 12rem;
-}
-.pb-120, .py-120 {
-    padding-bottom: 12rem;
-} */
 .pt-120, .py-120 {
     padding-top: 6rem;
 }
 .pb-120, .py-120 {
     padding-bottom: 6rem;
 }
+
 .pt-12, .py-12 {
     padding-top: 12rem;
 }
@@ -47,7 +36,6 @@
 /* ==section title== */
 .sc_title_wrapper {
     text-align: center;
-    /* margin-bottom: 7.8rem; */
     margin-bottom: 3rem;
     position: relative;
 }
@@ -59,7 +47,7 @@
 }
 .sc_title {
     font-size: 3.5rem;
-    line-height: 6rem;
+    line-height: 4.8rem;
     font-weight: bold;
     color: var(--blue);
     display: inline-block;
@@ -233,6 +221,18 @@ a.btn_more {
 }
 
 /* ==common responsive== */
+@media (max-width: 1679.98px) {
+    .sc_title_wrapper {
+        margin-bottom: 2rem;
+    }
+    .pt-120, .py-120 {
+        padding-top: 4rem;
+    }
+    .pb-120, .py-120 {
+        padding-bottom: 4rem;
+    }
+    
+}
 @media (max-width: 767.98px) {
     .banner_with_title img{
         border-radius: 12px;
@@ -300,9 +300,7 @@ a.btn_more {
     .common_carousel .owl-dots {
         margin-top: 3.2rem;
     }
-    .sc_title_wrapper {
-        margin-bottom: 0;
-    }
+    
 
     /* ==red tag== */
     .red_tag {
@@ -324,4 +322,7 @@ a.btn_more {
         object-fit: cover;
         object-position: center center;
     } */
+    .new_account_create {
+        padding-bottom: 1.6rem;
+    }
 }

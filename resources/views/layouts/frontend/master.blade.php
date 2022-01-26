@@ -25,7 +25,7 @@ use App\Http\Controllers\Frontend\HomePageController;
     <!-- Footer -->
     @include('partial.frontend.footer')
 
-    @include('partial.frontend.discountModal')
+   
 </body>    
     @include('partial.frontend.js')
 

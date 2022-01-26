@@ -43,7 +43,7 @@ class WriterController extends Controller
 
         $books=Book::with('authors')->whereIn('book_id',$book_list)->paginate(12);
 
-        $author_info=Author::where('author_id',$id)->first();
+        $author_info=Author::findOrFail($id);
         //dd($author_info); 
         return view('frontend.writer.writer_details',compact('author_info','authors','categories','publications','author_books','books'));
     }

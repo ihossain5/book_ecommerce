@@ -8,6 +8,93 @@
     padding-top: 2.4rem;
 }
 
+/* ==new published book== */
+.new_published_card {
+    display: flex;
+    align-items: center;
+}
+.new_published_book_carousel .item {
+    padding: .8rem 1.5rem 6rem;
+}
+.new_published_card .book_card_content .price_wrapper {
+    justify-content: flex-start;
+}
+
+.new_published_card .image_wrapper {
+    flex: 0 0 45%;
+    max-width: 45%;
+    width: 100%;
+    border-radius: 1rem;
+    box-shadow: 0px 10px 20px -8px rgba(0,0,0,0.26);
+    -webkit-box-shadow: 0px 10px 20px -8px rgba(0,0,0,0.26);
+    -moz-box-shadow: 0px 10px 20px -8px rgba(0,0,0,0.26);
+}
+.new_published_card .image_wrapper img {
+    border-radius: 1rem;
+}
+.new_published_card .content_wrapper {
+    flex: 0 0 55%;
+    max-width: 55%;
+    padding: 2.5rem 2.5rem 2.5rem 2.8rem;
+    position: relative;
+}
+.new_published_carousel_wrapper .owl-item:nth-child(odd) .new_published_card .content_wrapper {
+    background: rgba(231, 246, 245, .5);
+}
+.new_published_carousel_wrapper .owl-item:nth-child(even) .new_published_card .content_wrapper {
+    background: rgba(253, 246, 234, .5);
+}
+
+
+/* ==most selling book section== */
+.most_selling_book_carousel .item {
+    padding: .8rem 6rem 0;
+}
+
+/* ==writers carousel== */
+.writers_carousel .item {
+    padding: .8rem 5rem 0;
+}
+
+/* ==carousel button > new published book== */
+.new_published_book_carousel .owl-nav button, .writers_carousel .owl-nav button{
+    position: absolute;
+    top: 40%;
+    transform: translateY(-40%);
+}
+.new_published_book_carousel .owl-nav button.owl-prev{
+    left: -2%;
+}
+.new_published_book_carousel .owl-nav button.owl-next{
+    right: -2%;
+}
+
+/* ==carousel button > writers== */
+.writers_carousel .owl-nav button{
+    position: absolute;
+    top: 45%;
+    transform: translateY(-45%);
+}
+.writers_carousel .owl-nav button.owl-prev{
+    left: -.75%;
+}
+.writers_carousel .owl-nav button.owl-next{
+    right: -.75%;
+}
+
+/* ==carousel button > most selling books== */
+.most_selling_book_carousel .owl-nav button{
+    position: absolute;
+    top: 30%;
+    transform: translateY(-30%);
+}
+.most_selling_book_carousel .owl-nav button.owl-prev{
+    left: 0;
+}
+.most_selling_book_carousel .owl-nav button.owl-next{
+    right: 0;
+}
+
 /* searvices section*/
 .searvices_section .searvices{
     background-color: var(--blue);
@@ -53,213 +140,60 @@
 }
 
 
-/* ==new published book== */
-.new_published_card {
-    display: flex;
-    align-items: center;
-}
-.new_published_card .image_wrapper {
-    flex: 0 0 17.5rem;
-    max-width: 17.5rem;
-    width: 100%;
-    /* filter: drop-shadow(20px 20px 35px rgba(0, 0, 0, 0.13)); */
-    border-radius: 1rem;
-    box-shadow: 0px 10px 20px -8px rgba(0,0,0,0.26);
-    -webkit-box-shadow: 0px 10px 20px -8px rgba(0,0,0,0.26);
-    -moz-box-shadow: 0px 10px 20px -8px rgba(0,0,0,0.26);
-}
-.new_published_card .image_wrapper img {
-    border-radius: 1rem;
-}
-.new_published_card .content_wrapper {
-    /* background: #E7F6F5; */
-    padding: 2.5rem 2.5rem 2.5rem 2.8rem;
-    position: relative;
-}
-.new_published_carousel_wrapper .owl-item:nth-child(odd) .new_published_card .content_wrapper {
-    background: rgba(231, 246, 245, .5);
-}
-.new_published_carousel_wrapper .owl-item:nth-child(even) .new_published_card .content_wrapper {
-    background: rgba(253, 246, 234, .5);
-}
-
-
-/* ==carousel button > new published book== */
-.new_published_book_section .sc_title_wrapper {
-    margin-bottom: 0;
-}
-.new_published_book_carousel .owl-nav button, .writers_carousel .owl-nav button{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-}
-.new_published_book_carousel .owl-nav button.owl-prev{
-    left: 0;
-}
-.new_published_book_carousel .owl-nav button.owl-next{
-    right: 0;
-}
-
-/* ==carousel button > writers== */
-.writers_carousel .owl-nav button{
-    position: absolute;
-    top: 45%;
-    transform: translateY(-45%);
-}
-.writers_carousel .owl-nav button.owl-prev{
-    left: 0rem;
-}
-.writers_carousel .owl-nav button.owl-next{
-    right: 0rem;
-}
-
-/* ==carousel button > most selling books== */
-.most_selling_book_carousel .owl-nav button{
-    position: absolute;
-    top: 30%;
-    transform: translateY(-30%);
-}
-.most_selling_book_carousel .owl-nav button.owl-prev{
-    left: 0;
-}
-.most_selling_book_carousel .owl-nav button.owl-next{
-    right: 0;
-}
 @media (max-width: 1679.98px) {
-    .new_published_card .image_wrapper {
-        flex: 0 0 20.5rem;
-        max-width: 20.5rem;
+    /* ==popular topics== */
+    .popular_topics_section .book_card_with_bg_section {
+        padding-top: 1.4rem;
     }
-}
-@media (max-width: 1366px) {
-    .most_selling_book_carousel .item{
-        padding: 4rem 8rem 0;
+    /* ==new published book== */
+    .new_published_book_carousel .item {
+        padding: .8rem 3rem 6rem;
+    }
+    .writer_section_slider.py-120 {
+        padding-top: 5rem;
     }
     .writers_carousel .item{
-        padding: 4rem 8rem 0;
+        padding: .8rem 5.5rem 0;
     }
     .new_published_card .image_wrapper {
-        flex: 0 0 17.5rem;
-        max-width: 17.5rem;
+        flex: 0 0 35%;
+        max-width: 35%;
     }
     .new_published_card .content_wrapper {
-        padding: 2.5rem 0.5rem 0.5rem 0.8rem;
-    }
-    .book_card_content h6.discount {
-        margin-right: .3rem;
+        flex: 0 0 65%;
+        max-width: 65%;
+        padding: 2.5rem 2.5rem 2.5rem 2.8rem;
+        position: relative;
     }
 
-    .circle_bg img {
-        max-width: 15rem;
+    /* ==carousel button > new published book== */
+    .new_published_book_carousel .owl-nav button.owl-prev{
+        left: -1%;
     }
-    .book_card_content h3.title {
-        font-size: 1.8rem;
-        line-height: 2.5rem;
+    .new_published_book_carousel .owl-nav button.owl-next{
+        right: -1%;
     }
-    .book_card_content h5.regular {
-        font-size: 1.8rem;
-        line-height: 2.5rem;
+
+    /* ==carousel button > writers== */
+    .writers_carousel .owl-nav button{
+        position: absolute;
+        top: 45%;
+        transform: translateY(-45%);
     }
-    .book_card_content p.author, .book_card_content h6.discount {
-        font-size: 1.8rem;
-        line-height: 2.5rem;
+
+    /* ==carousel button > most selling books== */
+    .most_selling_book_carousel .owl-nav button{
+        position: absolute;
+        top: 35%;
+        transform: translateY(-35%);
+    }
+
+    /* ==services section== */
+    .searvices_section .searvices {
+        box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.15);
+        max-width: 30.5rem;
     }
 }
-@media (min-width: 1366px) {
-    /* ==new published book== */
-    .new_published_carousel_wrapper .container {
-        max-width: 1340px;
-    }
-    .new_published_book_carousel .item {
-        padding: 4rem 0rem 3.2rem 1rem;
-    }
-    .new_published_card .image_wrapper {
-        flex: 0 0 16.5rem;
-        max-width: 16.5rem;
-    }
-    /* ==most selling books== */
-    .most_selling_book_section{
-        padding-top: 3.2rem;
-    }
-    .most_selling_book_section .sc_title_wrapper{
-        margin-bottom: 0;
-    }
-    .most_selling_carousel_wrapper .container {
-        max-width: 1366px;
-    }
-    .most_selling_carousel_wrapper .item {
-        padding: 4rem 8rem 0 8rem;
-    }
-
-    /* ==writers== */
-    .writer_section_slider{
-        padding-top: 3rem;
-        padding-bottom: 0rem;
-    }
-    .writer_section_slider .sc_title_wrapper{
-        margin-bottom: 0;
-    }
-    .writers_carousel_wrapper .container {
-        max-width: 1340px;
-    }
-    .writers_carousel_wrapper .item {
-        padding: 4rem 4.5rem;
-    }
-
-    /* ==carousel control== */
-    .new_published_book_carousel .owl-nav button, .writers_carousel .owl-nav button {
-        top: 40%;
-        transform: translateY(-40%);
-    }
-}
-@media (min-width: 1440px) {
-    /* ==most selling books== */
-    .most_selling_carousel_wrapper .container {
-        max-width: 1420px;
-    }
-    /* .most_selling_carousel_wrapper .item {
-        padding: 4rem 8rem 0 8rem;
-    } */
-
-    /* ==writers== */
-    .writers_carousel_wrapper .container {
-        max-width: 1400px;
-    }
-    .writers_carousel_wrapper .item {
-        padding: 4rem 5rem 0;
-    }
-}
-
-@media (min-width: 1920px) {
-    /* ==new published book== */
-    .new_published_carousel_wrapper .container {
-        max-width: 1735px;
-    }
-    .new_published_book_carousel .item {
-        padding: .8rem 1rem 6rem 2rem;
-    }
-    /* ==most selling books== */
-    .most_selling_carousel_wrapper .container {
-        max-width: 1795px;
-    }
-    .most_selling_carousel_wrapper .item {
-        padding: .8rem 8rem 0 8rem;
-    }
-
-    /* ==writers== */
-    .writers_carousel_wrapper .container {
-        max-width: 1735px;
-    }
-    .writers_carousel_wrapper .item {
-        padding: .8rem 7rem 2rem;
-    }
-}
-
-
-
-
-
-
 
 @media (max-width: 991.98px) {
     .btn_box_smd {
@@ -288,9 +222,9 @@
     .new_published_book_carousel .item{
         padding-top: 4.5rem;
     }
-    .new_published_book_carousel .owl-dots, .common_carousel .owl-dots {
+    /* .new_published_book_carousel .owl-dots, .common_carousel .owl-dots {
         padding-top: 4.5rem;
-    }
+    } */
     .most_selling_carousel_wrapper .item {
         padding: 4.5rem 8rem 0 8rem;
     }
@@ -300,10 +234,10 @@
     .writers_carousel_wrapper .item {
         padding: 4rem 6rem;
     }
-    .new_published_card .image_wrapper {
+    /* .new_published_card .image_wrapper {
         flex: 0 0 17rem;
         max-width: 17rem;
-    }
+    } */
     .searvices_section .searvices .row{
         padding: 5.2rem 0;
     }
@@ -335,12 +269,19 @@
     }
    
 }
+
 @media (max-width: 575.98px) {
+    .sc_title_wrapper {
+        margin-bottom: 0;
+    }
     .popular_topics_section .book_card_with_bg_section {
         padding-top: 3rem;
     }
     .most_selling_carousel_wrapper .container{
         padding: 0;
+    }
+    .writer_section_slider.py-120 {
+        padding-top: 4rem;
     }
     .writers_carousel_wrapper .container{
         padding: 0;
@@ -352,7 +293,7 @@
     }
     .btn_box_smd {
         text-align: center;
-        margin-top: 3.2rem;
+        margin-top: 3.8rem;
     }
     .most_selling_carousel_wrapper .item {
         padding: 3rem 4rem 0 4rem;
@@ -374,11 +315,68 @@
         padding-bottom: 9.2rem;
     } 
     .new_published_book_carousel .item {
-        padding: 0rem 2rem 3rem 2rem;
+        padding: 0rem 3rem 3rem;
+    }
+
+    /* ==carousel nav button== */
+    .most_selling_book_carousel .owl-nav button {
+        position: absolute;
+        top: 25%;
+        transform: translateY(-25%);
     }
 
     .searvices_section .searvices::after{
         top: 320px;
+    }
+    .searvices_section.py-12 {
+        padding-top: 8rem;
+        padding-bottom: 2rem;
+    }
+}
+
+
+
+/* responsive min width */
+@media (min-width: 1366px) {
+    /* ==new published book== */
+    .new_published_carousel_wrapper .container {
+        max-width: 1310px;
+    }
+    /* ==most selling books== */
+    .most_selling_carousel_wrapper .container {
+        max-width: 1366px;
+    }
+
+    /* ==writers== */
+    .writers_carousel_wrapper .container {
+        max-width: 1340px;
+    }
+}
+@media (min-width: 1440px) {
+    /* ==most selling books== */
+    .most_selling_carousel_wrapper .container {
+        max-width: 1420px;
+    }
+
+    /* ==writers== */
+    .writers_carousel_wrapper .container {
+        max-width: 1400px;
+    }
+}
+@media (min-width: 1920px) {
+    /* ==new published book== */
+    .new_published_carousel_wrapper .container {
+        max-width: 1668px;
+    }
+    
+    /* ==most selling books== */
+    .most_selling_carousel_wrapper .container {
+        max-width: 1758px;
+    }
+
+    /* ==writers== */
+    .writers_carousel_wrapper .container {
+        max-width: 1735px;
     }
 }
 

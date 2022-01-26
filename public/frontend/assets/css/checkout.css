@@ -306,4 +306,12 @@
     .shop_header h2 {
         font-size: 26px;
     }
+    .checkout_container h1 {
+        font-size: 3.2rem;
+        line-height: 5rem;
+        margin-bottom: 3.4rem;
+    }
+    .checkout_p {
+        padding-bottom: 8rem;
+    }
 }

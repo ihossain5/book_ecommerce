@@ -379,7 +379,7 @@
     </section>
 
 
-
+    @include('partial.frontend.discountModal')
 
 @endsection
 @section('page-js')
@@ -388,8 +388,10 @@
     <script src="{{ asset('frontend/assets/js/banner-carousel-activation.js') }}"></script>
     <script>
         $('.new_published_book_carousel').owlCarousel({
-            loop: false,
+            autoplay: true,
+            rewind: true,
             margin: 10,
+            dots: false,
             nav: true,
             navText: [
                 '<img src="{{ asset('frontend/assets/images/icons/chevron-left-black.svg') }}" alt="chevron-left-black">',
@@ -405,15 +407,19 @@
                     items: 2
                 },
                 1200: {
+                    items: 3
+                },
+                1600: {
                     items: 4
                 }
             }
         })
 
         $('.common_carousel').owlCarousel({
-            loop: false,
-            margin: 10,
-            dots: true,
+            autoplay: true,
+            rewind: true,
+            margin: 0,
+            dots: false,
             nav: true,
             navText: [
                 '<img src="{{ asset('frontend/assets/images/icons/chevron-left.svg') }}" alt="chevron-left">',
@@ -421,13 +427,11 @@
             ],
             responsive: {
                 0: {
-                    items: 1
-                },
-                576: {
-                    items: 2
+                    items: 2,
+                    dots: true
                 },
                 768: {
-                    items: 2
+                    items: 2,
                 },
                 1200: {
                     items: 4
@@ -435,8 +439,8 @@
                 1366: {
                     items: 5,
                 },
-                1600: {
-                    items: 5
+                1600:{
+                    items: 6
                 }
             }
         })

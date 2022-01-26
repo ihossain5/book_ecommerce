@@ -1,45 +1,48 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Models\Author;
+use App\Models\Book;
+use App\Models\BookCategory;
+use App\Models\Category;
 use App\Models\Publication;
 use App\Models\Slider;
-use App\Models\Book;
-use App\Http\Controllers\Controller;
-use App\Models\BookCategory;
 use Illuminate\Http\Request;
 
-class TopicController extends Controller
-{
+class TopicController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $categories=Category::all();
-        $sliders=Slider::all();
-        return view('frontend.topic.topics',compact('sliders','categories'));
+    public function index() {
+        $categories = Category::all();
+        $sliders    = Slider::all();
+        return view('frontend.topic.topics', compact('sliders', 'categories'));
     }
-    
-    public function topic_name($id)
-    {
 
-        $authors=Author::orderBy('name')->get();
-        $categories=Category::orderBy('name')->get();
-        $publications=Publication::orderBy('name')->get();
+    public function topic_name($id) {
 
-        $category_books=BookCategory::with('books')->where('category_id',$id)->get();
-        $book_list=[];
-        foreach($category_books as $category_book){
+        $authors      = Author::orderBy('name')->get();
+        $categories   = Category::orderBy('name')->get();
+        $publications = Publication::orderBy('name')->get();
 
-            $book_list[]=$category_book->book_id;
+        $category_books = BookCategory::with('books')->where('category_id', $id)->get();
+
+        // if ($category_books->count() < 1) {
+        //     abort(404);
+        // }
+
+        // dd($category_books);
+
+        $book_list = [];
+        foreach ($category_books as $category_book) {
+
+            $book_list[] = $category_book->book_id;
         }
 
-
-        $books=Book::with('authors','reviews')->whereIn('book_id',$book_list)->where('is_visible',1)->paginate(12);
+        $books = Book::with('authors', 'reviews')->whereIn('book_id', $book_list)->where('is_visible', 1)->paginate(12);
 
         // foreach($books as $book){
         //     $rating=getTotalRating($book->reviews);
@@ -48,9 +51,9 @@ class TopicController extends Controller
         //dd($books);
 
         //dd($books);
-        $category_details=Category::where('category_id',$id)->first();
-       
-        return view('frontend.topic.topics_name',compact('category_books','category_details','authors','categories','publications','books'));
+        $category_details = Category::findOrFail($id);
+
+        return view('frontend.topic.topics_name', compact('category_books', 'category_details', 'authors', 'categories', 'publications', 'books'));
     }
 
     /**
@@ -58,8 +61,7 @@ class TopicController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         //
     }
 
@@ -69,8 +71,7 @@ class TopicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         //
     }
 
@@ -80,8 +81,7 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         //
     }
 
@@ -91,8 +91,7 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -103,8 +102,7 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -114,8 +112,7 @@ class TopicController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

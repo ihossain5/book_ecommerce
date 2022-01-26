@@ -9,14 +9,14 @@
     padding-top: 3.5rem;
 }
 .book_card_with_bg_section .row {
-    margin-top: -4.5rem;
-    margin-bottom: -6rem;
+    margin-top: -4.8rem;
+    margin-bottom: -3.2rem;
     margin-left: -2.4rem;
     margin-right: -2.4rem;
 }
 .book_card_with_bg_section .row>* {
-    padding-top: 4.5rem;
-    padding-bottom: 4.2rem;
+    padding-top: 4.8rem;
+    padding-bottom: 3.2rem;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
 }
@@ -37,7 +37,6 @@
     transform: translate(-50%, -50%);
     width: 28rem;
     height: 28rem;
-    /* background: #DBF2F8; */
     border-radius: 50%;
     opacity: 0.3;
     z-index: -1;
@@ -103,7 +102,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1.2rem 0;
+    padding: 1rem 0;
 }
 .book_card_content h6.discount {
     text-decoration-line: line-through;
@@ -183,16 +182,32 @@
 
 @media (max-width: 1679.98px) {
     .circle_bg::before {
-        width: 28rem;
-        height: 28rem;
+        width: 26rem;
+        height: 26rem;
+    }
+    .circle_bg img {
+        max-width: 15rem;
+    }
+    .card_with_bg h6 {
+        margin-top: 3.8rem;
+        font-size: 2.4rem;
+        line-height: 3.8rem;
+    }
+    .book_card_content h3.title {
+        font-size: 1.8rem;
+        line-height: 2.5rem;
+    }
+    .book_card_content h5.regular {
+        font-size: 1.8rem;
+        line-height: 2.5rem;
+    }
+    .book_card_content p.author, .book_card_content h6.discount {
+        font-size: 1.8rem;
+        line-height: 2.5rem;
     }
 }
-@media (max-width: 1399.98px) {
-    .circle_bg::before {
-        width: 28rem;
-        height: 28rem;
-    }
-}
+@media (max-width: 1399.98px) {}
+
 @media (max-width: 767.98px) {
     .writer_content h3 {
         font-size: 2rem;
@@ -205,7 +220,7 @@
         transform: scale(.9);
     }
     .book_card_content h3.title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         line-height: 2.9rem;
         font-weight: bold;
     }

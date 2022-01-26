@@ -63,7 +63,7 @@ Class PublicationService {
      function uploadPhoto($photo){
         $path = 'publications/';
 
-        $photo_url = storeImage($photo, $path, 401, 296);
+        $photo_url = storeImage($photo, $path, 207, 296);
 
         return $photo_url;
     }
