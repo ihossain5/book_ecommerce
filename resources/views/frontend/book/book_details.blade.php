@@ -155,10 +155,15 @@
                                             src="{{ asset('frontend/assets/images/icons/share_black_24dp 1.svg') }}"
                                             alt=""></button>
                                 </div>                   
+                                <div class="deilvery_info">
+                                    <p> <img src="{{asset('frontend/assets/images/icons/cash-on-delivery-green.svg')}}" alt="icon">ক্যাশ অন ডেলিভারি</p>
+                                <p><img src="{{asset('frontend/assets/images/icons/seven-day-retuen-green.svg')}}" alt="icon"> ৭ দিন ফেরতযোগ্য</p>
+                                    {{-- <p>ডেলিভারি ফি ৫০ টাকা</p> --}}
+                                </div>
                             </div>
                             <div class="deilvery_info">
-                                <p>ক্যাশ অন ডেলিভারি</p>
-                                <p>৭ দিন ফেরতযোগ্য</p>
+                                <p> <img src="{{asset('frontend/assets/images/icons/cash-on-delivery-green.svg')}}" alt="icon">ক্যাশ অন ডেলিভারি</p>
+                            <p><img src="{{asset('frontend/assets/images/icons/seven-day-retuen-green.svg')}}" alt="icon"> ৭ দিন ফেরতযোগ্য</p>
                                 {{-- <p>ডেলিভারি ফি ৫০ টাকা</p> --}}
                             </div>
 
@@ -228,8 +233,8 @@
                                     alt=""></button>
                         </div>  
                         <div class="deilvery_info">
-                            <p>ক্যাশ অন ডেলিভারি</p>
-                            <p>৭ দিন ফেরতযোগ্য</p>
+                            <p> <img src="{{asset('frontend/assets/images/icons/cash-on-delivery-green.svg')}}" alt="icon">ক্যাশ অন ডেলিভারি</p>
+                            <p><img src="{{asset('frontend/assets/images/icons/seven-day-retuen-green.svg')}}" alt="icon"> ৭ দিন ফেরতযোগ্য</p>
                             {{-- <p>ডেলিভারি ফি ৫০ টাকা</p> --}}
                         </div>
                     </div>
@@ -413,9 +418,9 @@
                 <h3 class="reating_points">{{ englishTobangla($rating) }}/৫</h3>
                 <p>({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</p>
             </div>
-            <div class="rating_box">
+            {{-- <div class="rating_box">
                 <h3>রিভিউস এবং রেটিংস</h3>
-            </div>
+            </div> --}}
 
         </div>
     </section>

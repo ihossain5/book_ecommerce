@@ -17,12 +17,27 @@ $offers = HomePageController::offers();
 
         <ul class="navbar-nav align-items-center mobileCart">
             <li class="nav-item">
-                <a data-bs-toggle="offcanvas" href="#cartSidebar" class="nav-link badge_link position-relative">
-                    <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
-                    <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
-                        <span class="cartCounter">{{Cart::count()}}</span>
-                        <span class="visually-hidden">unread messages</span>
-                    </span> </a>
+
+@if (Cart::count() > 0)
+<a data-bs-toggle="offcanvas" href="#cartSidebar" class="nav-link badge_link position-relative">
+    <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
+    <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
+        <span class="cartCounter">{{Cart::count()}}</span>
+        <span class="visually-hidden">unread messages</span>
+    </span> </a>
+
+    @else 
+    <a href="javascript:void(0)"
+    class="nav-link badge_link position-relative cartTooltip {{Cart::count() <1 ? '': 'd-none'}}"
+    aria-current="page" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cart Empty">
+    <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
+    <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
+        <span class="cartCounter">{{Cart::count()}}</span>
+        <span class="visually-hidden">unread messages</span>
+    </span> </a>
+@endif
+    
+     
 
 
             </li>
@@ -30,17 +45,17 @@ $offers = HomePageController::offers();
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ">
                 <li class="nav-item dropdown dropdown_content" data-mege_menu_id="prokashoni_menu">
-                    <a class="nav-link custom_nav_link dropdown-toggle" href="javascript:void(0)" role="button">
+                    <a class="nav-link custom_nav_link dropdown-toggle" href="{{ route('frontend.publishers')}}" role="button">
                         প্রকাশনী
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown_content" data-mege_menu_id="subject_menu">
-                    <a class="nav-link custom_nav_link dropdown-toggle" href="javascript:void(0)" role="button">
+                    <a class="nav-link custom_nav_link dropdown-toggle" href="{{ route('frontend.topics')}}" role="button">
                         বিষয়
                     </a>
                 </li>
                 <li class="nav-item dropdown dropdown_content" data-mege_menu_id="writers_menu">
-                    <a class="nav-link custom_nav_link dropdown-toggle " href="javascript:void(0)"
+                    <a class="nav-link custom_nav_link dropdown-toggle " href="{{ route('frontend.authors')}}"
                         role="button">
                         লেখক
                     </a>

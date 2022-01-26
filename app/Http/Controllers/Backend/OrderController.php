@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use Illuminate\Support\Facades\Validator;
@@ -22,8 +23,13 @@ class OrderController extends Controller
 
         $order->load('books');
 
+        $appInfo = Contact::first();
+
+        // dd($appInfo);
+
         $pdf        = PDF::loadView('admin.orders.order_invoice', [
             'order'       => $order,
+            'appInfo'       => $appInfo,
         ],[], [
             'default_font' => 'nikosh',
         ]);

@@ -62,13 +62,13 @@
                             <div class="form_group">
                                 <label for="areaWisePhone" class="form-label">বিভাগ</label>
                                 <input type="text" name="division" class="form-control" id="division"
-                                    placeholder="আপনার মোবাইল" value="{{ $default_address->division ?? '' }}">
+                                    placeholder="আপনার বিভাগ" value="{{ $default_address->division ?? '' }}">
                             </div>
 
                             <div class="form_group">
                                 <label for="areaWisePhone" class="form-label">জেলা</label>
                                 <input type="text" name="district" class="form-control" id="default_distric"
-                                    placeholder="আপনার মোবাইল" value="{{ $default_address->district ?? '' }}">
+                                    placeholder="আপনার জেলা" value="{{ $default_address->district ?? '' }}">
                             </div>
                             {{-- <div class="form_group">
                             <label for="division" class="form-label">বিভাগ</label>

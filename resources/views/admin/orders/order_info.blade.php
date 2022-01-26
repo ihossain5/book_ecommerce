@@ -122,6 +122,8 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                             <h6>Customer Name: <span id="view_customer_name"></span></h6>
                             <h6>Customer Email: <span id="view_customer_email"></span></h6>
                             <h6>Customer Contact: <span id="view_customer_contact"></span></h6>
+                            <h6>Division: <span id="view_customer_division"></span></h6>
+                            <h6>District: <span id="view_customer_district"></span></h6>
                             <h6>Customer Address: <span id="view_customer_address"></span></h6>
                             <h6>Payment Method: <span id="view_payment_method"></span></h6>
                             <h6>Order Status: <span id="view_payment_status"></span></h6>
@@ -220,6 +222,8 @@ aria-labelledby="mySmallModalLabel" aria-hidden="true">
                         $('#view_customer_email').html(response.data.user.email??'N/A')
                         $('#view_customer_contact').html(response.data.phone??'N/A')
                         $('#view_customer_address').html(response.data.address??'N/A')
+                        $('#view_customer_division').html(response.data.division??'N/A')
+                        $('#view_customer_district').html(response.data.district??'N/A')
                         $('#view_note').html( response.data.notes == null ? 'N/A' : response.data.notes != '' ? response.data.notes : 'N/A')
                         
                         $(".apeend_tbody").empty();

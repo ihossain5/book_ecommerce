@@ -125,7 +125,7 @@ use App\Http\Controllers\Frontend\HomePageController;
                         <img src="{{asset('frontend/assets/images/footer/image_2.png')}}" alt="logo" class="img-fluid w-100">
                     </div>
                 </div>
-                <div class="col-lg-3 right_border">
+                <div class="col-lg-3 right_border left_content">
                     <h6>ভোরের কাগজ প্রকাশন</h6>
                     <ul class="website_address ">
                         <li>

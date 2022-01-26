@@ -61,11 +61,11 @@
                                         <tbody>
                                             <tr>
                                                 <td style="width: 8%"></td>
-                                                <td style="width: 30%; font-weight:400;">
-                                                    <h1 style="margin: 0; font-size: 14px; font-family: 'Jost', sans-serif;">Bhorer Kagoj</h1>
+                                                <td style="width: 30%; font-weight:800;">
+                                                    <h1 style="margin: 0; font-size: 18px; font-family:nikosh; font-weight: 800; ">{{$appInfo->name}}</h1>
                                                 </td>
                                                 <td style="width: 30%; font-weight:700;">
-                                                    <h1 style="margin: 0; font-size: 14px; font-family: 'Jost', sans-serif; ">Order ID: {{$order->id}}</h1>
+                                                    <h1 style="margin: 0; font-size: 14px; font-family: 'Jost', sans-serif; ">Order ID: #{{$order->id}}</h1>
                                                 </td>
                                                 <td style="width: 30%; font-weight:200;">
                                                     <h1 style="margin: 0; font-size: 13px; font-family: 'Jost', sans-serif; ">Order Date: {{formatDate($order->created_at)}}
@@ -128,8 +128,8 @@
                                                             <tr>
                                                                 <td style="width: 100%; line-height: 22px;">
                                                                     <p
-                                                                        style="margin: 0; font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500; width: 200px;">
-                                                                        {{$order->address}}</p>
+                                                                        style="margin: 0; font-size: 18px; font-family:nikosh; font-weight: 500; sans-serif; width: 200px;">
+                                                                        {{$order->division}}, {{$order->district}}, {{$order->address}}</p>
                                                                 </td>
                                                             </tr>
                                                             <tr>
