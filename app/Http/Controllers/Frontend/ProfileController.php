@@ -160,12 +160,26 @@ class ProfileController extends Controller {
         }
     }
 
-    public function primary_address(Request $request) {
+    public function primary_address(Request $request)
+    {
 
+        //dd($request->all());
         $user_info = Auth::user();
         $id        = $user_info->id;
 
         $address_infos = UserAddress::where('user_id', $id)->get();
+        $count = $address_infos->count();
+        if ($count == 1) {
+            $addresses = User::with('addresses')->where('id', $id)->first();
+            $data            = array();
+            $data['message'] = 'This is already your primary address';
+
+            return response()->json([
+                'success'      => true,
+                'data'         => $data,
+                'user_address' => $addresses,
+            ]);
+        }
 
         foreach ($address_infos as $address_info) {
             $address_info['is_default'] = 0;

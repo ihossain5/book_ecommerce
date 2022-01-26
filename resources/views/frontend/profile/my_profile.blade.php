@@ -676,7 +676,7 @@
                 $('#editDistrictSelectBox').empty();
                 $.each(response.data.districts, function(j, district) {
                     $('#editDistrictSelectBox').append(
-                        `<option value="${district.id}" ${district.bn_name == response.data.address_info.district ? 'selected': ''}>${district.bn_name}</option>`
+                        `<option value="${district.bn_name}" ${district.bn_name == response.data.address_info.district ? 'selected': ''}>${district.bn_name}</option>`
                     );
                 })
 
@@ -780,6 +780,7 @@
 
                                             
                                         }
+                                        <label class="form-check-label"> প্রাথমিক ঠিকানা </label>
                                     </div>
                                     <div class="address_loc_buttons">
 
