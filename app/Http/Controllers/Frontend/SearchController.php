@@ -73,7 +73,8 @@ class SearchController extends Controller
                     $bookID = Book::where('is_visible', 1)->whereIn('book_id', $book_ids)->with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->get();
 
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
@@ -112,7 +113,8 @@ class SearchController extends Controller
                     $bookID = Book::where('is_visible', 1)->whereIn('publication_id', $publication_ids)->with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->get();
 
 
                     foreach ($bookID as $book) {
@@ -163,7 +165,8 @@ class SearchController extends Controller
             $bookID = Book::where('is_visible', 1)->whereIn('book_id', $unique)->with('authors', 'publication', 'reviews', 'orders')->withCount([
                 'orders as counted_order' => function ($query) {
                     $query->where('order_status_id', 3);
-                }])->orderBy('counted_order', 'DESC')->get();
+                }
+            ])->orderBy('counted_order', 'DESC')->get();
 
             foreach ($bookID as $book) {
                 $rating = getTotalRating($book->reviews);
@@ -191,7 +194,8 @@ class SearchController extends Controller
                 $bookID = Book::where('is_visible', 1)->whereIn('publication_id', $publisher_list)->whereIn('book_id', $book_list)->with('authors', 'publication', 'reviews', 'orders')->withCount([
                     'orders as counted_order' => function ($query) {
                         $query->where('order_status_id', 3);
-                    }])->orderBy('counted_order', 'DESC')->get();
+                    }
+                ])->orderBy('counted_order', 'DESC')->get();
                 foreach ($bookID as $book) {
                     $rating = getTotalRating($book->reviews);
                     $book->rating = $rating;
@@ -201,7 +205,8 @@ class SearchController extends Controller
                 $bookID = Book::where('is_visible', 1)->whereIn('publication_id', $publisher_list)->with('authors', 'publication', 'reviews', 'orders')->withCount([
                     'orders as counted_order' => function ($query) {
                         $query->where('order_status_id', 3);
-                    }])->orderBy('counted_order', 'DESC')->get();
+                    }
+                ])->orderBy('counted_order', 'DESC')->get();
                 foreach ($bookID as $book) {
                     $rating = getTotalRating($book->reviews);
                     $book->rating = $rating;
@@ -230,7 +235,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [0, 100])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [0, 100])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -239,7 +245,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [100, 500])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [100, 500])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -248,7 +255,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [500, 1000])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [500, 1000])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -257,7 +265,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [1000, 2000])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [1000, 2000])->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -266,7 +275,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->where('discounted_price', '=>', 2000)->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->where('discounted_price', '=>', 2000)->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -275,7 +285,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereIn('book_id', $book_list)->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -286,7 +297,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [0, 100])->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [0, 100])->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -295,7 +307,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [100, 500])->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [100, 500])->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -304,7 +317,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [500, 1000])->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [500, 1000])->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -313,7 +327,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [1000, 2000])->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->whereBetween('discounted_price', [1000, 2000])->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -322,7 +337,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->where('discounted_price', '=>', 2000)->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->where('discounted_price', '=>', 2000)->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -331,7 +347,8 @@ class SearchController extends Controller
                     $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                         'orders as counted_order' => function ($query) {
                             $query->where('order_status_id', 3);
-                        }])->orderBy('counted_order', 'DESC')->where('is_visible', 1)->get();
+                        }
+                    ])->orderBy('counted_order', 'DESC')->where('is_visible', 1)->get();
                     foreach ($bookID as $book) {
                         $rating = getTotalRating($book->reviews);
                         $book->rating = $rating;
@@ -370,7 +387,8 @@ class SearchController extends Controller
             $bookID = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                 'orders as counted_order' => function ($query) {
                     $query->where('order_status_id', 3);
-                }])->orderBy('counted_order', 'DESC')->whereIn('book_id', $book_ids)->where('is_visible', 1)->get();
+                }
+            ])->orderBy('counted_order', 'DESC')->whereIn('book_id', $book_ids)->where('is_visible', 1)->get();
             foreach ($bookID as $book) {
                 $rating = getTotalRating($book->reviews);
                 $book->rating = $rating;
@@ -396,7 +414,8 @@ class SearchController extends Controller
                 $books = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                     'orders as counted_order' => function ($query) {
                         $query->where('order_status_id', 3);
-                    }])->orderBy('counted_order', 'DESC')->where('is_visible', 1)->whereIn('book_id', $book_ids)->get();
+                    }
+                ])->orderBy('counted_order', 'DESC')->where('is_visible', 1)->whereIn('book_id', $book_ids)->get();
                 foreach ($books as $book) {
                     $rating = getTotalRating($book->reviews);
                     $book->rating = $rating;
@@ -406,7 +425,8 @@ class SearchController extends Controller
                 $books = Book::with('authors', 'publication', 'reviews', 'orders')->withCount([
                     'orders as counted_order' => function ($query) {
                         $query->where('order_status_id', 3);
-                    }])->orderBy('counted_order', 'DESC')->where('is_visible', 1)->get();
+                    }
+                ])->orderBy('counted_order', 'DESC')->where('is_visible', 1)->get();
                 foreach ($books as $book) {
                     $rating = getTotalRating($book->reviews);
                     $book->rating = $rating;
@@ -423,7 +443,7 @@ class SearchController extends Controller
 
     public function book_filter(Request $request)
     {
-        // dd($request->all());
+        //dd($request->all());
 
         $offer_id = $request->offer_id;
         $category_list = $request->category_list;
@@ -433,6 +453,8 @@ class SearchController extends Controller
         $publisher_list = $request->publisher_list;
         $writer_list = $request->writer_list;
         $writer_search_key = $request->writer_search_key;
+
+        //dd($category_search_key);
 
         if ($category_search_key != null || $writer_search_key != null || $publisher_search_key != null) {
 
@@ -520,7 +542,6 @@ class SearchController extends Controller
                     $bookID = [];
                 }
             }
-
 
             return response()->json([
                 'success' => true,

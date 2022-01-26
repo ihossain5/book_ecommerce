@@ -41,17 +41,17 @@
                 </div>
                 <div class="form_chack_container" id="author_list_div">
                     @if (!empty($authors))
-                        @foreach ($authors as $author)
+                    @foreach ($authors as $author)
 
-                            <div class="form-check">
-                                <input class="form-check-input writer_id" type="checkbox" name="writer"
-                                    id="writer{{ $author->author_id }}" onclick="book_fetch()">
-                                <label class="form-check-label" for="writer{{ $author->author_id }}">
-                                    {{ $author->name }}
-                                </label>
-                            </div>
+                    <div class="form-check">
+                        <input class="form-check-input writer_id" type="checkbox" name="writer"
+                            id="writer{{ $author->author_id }}" onclick="book_fetch()">
+                        <label class="form-check-label" for="writer{{ $author->author_id }}">
+                            {{ $author->name }}
+                        </label>
+                    </div>
 
-                        @endforeach
+                    @endforeach
                     @endif
                 </div>
             </div>
@@ -66,24 +66,25 @@
                 <div>
                     <div class="search_group search_key">
                         <input class="form-control" placeholder="খুঁজে দেখুন" type="text" name="search_key"
-                            id="category_search_key" onkeypress="book_fetch()" onkeyup="book_fetch()">
-                            
+                            id="category_search_key_sidebar" onkeypress="category_filter_sidebar_filter()"
+                            onkeyup="category_filter_sidebar_filter()">
+
                         <button><img src="{{ asset('frontend/assets/images/icons/search_black_24dp1.svg') }}"
                                 alt=""></button>
                     </div>
                 </div>
-                <div class="form_chack_container">
+                <div class="form_chack_container" id="category_list_div">
                     @if (!empty($categories))
-                        @foreach ($categories as $category)
-                            <div class="form-check">
-                                <input class="form-check-input category_id" type="checkbox" name="priceDiscount"
-                                    id="discountPrice{{ $category->category_id }}" onclick="book_fetch()">
-                                <label class="form-check-label" for="discountPrice{{ $category->category_id }}">
-                                    {{ $category->name }}
+                    @foreach ($categories as $category)
+                    <div class="form-check">
+                        <input class="form-check-input category_id" type="checkbox" name="priceDiscount"
+                            id="discountPrice{{ $category->category_id }}" onclick="book_fetch()">
+                        <label class="form-check-label" for="discountPrice{{ $category->category_id }}">
+                            {{ $category->name }}
 
-                                </label>
-                            </div>
-                        @endforeach
+                        </label>
+                    </div>
+                    @endforeach
                     @endif
                 </div>
             </div>
@@ -165,20 +166,21 @@
 
                 {{-- <span id="publication_list_div"> --}}
                     <div class="form_chack_container" id="publication_list_div">
-                    @if (!empty($publications))
+                        @if (!empty($publications))
                         @foreach ($publications as $publication)
-                            <div class="form-check">
-                                <input class="form-check-input publisher_id" type="checkbox" name="publisher"
-                                    id="publisher{{ $publication->publication_id }}" onclick="book_fetch()">
-                                <label class="form-check-label" for="publisher{{ $publication->publication_id }}">
-                                    {{ $publication->name }}
+                        <div class="form-check">
+                            <input class="form-check-input publisher_id" type="checkbox" name="publisher"
+                                id="publisher{{ $publication->publication_id }}" onclick="book_fetch()">
+                            <label class="form-check-label" for="publisher{{ $publication->publication_id }}">
+                                {{ $publication->name }}
 
-                                </label>
-                            </div>
+                            </label>
+                        </div>
                         @endforeach
-                    @endif
-                </div>
-                {{-- </span> --}}
+                        @endif
+                    </div>
+                    {{--
+                </span> --}}
             </div>
         </div>
     </div>

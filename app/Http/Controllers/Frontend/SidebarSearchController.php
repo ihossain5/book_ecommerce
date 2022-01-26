@@ -9,8 +9,10 @@ use App\Models\Category;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 
-class SidebarSearchController extends Controller {
-    public function book_search(Request $request) {
+class SidebarSearchController extends Controller
+{
+    public function book_search(Request $request)
+    {
         //dd($request->all());
         $key   = $request->navbar_search;
         $books = Book::with('authors')->where('title', 'like', '%' . $key . '%')
@@ -25,7 +27,8 @@ class SidebarSearchController extends Controller {
         return view('frontend.book.offer_books', compact('books', 'authors', 'categories', 'publications', 'title'));
     }
 
-    public function getBook(Request $request) {
+    public function getBook(Request $request)
+    {
 
         //dd($request->all());
         $search        = $request->search;
@@ -64,7 +67,8 @@ class SidebarSearchController extends Controller {
         ]);
     }
 
-    public function author_sidebar_filter(Request $request) {
+    public function author_sidebar_filter(Request $request)
+    {
         //dd($request->all());
         $request->writer_search_key_sidebar;
 
@@ -90,7 +94,8 @@ class SidebarSearchController extends Controller {
         }
     }
 
-    public function publisher_sidebar_filter(Request $request) {
+    public function publisher_sidebar_filter(Request $request)
+    {
         //dd($request->all());
         $request->publisher_search_key_sidebar;
 
@@ -116,7 +121,8 @@ class SidebarSearchController extends Controller {
         }
     }
 
-    public function category_sidebar_filter(Request $request) {
+    public function category_sidebar_filter(Request $request)
+    {
         //dd($request->all());
         $request->category_search_key_sidebar;
 
