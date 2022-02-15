@@ -383,15 +383,15 @@
 .related_books_section .row {
     margin-top   : -3.2rem;
     margin-bottom: -3.2rem;
-    margin-left  : -7.6rem;
-    margin-right : -7.6rem;
+    margin-left  : -5.2rem;
+    margin-right : -5.2rem;
 }
 
 .related_books_section .row>* {
     padding-top   : 3.2rem;
     padding-bottom: 3.2rem;
-    padding-left  : 7.6rem;
-    padding-right : 7.6rem;
+    padding-left  : 5.2rem;
+    padding-right : 5.2rem;
 }
 
 

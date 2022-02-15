@@ -4,6 +4,11 @@ function engToBangla(num){
    return num.toLocaleString("bn-BD");
 }
 
+//  get two decimal value
+function two_decimal(number) {
+    var data = parseFloat(number);
+    return data.toFixed(2);
+}
 
 // add to cart
 function addToCart(id){
@@ -104,7 +109,11 @@ function deleteCart(id){
                 if(response.data.cartItems == 0){
                     $('.cartTooltip').removeClass('d-none');
                     $('.cartSideBar').addClass('d-none');
+                    
+                    $('.cartRow').addClass('d-none');
                 }
+                $('.cartItemRow'+response.data.rowId).remove();
+
                 appendToCart(response);
             } //success end
         },
@@ -130,6 +139,7 @@ function appendToCart(response){
 
 // append item into cart sidebar
 function appendCartItem(val) {
+
     if(val.options.discounted_percentage !=null || val.options.discounted_percentage !=0){
         var discount = `<h6><del><span class="itemRegularPrice${val.rowId}"> ${engToBangla(val.options.regular_price * val.qty)}</span> টাকা</del></h6>`;
     }else{
@@ -164,10 +174,11 @@ function appendCartItem(val) {
 
 // set cart amount
 function setCartAmount(response, rowId){
+    // var item_subtotal = two_decimal (response.data.item_subtotal);
     $('.cartQty' + rowId).html(engToBangla(response.data.item.qty));
-    $('.itemSubtotal' + rowId).html(engToBangla(response.data.item.price * response.data.item.qty));
-    $('.itemRegularPrice' + rowId).html(engToBangla(response.data.item.options.regular_price * response.data.item.qty));
+    $('.itemSubtotal' + rowId).html('৳ '+ response.data.item_subtotal );
+    // $('.itemRegularPrice' + rowId).html('৳ '+two_decimal(response.data.item_subtotal));
     $('.cartCounter').html(response.data.numberOfCartQuantities)
     $('.selectedItems').html(response.data.cartItems)
-    $('.cartTotal').html(response.data.grandTotal)
+    $('.cartTotal').html('৳ '+response.data.grandTotal)
 }

@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function boot() {
         View::composer(['partial.frontend.cart'], CartComposer::class);
+        View::composer(['frontend.book.cart'], CartComposer::class);
         View::composer(['partial.frontend.banner_slider'], SliderComposer::class);
         View::composer(['partial.frontend.discountModal'], DiscountModalComposer::class);
     }

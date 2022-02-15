@@ -29,6 +29,7 @@ use App\Http\Controllers\Frontend\PublisherController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DiscountOfferController;
 use App\Http\Controllers\Backend\OfferController;
+use App\Http\Controllers\Frontend\ForgotPasswordController as FrontendForgotPasswordController;
 use App\Http\Controllers\Frontend\OfferController as FrontendOfferController;
 use App\Http\Controllers\Frontend\RegisterController;
 use App\Http\Controllers\SslCommerzPaymentController;
@@ -122,7 +123,7 @@ Route::post('/discount-offer/status', [DiscountOfferController::class, 'updateSt
 // Contact start
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
     Route::get('/order/{order}', [OrderController::class, 'downloadInvoice'])->name('order.invoice.download');
-    Route::get('/order_manage', [OrderController::class, 'order_info'])->name('order.info');
+    Route::get('/order-management', [OrderController::class, 'order_info'])->name('order.info');
     Route::post('/order/manage/edit', [OrderController::class, 'order_view'])->name('order.view');
     Route::post('/order/manage/change/status', [OrderController::class, 'order_change_status'])->name('order.change.status');
     Route::post('/order/delete', [OrderController::class, 'destroy'])->name('order.delete');
@@ -183,6 +184,14 @@ Route::post('/sign-up', [RegisterController::class, 'signUp'])->name('frontend.s
 Route::get('/register', [RegisterController::class, 'sendOtp'])->name('frontend.send.otp');
 
 Route::get('/send-otp', [LoginController::class, 'sendOtp'])->name('frontend.otp.send');
+
+Route::get('/forgot-password', [FrontendForgotPasswordController::class, 'index'])->name('frontend.forgot.password');
+Route::get('/otp-send', [FrontendForgotPasswordController::class, 'sendOtp'])->name('forgot.password.otp.send');
+Route::post('/verify-otp-password', [FrontendForgotPasswordController::class, 'verifyOtp'])->name('forgot.password.otp.verification');
+Route::get('/change-password', [FrontendForgotPasswordController::class, 'changePassword'])->name('frontend.password.change');
+Route::post('/change-password', [FrontendForgotPasswordController::class, 'updatePassword'])->name('frontend.password.update');
+
+Route::post('/update-password', [ProfileController::class, 'updatePassword'])->name('frontend.change.password');
 
 Route::post('/verify-otp', [LoginController::class, 'verifyOtp'])->name('frontend.otp.verification');
 
@@ -267,3 +276,6 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
+
+
+Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart');

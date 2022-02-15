@@ -119,17 +119,19 @@ select.btn_more {
     border-radius: .5rem;
     padding      : .8rem 1.6rem;
     display      : inline-block;
+    font-family: 'Ruposhi Bangla Unicode';
 }
 
 /* ==writer details== */
 .writer_details_content {
     background   : #FDF7EE;
     border-radius: 1rem;
+    padding: 4.7rem;
 }
 
 .writer_details_content .writer_details_image {
-    width : 277px;
-    margin: 4.7rem auto;
+    width : 27.7rem;
+    margin: 0 auto;
 }
 
 .writer_details_content .writer_details_image img {
@@ -138,10 +140,8 @@ select.btn_more {
 }
 
 .writer_details_content .writer_details_text {
-    padding-top   : 14.7rem;
-    padding-bottom: 4.7rem;
-    width         : 90%;
-
+    width         : 92%;
+    padding-top: .5rem;
 }
 
 .writer_details_content .writer_details_text h2 {
@@ -187,6 +187,7 @@ select.btn_more {
     padding      : 0.6rem 3rem 0.6rem 1.2rem;
     border       : 1px solid rgba(79, 127, 108, 0.3);
     border-radius: 3px;
+    font-family: 'Ruposhi Bangla Unicode';
 }
 
 
@@ -296,20 +297,7 @@ select.btn_more {
         width: 100%;
     }
 
-    /* ==right grid content== */
-    .right_grid_content .row {
-        margin-left : -2.4rem;
-        margin-right: -2.4rem;
-    }
-
-    .right_grid_content .row>* {
-        padding-left : 2.4rem;
-        padding-right: 2.4rem;
-    }
-
-    .right_grid_content {
-        padding: 0 4rem;
-    }
+    
 
     .search_group .form-control {
         font-size  : 18px;
@@ -346,13 +334,4 @@ select.btn_more {
     }
 }
 
-@media (max-width: 575.98px) {
-    .books_page .container {
-        padding-left : 4.4rem;
-        padding-right: 4.4rem;
-    }
-
-    .right_grid_content {
-        padding: 0;
-    }
-}
+@media (max-width: 575.98px) {}

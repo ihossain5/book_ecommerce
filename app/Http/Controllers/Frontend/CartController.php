@@ -27,7 +27,7 @@ class CartController extends Controller {
         try {
             $cart->removeCsdart($request->rowId);
 
-            return $this->success($this->response($cart));
+            return $this->success($this->response($cart, $request->rowId));
 
         } catch (Exception $e) {
 
@@ -63,24 +63,31 @@ class CartController extends Controller {
 
     }
 
-    private function response($cart, $message = '') {
+    private function response($cart, $rowId, $message = '') {
         $data                           = [];
         $data['items']                  = $cart->getCartContent();
         $data['grandTotal']             = englishTobangla($cart->subTotal());
         $data['numberOfCartQuantities'] = $cart->numberOfCartQty();
         $data['cartItems']              = $cart->cartItems();
         $data['message']                = $message;
+        $data['rowId']                  = $rowId;
 
         return $data;
     }
 
     private function qtyUpdateResponse($cart, $rowId) {
+        $item                           = $cart->getCart($rowId);
         $data                           = [];
         $data['grandTotal']             = englishTobangla($cart->subTotal());
         $data['numberOfCartQuantities'] = $cart->numberOfCartQty();
         $data['item']                   = $cart->getCart($rowId);
         $data['cartItems']              = $cart->cartItems();
+        $data['item_subtotal']          = englishTobangla(number_format((float) $item->price * $item->qty, 2, '.', ''));
 
         return $data;
+    }
+
+    public function index() {
+        return view('frontend.book.cart');
     }
 }

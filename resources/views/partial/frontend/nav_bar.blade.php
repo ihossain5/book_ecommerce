@@ -18,7 +18,7 @@ $offers = HomePageController::offers();
         <ul class="navbar-nav align-items-center mobileCart">
             <li class="nav-item">
 
-@if (Cart::count() > 0)
+{{-- @if (Cart::count() > 0)
 <a data-bs-toggle="offcanvas" href="#cartSidebar" class="nav-link badge_link position-relative">
     <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
     <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
@@ -35,10 +35,16 @@ $offers = HomePageController::offers();
         <span class="cartCounter">{{Cart::count()}}</span>
         <span class="visually-hidden">unread messages</span>
     </span> </a>
-@endif
-    
-     
+@endif --}}
 
+     
+<a href="{{route('frontend.cart')}}" class="nav-link badge_link position-relative">
+    <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
+    <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand cartCounter">
+        {{Cart::count()}}
+        <span class="visually-hidden">unread messages</span>
+    </span>
+</a>
 
             </li>
         </ul>
@@ -98,23 +104,16 @@ $offers = HomePageController::offers();
                         </span> </a>
                 </li>
                 <li class="nav-item">
-                    <a data-bs-toggle="offcanvas" href="#cartSidebar"
-                        class="nav-link badge_link position-relative cartSideBar {{Cart::count() <1 ? 'd-none': ''}}"
-                        href="#">
-                        <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
-                        <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
-                            <span class="cartCounter">{{Cart::count()}}</span>
-                            <span class="visually-hidden">unread messages</span>
-                        </span> </a>
 
-                    <a href="javascript:void(0)"
-                        class="nav-link badge_link position-relative cartTooltip {{Cart::count() <1 ? '': 'd-none'}}"
-                        aria-current="page" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Cart Empty">
-                        <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
-                        <span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-brand">
-                            <span class="cartCounter">{{Cart::count()}}</span>
-                            <span class="visually-hidden">unread messages</span>
-                        </span> </a>
+                        <a href="{{route('frontend.cart')}}" class="nav-link badge_link position-relative" aria-current="page">
+                            <img src="{{ asset('frontend/assets/images/icons/cart.svg') }}" alt="">
+                            <span
+                                class="position-absolute top-1 start-100 translate-middle badge cartCounter rounded-pill bg-brand">
+                                {{Cart::count()}}
+                                <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </a>
+
                 </li>
 
                 @auth
@@ -152,6 +151,7 @@ $offers = HomePageController::offers();
                                 <h1>লগ ইন করুন</h1>
                             </div>
                             <div class="form_wrapper">
+                                <p class="error signInErrorMessage"></p>
                                 <form class="login_auth_box loginForm" id="loginModalForm" method="POST">@csrf
                                     <div class="row">
                                         <div class="col-12 mb-3">
@@ -159,12 +159,13 @@ $offers = HomePageController::offers();
                                                 placeholder="আপনার ফোন নম্বর" name="number">
 
                                         </div>
-                                        <div class="col-12 mb-3">
-
+                                        <div class="col-12 mb-3 passwordDiv">
                                             <input class="form-control form-control-lg otp_change loginModalOtp"
                                                 name="password" type="password" placeholder="আপনার পাসওয়ার্ড">
 
-
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <a href="{{route('frontend.forgot.password')}}" class="forgot_passowrd">পাসওয়ার্ড ভুলে গেছেন?</a>
                                         </div>
 
                                         <div class="col-12">
@@ -190,7 +191,7 @@ $offers = HomePageController::offers();
                                     </div>
                                 </div>
                                 <div class="new_account_create">
-                                    <a type="button" href="{{ route('frontend.send.otp') }}">নতুন অ্যাকাউন্ট তৈরি করুন</a>
+                                    <a type="button" href="{{ route('frontend.send.otp') }}">নতুন <label>অ্যাকাউন্ট</label> তৈরি করুন</a>
                                 </div>
                             </div>
                         </div>

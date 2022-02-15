@@ -4,6 +4,36 @@
 @section('page-css')
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/assets/css/home.css') }}">
+
+    <style>
+        .atpb_wrapper {
+            position: absolute;
+            top: -1.2rem;
+            right: -1.2rem;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 50%;
+            background: black;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1px;
+        }
+
+        .atp.btn-close {
+            background: url(frontend/assets/images/icons/close.svg);
+            background: transparent url(frontend/assets/images/icons/close.svg) center/1em auto no-repeat;
+            width: 1.6rem;
+            height: 1.6rem;
+            opacity: 1;
+        }
+
+        .atp.btn-close:focus {
+            box-shadow: none;
+        }
+
+    </style>
 @endsection
 
 @section('content')
@@ -125,7 +155,8 @@
 
                                         <div class="price_wrapper">
                                             @if ($book->discounted_percentage != null || $book->discounted_percentage != 0)
-                                                <h6 class="discount">{{ englishTobangla($book->regular_price) }} টাকা
+                                                <h6 class="discount">{{ englishTobangla($book->regular_price) }}
+                                                    টাকা
                                                 </h6>
                                                 <h5 class="regular">{{ englishTobangla($book->discounted_price) }}
                                                     টাকা</h5>
@@ -279,9 +310,9 @@
                                         class="d-block tex-reset">
                                         <div class="writer_img_wrapper">
                                             <img class="img-fluid w-100" src="{{ asset('images/' . $author->photo) }}"
-                                            alt="Card image">
+                                                alt="Card image">
                                         </div>
-                                       
+
                                         <h3 class="card_text">{{ $author->name }}</h3>
                                     </a>
                                 </div>
@@ -359,7 +390,8 @@
                 <div class="col-lg-3">
                     <div class="searvices">
                         <div class="searvices_content">
-                            <img class="Service_img" src="{{ asset('frontend/assets/images/home/Track Order 1.svg') }}"
+                            <img class="Service_img"
+                                src="{{ asset('frontend/assets/images/home/Track Order 1.svg') }}"
                                 alt="social-media-image">
                             <h3 class="Service_text">অর্ডার ট্র্যাকিং</h3>
                         </div>
@@ -439,7 +471,7 @@
                 1366: {
                     items: 5,
                 },
-                1600:{
+                1600: {
                     items: 6
                 }
             }

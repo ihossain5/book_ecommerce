@@ -24,10 +24,14 @@
     <section class="login_section pt-20 pb-120">
         <div class="container">
             <div class="login_container ">
+
                 @include('partial.frontend.auth.logo')
                 <div class="login_content">
+
                     <h2>আপনার ফোন নম্বর</h2>
-                    <form action="{{ route('frontend.otp.send') }}" class="otpForm" method="GET">@csrf
+
+                    <form action="{{ route('forgot.password.otp.send') }}" class="otpForm" method="get">@csrf
+
                         @include('partial.frontend.auth.otp')
                     </form>
                     @include('partial.frontend.auth.social_login')

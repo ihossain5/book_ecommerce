@@ -10,6 +10,7 @@ use App\Models\UserAddress;
 use Devfaysal\BangladeshGeocode\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -344,5 +345,28 @@ class ProfileController extends Controller
         $districts = $division->districts;
 
         return $this->success($districts);
+    }
+
+    public function updatePassword(Request $request){
+        // dd($request->all());
+        $this->validate($request,[
+            'password'=> 'required|min:8|confirmed'
+        ]);
+
+        $user = auth()->user();
+
+        $password_check = Hash::check($request->current_password ,$user->password);
+
+       if(!$password_check){
+           return redirect()->back()->with('error','current password does not match with our records');
+       }
+
+       $user->update([
+           'password'=> $request->password
+       ]);
+
+       Auth::logout();
+
+       return redirect()->route('frontend.sign.in')->with('success','Password has changed successfully. Please sign in again.');
     }
 }

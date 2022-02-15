@@ -9,10 +9,11 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="{{ asset('frontend/assets/js/cart.js') }}"></script>
+<script src="{{ asset('frontend/assets/js/auth.js') }}"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 
-@yield('page-js')
+
 
 <script>
     toastr.options = {
@@ -259,65 +260,79 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         }
     }
 
-    $(".loginForm").validate({
-        rules: {
-            number: {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11,
-            },
-            password: {
-                required: true,
-                minlength: 8,
+    // $(".loginForm").validate({
+    //     rules: {
+    //         number: {
+    //             required: true,
+    //             digits: true,
+    //             minlength: 11,
+    //             maxlength: 11,
+    //         },
+    //         password: {
+    //             required: true,
+    //             minlength: 8,
 
-            },
+    //         },
 
 
-        },
-        messages: {
-            number: {
-                required: 'Please insert your mobile number',
-            },
-        },
-        errorPlacement: function(label, element) {
-            label.addClass('h1 text-danger');
-            label.insertAfter(element);
-        },
-    });
+    //     },
+    //     messages: {
+    //         number: {
+    //             required: 'Please insert your mobile number',
+    //         },
+    //     },
+    //     errorPlacement: function(label, element) {
+    //         label.addClass('h3 text-danger');
+    //         label.insertAfter(element);
+    //     },
+    // });
 
-    $(document).off('submit', '.loginForm');
-    $(document).on('submit', '.loginForm', function(event) {
-        event.preventDefault();
+    var form = '.loginForm';
+    var errorMessageDiv = '.signInErrorMessage';
+    var url = "{!! route('frontend.sign.in') !!}";
 
-        $.ajax({
-            type: "POST",
-            url: "{!! route('frontend.sign.in') !!}",
-            data: new FormData(this),
-            contentType: false,
-            cache: false,
-            processData: false,
-            dataType: "json",
-            success: function(response) {
-                if (response.success == true) {
-                    location.reload();
-                } else {
-                    toastr['error'](response.data);
-                }
-            },
-            error: function(error) {
-                if (error.status == 422) {
-                    $.each(error.responseJSON.errors, function(i, message) {
-                        toastr['error'](message);
-                    });
+    loginFormValidation(form);
+    singIn(form, url, errorMessageDiv);
 
-                }
-            },
-        });
+    // $(document).off('submit', '.loginForm');
+    // $(document).on('submit', '.loginForm', function(event) {
+    //     event.preventDefault();
 
-    });
 
-// for discount modal
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "{!! route('frontend.sign.in') !!}",
+    //         data: new FormData(this),
+    //         contentType: false,
+    //         cache: false,
+    //         processData: false,
+    //         dataType: "json",
+    //         success: function(response) {
+    //             if (response.success == true) {
+    //                 location.reload();
+    //             } else {
+    //                 $('.messageDiv').empty();
+    //                 $('.passwordDiv').after(
+    //                     `<div class="col-12 mb-3 messageDiv">
+    //                         <P class='text-danger h3'>${response.data}</p>
+    //                     </div>`
+    //                 )
+    //                 // toastr['error'](response.data);
+    //             }
+    //         },
+    //         error: function(error) {
+    //             if (error.status == 422) {
+    //                 $.each(error.responseJSON.errors, function(i, message) {
+    //                     toastr['error'](message);
+    //                 });
+
+    //             }
+    //         },
+    //     });
+
+    // });
+
+    // for discount modal
     $(window).on('load', function() {
         $('#discountModal').modal('show');
 
@@ -326,3 +341,5 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         }, 10000);
     });
 </script>
+
+@yield('page-js')

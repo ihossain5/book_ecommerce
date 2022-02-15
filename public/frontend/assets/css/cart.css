@@ -1,0 +1,445 @@
+@import "common.css";
+@import "header.css";
+@import "footer.css";
+
+/* large device cart */
+.large_cart_wrapper {
+    border: 1px solid var(--blue);
+    border-radius: 1rem;
+}
+.large_cart_wrapper>div .large_cart_inner:not(:last-child) {
+    border-bottom: 1px solid var(--blue);
+}
+.large_cart_wrapper .large_cart_inner {
+    padding: 2.4rem 3.6rem 1.8rem;
+}
+.large_cart_wrapper p.header {
+    font-size: 2.3rem;
+    font-weight: bold;
+    line-height: 3.4rem;
+    text-transform: capitalize;
+}
+.large_cart_wrapper .del_btn_wrapper {
+    max-width: 76px;
+    text-align: center;
+}
+.large_cart_wrapper .del_btn_wrapper .del_btn {
+    background: transparent;
+}
+.large_cart_wrapper .image_content {
+    display: flex;
+}
+.large_cart_wrapper .image_content img {
+    max-width: 7.8rem;
+    margin-right: 2.6rem;
+}
+.large_cart_wrapper .btn_group {
+    max-width: 131px;
+    margin: 0 auto;
+}
+.large_cart_wrapper button {
+    /* background: transparent; */
+    border: 0;
+}
+.large_cart_wrapper .pd_price_cell h2, .large_cart_wrapper .pd_price_cell h6 {
+    text-align: center;
+}
+.large_cart_wrapper .pd_price_cell.total h2 {
+    text-align: right;
+}
+.large_cart_wrapper .total_item {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+}
+.large_cart_wrapper .total_item.last {
+    padding-bottom: 2.4rem;
+}
+.large_cart_wrapper a.fire_jan {
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 3rem;
+    color: var(--blue);
+} 
+.large_cart_wrapper .check_btn {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    font-weight: 600;
+    padding: 1.3rem 3.6rem;
+    border-radius: 3px;
+}
+
+.cart_for_mobile {
+    display: none;
+}
+
+.cart_table_wrapper::-webkit-scrollbar {
+    width: 0;
+}
+
+.cart_header h1 {
+    font-weight     : bold;
+    font-size       : 2.5rem;
+    line-height     : 3.7rem;
+    color           : #FFFFFF;
+    padding         : 3rem;
+    background-color: #4F7F6C;
+    text-align      : center;
+    position        : relative;
+}
+
+.cart_body {
+    padding: 4.9rem 6.2rem;
+}
+
+.cart_item_header {
+    display        : flex;
+    justify-content: space-between;
+    align-items    : center;
+}
+
+.cart_item_header h5 {
+    font-family: 'inter';
+    font-weight: normal;
+    font-size  : 1.6rem;
+    line-height: 1.9rem;
+    color      : #000000;
+}
+
+.cart_item_header h6 {
+    font-family: 'inter';
+    font-weight: normal;
+    font-size  : 1.4rem;
+    line-height: 1.7rem;
+    color      : #979797;
+}
+
+.cart_item_header {
+    padding-bottom: .7rem;
+    border-bottom : 1px solid #EEEEEE;
+}
+
+.cart_item {
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.cart_item td {
+    padding-top   : 3rem;
+    padding-bottom: 3rem;
+}
+
+.cart_item .del_btn {
+    background-color: transparent;
+    border          : none;
+    height          : 2.4rem;
+    width           : 2.4rem;
+}
+
+.cart_item .del_cell {
+    width: 3.7rem;
+}
+
+.cart_item .del_btn img {
+    height: 100%;
+    width : 100%;
+}
+
+.cart_item .pd_cell {
+    width: 10.8rem;
+}
+
+.cart_item .pd_cell img {
+    width: 8.9rem;
+}
+
+.pd_info_cell {
+    vertical-align: top;
+}
+
+.pd_info_cell h2 {
+    font-weight: bold;
+    font-size  : 2rem;
+    line-height: 3rem;
+    color      : #000000;
+}
+
+.pd_info_cell h6 {
+    font-weight: normal;
+    font-size  : 1.6rem;
+    line-height: 2.4rem;
+    color      : #8D8D8D;
+}
+
+.pd_price_cell {
+    vertical-align: top;
+}
+
+.pd_price_cell h2 {
+    font-weight: bold;
+    font-size  : 2rem;
+    line-height: 3rem;
+    text-align : right;
+    color      : #003638;
+}
+
+.pd_price_cell h6 {
+    font-weight         : bold;
+    font-size           : 1.6rem;
+    line-height         : 2.4rem;
+    text-align          : right;
+    text-decoration-line: line-through;
+    color               : #828282;
+    margin-bottom       : 2.3rem;
+}
+
+.btn_group {
+    display           : flex;
+    border            : 2px solid #D5D5D5;
+    justify-content   : space-around;
+    border-radius     : 4.6rem;
+    overflow          : hidden;
+    text-align        : center;
+    padding           : 1.3rem 1.2rem;
+    /* width          : 131px; */
+}
+
+.btn_group button {
+    background-color: transparent;
+    border          : none;
+    height          : 2.5rem;
+    width           : 2.5rem;
+
+}
+
+.btn_group button img {
+    height: 2.4rem;
+    width : 2.4rem;
+}
+
+.btn_group span {
+    display    : inline-block;
+    font-weight: bold;
+    font-size  : 2.4rem;
+    line-height: 2.6rem;
+    text-align : center;
+    color      : #383838;
+
+}
+
+.sub_cell {
+    font-weight: 600;
+    font-size  : 1.8rem;
+    line-height: 2.2rem;
+    color      : #000000;
+    font-family: 'inter';
+}
+
+.sub_cell span {
+    font-size  : 1.6rem;
+    line-height: 1.9rem;
+    color      : #BDBDBD;
+}
+
+.sub_price_cell {
+    text-align : right;
+    font-weight: bold;
+    font-size  : 2rem;
+    line-height: 3rem;
+    color      : #000000;
+}
+
+.cart_sub_total td {
+    padding-top: 1rem;
+}
+
+.sub_del {
+    font-family: 'inter';
+    font-weight: normal;
+    font-size  : 14px;
+    line-height: 17px;
+    color      : #979797;
+    padding-top: 7px;
+}
+
+.sub_del_charge {
+    text-align : right;
+    font-weight: bold;
+    font-size  : 14px;
+    line-height: 21px;
+    color      : #828282;
+}
+
+.total_item {
+    padding-top       : 1.7rem;
+    padding-bottom    : 2.6rem;
+    display           : flex;
+    justify-content   : space-between;
+    /* border-top        : 1px solid #EEEEEE; */
+    /* margin-top     : 10rem; */
+    margin-top        : 3rem;
+}
+
+.total_item h1 {
+    font-weight: 600;
+    font-size  : 1.8rem;
+    line-height: 2.2rem;
+    color      : #000000;
+    font-family: 'inter';
+}
+
+.total_item h2 {
+    font-weight: bold;
+    font-size  : 2.5rem;
+    line-height: 3.7rem;
+    color      : #000000;
+}
+.check_btn {
+    font-weight  : 600;
+    font-size    : 1.8rem;
+    line-height  : 2.2rem;
+    color        : #FFFFFF;
+    width        : 100%;
+    padding      : 1.6rem;
+    background   : #4F7F6C;
+    border-radius: 5.1rem;
+    border       : none;
+    font-family  : 'inter';
+}
+
+@media (max-width: 575.98px) {
+    .cart_for_large {
+        display: none;
+    }
+    .cart_for_mobile {
+        display: block;
+    }
+
+    .cart_body {
+        padding: 24px 0 48px;
+    }
+
+    .cart_item_header h5 {
+        font-size  : 16px;
+        line-height: 19px;
+    }
+
+    .cart_item_header h6 {
+        font-size  : 14px;
+        line-height: 17px;
+    }
+
+    .cart_item_header {
+        padding-bottom: 4px;
+    }
+
+    .cart_item .del_cell {
+        width: 27px;
+    }
+
+    .cart_item .del_btn {
+        height: 18px;
+        width : 14px;
+    }
+
+    .cart_item .pd_cell img {
+        width: 79px;
+    }
+
+    .cart_item .pd_cell {
+        width: 91px;
+    }
+
+    .pd_info_cell h2 {
+        font-weight  : bold;
+        font-size    : 18px;
+        line-height  : 27px;
+        margin-bottom: 3px;
+    }
+
+    .pd_info_cell h6 {
+        font-size  : 14px;
+        line-height: 21px;
+    }
+
+    .pd_price_cell h2 {
+        font-size  : 18px;
+        line-height: 27px;
+    }
+
+    .pd_price_cell h6 {
+        font-size    : 14px;
+        line-height  : 21px;
+        margin-bottom: 35px;
+    }
+
+    .btn_group button,
+    .btn_group button img {
+        height: 20px;
+        width : 20px;
+    }
+
+    .btn_group span {
+        font-size  : 20px;
+        line-height: 26px;
+    }
+
+    .btn_group {
+        padding: 0.5rem 0.7rem;
+    }
+
+    .cart_item td {
+        margin-bottom: 15px;
+    }
+
+    .cart_item:last-child td {
+        padding-bottom: 30px;
+    }
+
+    .cart_sub_total td {
+        padding-top: 18px;
+    }
+
+    .sub_cell {
+        font-weight: 600;
+        font-size  : 16px;
+        line-height: 19px;
+        width      : 122px;
+    }
+
+    .sub_cell span {
+        font-weight: normal;
+        font-size  : 14px;
+        line-height: 17px;
+    }
+
+    .sub_price_cell {
+        font-size  : 18px;
+        line-height: 27px;
+    }
+
+    .total_item {
+        padding-top   : 15px;
+        padding-bottom: 26px;
+    }
+
+    .total_item h1 {
+        font-weight: 600;
+        font-size  : 18px;
+        line-height: 22px;
+
+    }
+
+    .total_item h2 {
+        font-weight: bold;
+        font-size  : 22px;
+        line-height: 33px;
+    }
+
+    .check_btn {
+        font-weight: 600;
+        font-size  : 16px;
+        line-height: 19px;
+        padding    : 16px;
+    }
+
+}

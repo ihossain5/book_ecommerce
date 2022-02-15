@@ -55,7 +55,7 @@ input[type="file"] {
 }
 
 .my_profile_body .nav-tabs {
-    max-width    : 72rem;
+    max-width    : 95.1rem;
     width        : 100%;
     margin       : 0 auto;
     position     : relative;
@@ -216,7 +216,7 @@ input[type="file"] {
     width        : 2rem;
     height       : 2rem;
     border       : 4px solid #AEC4BB;
-
+    margin-top: 0.125rem;
 }
 
 .my_profile_body .modal-body .circular .form-check-input:checked {
@@ -239,9 +239,7 @@ input[type="file"] {
     padding-bottom: .4rem;
 }
 
-.my_profile_body .tab-content label,
-.my_profile_body .tab-content .form-control,
-.my_profile_body .tab-content select {
+.my_profile_body .tab-content label {
     font-size  : 1.6rem;
     line-height: 2.4rem;
     font-weight: 700;
@@ -253,6 +251,8 @@ input[type="file"] {
     padding     : 1.2rem;
     margin      : .2rem;
     border-color: #000000;
+    font-size  : 1.4rem;
+    line-height: 2.4rem;
     color       : #828282;
 }
 
@@ -374,15 +374,15 @@ input[type="file"] {
 .book_cards_section .row {
     margin-top   : -4.2rem;
     margin-bottom: -4.2rem;
-    margin-left  : -7.6rem;
-    margin-right : -7.6rem;
+    margin-left  : -5.5rem;
+    margin-right : -5.5rem;
 }
 
 .book_cards_section .row>* {
     padding-top   : 4.2rem;
     padding-bottom: 4.2rem;
-    padding-left  : 7.6rem;
-    padding-right : 7.6rem;
+    padding-left  : 5.5rem;
+    padding-right : 5.5rem;
 }
 
 /* New CSS for modal History */

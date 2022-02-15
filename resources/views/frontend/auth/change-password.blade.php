@@ -15,12 +15,23 @@
                 @include('partial.frontend.auth.logo')
 
                 <div class="login_content">
-                    <h2>ওটিপি বসান</h2>
-                    <p><span class="font_inter">{{ $number }} </span> নাম্বারে ওটিপি পাঠানো হয়েছে </p>
+                    <h2>পাসওয়ার্ড পরিবর্তন করুন </h2>
      
-                    <form action="{{ route('forgot.password.otp.verification') }}" class="otpVerifyForm" method="POST">
+                    <form action="{{ route('frontend.password.update') }}" class="chagePassword" method="POST">
                         @csrf
-                        @include('partial.frontend.auth.verify-otp')
+                        <div class="input_fild">
+                            @if (session()->has('errorMessage'))
+                                <p class="error">{{ session('errorMessage') }}</p>
+                            @endif
+                            <input type="text" readonly id="number" name="phone" value="{{  $number }}">
+
+                            <input type="text" class="mt-4" id="password" name="password" placeholder="আপনার পাসওয়ার্ড" name="password" >
+
+                            <input type="text" class="mt-4" id="password_confirmation" name="password_confirmation" placeholder="পাসওয়ার্ড নিশ্চিত করুন " name="password" >
+                        </div>
+                        <div class="submit_btns">
+                            <button href="" class="submit">সাবমিট করুন</button>                     
+                        </div>
                     </form>
 
                 </div>
@@ -33,20 +44,27 @@
 @endsection
 @section('page-js')
     <script>
-        $(".otpVerifyForm").validate({
+        $(".chagePassword").validate({
             rules: {
-                otp: {
+                phone: {
                     required: true,
                     digits: true,
-                    minlength: 6,
-                    maxlength: 6,
+                    minlength: 11,
+                    maxlength: 11,
                 },
+                password: {
+                    required: true,
+                    minlength: 8,
+                },
+                password_confirmation : {
+                    equalTo : "#password"
+            }
 
 
             },
             messages: {
-                otp: {
-                    required: 'Please insert your otp code',
+                phone: {
+                    required: 'Please insert your phone number',
                 },
             },
             errorPlacement: function(label, element) {

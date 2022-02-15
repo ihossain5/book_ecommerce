@@ -48,7 +48,7 @@ Class LoginService {
         $user = User::where('phone',$number)->first();
 
         if(!$user || !Hash::check($password, $user->password)){
-            throw new Exception('Phone number & password does not match');
+            throw new Exception('ফোন নম্বর / পাসওয়ার্ড ভুল দিয়েছেন');
         }
 
         return $user;

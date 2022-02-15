@@ -54,6 +54,7 @@
     line-height: 3.3rem;
     font-weight: normal;
 }
+
 .login_section .login_content .submit_btn{
     padding: 2.7rem 7rem;
 }
@@ -88,6 +89,10 @@
 .login_section .social_btns a{
     border: 1px solid #BDBDBD;
     border-radius: 6.9px;
+    transition: all 0.3s ease-in-out;
+}
+.login_section .social_btns a:hover {
+    border: 1px solid var(--blue);
 }
 
 .login_section .social_btns a.google{
@@ -110,6 +115,7 @@
     font-family: 'inter',sans-serif;
     color: #000;
 }
+
 .login_section .submit_btns a, .login_section .submit_btns button{
     font-size: 2.5rem;
     line-height: 3.3rem;
@@ -150,6 +156,7 @@
     color: #828282;
     border-radius: 5px;
 }
+
 .new_account_create.lnpage a {
     font-size: 1.8rem;
     font-weight: 600;

@@ -1,7 +1,5 @@
 .navbar {
-    /* padding-top      : 3.2rem; */
-    /* padding-bottom: 3.2rem; */
-    padding-top   : 0;
+    padding: 0;
     padding-bottom: 0;
 }
 
@@ -10,11 +8,11 @@
     padding-bottom: 2.9rem;
 }
 
+
 .tooltip-inner {
     font-size: 1.5rem;
     padding  : 1rem 2rem;
 }
-
 
 
 .brand_nav {
@@ -47,13 +45,12 @@
 }
 
 .navbar-brand img {
-    max-width: 16.7rem;
+    /* max-width: 16.7rem; */
+    max-width: 20rem;
     width    : 100%;
-}
-
-.navbar-brand img {
     margin-right: 7.3rem;
 }
+
 
 .dropdown-menu {
     padding: 0;
@@ -90,6 +87,7 @@
     color        : #828282;
     width        : 100%;
     padding      : 1.1rem 3.7rem 1.1rem 2.5rem;
+    font-family: 'Inter', sans-serif;
 }
 
 .nav_search button {
@@ -214,9 +212,8 @@
     font-weight: bold;
     color: var(--white);
 }
-/* .sm_user_login_dropdown {
-    background: var(--white);
-} */
+
+
 /* small device user dropdown end */
 .user_login span {
     font-weight  : bold;
@@ -229,6 +226,12 @@
     box-sizing   : border-box;
     border-radius: 5px;
     margin-left  : .8rem;
+    /* transition: all 0.3s ease-in-out; */
+}
+
+.user_login:hover span {
+    background: var(--blue);
+    color: var(--white);
 }
 
 .nav_login_form {
@@ -281,8 +284,8 @@
 }
 
 .login_auth_box input {
-    font-weight  : bold;
-    font-size    : 1.6rem;
+    /* font-weight  : bold; */
+    font-size    : 1.4rem;
     line-height  : 2.4rem;
     color        : #828282;
     padding      : 1.2rem 2.2rem;
@@ -318,7 +321,7 @@
 
 
 .social_login button {
-    border          : 1.37952px solid #BDBDBD;
+    border          : 1px solid #BDBDBD;
     border-radius   : 5px;
     padding-top     : 1.2rem;
     padding-bottom  : 1.2rem;
@@ -329,6 +332,10 @@
     width           : 100%;
     background-color: transparent;
     font-family     : 'inter';
+    transition: border 0.3s ease-in-out;
+}
+.social_login button:hover {
+    border: 1px solid var(--blue);
 }
 
 .social_login button img {
@@ -348,6 +355,7 @@
 }
 
 .bg-brand {
+    /* font-family: 'Inter', sans-serif; */
     background-color: var(--blue);
 }
 
@@ -369,7 +377,6 @@
     padding: 0;
     border : none;
 }
-
 
 .offcanvas-body::-webkit-scrollbar {
     width: 0;
@@ -452,14 +459,6 @@
     padding-left: 80px;
 }
 
-/* .multi_level li:last-child a {
-    font-weight: bold;
-    font-size  : 16px;
-    line-height: 24px;
-    color      : #055052;
-    padding    : 8px 16px;
-    border     : 1px solid #4F7F6C;
-} */
 
 .dropdown_link {
     background-image   : url('../images/icons/fi_chevron-downSidebar.svg');
@@ -493,258 +492,6 @@
     overflow-y: hidden;
 }
 
-.cart_table_wrapper {
-    overflow-x: hidden;
-    overflow-y: auto;
-    height    : calc(100vh - 381px);
-    /* height : 400px; */
-}
-
-.cart_table_wrapper::-webkit-scrollbar {
-    width: 0;
-}
-
-.cart_header {
-    font-weight     : bold;
-    font-size       : 2.5rem;
-    line-height     : 3.7rem;
-    color           : #FFFFFF;
-    padding         : 3rem;
-    background-color: #4F7F6C;
-    text-align      : center;
-    position        : relative;
-}
-
-.cart_header .canvasClose {
-    right: 23px;
-    left : auto;
-}
-
-.cart_body {
-    padding: 4.9rem 6.2rem;
-}
-
-.cart_item_header {
-    display        : flex;
-    justify-content: space-between;
-    align-items    : center;
-}
-
-.cart_item_header h5 {
-    font-family: 'inter';
-    font-weight: normal;
-    font-size  : 1.6rem;
-    line-height: 1.9rem;
-    color      : #000000;
-}
-
-.cart_item_header h6 {
-    font-family: 'inter';
-    font-weight: normal;
-    font-size  : 1.4rem;
-    line-height: 1.7rem;
-    color      : #979797;
-}
-
-.cart_item_header {
-    padding-bottom: .7rem;
-    border-bottom : 1px solid #EEEEEE;
-}
-
-.cart_item {
-    border-bottom: 1px solid #EEEEEE;
-}
-
-.cart_item td {
-    padding-top   : 3rem;
-    padding-bottom: 3rem;
-}
-
-
-.cart_item .del_btn {
-    background-color: transparent;
-    border          : none;
-    height          : 2.4rem;
-    width           : 2.4rem;
-}
-
-.cart_item .del_cell {
-    width: 3.7rem;
-}
-
-.cart_item .del_btn img {
-    height: 100%;
-    width : 100%;
-}
-
-.cart_item .pd_cell {
-    width: 10.8rem;
-}
-
-.cart_item .pd_cell img {
-    width: 8.9rem;
-}
-
-.pd_info_cell {
-    vertical-align: top;
-}
-
-.pd_info_cell h2 {
-    font-weight: bold;
-    font-size  : 2rem;
-    line-height: 3rem;
-    color      : #000000;
-}
-
-.pd_info_cell h6 {
-    font-weight: normal;
-    font-size  : 1.6rem;
-    line-height: 2.4rem;
-    color      : #8D8D8D;
-}
-
-.pd_price_cell {
-    vertical-align: top;
-}
-
-.pd_price_cell h2 {
-    font-weight: bold;
-    font-size  : 2rem;
-    line-height: 3rem;
-    text-align : right;
-    color      : #003638;
-}
-
-.pd_price_cell h6 {
-    font-weight         : bold;
-    font-size           : 1.6rem;
-    line-height         : 2.4rem;
-    text-align          : right;
-    text-decoration-line: line-through;
-    color               : #828282;
-    margin-bottom       : 2.3rem;
-}
-
-
-.btn_group {
-    display           : flex;
-    border            : 2px solid #D5D5D5;
-    justify-content   : space-around;
-    border-radius     : 4.6rem;
-    overflow          : hidden;
-    text-align        : center;
-    padding           : 1.3rem 1.2rem;
-    /* width          : 131px; */
-}
-
-.btn_group button {
-    background-color: transparent;
-    border          : none;
-    height          : 2.5rem;
-    width           : 2.5rem;
-
-}
-
-.btn_group button img {
-    height: 2.4rem;
-    width : 2.4rem;
-}
-
-.btn_group span {
-    display    : inline-block;
-    font-weight: bold;
-    font-size  : 2.4rem;
-    line-height: 2.6rem;
-    text-align : center;
-    color      : #383838;
-
-}
-
-
-.sub_cell {
-    font-weight: 600;
-    font-size  : 1.8rem;
-    line-height: 2.2rem;
-    color      : #000000;
-    font-family: 'inter';
-}
-
-.sub_cell span {
-    font-size  : 1.6rem;
-    line-height: 1.9rem;
-    color      : #BDBDBD;
-}
-
-.sub_price_cell {
-    text-align : right;
-    font-weight: bold;
-    font-size  : 2rem;
-    line-height: 3rem;
-    color      : #000000;
-}
-
-
-.cart_sub_total td {
-    padding-top: 1rem;
-}
-
-
-.sub_del {
-    font-family: 'inter';
-    font-weight: normal;
-    font-size  : 14px;
-    line-height: 17px;
-    color      : #979797;
-    padding-top: 7px;
-}
-
-.sub_del_charge {
-    text-align : right;
-    font-weight: bold;
-    font-size  : 14px;
-    line-height: 21px;
-    color      : #828282;
-}
-
-
-.total_item {
-    padding-top       : 1.7rem;
-    padding-bottom    : 2.6rem;
-    display           : flex;
-    justify-content   : space-between;
-    border-top        : 1px solid #EEEEEE;
-    /* margin-top     : 10rem; */
-    margin-top        : 3rem;
-}
-
-.total_item h1 {
-    font-weight: 600;
-    font-size  : 1.8rem;
-    line-height: 2.2rem;
-    color      : #000000;
-    font-family: 'inter';
-}
-
-
-.total_item h2 {
-    font-weight: bold;
-    font-size  : 2.5rem;
-    line-height: 3.7rem;
-    color      : #000000;
-}
-
-.check_btn {
-    font-weight  : 600;
-    font-size    : 1.8rem;
-    line-height  : 2.2rem;
-    color        : #FFFFFF;
-    width        : 100%;
-    padding      : 1.6rem;
-    background   : #4F7F6C;
-    border-radius: 5.1rem;
-    border       : none;
-    font-family  : 'inter';
-}
 
 .mobile_search {
     display: none;
@@ -781,21 +528,6 @@
     margin-right: 0 !important;
 }
 
-/* .mega_menu {
-    position     : absolute;
-    left         : 0;
-    right        : 0;
-    top          : 50px;
-    border-top   : 1px solid #E0E0E0;
-    z-index      : 1039;
-    transition   : height 5s ease-out;
-    min-height   : 0;
-    opacity      : 0;
-    display      : none;
-} */
-
-
-
 .mega_menu_wraper {
     padding         : 2rem;
     height          : 100%;
@@ -806,13 +538,6 @@
     border-top      : 0;
     background-color: #FFFFFF;
 }
-
-/* .menu_writers img {
-    display    : block;
-    max-width  : 27.7rem;
-    margin-left: auto;
-    width      : 100%;
-} */
 
 .mega_menu_title {
     font-weight  : bold;
@@ -839,12 +564,6 @@
     margin-top : -.1rem;
 }
 
-/* .mega_menu_wraper {
-    background-color: #FFFFFF;
-    height          : 100%;
-    width           : 100%;
-} */
-
 .mega_writer_link {
     padding-left : 0;
     margin-bottom: .5rem;
@@ -864,6 +583,12 @@
 
 .mega_link_box {
     padding-left: 1.6rem;
+}
+
+/* forgot password */
+.nav_login_form a.forgot_passowrd {
+    font-size: 1.8rem;
+    line-height: 2.8rem;
 }
 
 /* Navbar Responsive */
@@ -888,10 +613,6 @@
     }
     .mobileCart {
         display: block;
-    }
-
-    .cart_table_wrapper {
-        height: calc(100vh - 332px);
     }
 
     .navbar-brand img {
@@ -920,7 +641,7 @@
     }
 
     .nav_search input {
-        font-weight: bold;
+        /* font-weight: bold; */
         font-size  : 16px;
         line-height: 24px;
         padding    : 12px 45px 12px 22px;
@@ -944,167 +665,6 @@
     }
 
 }
-
-@media (max-width: 630.98px) {
-    .cart_table_wrapper {
-        height: calc(100vh - 300px);
-    }
-
-    .cart_header {
-        padding    : 21px;
-        font-size  : 22px;
-        line-height: 33px;
-    }
-
-    .cart_header .canvasClose {
-        height: 33px;
-        width : 33px;
-        top   : 13px;
-    }
-
-    .cart_body {
-        padding: 24px;
-    }
-
-    .btn_group {
-        min-width: 99px;
-        border   : none;
-    }
-
-    .cart_item_header h5 {
-        font-size  : 16px;
-        line-height: 19px;
-    }
-
-    .cart_item_header h6 {
-        font-size  : 14px;
-        line-height: 17px;
-    }
-
-    .cart_item_header {
-        padding-bottom: 4px;
-    }
-
-    .cart_item .del_cell {
-        width: 27px;
-    }
-
-    .cart_item .del_btn {
-        height: 18px;
-        width : 14px;
-    }
-
-    .cart_item .pd_cell img {
-        width: 79px;
-    }
-
-    .cart_item .pd_cell {
-        width: 91px;
-    }
-
-    .pd_info_cell h2 {
-        font-weight  : bold;
-        font-size    : 18px;
-        line-height  : 27px;
-        margin-bottom: 3px;
-    }
-
-    .pd_info_cell h6 {
-        font-size  : 14px;
-        line-height: 21px;
-    }
-
-    .pd_price_cell h2 {
-        font-size  : 18px;
-        line-height: 27px;
-    }
-
-    .pd_price_cell h6 {
-        font-size    : 14px;
-        line-height  : 21px;
-        margin-bottom: 35px;
-    }
-
-    .btn_group button,
-    .btn_group button img {
-        height: 20px;
-        width : 20px;
-    }
-
-    .btn_group span {
-        font-size  : 20px;
-        line-height: 26px;
-    }
-
-    .btn_group {
-        padding     : 0;
-        margin-right: -14px;
-
-    }
-
-    .cart_item td {
-        margin-bottom: 15px;
-    }
-
-    .cart_item:last-child td {
-        padding-bottom: 30px;
-    }
-
-    .cart_sub_total td {
-        padding-top: 18px;
-    }
-
-    .sub_cell {
-        font-weight: 600;
-        font-size  : 16px;
-        line-height: 19px;
-        width      : 122px;
-    }
-
-    .sub_cell span {
-        font-weight: normal;
-        font-size  : 14px;
-        line-height: 17px;
-    }
-
-    .sub_price_cell {
-        font-size  : 18px;
-        line-height: 27px;
-    }
-
-    .total_item {
-        padding-top   : 15px;
-        padding-bottom: 26px;
-    }
-
-    .total_item h1 {
-        font-weight: 600;
-        font-size  : 18px;
-        line-height: 22px;
-
-    }
-
-    .total_item h2 {
-        font-weight: bold;
-        font-size  : 22px;
-        line-height: 33px;
-    }
-
-    .check_btn {
-        font-weight: 600;
-        font-size  : 16px;
-        line-height: 19px;
-        padding    : 16px;
-    }
-
-}
-
-.navbar {
-    padding: 0;
-}
-
-
-
 
 
 /* Auto Complete Box CSS */
@@ -1145,6 +705,7 @@
     padding-top: 1.7rem;
     padding-bottom: 1.7rem;
     text-align: center;
+    font-family: 'Inter', sans-serif;
 }
 
 .auto_complete_item img{
