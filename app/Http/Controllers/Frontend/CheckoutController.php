@@ -45,7 +45,7 @@ class CheckoutController extends Controller {
 
             return view('frontend.checkout.checkout', compact('user', 'cartService', 'default_address', 'total'));
         } else {
-            return view('frontend.auth.login');
+            return view('frontend.auth.sign_in');
         }
 
     }

@@ -90,6 +90,7 @@
     font-size: 2rem;
     line-height: 2.8rem;
     font-weight: bold;
+    margin-top: 0.6rem;
 }
 .book_card_content p.author, .book_card_content h6.discount {
     font-size: 1.8rem;
@@ -215,13 +216,16 @@
         width: 31rem;
         height: 31rem;
     }
+    .circle_bg img {
+        transform: scale(.9);
+    }
     .book_card_content h3.title {
         font-size: 1.6rem;
         line-height: 2.9rem;
         font-weight: bold;
     }
     .book_card_content h5.regular {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         line-height: 2.6rem;
     }
     .book_card_content p.author, .book_card_content h6.discount {
@@ -259,17 +263,17 @@
         padding-left: 2.3rem;
         padding-right: 2.3rem;
     }
-    .writer_content h3 {
-        font-size: 1.6rem;
-    }
     .circle_bg::before {
-        width: 14rem;
-        height: 14rem;
+        width: 16rem;
+        height: 16rem;
     }
+    /* .circle_bg img {
+        transform: scale(.7);
+    } */
     .card_with_bg h6 {
-        font-size: 2rem;
+        font-size: 2.2rem;
         line-height: 3.3rem;
-        margin-top: 2rem;
+        margin-top: 1.4rem;
     }
 
     .new_published_card .jq-ry-container {

@@ -159,11 +159,9 @@ $offers = HomePageController::offers();
                                                 placeholder="আপনার ফোন নম্বর" name="number">
 
                                         </div>
-                                        <div class="col-12 mb-3">
-
+                                        <div class="col-12 mb-3 passwordDiv">
                                             <input class="form-control form-control-lg otp_change loginModalOtp"
                                                 name="password" type="password" placeholder="আপনার পাসওয়ার্ড">
-
 
                                         </div>
 

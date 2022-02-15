@@ -33,12 +33,13 @@
 
                 <div class="login_content">
                     <h2>লগ ইন করুন</h2>
-                    <form class="loginForm" method="POST">@csrf
-                        <div class="input_fild">
+                    <form id="loginForm" method="POST">@csrf
+                        <div class="input_fild inputDiv">
                             <input type="text" name="number" placeholder="আপনার ফোন নম্বর" name="">
-                            <input type="password" name="password" placeholder="আপনার পাসওয়ার্ড" name="" class="mt-4">
+                            <input type="password" name="password" placeholder="আপনার পাসওয়ার্ড" name=""
+                                class="mt-4">
                         </div>
-                        <p>এই নম্বরে আমরা একটি ওটিপি (একবার ব্যবহারযোগ্য পাসওয়ার্ড) পাঠাব</p>
+                        <!--<p>এই নম্বরে আমরা একটি ওটিপি (একবার ব্যবহারযোগ্য পাসওয়ার্ড) পাঠাব</p>-->
                         <div class="submit_btn">
                             <button class="submit">সাবমিট করুন</button>
                         </div>
@@ -65,6 +66,11 @@
 @section('page-js')
 
     <script>
+        var errorMessageDiv = '.inputDiv';
+        var form = '#loginForm';
+        var url = "{!! route('frontend.sign.in') !!}";
 
+        loginFormValidation(form);
+        singIn(form,url,errorMessageDiv);
     </script>
 @endsection

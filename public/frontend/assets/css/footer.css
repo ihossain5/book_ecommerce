@@ -46,9 +46,6 @@
 .right_border{
     border-right: 1px solid #4F7F6C;
 }
-.right_border.left_content {
-    padding-right: 12rem;
-}
 
 .center_content{
     padding-left: 10rem;

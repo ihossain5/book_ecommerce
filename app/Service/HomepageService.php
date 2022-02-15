@@ -22,7 +22,7 @@ Class HomepageService {
     function popularBooks() {
         return Book::where('is_visible', 1)->with('authors', 'publication', 'reviews', 'orders')->withCount([
             'orders as counted_order' => function ($query) {
-                $query->where('order_status_id', 3);
+                $query->where('order_status_id', 4);
             }])->orderBy('counted_order', 'DESC')->paginate(12);
 
         // $countedBooks = [];

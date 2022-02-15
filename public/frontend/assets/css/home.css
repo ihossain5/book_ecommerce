@@ -216,9 +216,15 @@
         top: 355px;
         margin: auto;
     }
+    .book_card_content h6.discount {
+        margin-right: 1.5rem;
+    }
     .new_published_book_carousel .item{
         padding-top: 4.5rem;
     }
+    /* .new_published_book_carousel .owl-dots, .common_carousel .owl-dots {
+        padding-top: 4.5rem;
+    } */
     .most_selling_carousel_wrapper .item {
         padding: 4.5rem 8rem 0 8rem;
     }
@@ -228,6 +234,10 @@
     .writers_carousel_wrapper .item {
         padding: 4rem 6rem;
     }
+    /* .new_published_card .image_wrapper {
+        flex: 0 0 17rem;
+        max-width: 17rem;
+    } */
     .searvices_section .searvices .row{
         padding: 5.2rem 0;
     }
@@ -279,21 +289,14 @@
     .new_published_book_section {
         padding-top: 3rem;
         padding-bottom: 3rem;
+
     }
     .btn_box_smd {
         text-align: center;
         margin-top: 3.8rem;
     }
     .most_selling_carousel_wrapper .item {
-        padding: 3rem 3rem 0;
-    }
-    .new_published_card .image_wrapper {
-        flex: 0 0 45%;
-        max-width: 45%;
-    }
-    .new_published_card .content_wrapper {
-        flex: 0 0 55%;
-        max-width: 55%;
+        padding: 3rem 4rem 0 4rem;
     }
     .new_published_carousel_wrapper{
         margin-top: 3.2rem;
@@ -305,7 +308,7 @@
         padding-top: 3.2rem;
     }
     .writers_carousel_wrapper .item {
-        padding: 3rem 3rem 0;
+        padding: 3rem 4rem 0;
     }
 
     .new_published_book_section.pb-70 {
@@ -328,10 +331,6 @@
     .searvices_section.py-12 {
         padding-top: 8rem;
         padding-bottom: 2rem;
-    }
-    .common_carousel .owl-nav button img {
-        width: 3.2rem;
-        height: 3.2rem;
     }
 }
 
