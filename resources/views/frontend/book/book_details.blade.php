@@ -351,7 +351,7 @@
             </div>
         </div>
         <div class="container">
-            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
+            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xxl-6">
                 @if (!empty($related_books))
                     @foreach ($related_books as $key => $related_book)
                         <div class="col">
@@ -362,6 +362,9 @@
                                         <img class="img-fluid w-100"
                                             src="{{ asset('images/' . $related_book->cover_image) }}" alt="book image">
                                     </a>
+                                    <div class="npb_hoberable">
+                                        <button class="addtocart" onclick="addToCart({{ $related_book->book_id }})">Add to cart</button>
+                                    </div>
                                     @if ($related_book->discounted_percentage != null || $related_book->discounted_percentage != 0)
                                         <div class="red_tag">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49"
@@ -396,7 +399,10 @@
                                             টাকা</h5>
                                     </div>
                                     <a href="{{ route('frontend.book.details', [$related_book->book_id]) }}"
-                                        class="btn_buy_now">Buy Now</a>
+                                        class="btn_buy_now">বিস্তারিত</a>
+                                        <div class="addtocart_smallview">
+                                            <button class="addtocart" onclick="addToCart({{ $related_book->book_id }})">Add to cart</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>

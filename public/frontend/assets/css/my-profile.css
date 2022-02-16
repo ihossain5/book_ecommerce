@@ -168,7 +168,9 @@ input[type="file"] {
     border       : 4px solid #AEC4BB;
 
 }
-
+.modal.show .modal-dialog{
+    max-width: 1620px;
+}
 .my_profile_body .tab-content .input_fild {
     padding: 1.4rem 17rem 0;
 
@@ -181,6 +183,10 @@ input[type="file"] {
 
 .modal-header .btn-close:focus {
     box-shadow: none;
+}
+
+.my_profile_body .modal-dialog {
+    max-width: 1260px;
 }
 
 .my_profile_body .modal-dialog {
@@ -411,22 +417,26 @@ input[type="file"] {
     z-index         : 2;
 }
 
-
 .order-header h1 {
+    font-family  : 'Inter';
     font-weight  : bold;
     font-size    : 2.4rem;
     line-height  : 2.6rem;
-    color        : #333333;
-    margin-bottom: .9rem;
+    color        : #797979;
+    margin-bottom: 6.1rem;
+    border-bottom: 1px solid #79797944;
+    padding      : 15px ;
 }
 
 .order-header h1 span {
     font-family: 'inter';
-    font-weight: 500;
-    font-size  : 2rem;
-    line-height: 2.6rem;
-    color      : #4F4F4F;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 30px;
+    color: #797979;
+    padding-left: 1rem;
 }
+
 
 .order-header h5 {
     font-weight: normal;
@@ -455,6 +465,235 @@ input[type="file"] {
 }
 
 
+/* order-items */
+.order-items {
+    border: 1px solid #4F7F6C;
+    border-radius: 10px;
+    padding-bottom: 125px;
+}
+.order-items .order-item-box {
+    padding-left : 2.7rem;
+    border: none;
+}
+.order-items .order-item-box ul li {
+    margin-bottom: 1.6rem;
+}
+.order-items .order-item-box ul li>div span:first-child {
+    width: 178px;
+}
+.order-items .order-item-box ul li>div span:first-child {
+    color: #262626;
+    margin-right: 1.5rem;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+}
+.order-items .order-item-box ul li>div span:last-child {
+    color: #797979;
+    font-family: "inter",sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 23px;
+}
+.order-items .order-item-box ul li:last-child>div span:last-child{
+    font-family  : 'Ruposhi Bangla Unicode';
+}
+.order-items .order-item-box ul li>div span:last-child label {
+    padding-right: 21px;
+    font-family  : 'Ruposhi Bangla Unicode';
+}
+.order-items .order-item-box:last-child ul li>div span:last-child{
+    font-family  : 'Ruposhi Bangla Unicode';
+}
+
+
+.order-item-header{
+    padding      : 2.1rem 0 1.5rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #4F7F6C;
+}
+.order-item-header h2{
+    font-weight    : bold;
+    font-size      : 2.3rem;
+    line-height    : 3.4rem;
+    color          : #262626;
+    padding-left   : 2.7rem;
+}
+
+/* Small Device Cart */
+
+.special-note .small_cart_wrapper{
+    display: none;
+}
+
+/* large device cart */
+.special-note .large_cart_wrapper {
+    border: 1px solid var(--blue);
+    border-radius: 1rem;
+    margin-right: 60px;
+}
+
+.special-note .large_cart_wrapper>div .large_cart_inner:first-child >h2 {
+    font-family  : "Inter";
+    font-style   : normal;
+    font-weight  : 600;
+    font-size    : 20px;
+    line-height  : 24px;
+    color        : #262626;
+}
+.special-note .large_cart_wrapper>div .large_cart_inner:first-child {
+    border-bottom: 1px solid var(--blue);
+    padding-top: 22px;
+    padding-bottom: 24px;
+}
+.special-note .large_cart_wrapper .large_cart_inner:nth-child(2) {
+    padding: 3.8rem 2.7rem 1.8rem;
+}.special-note .large_cart_wrapper .large_cart_inner {
+    padding: 1.7rem 2.7rem 1.8rem;
+}
+.special-note .large_cart_wrapper .large_cart_inner:last-child {
+    padding: 1.7rem 2.7rem 4.6rem;
+}
+.special-note .large_cart_wrapper p.header {
+    font-size: 2.3rem;
+    font-weight: bold;
+    line-height: 3.4rem;
+    text-transform: capitalize;
+}
+.special-note .large_cart_wrapper .del_btn_wrapper {
+    max-width: 76px;
+    text-align: center;
+}
+.special-note .large_cart_wrapper .del_btn_wrapper .del_btn {
+    background: transparent;
+}
+.special-note .large_cart_wrapper .image_content {
+    display: flex;
+    align-items: center;
+}
+
+.special-note .large_cart_wrapper .image_content img {
+    max-width: 7.8rem;
+    margin-right: 2.6rem;
+}
+.special-note .large_cart_wrapper .btn_group {
+    max-width: 131px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.special-note .large_cart_wrapper .pd_price_cell, 
+.special-note .image_content .pd_info_cell h2, 
+.special-note .large_cart_wrapper .btn_group span, 
+.special-note .large_cart_wrapper .pd_price_cell h2 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 30px;
+    color: #797979;
+}
+
+.special-note .large_cart_wrapper .pd_price_cell {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.special-note .large_cart_wrapper button {
+    border: 0;
+}
+.special-note .large_cart_wrapper .pd_price_cell h2, 
+.special-note .large_cart_wrapper .pd_price_cell h6 {
+    text-align: center;
+}
+.special-note .large_cart_wrapper .pd_price_cell.total h2 {
+    text-align: right;
+}
+.special-note .large_cart_wrapper .total_item {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+}
+.special-note .large_cart_wrapper .total_item.last {
+    padding-bottom: 2.4rem;
+}
+.special-note .large_cart_wrapper a.fire_jan {
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 3rem;
+    color: var(--blue);
+} 
+.special-note .large_cart_wrapper .check_btn {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    font-weight: 600;
+    padding: 1.3rem 3.6rem;
+    border-radius: 3px;
+}
+.special-note .col-md-3 .large_cart_wrapper {
+    margin-right: 0;
+}
+.special-note .col-md-3 .large_cart_wrapper h3 {
+    border-bottom: 1px solid var(--blue);
+    padding: 2rem 1.5rem 1.6rem 2.7rem;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 34px;
+    color: #262626;
+}
+.special-note .col-md-3 .large_cart_wrapper ul {
+    padding: 4rem 2.7rem 3.5rem;
+}
+.special-note .col-md-3 .large_cart_wrapper ul li {
+    margin-bottom: 1.6rem;
+}
+.special-note .col-md-3 .large_cart_wrapper ul li:last-child {
+    border-top: 1px solid var(--blue);
+    padding-top: 1.2rem;
+    margin-top: 5.6rem;
+}
+.special-note .col-md-3 .large_cart_wrapper ul li>div{
+    display: flex;
+    align-items: center;
+}
+.special-note .col-md-3 .large_cart_wrapper ul li>div span:first-child {
+    width: 45%;
+    color: #262626;
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 2.6rem;
+}
+.special-note .col-md-3 .large_cart_wrapper ul li>div span:last-child {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    color: #797979;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2rem;
+    line-height: 2.3rem;
+}
+
+.special-note .col-md-3 .large_cart_wrapper ul li>div span label {
+    font-family  : 'Ruposhi Bangla Unicode';
+}
+.special-note .col-md-3 .large_cart_wrapper ul li:last-child>div span:last-child p{
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 3rem;
+    color: #262626;
+}
+
+.special-note {
+    padding: 0;
+    padding-top: 6.1rem;
+}
+
+/* end */
 .order-item-box {
     border-right : 1px solid #E0E0E0;
     padding-right: 6.2rem;
@@ -544,6 +783,11 @@ input[type="file"] {
     color      : #828282;
 }
 
+/* product delete button */
+button.addtocart {
+    background: #df0505;
+}
+
 @media (max-width: 991px) {
     .book_cards_section .row {
         margin-top   : -4.2rem;
@@ -578,6 +822,102 @@ input[type="file"] {
 }
 
 @media (max-width: 767.98px) {
+    .order-item-header h2 {
+        padding-left: 1.5rem;
+    }
+    .order-items .order-item-box {
+        padding-left: 1.5rem;
+    }
+    .order-items .order-item-box:not(:last-child) {
+        padding-left: 1.5rem;
+        border-bottom : 1px solid #E0E0E0;
+    }
+    .order-history-content .modal-body {
+        padding: 0;
+    }
+    .order-items .order-item-box ul li>div span:first-child {
+        width: 85px;
+    }
+    .order-items .order-item-box ul li>div span:first-child {
+        font-size: 17px;
+        line-height: 30px;
+    }
+    .order-items .order-item-box ul li>div span:last-child {
+        font-size: 17px;
+        line-height: 23px;
+    }
+    .special-note .large_cart_wrapper {
+        display: none;
+    }
+    .special-note .large_cart_wrapper.order_details {
+        display: block;
+        margin-bottom: 61px;
+    }
+    /* Small Device Cart */
+    
+    .special-note .small_cart_wrapper {
+        display: block;
+        margin-bottom: 6.1rem;
+        border: 1px solid var(--blue);
+        border-radius: 1rem;
+    }
+    .special-note .small_cart_wrapper .large_cart_inner:not(:first-child){
+        padding-bottom: 49px;
+        padding-top: 49px;
+    }
+    .special-note .small_cart_wrapper>div .large_cart_inner:first-child >h2 {
+        font-family  : "Inter";
+        font-style   : normal;
+        font-weight  : 600;
+        font-size    : 20px;
+        line-height  : 24px;
+        color        : #262626;
+        padding      : 1rem 2.9rem .8rem;
+        border-bottom: 1px solid #4F7F6C;
+    }
+    .special-note .small_cart_wrapper .item_content{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 36px;
+        position: relative;
+    }
+    .special-note .small_cart_wrapper .item_content .pd_price_cell{
+        position: absolute;
+        top: 0;
+        left: 30px;
+    }
+    .special-note .small_cart_wrapper .item_content .image_content{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .special-note .small_cart_wrapper .item_content .image_content img{
+        width: 77px;
+    }
+    .special-note .small_cart_wrapper .item_content .pd_info_cell{
+        padding-top: 12px;
+    }
+    
+    
+    /* Small Device Cart End */
+    .special-note .pd_price_cell .header {
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 22px;
+        color: #262626;
+        padding-bottom: .8rem;
+    }
+    .special-note .btn_group span,
+    .special-note .pd_price_cell h2
+    {
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 22px;
+        color: #797979;
+    }
+    /* end */
 
     .my_profile_body .address_loc_details {
         display        : flex;
@@ -652,16 +992,16 @@ input[type="file"] {
     /* New CSS for order history modal */
     .delevery-success,
     .delevery-pending {
-        margin-top   : 15px;
-        margin-bottom: 10px;
+        margin-top   : 1.5rem;
+        margin-bottom: 1rem;
     }
 
     .order-item-box {
         padding-right : calc(var(--bs-gutter-x) * .5);
         border-right  : none;
         border-bottom : 1px solid #E0E0E0;
-        margin-bottom : 20px;
-        padding-bottom: 20px;
+        margin-bottom : 2rem;
+        padding-bottom: 2rem;
     }
 
     .order-price-box {

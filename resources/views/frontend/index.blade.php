@@ -127,6 +127,9 @@
                                             <img class="img-fluid w-100" src="{{ asset('images/' . $book->cover_image) }}"
                                                 alt="book image">
                                         </a>
+                                        <div class="npb_hoberable">
+                                            <button class="addtocart" onclick="addToCart({{ $book->book_id }})">Add to cart</button>
+                                        </div>
                                     </div>
                                     <div class="content_wrapper book_card_content">
                                         @if ($book->discounted_percentage != null || $book->discounted_percentage != 0)
@@ -166,8 +169,10 @@
                                             @endif
                                         </div>
                                         <a href="{{ route('frontend.book.details', [$book->book_id]) }}"
-                                            class="btn_buy_now">Buy
-                                            Now</a>
+                                            class="btn_buy_now">বিস্তারিত</a>
+                                            <div class="addtocart_smallview">
+                                                <button class="addtocart" onclick="addToCart({{ $book->book_id }})">Add to cart</button>
+                                            </div>
                                     </div>
                                 </div>
                             </div>
@@ -226,6 +231,9 @@
                                                     src="{{ asset('images/' . $popularBook->cover_image) }}"
                                                     alt="book image">
                                             </a>
+                                            <div class="npb_hoberable">
+                                                <button class="addtocart" onclick="addToCart({{ $popularBook->book_id }})">Add to cart</button>
+                                            </div>
                                             @if ($popularBook->discounted_percentage != null || $popularBook->discounted_percentage != 0)
                                                 <div class="red_tag">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49"
@@ -263,8 +271,10 @@
 
                                             </div>
                                             <a href="{{ route('frontend.book.details', [$popularBook->book_id]) }}"
-                                                class="btn_buy_now">Buy
-                                                Now</a>
+                                                class="btn_buy_now">বিস্তারিত</a>
+                                                <div class="addtocart_smallview">
+                                                    <button class="addtocart" onclick="addToCart({{ $popularBook->book_id }})">Add to cart</button>
+                                                </div>
                                         </div>
                                     </div>
                                 </div>
@@ -297,6 +307,17 @@
         <div class="container">
             <div class="sc_title_wrapper">
                 <h1 class="sc_title">লেখক </h1>
+                <div class="btn_box d-none d-lg-block">
+                    <a href="{{ route('frontend.authors') }}" class="btn_more">
+                        সব লেখকদের দেখুন
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <path d="M2.5 6H9.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path d="M6 2.5L9.5 6L6 9.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="writers_carousel_wrapper">
@@ -322,6 +343,19 @@
 
 
                 </div>
+            </div>
+        </div>
+        <div class="container d-lg-none">
+            <div class="btn_box_smd">
+                <a href="{{ route('frontend.authors') }}" class="btn_more">
+                    সব লেখকদের দেখুন
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M2.5 6H9.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M6 2.5L9.5 6L6 9.5" stroke="black" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
             </div>
         </div>
     </section>

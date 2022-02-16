@@ -32,4 +32,15 @@ class WishlistController extends Controller
         return $this->success($data);
 
     }
+
+    public function delete(Request $request){
+
+        $wishlist = Whislist::findOrFail($request->id);
+
+        $wishlist->delete();
+
+        $wishlist->whislist= auth()->user()->wishlists->count();
+
+        return $this->success($wishlist);
+    }
 }

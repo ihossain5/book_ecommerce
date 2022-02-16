@@ -5,62 +5,62 @@
 
 /* Filter Section */
 .filter_wraper {
-    background   : var(--white);
-    box-shadow   : 0px 20px 50px rgba(0, 0, 0, 0.1);
+    background: var(--white);
+    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
 }
 
 .filter_header {
-    background   : var(--blue);
+    background: var(--blue);
     border-radius: 15px 15px 0px 0px;
-    padding      : 14px 28px;
+    padding: 14px 28px;
 }
 
 .filter_header h1 {
     font-weight: bold;
-    font-size  : 20px;
+    font-size: 20px;
     line-height: 24px;
-    color      : var(--white);
+    color: var(--white);
 }
 
 .filter_header img {
     height: 22px;
-    width : 22px;
+    width: 22px;
 }
 
 .filter_body {
-    padding-left  : 28px;
-    padding-right : 28px;
+    padding-left: 28px;
+    padding-right: 28px;
     padding-bottom: 52px;
 }
 
 .filter_content h2 {
     font-weight: bold;
-    font-size  : 18px;
+    font-size: 18px;
     line-height: 27px;
-    color      : #000000;
+    color: #000000;
 }
 
 .filter_clear {
-    padding-top    : 25px;
-    padding-bottom : 9px;
-    border-bottom  : 1px solid #E2E2E2;
-    display        : flex;
+    padding-top: 25px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #E2E2E2;
+    display: flex;
     justify-content: space-between;
 }
 
 .filter_clear button {
-    font-weight     : bold;
-    font-size       : 14px;
-    color           : #4F7F6C;
-    display         : block;
+    font-weight: bold;
+    font-size: 14px;
+    color: #4F7F6C;
+    display: block;
     background-color: transparent;
-    border          : none;
+    border: none;
 }
 
 .filter_clear button img {
-    height    : 13px;
-    width     : 13px;
+    height: 13px;
+    width: 13px;
     margin-top: -1px;
 }
 
@@ -75,13 +75,13 @@
 
 .form-check-input:checked {
     background-color: #AEC4BB;
-    border-color    : transparent;
+    border-color: transparent;
 }
 
 .form-check-input {
-    border    : 4px solid #AEC4BB;
-    height    : 16px;
-    width     : 16px;
+    border: 4px solid #AEC4BB;
+    height: 16px;
+    width: 16px;
     margin-top: 0.4em;
 }
 
@@ -91,14 +91,57 @@
 
 .form-check-label {
     font-weight: bold;
-    font-size  : 20px;
+    font-size: 20px;
     line-height: 30px;
-    color      : #797979;
+    color: #797979;
     margin-left: 10px;
 }
 
 .form-check {
     margin-top: 16px;
+}
+
+/* min max input price range */
+.minmax_price_range {
+    padding-top: 1.4rem;
+}
+
+.minmax_price_range h3, .minmax_input_wapper .minmax_input {
+    font-weight: bold;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+    color: #797979;
+}
+
+.minmax_input_wapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.minmax_input_wapper .minmax_input {
+    max-width: 6.2rem;
+    opacity: 0.5;
+    border: 1px solid #AEC4BB;
+    border-radius: 2px;
+    padding: .5rem;
+}
+
+.minmax_input_wapper .minmax_btn {
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    color: var(--white);
+    padding: .6rem;
+    min-width: 5.3rem;
+    border: 0;
+    border-radius: 2px;
+    background: var(--blue);
+}
+
+.minmax_input_wapper p {
+    color: #797979;
+    opacity: 0.5;
 }
 
 .desktop_filter {
@@ -111,62 +154,62 @@
 
 /* select box */
 select.btn_more {
-    font-size    : 1.8rem;
-    line-height  : 2.6rem;
-    font-weight  : bold;
-    color        : var(--blue);
-    border       : 1px solid var(--blue);
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    font-weight: bold;
+    color: var(--blue);
+    border: 1px solid var(--blue);
     border-radius: .5rem;
-    padding      : .8rem 1.6rem;
-    display      : inline-block;
+    padding: .8rem 1.6rem;
+    display: inline-block;
     font-family: 'Ruposhi Bangla Unicode';
 }
 
 /* ==writer details== */
 .writer_details_content {
-    background   : #FDF7EE;
+    background: #FDF7EE;
     border-radius: 1rem;
     padding: 4.7rem;
 }
 
 .writer_details_content .writer_details_image {
-    width : 27.7rem;
+    width: 27.7rem;
     margin: 0 auto;
 }
 
 .writer_details_content .writer_details_image img {
-    filter       : drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0px 20px 20px rgba(0, 0, 0, 0.15));
     border-radius: 10px;
 }
 
 .writer_details_content .writer_details_text {
-    width         : 92%;
+    width: 92%;
     padding-top: .5rem;
 }
 
 .writer_details_content .writer_details_text h2 {
-    font-size     : 5rem;
-    font-weight   : 700;
-    line-height   : 2.6rem;
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 2.6rem;
     padding-bottom: 4.2rem;
-    color         : var(--blue);
+    color: var(--blue);
 
 }
 
 .writer_details_content .writer_details_text p {
-    font-size  : 2.5rem;
+    font-size: 2.5rem;
     line-height: 3.6rem;
     font-weight: 400;
-    color      : #777777;
-    display    : inline;
+    color: #777777;
+    display: inline;
 }
 
 .writer_details_content .writer_details_text a {
-    color        : #5D1718;
-    font-size    : 1.6rem;
-    line-height  : 1.9rem;
-    font-weight  : 500;
-    font-family  : 'inter', sans-serif;
+    color: #5D1718;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    font-weight: 500;
+    font-family: 'inter', sans-serif;
     border-bottom: 1px solid;
 }
 
@@ -174,18 +217,18 @@ select.btn_more {
 /* New Search Input and Check CSS */
 
 .search_group {
-    position      : relative;
-    padding-top   : .9rem;
+    position: relative;
+    padding-top: .9rem;
     padding-bottom: .9rem;
 }
 
 .search_group .form-control {
-    font-weight  : bold;
-    font-size    : 1.5rem;
-    line-height  : 2.2rem;
-    color        : #AEC4BB;
-    padding      : 0.6rem 3rem 0.6rem 1.2rem;
-    border       : 1px solid rgba(79, 127, 108, 0.3);
+    font-weight: bold;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    color: #AEC4BB;
+    padding: 0.6rem 3rem 0.6rem 1.2rem;
+    border: 1px solid rgba(79, 127, 108, 0.3);
     border-radius: 3px;
     font-family: 'Ruposhi Bangla Unicode';
 }
@@ -196,21 +239,21 @@ select.btn_more {
 }
 
 .search_group button {
-    position        : absolute;
-    right           : 0;
-    top             : 0;
-    bottom          : 0;
-    margin-top      : auto;
-    margin-bottom   : auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
     background-color: inherit;
-    border          : none;
-    padding-right   : 1.2rem;
+    border: none;
+    padding-right: 1.2rem;
 
 }
 
 .search_group button img {
     height: 1.6rem;
-    width : 1.6rem;
+    width: 1.6rem;
 }
 
 .form-check-input:checked[type=checkbox] {
@@ -228,25 +271,28 @@ select.btn_more {
 .form-check-input[type=checkbox] {
     border: 1px solid #AEC4BB;
 }
-/* width */
-::-webkit-scrollbar {
+
+
+/* sorollbar - firefox only */
+.form_chack_container {
+    scrollbar-color: #888888 #f1f1f1;
+    scrollbar-width: thin;
+}
+
+/* sorollbar - chrome only */
+.form_chack_container::-webkit-scrollbar {
     width: 4px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: #888; 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
+}
+
+.form_chack_container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.form_chack_container::-webkit-scrollbar-thumb {
+    background: #888888;
+}
+
+
 
 /*  ==responsive== */
 
@@ -255,10 +301,12 @@ select.btn_more {
         height: 250px;
         overflow: auto;
     }
+
     .form_chack_container .form-check-label {
         font-size: 1.8rem;
     }
 }
+
 @media (max-width: 991.98px) {
     .books_page .sc_title_wrapper {
         text-align: left;
@@ -279,17 +327,17 @@ select.btn_more {
     }
 
     .filter_mobile {
-        position        : fixed;
-        z-index         : 70;
+        position: fixed;
+        z-index: 70;
         background-color: white;
-        left            : 0;
-        bottom          : 0;
-        right           : 0;
-        transition      : all .5s;
-        padding-left    : 0;
-        padding-right   : 0;
-        overflow-x      : hidden;
-        overflow-y      : auto;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        transition: all .5s;
+        padding-left: 0;
+        padding-right: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
     }
 
     /* ==writers details== */
@@ -297,17 +345,17 @@ select.btn_more {
         width: 100%;
     }
 
-    
+
 
     .search_group .form-control {
-        font-size  : 18px;
+        font-size: 18px;
         line-height: 22px;
-        padding    : 12px 35px 12px 12px;
+        padding: 12px 35px 12px 12px;
     }
 
     .search_group button img {
         height: 2.6rem;
-        width : 2.6rem;
+        width: 2.6rem;
     }
 }
 
@@ -317,21 +365,26 @@ select.btn_more {
     }
 
     .writer_details_content .writer_details_text h2 {
-        font-size     : 3.5rem;
+        font-size: 3.5rem;
         padding-bottom: 2.2rem;
     }
 
     .writer_details_content .writer_details_text p {
-        font-size  : 1.8rem;
+        font-size: 1.8rem;
         line-height: 2.8rem;
     }
 
     .writer_details_content .writer_details_text {
         padding: 2.7rem 2rem 3.7rem;
     }
+
     select.btn_more {
         padding: .4rem 1rem;
     }
 }
 
-@media (max-width: 575.98px) {}
+@media (max-width: 575.98px) {
+    .writer_details_content {
+        padding: 2.4rem .6rem;
+    }
+}

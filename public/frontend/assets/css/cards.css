@@ -168,7 +168,7 @@
     opacity: 1;
     visibility: visible;
 }
-.npb_hoberable .addtocart {
+.addtocart {
     font-family: 'Inter', sans-serif;
     font-size: 1.4rem;
     line-height: 1.8rem;
@@ -179,7 +179,10 @@
     border-radius: 5px;
     padding: 1.2rem 1.5rem;
 }
-
+/* add to cart button for mobile */
+.addtocart_smallview {
+    display: none;
+}
 
 
 /* ==writer card== */
@@ -326,6 +329,17 @@
 }
 
 @media (max-width: 575.98px) {
+    .npb_hoberable {
+        display: none;
+    }
+    .book_card_wrapper .image_wrapper:hover {
+        transform: scale(1);
+    }
+    .writer_content img:hover {
+        transform: scale(1);
+    }
+
+
     .book_card_with_bg_section .row {
         margin-top: 0;
         margin-bottom: -4.5rem;
@@ -338,6 +352,18 @@
     }
     .book_card_with_bg_section .row>col:last-child {
         padding-bottom: 0rem;
+    }
+    .circle_bg img:hover {
+        transform: scale(1);
+    }
+
+    /* add to cart button on book card */
+    .addtocart_smallview {
+        display: block;
+    }
+    .addtocart {
+        margin-top: 1rem;
+        padding: .8rem 1rem;
     }
 
     /* ==writers page== */

@@ -69,7 +69,7 @@
                                             alt=""></button>
                                 </div>
                             </div>
-                            <span id="author_list_div">
+                            <div id="author_list_div" class="form_chack_container">
                                 @if(!empty($authors))
                                 @foreach ($authors as $author)
                                 <div class="form-check">
@@ -81,7 +81,7 @@
                                 </div>
                                 @endforeach
                                 @endif
-                            </span>
+                            </div>
                         </div>
 
                         <!-- Subject -->
@@ -125,48 +125,61 @@
                                         alt=""></button>
                             </div>
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="price" id="radioPrice1"
-                                    onclick="book_fetch()" value="100">
-                                <label class="form-check-label" for="radioPrice1">
-                                    ০-১০০
-                                </label>
+                            <div class="form_chack_container">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="radioPrice1"
+                                        onclick="book_fetch()" value="100">
+                                    <label class="form-check-label" for="radioPrice1">
+                                        ০-১০০
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="radioPrice2"
+                                        onclick="book_fetch()" value="500">
+                                    <label class="form-check-label" for="radioPrice2">
+                                        ১০০-৫০০
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="radioPrice3"
+                                        onclick="book_fetch()" value="1000">
+                                    <label class="form-check-label" for="radioPrice3">
+                                        ৫০০-১০০০
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="radioPrice4"
+                                        onclick="book_fetch()" value="1500">
+                                    <label class="form-check-label" for="radioPrice4">
+                                        ১০০০-২০০০
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="radioPrice5"
+                                        onclick="book_fetch()" value="2000">
+                                    <label class="form-check-label" for="radioPrice5">
+                                        ২০০০+
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="price" id="radioPrice6"
+                                        onclick="book_fetch()">
+                                    <label class="form-check-label" for="radioPrice6">
+                                        সকল
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="price" id="radioPrice2"
-                                    onclick="book_fetch()" value="500">
-                                <label class="form-check-label" for="radioPrice2">
-                                    ১০০-৫০০
-                                </label>
+                            <div class="minmax_price_range">
+                                <h3>দামের সীমা নির্বাচন করুন -</h3>
+                                <div class="minmax_input_wapper">
+                                    <input type="text" min="1" class="minmax_input minAmount" placeholder="০০">
+                                    <p>-</p>
+                                    <input type="text" min="1" class="minmax_input maxAmount" placeholder="৯৯৯৯৯">
+                                    <button type="butotn" onclick="filterByPrice()" class="minmax_btn">ক্লিক</button>
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="price" id="radioPrice3"
-                                    onclick="book_fetch()" value="1000">
-                                <label class="form-check-label" for="radioPrice3">
-                                    ৫০০-১০০০
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="price" id="radioPrice4"
-                                    onclick="book_fetch()" value="1500">
-                                <label class="form-check-label" for="radioPrice4">
-                                    ১০০০-২০০০
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="price" id="radioPrice5"
-                                    onclick="book_fetch()" value="2000">
-                                <label class="form-check-label" for="radioPrice5">
-                                    ২০০০+
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="price" id="radioPrice6"
-                                    onclick="book_fetch()">
-                                <label class="form-check-label" for="radioPrice6">
-                                    সকল
-                                </label>
-                            </div>
+
+                
                         </div>
 
 
@@ -193,7 +206,7 @@
                                 </div>
                             </div>
 
-                            <span id="publication_list_div">
+                            <div id="publication_list_div" class="form_chack_container">
                                 @if(!empty($publications))
                                 @foreach ($publications as $publication)
                                 <div class="form-check">
@@ -206,7 +219,7 @@
                                 </div>
                                 @endforeach
                                 @endif
-                            </span>
+                            </div>
                         </div>
 
 
@@ -215,7 +228,7 @@
             </div>
             <div class="col-lg-10">
                 <div class="right_grid_content">
-                    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-4" id="author_book_list">
+                    <div class="row row-cols-2 row-cols-sm-3 row-cols-lg-5" id="book_list">
 
                         @if(!empty($books))
                         @foreach ($books as $key=>$book)
@@ -227,6 +240,9 @@
                                         <img class="img-fluid w-100" src="{{ asset('images/' . $book->cover_image) }}"
                                             alt="book image">
                                     </a>
+                                    <div class="npb_hoberable">
+                                        <button class="addtocart" onclick="addToCart({{ $book->book_id }})">Add to cart</button>
+                                    </div>
                                     @if ($book->discounted_percentage != null || $book->discounted_percentage != 0)
                                     <div class="red_tag">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49"
@@ -262,7 +278,10 @@
                                         @endif
                                     </div>
                                     <a href="{{route('frontend.book.details',[$book->book_id])}}"
-                                        class="btn_buy_now">Buy Now</a>
+                                        class="btn_buy_now">বিস্তারিত</a>
+                                        <div class="addtocart_smallview">
+                                            <button class="addtocart" onclick="addToCart({{ $book->book_id }})">Add to cart</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -382,7 +401,7 @@ setMenuHeight();
                     dataType: "json",
                     success: function(response) {
                         // alert('asdas');
-                        $("#author_book_list").empty();
+                        $("#book_list").empty();
                         if(response.book_list.length!=0){
                             // alert('asdas');
                             $.each(response.book_list, function(index, val) {
@@ -390,13 +409,16 @@ setMenuHeight();
                                 book_details_url = book_details_url.replace(':id', val.book_id);
                                 //console.log(val);
                                 
-                            $('#author_book_list').append(`  <div class="col">
+                            $('#book_list').append(`  <div class="col">
                                 <div class="book_card_wrapper">
                                     <div class="image_wrapper">
                                         <a href="${book_details_url}" class="d-block text-reset">
                                             <img class="img-fluid w-100" src="{{ asset('images/${val.cover_image}') }}"
                                                 alt="book image">
                                         </a>
+                                        <div class="npb_hoberable">
+                                        <button class="addtocart" onclick="addToCart(${val.book_id})">Add to cart</button>
+                                    </div>
                                         ${val.discounted_percentage != 0?`
                                     <div class="red_tag">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49"
@@ -419,14 +441,17 @@ setMenuHeight();
                                             <h5 class="regular">${engToBangla(val.discounted_price) } টাকা</h5>`:
                                             `<h5 class="regular">${engToBangla(val.discounted_price)} টাকা</h5>`}
                                         </div>
-                                        <a href="${book_details_url}" class="btn_buy_now">Buy Now</a>
+                                        <a href="${book_details_url}" class="btn_buy_now">বিস্তারিত</a>
+                                        <div class="addtocart_smallview">
+                                            <button class="addtocart" onclick="addToCart(${val.book_id})">Add to cart</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>`)
                             rateYo();
                             });
                         }else{
-                            $('#author_book_list').append(` <div class="col offset-4">
+                            $('#book_list').append(` <div class="col offset-4">
                                 <h1 class="sc_title">বই নেই</h1>
                             </div>`);
                             }

@@ -5,7 +5,10 @@ use App\Http\Controllers\Backend\AuthorController;
 use App\Http\Controllers\Backend\BookController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ContactController;
+use App\Http\Controllers\Backend\CustomerController;
+use App\Http\Controllers\Backend\DiscountOfferController;
 use App\Http\Controllers\Backend\FeatureAttributeController;
+use App\Http\Controllers\Backend\OfferController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PublicationController;
 use App\Http\Controllers\Backend\SliderController;
@@ -15,25 +18,21 @@ use App\Http\Controllers\Frontend\BookController as FrontendBookController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\CustomerAddressController;
+use App\Http\Controllers\Frontend\ForgotPasswordController as FrontendForgotPasswordController;
 use App\Http\Controllers\Frontend\HomePageController;
 use App\Http\Controllers\Frontend\LoginController;
-use App\Http\Controllers\Frontend\ReviewController;
-use App\Http\Controllers\Frontend\WishlistController;
-use App\Http\Controllers\Frontend\WriterController;
+use App\Http\Controllers\Frontend\OfferController as FrontendOfferController;
 use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\PublisherController;
+use App\Http\Controllers\Frontend\RegisterController;
+use App\Http\Controllers\Frontend\ReviewController;
 use App\Http\Controllers\Frontend\SearchController;
 use App\Http\Controllers\Frontend\SidebarSearchController;
 use App\Http\Controllers\Frontend\SocialLoginController;
 use App\Http\Controllers\Frontend\TopicController;
-use App\Http\Controllers\Frontend\PublisherController;
-use App\Http\Controllers\Backend\CustomerController;
-use App\Http\Controllers\Backend\DiscountOfferController;
-use App\Http\Controllers\Backend\OfferController;
-use App\Http\Controllers\Frontend\ForgotPasswordController as FrontendForgotPasswordController;
-use App\Http\Controllers\Frontend\OfferController as FrontendOfferController;
-use App\Http\Controllers\Frontend\RegisterController;
+use App\Http\Controllers\Frontend\WishlistController;
+use App\Http\Controllers\Frontend\WriterController;
 use App\Http\Controllers\SslCommerzPaymentController;
-use App\Models\Order;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -56,7 +55,7 @@ require __DIR__ . '/auth.php';
 
 Route::get('get/{book}/pdf/', [BookController::class, 'getPdf'])->name('book.get.pdf');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard')->middleware('admin');
     Route::get('/password-change', [AdminController::class, 'passwordChange'])->name('password.change');
     Route::post('/password-update', [AdminController::class, 'updatePassword'])->name('password.update');
@@ -87,7 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 /* book route start */
     Route::resource('books', BookController::class);
     Route::post('/book/status/update/', [BookController::class, 'updateStatus'])->name('books.status.update');
-    
+
     Route::get('/book/review/{id}', [BookController::class, 'book_review'])->name('book.review');
 
 // Slider start
@@ -95,14 +94,14 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','admin']], function (
 // Slider end
 
 /* offers  route start */
-Route::resource('offers', OfferController::class);
-Route::post('offer-update', [OfferController::class,'updateStatus'])->name('offer.update.status');
+    Route::resource('offers', OfferController::class);
+    Route::post('offer-update', [OfferController::class, 'updateStatus'])->name('offer.update.status');
 
 /* discount offer route start */
-Route::get('/discount-offer', [DiscountOfferController::class, 'index'])->name('discount.offer.index');
-Route::get('/discount-offer/{discountOffer}/edit', [DiscountOfferController::class, 'edit'])->name('discount.offer.edit');
-Route::put('/discount-offer/{discountOffer}/update', [DiscountOfferController::class, 'update'])->name('discount.offer.update');
-Route::post('/discount-offer/status', [DiscountOfferController::class, 'updateStatus'])->name('discount.offer.update.status');
+    Route::get('/discount-offer', [DiscountOfferController::class, 'index'])->name('discount.offer.index');
+    Route::get('/discount-offer/{discountOffer}/edit', [DiscountOfferController::class, 'edit'])->name('discount.offer.edit');
+    Route::put('/discount-offer/{discountOffer}/update', [DiscountOfferController::class, 'update'])->name('discount.offer.update');
+    Route::post('/discount-offer/status', [DiscountOfferController::class, 'updateStatus'])->name('discount.offer.update.status');
 
 // Social Media start
     Route::get('/social', [SocialMediaController::class, 'index'])->name('socials');
@@ -118,7 +117,7 @@ Route::post('/discount-offer/status', [DiscountOfferController::class, 'updateSt
     Route::post('/contact/edit', [ContactController::class, 'edit'])->name('contacts.edit');
     Route::post('/contact/update', [ContactController::class, 'update'])->name('contacts.update');
     // Route::post('/contact/delete', [ContactController::class, 'destroy'])->name('contacts.delete');
-// Contact end
+    // Contact end
 
 // Contact start
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
@@ -135,7 +134,7 @@ Route::post('/discount-offer/status', [DiscountOfferController::class, 'updateSt
     Route::get('/customer/orders/{id}', [CustomerController::class, 'order_review'])->name('customer.order.review');
     Route::post('/customer/send-sms', [CustomerController::class, 'sendSms'])->name('customer.send.sms');
 // Customer Order  end
-// ban start
+    // ban start
     Route::post('/user/ban', [CustomerController::class, 'user_ban'])->name('user.ban');
     Route::post('/customer/info', [CustomerController::class, 'customer_info'])->name('customer.info');
 // ban end
@@ -169,7 +168,7 @@ Route::post('/remove-cart', [CartController::class, 'deleteCart'])->name('remove
 Route::post('/increase-cart', [CartController::class, 'increaseCart'])->name('increase.cart.qty');
 Route::post('/decrease-cart', [CartController::class, 'decreaseCart'])->name('decrease.cart.qty');
 
-Route::get('checkout',[CheckoutController::class,'checkOut'])->name('frontend.checkout');
+Route::get('checkout', [CheckoutController::class, 'checkOut'])->name('frontend.checkout');
 
 // sign in routes
 Route::get('/sign-in', [LoginController::class, 'index'])->name('frontend.login');
@@ -241,23 +240,21 @@ Route::get('login/google/callback', [SocialLoginController::class, 'handleGoogle
 Route::get('login/facebook', [SocialLoginController::class, 'redirectToFacebook'])->name('login.facebook');
 Route::get('login/facebook/callback', [SocialLoginController::class, 'handleFacebookCallback']);
 
-Route::post('/frontend-logout',[LoginController::class,'logout'])->name('frontend.logout');
+Route::post('/frontend-logout', [LoginController::class, 'logout'])->name('frontend.logout');
 
-Route::get('offers/{offer}',[FrontendOfferController::class,'offerBooks'])->name('get.offer.book');
-
+Route::get('offers/{offer}', [FrontendOfferController::class, 'offerBooks'])->name('get.offer.book');
 
 //search topic sidebar
 Route::post('/sidebar/filter/author', [SidebarSearchController::class, 'author_sidebar_filter'])->name('author.sidebar.filter');
 Route::post('/sidebar/filter/publisher', [SidebarSearchController::class, 'publisher_sidebar_filter'])->name('publisher.sidebar.filter');
 Route::post('/sidebar/filter/category', [SidebarSearchController::class, 'category_sidebar_filter'])->name('category.sidebar.filter');
 
-Route::post('/customer-address',[CustomerAddressController::class,'getAddress'])->name('get.customer.address');
+Route::post('/customer-address', [CustomerAddressController::class, 'getAddress'])->name('get.customer.address');
 
-Route::post('/order-place',[CheckoutController::class,'placeOrder'])->name('order.place');
+Route::post('/order-place', [CheckoutController::class, 'placeOrder'])->name('order.place');
 
 Route::post('/book/filter/autocomplete', [SidebarSearchController::class, 'getBook'])->name('book.filter.autocomplete');
 Route::get('/book/search', [SidebarSearchController::class, 'book_search'])->name('book.filter.search');
-
 
 Route::get('/publishers', [PublisherController::class, 'index'])->name('frontend.publishers');
 Route::get('/publisher/name/{id}', [PublisherController::class, 'publisher_info'])->name('frontend.publishers.name');
@@ -277,5 +274,6 @@ Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
 Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 //SSLCOMMERZ END
 
-
 Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart');
+Route::post('/delete-wishlist', [WishlistController::class, 'delete'])->name('wishlist.remove');
+Route::post('/filter-books', [FrontendBookController::class, 'filterBookByPrice'])->name('book.filter.price');

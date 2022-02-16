@@ -31,7 +31,8 @@
             @include('partial.frontend.book.book_filter')
             <div class="col-lg-10">
                 <div class="right_grid_content">
-                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4" id="book_list">
+                    <input type="hidden" name="" id="bookItems" value="true">
+                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-5" id="book_list">
                         @if(!empty($books))
                         @foreach ($books as $key=>$book)
                         <div class="col">
@@ -42,6 +43,9 @@
                                         <img class="img-fluid w-100" src="{{ asset('images/' . $book->cover_image) }}"
                                             alt="book image">
                                     </a>
+                                    <div class="npb_hoberable">
+                                        <button class="addtocart" onclick="addToCart({{ $book->book_id }})">Add to cart</button>
+                                    </div>
                                     @if ($book->discounted_percentage != null || $book->discounted_percentage != 0)
                                     <div class="red_tag">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49"
@@ -77,7 +81,10 @@
                                         @endif
                                     </div>
                                     <a href="{{route('frontend.book.details',[$book->book_id])}}"
-                                        class="btn_buy_now">Buy Now</a>
+                                        class="btn_buy_now">বিস্তারিত</a>
+                                        <div class="addtocart_smallview">
+                                            <button class="addtocart" onclick="addToCart({{ $book->book_id }})">Add to cart</button>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -210,6 +217,9 @@
                                             <img class="img-fluid w-100" src="{{ asset('images/${val.cover_image}') }}"
                                                 alt="book image">
                                         </a>
+                                        <div class="npb_hoberable">
+                                        <button class="addtocart" onclick="addToCart(${val.book_id})">Add to cart</button>
+                                    </div>
                                         ${ val.discounted_percentage != 0?`
                                     <div class="red_tag">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="49" height="49" viewBox="0 0 49 49"
@@ -236,7 +246,10 @@
                                             <h5 class="regular">${engToBangla(val.discounted_price) } টাকা</h5>`:
                                             `<h5 class="regular">${engToBangla(val.discounted_price)} টাকা</h5>`}
                                         </div>
-                                        <a href="${book_details_url}" class="btn_buy_now">Buy Now</a>
+                                        <a href="${book_details_url}" class="btn_buy_now">বিস্তারিত</a>
+                                    <div class="addtocart_smallview">
+                                            <button class="addtocart" onclick="addToCart(${val.book_id})">Add to cart</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>`)

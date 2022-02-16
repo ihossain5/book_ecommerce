@@ -14,7 +14,7 @@ class CartController extends Controller {
 
             $message = 'Item has been added into cart';
 
-            return $this->success($this->response($cart, $message));
+            return $this->success($this->response($cart, null, $message));
 
         } catch (Exception $e) {
 

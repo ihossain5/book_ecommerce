@@ -13,8 +13,8 @@
                 <div class="upload-picture-inner">
                     <label for="fileUpload">
                         @if ($user_info->image == null)
-                            <img src="{{ asset('frontend/assets/images/profile/profile-pic-editable.png') }}"
-                                alt="upload-image" id="uplodedImg">
+                            <img src="{{ asset('frontend/assets/images/icons/demoUserImg.svg') }}" alt="upload-image"
+                                id="uplodedImg">
                         @else
                             <img src="{{ asset('images/' . $user_info->image) }}" alt="upload-image" id="uplodedImg">
                         @endif
@@ -302,23 +302,22 @@
                             <ul class="orders_lists">
                                 @if (!empty($user_orders))
                                     @foreach ($user_orders as $user_order)
-                                        <li class="order_details" onclick="order_view({{ $user_order->order_id }})"
-                                            style="cursor:pointer">
+                                        <li class="order_details">
                                             <div class="code_and_delevery">
-                                                {{-- <p class="order_code">অর্ডার কোডঃ
-                                        <span>#{{ $user_order->id }}</span>
-                                    </p> --}}
 
                                                 <p class="order_code">অর্ডার কোডঃ
-                                                    <span>#{{ $user_order->id }}</span>
+                                                    <span role="button"
+                                                        onclick="order_view({{ $user_order->order_id }})">#{{ $user_order->id }}</span>
                                                 </p>
 
                                                 @if ($user_order->order_status_id == 1)
                                                     <h3 class="order_sign panding">পেন্ডিং</h3>
                                                 @elseif ($user_order->order_status_id == 2)
-                                                    <h3 class="order_sign delevery">ডেলিভারিং</h3>
+                                                    <h3 class="order_sign delevery">কনফার্মড</h3>
                                                 @elseif($user_order->order_status_id == 3)
-                                                    <h3 class="order_sign delevery">কমপ্লিট</h3>
+                                                    <h3 class="order_sign delevery">ডেলিভারিং</h3>
+                                                @elseif ($user_order->order_status_id == 4)
+                                                    <h3 class="order_sign panding">কমপ্লিট</h3>
                                                 @else
                                                     <h3 class="order_sign panding">ক্যানসেল</h3>
                                                 @endif
@@ -343,7 +342,7 @@
                         <div role="tabpanel" class="tab-pane books_choice" id="settings">
                             <section class="book_cards_section">
                                 <div class="container ">
-                                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3  g-0">
+                                    <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-xl-4  g-0">
 
                                         {{-- <div class="col">
                                         <div class="book_card_wrapper">
@@ -379,7 +378,7 @@
                                     </div> --}}
                                         @if (!empty(auth()->user()->wishlists))
                                             @foreach (auth()->user()->wishlists as $key => $wishlist)
-                                                <div class="col">
+                                                <div class="col wishlistRow{{ $wishlist->whislist_id }}">
                                                     <div class="book_card_wrapper">
                                                         <div class="image_wrapper">
                                                             <a href="{{ route('frontend.book.details', [$wishlist->book->book_id]) }}"
@@ -388,6 +387,11 @@
                                                                     src="{{ asset('images/' . $wishlist->book->cover_image) }}"
                                                                     alt="book image">
                                                             </a>
+                                                            <div class="npb_hoberable">
+                                                                <button type="button"
+                                                                    onclick="removeWishlist({{ $wishlist->whislist_id }})"
+                                                                    class="addtocart">Delete</button>
+                                                            </div>
                                                             @if ($wishlist->book->discounted_percentage != null || $wishlist->book->discounted_percentage != 0)
                                                                 <div class="red_tag">
                                                                     <svg xmlns="http://www.w3.org/2000/svg" width="49"
@@ -402,9 +406,9 @@
                                                         </div>
                                                         <div class="content_wrapper book_card_content">
                                                             <div class="rating">
-                                                                <div class="rateYo ratSerialId{{ $key }}"
+                                                                {{-- <div class="rateYo ratSerialId{{ $key }}"
                                                                     data-user_rating="{{ getTotalRating($wishlist->book->reviews) }}">
-                                                                </div>
+                                                                </div> --}}
                                                             </div>
                                                             <h3 class="title">{{ $wishlist->book->title }}</h3>
                                                             <p class="author">
@@ -427,7 +431,10 @@
                                                                     টাকা</h5>
                                                             </div>
                                                             <a href="{{ route('frontend.book.details', [$wishlist->book->book_id]) }}"
-                                                                class="btn_buy_now">Buy Now</a>
+                                                                class="btn_buy_now">বিস্তারিত</a>
+                                                            <div class="addtocart_smallview">
+                                                                <button class="addtocart">Delete</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -438,7 +445,8 @@
                             </section>
                         </div>
                         <div role="tabpanel" class="tab-pane " id="Change_Pass_info">
-                            <form action="{{ route('frontend.change.password') }}" class="chagePassword" method="post">@csrf
+                            <form action="{{ route('frontend.change.password') }}" class="chagePassword" method="post">
+                                @csrf
                                 <div class="input_fild">
                                     @if ($errors->any())
                                         @foreach ($errors->all() as $error)
@@ -451,7 +459,8 @@
                                 </div>
                                 <div class="input_fild">
                                     <label>নতুন পাসওয়ার্ড</label>
-                                    <input type="password" id="password" name="password" class="form-control" placeholder="*****">
+                                    <input type="password" id="password" name="password" class="form-control"
+                                        placeholder="*****">
                                 </div>
                                 <div class="input_fild">
                                     <label>আবার টাইপ করুন</label>
@@ -468,7 +477,7 @@
         </div>
     </section>
     <!-- Order History Modal -->
-    <div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    {{-- <div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content order-history-content">
@@ -498,10 +507,7 @@
                                     <span>সাব টোটাল</span>
                                     <span id="order_sub_total"></span>
                                 </li>
-                                {{-- <li>
-                                <span>ভ্যাট</span>
-                                <span id="order_vat"></span>
-                            </li> --}}
+
                                 <li>
                                     <span>ডেলিভারি ফি</span>
                                     <span id="order_delivery"></span>
@@ -518,6 +524,175 @@
                         <div class="col-12 special-note">
                             <h1>বিশেষ নোট</h1>
                             <h3 id="order_note"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> --}}
+
+    <!-- Order History Modal -->
+    <div class="modal fade" id="orderHistoryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content order-history-content">
+
+                <button class="modalCloseBtn" data-bs-dismiss="modal" aria-label="Close"><img
+                        src="{{ asset('frontend/assets/images/icons/add_circle.svg') }}" alt=""></button>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row align-items-center">
+                            <div class="col-md-12 order-header">
+                                <h1>Order ID:<span id="order_id"></span></h1>
+                            </div>
+                        </div>
+                        <div class="row order-items">
+                            <div class="col-md-12 order-item-header">
+                                <h2>অর্ডার সামারি</h2>
+                            </div>
+                            <div class="col-md-6 order-item-box">
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <span>অর্ডার কোড</span>
+                                            <span class="order_id"><label>:</label>#</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span>কাস্টমার</span>
+                                            <span id="customer"><label>:</label>Mr. Customer</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span>ইমেইল</span>
+                                            <span id="email"><label>:</label>customer@Email.com</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span>ঠিকানা</span>
+                                            <span id="address"><label>:</label>হাউস ২৩, রোড ৪, গুলশান ২, ঢাকা</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6 order-item-box ">
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <span>অর্ডার তারিখ</span>
+                                            <span><label>:</label><span id="order_date"></span></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span>অর্ডার স্টেটাস </span>
+                                            <span><label>:</label><span id="order_status"></span></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span>টোটাল অর্ডার এমাউন্ট</span>
+                                            <span><label>:</label>৳<span class="order_total"></span></span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <span>পেমেন্ট মেথড</span>
+                                            <span><label>:</label>ক্যাশ অন ডেলিভারি</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 special-note">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="large_cart_wrapper">
+                                            <div>
+                                                <div class="large_cart_inner">
+                                                    <h2>Order Details</h2>
+                                                </div>
+                                                <div class="large_cart_inner ">
+                                                    <div class="row">
+                                                        <div class="col-sm-2 col-lg-2 text-center">
+                                                            <p class="header">#</p>
+                                                        </div>
+                                                        <div class="col-sm-4 col-lg-4">
+                                                            <p class="header">পণ্য</p>
+                                                        </div>
+                                                        <div class="col-sm-2 col-lg-2 text-center">
+                                                            <p class="header">পরিমাণ</p>
+                                                        </div>
+                                                        <div class="col-sm-2 col-lg-2 text-center">
+                                                            <p class="header">প্রতিটির দাম</p>
+                                                        </div>
+                                                        <div class="col-sm-2 col-lg-2 text-center">
+                                                            <p class="header">মোট</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="orderBooksTableHeader">
+
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="small_cart_wrapper">
+                                            <div>
+                                                <div class="large_cart_inner Small_cart_Inner">
+                                                    <h2>Order Details</h2>
+                                                </div>
+                                                <div class="orderBooksSmallDevice">
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class=" col-md-3">
+                                        <div class="large_cart_wrapper order_details">
+                                            <h3>অর্ডার এমাউন্ট</h3>
+                                            <ul>
+                                                <li>
+                                                    <div>
+                                                        <span>সাব টোটাল</span>
+                                                        <span class="amount"><label>:</label>
+                                                            <p id="subTotal"></p>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <span>ডেলিভারি ফি </span>
+                                                        <span class="amount"><label>:</label>
+                                                            <p id="deliveryFee"></p>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <span>মোট</span>
+                                                        <span class="amount"><label>:</label>
+                                                            <p id="order_total"></p>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -804,8 +979,8 @@
                                 <div class="address_loc_edit">
                                     <div class="form-check">
                                         ${ (response.data.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                        value="" onclick="primaryAddress(${response.data.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                        value="" onclick="primaryAddress(${response.data.address_id})">`)
+                                                                                                    value="" onclick="primaryAddress(${response.data.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                                    value="" onclick="primaryAddress(${response.data.address_id})">`)
                                         }
                                         <label class="form-check-label"> প্রাথমিক ঠিকানা </label>
                                     </div>
@@ -929,8 +1104,8 @@
                                     <div class="form-check"> 
 
                                         ${ (response.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                        value="" onclick="primaryAddress(${response.address.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                        value="" onclick="primaryAddress(${response.address.address_id})">`)
+                                                                                                    value="" onclick="primaryAddress(${response.address.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                                    value="" onclick="primaryAddress(${response.address.address_id})">`)
    
                                         }
 
@@ -996,37 +1171,110 @@
                 success: function(response) {
                     if (response.success === true) {
 
-                        $("#book_list").empty();
+                        $(".bookRow").empty();
 
                         $.each(response.data.books, function(index, val) {
-                            console.log(val);
-                            $('#book_list').append(`<li>
-                                        <div>
-                                            <span>${engToBangla(val.pivot.quantity)}টি</span>
-                                            <span>${val.title}</span>
+                            var id = index + 1
+                            console.log(id);;
+                            $('.orderBooksTableHeader').append(`
+                            <div class="large_cart_inner bookRow">
+                                <div class="row">
+                                    <div class="col-sm-2 col-lg-2 text-center">
+                                        <p class="pd_price_cell">${engToBangla(id)}</p>
+                                    </div>
+                                    <div class="col-sm-4 col-lg-4 text-center">
+                                        <div class="image_content">
+                                            <img src="${base_url}/images/${val.cover_image}" alt="">
+                                            <div class="pd_info_cell">
+                                            <h2>${val.title}</h2>
+                                            </div>
                                         </div>
-                                        <div>
-                                            ${engToBangla(val.pivot.amount)}
+                                    </div>
+                                    <div class="col-sm-2  col-lg-2 text-center">
+                                        <div class="btn_group">
+                                            <span class="qty">${engToBangla(val.pivot.quantity)}</span>
                                         </div>
-                                    </li>`)
+                                    </div>
+                                    <div class="col-sm-2  col-lg-2 text-center">
+                                        <div class="pd_price_cell">
+                                            <h2>৳ ${engToBangla(val.discounted_price)}</h2>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2  col-lg-2 text-center">
+                                        <div class="pd_price_cell total">
+                                            <h2>৳ ${engToBangla(val.pivot.amount)}</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            `)
+                            $('.orderBooksSmallDevice').append(
+                                `<div class="large_cart_inner bookRow">
+                                    <div class="row">
+                                        <div class="col-12 item_content">
+                                            <p class="pd_price_cell"><label>#</label> ${engToBangla(id)}</p>
+                                            <div class="image_content">
+                                                <img src="${base_url}/images/${val.cover_image}" alt="">
+                                                <div class="pd_info_cell">
+                                                <h2>${val.title}</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 small_cart_details">
+                                            <div class="row">
+                                                <div class="col-4 text-center">
+                                                <div class="pd_price_cell">
+                                                    <p class="header">প্রতিটির দাম</p>
+                                                    <h2>৳ ${engToBangla(val.discounted_price)}</h2>
+                                                </div>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                <div class="btn_group">
+                                                    <p class="header">পরিমাণ</p>
+                                                    <span class="qty">${engToBangla(val.pivot.quantity)}</span>
+                                                </div>
+                                                </div>
+                                                <div class="col-4 text-center">
+                                                <div class="pd_price_cell total">
+                                                    <p class="header">মোট</p>
+                                                    <h2>৳ ${engToBangla(val.pivot.amount)}</h2>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>`
+                            )
                         });
 
-                        $('#order_sub_total').html(engToBangla(response.data.subtotal));
+                        $('#subTotal').html('৳' + response.data.subTotalAmount);
                         // $('#order_vat').html(response.data.total);
-                        $('#order_delivery').html(engToBangla(response.data.delivery_fee));
-                        $('#order_total').html(engToBangla(response.data.total));
-                        $('#order_status').html(response.data.order_status.name);
-                        $('#order_id').html(response.data.id);
+                        $('#deliveryFee').html('৳' + response.data.deliveryFeeAmount);
+                        $('.order_total').html(response.data.totalAmount);
+                        $('#order_total').html('৳' + response.data.totalAmount);
+
+
+
+                        $('#order_id').html('#' + response.data.id);
+                        $('#order_date').html(response.data.date);
+                        $('.order_id').html('<label>:</label>#' + response.data.id);
+                        $('#customer').html('<label>:</label>' + response.data.name);
+                        // $('#customer').html('<label>:</label>'+response.data.name);
+                        $('#email').html('<label>:</label>' + response.data.phone);
+                        $('#address').html('<label>:</label>' + response.data.address);
+
+
                         $('#order_note').html(response.data.notes ?? 'N/A');
 
 
-                        $("#order_status").empty();
-                        $('#order_status').append(response.data.order_status_id == 1 ?
-                            `<span class="delevery-pending" id="order_status">পেন্ডিং</span>` :
+
+                        $('#order_status').html(response.data.order_status_id == 1 ?
+                            `পেন্ডিং` :
                             response.data.order_status_id == 2 ?
-                            `<span class="delevery-success" id="order_status">ডেলিভারিং</span>` : response
-                            .data.order_status_id == 3 ? `কমপ্লিট` :
-                            `<span class="delevery-pending">ক্যানসেল</span>`
+                            `কনফার্মড` : response
+                            .data.order_status_id == 3 ? `ডেলিভারিং` :
+                            response.data.order_status_id == 4 ? 'কমপ্লিট' :
+                            `ক্যানসেল`
                         )
 
                         $('#orderHistoryModal').modal('show');
@@ -1066,8 +1314,8 @@
                                 <div class="address_loc_edit">
                                     <div class="form-check">
                                         ${ (val.pivot.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                        value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                        value="" onclick="primaryAddress(${val.address_id})">`)
+                                                                                    value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                    value="" onclick="primaryAddress(${val.address_id})">`)
 
                                             
                                         }
@@ -1215,9 +1463,9 @@
                     required: true,
                     minlength: 8,
                 },
-                password_confirmation : {
-                    equalTo : "#password"
-            }
+                password_confirmation: {
+                    equalTo: "#password"
+                }
 
             },
             messages: {
@@ -1228,5 +1476,33 @@
                 label.insertAfter(element);
             },
         });
+
+        function removeWishlist(id) {
+            $.ajax({
+                url: "{!! route('wishlist.remove') !!}",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function(response) {
+                    if (response.success == true) {
+                        $('.whislistCounter').html(response.data.whislist);
+                        $('.wishlistRow' + id).remove();
+
+                    } //success end
+                },
+                error: function(error) {
+                    if (error.status == 404) {
+                        toastr["error"]('Data not found')
+                    } else if (error.status == 422) {
+                        $.each(error.responseJSON.errors, function(i, message) {
+                            toastr["error"](message)
+                        });
+                    }
+                },
+            }); //ajax end
+        }
     </script>
 @endsection

@@ -7,6 +7,7 @@ use App\Models\Address;
 use App\Models\Order;
 use App\Models\User;
 use App\Models\UserAddress;
+use Carbon\Carbon;
 use Devfaysal\BangladeshGeocode\Models\Division;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,15 +15,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class ProfileController extends Controller
-{
+class ProfileController extends Controller {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 
         if (Auth::check()) {
             $user_info = Auth::user();
@@ -39,24 +38,28 @@ class ProfileController extends Controller
         }
     }
 
-    public function profile_order_view(Request $request)
-    {
+    public function profile_order_view(Request $request) {
 
         //dd($request->all());
         //dd($id);
-        $user_info   = Auth::user();
-        $id          = $user_info->id;
-        $user_orders = Order::with('books', 'order_status', 'user', 'paymentMethod')->where('user_id', $id)->where('order_id', $request->id)->first();
+        $user_info = Auth::user();
+        $id        = $user_info->id;
+        $order     = Order::with('books', 'order_status', 'user', 'paymentMethod')->where('user_id', $id)->where('order_id', $request->id)->first();
+
+        $order->totalAmount       = englishTobangla(number_format((float) $order->total, 2, '.', ''));
+        $order->subTotalAmount    = englishTobangla(number_format((float) $order->subtotal, 2, '.', ''));
+        $order->deliveryFeeAmount = englishTobangla(number_format((float) $order->delivery_fee, 2, '.', ''));
+        $date = Carbon::parse($order->created_at)->format('d-m-y,g:i A');
+        $order->date = englishTobangla($date);
 
         //dd( $user_orders);
         return response()->json([
             'success' => true,
-            'data'    => $user_orders,
+            'data'    => $order,
         ]);
     }
 
-    public function photoUpdate(Request $request)
-    {
+    public function photoUpdate(Request $request) {
         if (Auth::check()) {
             $this->validate($request, [
                 'photo' => 'required|max:300|image|mimes:png,jpg,jpeg',
@@ -85,8 +88,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function address_details($id)
-    {
+    public function address_details($id) {
 
         $address_info = Address::where('address_id', $id)->first();
 
@@ -105,8 +107,7 @@ class ProfileController extends Controller
         return $this->success($data);
     }
 
-    public function address_update(Request $request)
-    {
+    public function address_update(Request $request) {
 
         // dd($request->all());
         $validator = Validator::make($request->all(), [
@@ -165,17 +166,16 @@ class ProfileController extends Controller
         }
     }
 
-    public function primary_address(Request $request)
-    {
+    public function primary_address(Request $request) {
 
         //dd($request->all());
         $user_info = Auth::user();
         $id        = $user_info->id;
 
         $address_infos = UserAddress::where('user_id', $id)->get();
-        $count = $address_infos->count();
+        $count         = $address_infos->count();
         if ($count == 1) {
-            $addresses = User::with('addresses')->where('id', $id)->first();
+            $addresses       = User::with('addresses')->where('id', $id)->first();
             $data            = array();
             $data['message'] = 'This is already your primary address';
 
@@ -208,8 +208,7 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function add_address(Request $request)
-    {
+    public function add_address(Request $request) {
 
         //    dd($request->all());
         $validator = Validator::make($request->all(), [
@@ -267,8 +266,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function update(Request $request)
-    {
+    public function update(Request $request) {
         //dd($request->all());
         $validator = Validator::make($request->all(), [
             'name'  => 'required|max:100',
@@ -310,8 +308,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request) {
         //dd($request->all());
         $address = Address::findOrFail($request->id);
 
@@ -338,8 +335,7 @@ class ProfileController extends Controller
         }
     }
 
-    public function getDistrict(Request $request)
-    {
+    public function getDistrict(Request $request) {
         $division = Division::findOrFail($request->id);
 
         $districts = $division->districts;
@@ -347,26 +343,26 @@ class ProfileController extends Controller
         return $this->success($districts);
     }
 
-    public function updatePassword(Request $request){
+    public function updatePassword(Request $request) {
         // dd($request->all());
-        $this->validate($request,[
-            'password'=> 'required|min:8|confirmed'
+        $this->validate($request, [
+            'password' => 'required|min:8|confirmed',
         ]);
 
         $user = auth()->user();
 
-        $password_check = Hash::check($request->current_password ,$user->password);
+        $password_check = Hash::check($request->current_password, $user->password);
 
-       if(!$password_check){
-           return redirect()->back()->with('error','current password does not match with our records');
-       }
+        if (!$password_check) {
+            return redirect()->back()->with('error', 'current password does not match with our records');
+        }
 
-       $user->update([
-           'password'=> $request->password
-       ]);
+        $user->update([
+            'password' => $request->password,
+        ]);
 
-       Auth::logout();
+        Auth::logout();
 
-       return redirect()->route('frontend.sign.in')->with('success','Password has changed successfully. Please sign in again.');
+        return redirect()->route('frontend.sign.in')->with('success', 'Password has changed successfully. Please sign in again.');
     }
 }

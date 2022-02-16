@@ -12,4 +12,8 @@ class Publication extends Model
     protected $primaryKey = 'publication_id';
 
     protected $fillable = ['name','photo','description','precedance'];
+
+    public function books(){
+        return $this->hasMany(Book::class, 'publication_id');
+    }
 }

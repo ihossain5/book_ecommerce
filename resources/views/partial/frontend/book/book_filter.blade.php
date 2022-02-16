@@ -140,6 +140,15 @@
                         </label>
                     </div>
                 </div>
+                <div class="minmax_price_range">
+                    <h3>দামের সীমা নির্বাচন করুন -</h3>
+                    <div class="minmax_input_wapper">
+                        <input type="text" min="1" class="minmax_input minAmount" placeholder="০০">
+                        <p>-</p>
+                        <input type="text" min="1" class="minmax_input maxAmount" placeholder="৯৯৯৯৯">
+                        <button type="butotn" onclick="filterByPrice()" class="minmax_btn">ক্লিক</button>
+                    </div>
+                </div>
             </div>
 
 
