@@ -49,6 +49,7 @@ class ProfileController extends Controller {
         $order->totalAmount       = englishTobangla(number_format((float) $order->total, 2, '.', ''));
         $order->subTotalAmount    = englishTobangla(number_format((float) $order->subtotal, 2, '.', ''));
         $order->deliveryFeeAmount = englishTobangla(number_format((float) $order->delivery_fee, 2, '.', ''));
+        $order->giftWrappingCost = englishTobangla(number_format((float) $order->wrapping_cost, 2, '.', ''));
         $date = Carbon::parse($order->created_at)->format('d-m-y,g:i A');
         $order->date = englishTobangla($date);
 

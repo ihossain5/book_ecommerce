@@ -159,8 +159,25 @@
 
 .check_cart_item:last-child {
     border-bottom: 1px solid #E0E0E0;
-    margin-bottom: 3.2rem;
+    margin-bottom: 1.7rem;
 }
+.cart_chack .form-check{
+    padding-bottom: 4.8rem;
+}
+.form-check-input[type=checkbox] {
+    border-radius: 0;
+    border: 2px solid #4F7F6C;
+    margin-right: 16px;
+}
+.cart_chack .form-check .form-check-input:checked[type=checkbox] {
+    background-image: url('../images/icons/fi_check.svg');
+}
+.cart_chack .form-check .form-check-label{
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 26px;
+}
+
 
 .cart_fees {
     display        : flex;

@@ -38,6 +38,36 @@ function addToCart(id){
         },
     });
 }
+// buy to cart
+function buyNow(id){
+    $.ajax({
+        type: "POST",
+        url: base_url+'/add-to-cart',
+        data: {
+            id: id,
+        },
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        dataType: 'JSON',
+        success: function(response) {
+            if(response.success == true){
+                $('.cartTooltip').addClass('d-none');
+                $('.cartSideBar').removeClass('d-none');
+                
+                appendToCart(response);
+                toastr["success"](response.data.message);
+
+                window.location = response.data.url
+            }else{
+                toastr["error"](response.data);
+            }
+        },
+        error: function(error) {
+            if (error.status == 404) {
+
+            }
+        },
+    });
+}
 
 //increase a cart qty 
 function increaseQuantity(rowId){

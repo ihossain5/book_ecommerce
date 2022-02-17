@@ -143,7 +143,11 @@
                                         @endif
                                     </h3>
                                 </div>
-                                <button class="buy_btn" onclick="addToCart({{ $book->book_id }})">Buy Now</button>
+                                <div class="col-md-12 book_Det_buttons">
+                                    <button class="buy_btn" onclick="buyNow({{ $book->book_id }})">এখনই কিনুন</button>
+                                    <button class="cart_btn" onclick="addToCart({{ $book->book_id }})">কার্টে যোগ করুন</button>
+                                </div>
+                                {{-- <button class="buy_btn" onclick="addToCart({{ $book->book_id }})">Buy Now</button> --}}
                                 <div class="book_add_btn">
                                     <button type="button" onclick="addToWishlist({{ $book->book_id }})"><img
                                             src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"
@@ -220,7 +224,11 @@
                                 @endif
                             </h3>
                         </div>
-                        <button class="buy_btn" onclick="addToCart({{ $book->book_id }})">Buy Now</button>
+                        <div class="col-md-12 book_Det_buttons">
+                            <button class="buy_btn" onclick="buyNow({{ $book->book_id }})">এখনই কিনুন</button>
+                            <button class="cart_btn" onclick="addToCart({{ $book->book_id }})">কার্টে যোগ করুন</button>
+                        </div>
+                        {{-- <button class="buy_btn" onclick="addToCart({{ $book->book_id }})">Buy Now</button> --}}
                         <div class="book_add_btn">
                             <button type="button" onclick="addToWishlist({{ $book->book_id }})"><img
                                     src="{{ asset('frontend/assets/images/icons/favorite_border_black_24dp 1.svg') }}"

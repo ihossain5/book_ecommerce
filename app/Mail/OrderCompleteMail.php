@@ -3,24 +3,23 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class OrderCompleteMail extends Mailable
-{
+class OrderCompleteMail extends Mailable {
     use Queueable, SerializesModels;
 
-    public $maildata;
+    public $appInfo;
+    public $order;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($maildata)
-    {
-           $this->maildata = $maildata;
+    public function __construct($appInfo, $order) {
+        $this->order   = $order;
+        $this->appInfo = $appInfo;
     }
 
     /**
@@ -28,13 +27,11 @@ class OrderCompleteMail extends Mailable
      *
      * @return $this
      */
-    public function build()
-    {
-        return $this->markdown('emails.OrderCompleteMail')
-        ->subject('Order Complete')
-        ->from("bhorerkagoj@mail.com", "Bhorer Kagoj Prokashan")
-        ->attach($this->maildata['file'], [
-            'mime' => 'application/pdf',
-        ]);
+    public function build() {
+        return $this->markdown('admin.orders.order_invoice')
+            ->subject('Order Complete')
+            ->from("bhorerkagoj@mail.com", "Bhorer Kagoj Prokashan")
+            ->with('appInfo', $this->appInfo)
+            ->with('order', $this->order);
     }
 }

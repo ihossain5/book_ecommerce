@@ -87,7 +87,7 @@
 
                                 <div class="input_fild">
                                     <label>জন্ম তারিখ</label>
-                                    <input type="text" class="form-control" placeholder="আপনার জন্ম তারিখ" name="dob"
+                                    <input type="date" class="form-control" placeholder="আপনার জন্ম তারিখ" name="dob"
                                         value="{{ $user_info->date_of_birth }}">
                                 </div>
                                 <button type="submit" class="submit_btn">সেভ করুন</button>
@@ -317,7 +317,7 @@
                                                 @elseif($user_order->order_status_id == 3)
                                                     <h3 class="order_sign delevery">ডেলিভারিং</h3>
                                                 @elseif ($user_order->order_status_id == 4)
-                                                    <h3 class="order_sign panding">কমপ্লিট</h3>
+                                                    <h3 class="order_sign delevery">কমপ্লিট</h3>
                                                 @else
                                                     <h3 class="order_sign panding">ক্যানসেল</h3>
                                                 @endif
@@ -545,6 +545,12 @@
                             <div class="col-md-12 order-header">
                                 <h1>Order ID:<span id="order_id"></span></h1>
                             </div>
+                            <div class="col-md-12 invoice">
+                                <a id="orderInvoice">
+                                    <button><img src="{{ asset('frontend/assets/images/icons/file-download-btn.svg') }}"
+                                            alt="file-download"> ডাউনলোড ইনভয়েস</button>
+                                </a>
+                            </div>
                         </div>
                         <div class="row order-items">
                             <div class="col-md-12 order-item-header">
@@ -601,7 +607,7 @@
                                     <li>
                                         <div>
                                             <span>পেমেন্ট মেথড</span>
-                                            <span><label>:</label>ক্যাশ অন ডেলিভারি</span>
+                                            <span><label>:</label><span id="payment_method"></span></span>
                                         </div>
                                     </li>
                                 </ul>
@@ -614,7 +620,7 @@
                                     <div class="col-md-9">
                                         <div class="large_cart_wrapper">
                                             <div>
-                                                <div class="large_cart_inner">
+                                                <div class="large_cart_inner order_det">
                                                     <h2>Order Details</h2>
                                                 </div>
                                                 <div class="large_cart_inner ">
@@ -649,7 +655,7 @@
 
                                         <div class="small_cart_wrapper">
                                             <div>
-                                                <div class="large_cart_inner Small_cart_Inner">
+                                                <div class="large_cart_inner Small_cart_Inner order_det">
                                                     <h2>Order Details</h2>
                                                 </div>
                                                 <div class="orderBooksSmallDevice">
@@ -677,6 +683,14 @@
                                                         <span>ডেলিভারি ফি </span>
                                                         <span class="amount"><label>:</label>
                                                             <p id="deliveryFee"></p>
+                                                        </span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div>
+                                                        <span>উপহারের মোড়ক</span>
+                                                        <span class="amount"><label>:</label>
+                                                            <p id="orderWrappingCost"></p>
                                                         </span>
                                                     </div>
                                                 </li>
@@ -979,8 +993,8 @@
                                 <div class="address_loc_edit">
                                     <div class="form-check">
                                         ${ (response.data.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                                    value="" onclick="primaryAddress(${response.data.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                                    value="" onclick="primaryAddress(${response.data.address_id})">`)
+                                                                                                        value="" onclick="primaryAddress(${response.data.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                                        value="" onclick="primaryAddress(${response.data.address_id})">`)
                                         }
                                         <label class="form-check-label"> প্রাথমিক ঠিকানা </label>
                                     </div>
@@ -1104,8 +1118,8 @@
                                     <div class="form-check"> 
 
                                         ${ (response.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                                    value="" onclick="primaryAddress(${response.address.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                                    value="" onclick="primaryAddress(${response.address.address_id})">`)
+                                                                                                        value="" onclick="primaryAddress(${response.address.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                                        value="" onclick="primaryAddress(${response.address.address_id})">`)
    
                                         }
 
@@ -1171,7 +1185,7 @@
                 success: function(response) {
                     if (response.success === true) {
 
-                        $(".bookRow").empty();
+                        $(".orderBooksTableHeader").empty();
 
                         $.each(response.data.books, function(index, val) {
                             var id = index + 1
@@ -1252,11 +1266,16 @@
                         $('#deliveryFee').html('৳' + response.data.deliveryFeeAmount);
                         $('.order_total').html(response.data.totalAmount);
                         $('#order_total').html('৳' + response.data.totalAmount);
+                        $('#orderWrappingCost').html('৳' + response.data.giftWrappingCost);
 
+                        var url = "{{ route('order.invoice.download', ':id') }}";
+                        url = url.replace(':id', response.data.order_id);
 
+                        $('#orderInvoice').attr('href',url)
 
                         $('#order_id').html('#' + response.data.id);
                         $('#order_date').html(response.data.date);
+                        $('#payment_method').html(response.data.payment_method.payment_method);
                         $('.order_id').html('<label>:</label>#' + response.data.id);
                         $('#customer').html('<label>:</label>' + response.data.name);
                         // $('#customer').html('<label>:</label>'+response.data.name);
@@ -1314,8 +1333,8 @@
                                 <div class="address_loc_edit">
                                     <div class="form-check">
                                         ${ (val.pivot.is_default==1?`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                    value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
-                                                                                    value="" onclick="primaryAddress(${val.address_id})">`)
+                                                                                        value="" onclick="primaryAddress(${val.address_id})" checked>`:`<input class="form-check-input" type="checkbox" name="permanent_address"
+                                                                                        value="" onclick="primaryAddress(${val.address_id})">`)
 
                                             
                                         }

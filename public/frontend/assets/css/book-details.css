@@ -148,6 +148,27 @@
     padding-bottom: 2.5rem;
 }
 
+.book_Det_buttons{
+    display: flex;
+    justify-content: space-between;
+}
+.book_Det_buttons button{
+    flex: 0 0 48%;
+    width: 48%;
+    padding: 16.5px;
+    font-size: 22px;
+    line-height: 33px;
+    border-radius: 5px;
+}
+.book_Det_buttons .cart_btn{
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 33px;
+    color: #4F7F6C;
+    background: #FFFFFF;
+    border: 1px solid #4F7F6C;
+}
+
 .price_box h3 {
     font-weight: bold;
     font-size  : 3.2rem;
@@ -774,6 +795,11 @@
     }
     .rating_user {
         margin-bottom: 1.4rem;
+    }
+    .book_Det_buttons button {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
     }
 
 }

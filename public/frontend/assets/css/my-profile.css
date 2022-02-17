@@ -168,8 +168,24 @@ input[type="file"] {
     border       : 4px solid #AEC4BB;
 
 }
-.modal.show .modal-dialog{
+.modal-dialog.modal-dialog-centered.modal-lg{
     max-width: 1620px;
+}
+
+.modal-dialog-centered.modal-lg .invoice{
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+.modal-dialog-centered.modal-lg .invoice button{
+    background: none;
+    border: none;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 24px;
+    color: #4F7F6C;
+    margin-bottom: 3px;
 }
 .my_profile_body .tab-content .input_fild {
     padding: 1.4rem 17rem 0;
@@ -183,10 +199,6 @@ input[type="file"] {
 
 .modal-header .btn-close:focus {
     box-shadow: none;
-}
-
-.my_profile_body .modal-dialog {
-    max-width: 1260px;
 }
 
 .my_profile_body .modal-dialog {
@@ -394,7 +406,7 @@ input[type="file"] {
 /* New CSS for modal History */
 .order-history-content {
     border       : 1px solid #E0E0E0;
-    border-radius: 0;
+    border-radius: 1.3rem;
 }
 
 .order-history-content .modal-body {
@@ -542,7 +554,7 @@ input[type="file"] {
     line-height  : 24px;
     color        : #262626;
 }
-.special-note .large_cart_wrapper>div .large_cart_inner:first-child {
+.special-note .large_cart_wrapper>div .large_cart_inner.order_det {
     border-bottom: 1px solid var(--blue);
     padding-top: 22px;
     padding-bottom: 24px;
@@ -822,6 +834,12 @@ button.addtocart {
 }
 
 @media (max-width: 767.98px) {
+    .order-header h1 {
+        font-size    : 1.8rem;
+    }
+    .order-header h1 span {
+        font-size: 1.8rem;
+    }
     .order-item-header h2 {
         padding-left: 1.5rem;
     }

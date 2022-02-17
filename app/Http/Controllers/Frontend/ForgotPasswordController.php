@@ -9,6 +9,7 @@ use App\Traits\SmsTrait;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class ForgotPasswordController extends Controller {
     use SmsTrait;
@@ -38,7 +39,14 @@ class ForgotPasswordController extends Controller {
 
             User::where('phone', $request->number)->update(['otp_code' => $randomDigit]);
 
-            $this->smsSend($to, $text);
+            $parsedUrl = parse_url(URL::previous());
+
+            $url = url('') . $parsedUrl['path'];
+
+            if ($url != route('forgot.password.otp.send')) {
+
+                $this->smsSend($to, $text);
+             }
 
             return view('frontend.auth.login_verification', compact('number'));
 
@@ -58,7 +66,7 @@ class ForgotPasswordController extends Controller {
 
             return redirect()->back()->with('errorMessage', 'ওটিপি সঠিক নয় ');
         } else {
-            // $user->update(['otp_code' => null]);
+            $user->update(['otp_code' => null]);
 
             return view('frontend.auth.change-password', compact('number'));
 

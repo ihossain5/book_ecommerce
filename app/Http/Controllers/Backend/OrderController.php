@@ -92,6 +92,7 @@ class OrderController extends Controller {
 
                 $this->smsSend($order->phone, $message);
             }
+
             if ($request->status_id == 4) {
                 $order->load('books');
 
@@ -105,17 +106,17 @@ class OrderController extends Controller {
                 ]);
 
                 $details = [
-                    'file'              => $pdf,
+                    'order'   => $order,
+                    'appInfo' => $appInfo,
                 ];
 
-                
                 // Mail::send('emails.OrderCompleteMail', $data, function($message)use($data, $pdf) {
                 //     $message->to($data["email"])
                 //             ->subject($data["title"]);
                 //             // ->attachData($pdf->output(), "text.pdf");
                 // });
 
-                Mail::to($order->user->email)->send(new OrderCompleteMail($details));
+                Mail::to($order->user->email)->send(new OrderCompleteMail($appInfo,$order));
             }
 
             $status      = OrderStatus::where('order_status_id', $order->order_status_id)->first();

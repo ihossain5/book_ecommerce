@@ -14,6 +14,8 @@ class CartController extends Controller {
 
             $message = 'Item has been added into cart';
 
+            $cart->url = route('frontend.cart');
+
             return $this->success($this->response($cart, null, $message));
 
         } catch (Exception $e) {
@@ -70,6 +72,7 @@ class CartController extends Controller {
         $data['numberOfCartQuantities'] = $cart->numberOfCartQty();
         $data['cartItems']              = $cart->cartItems();
         $data['message']                = $message;
+        $data['url']                    = $cart->url ?? null;
         $data['rowId']                  = $rowId;
 
         return $data;

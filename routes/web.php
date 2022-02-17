@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\ContactController;
 use App\Http\Controllers\Backend\CustomerController;
 use App\Http\Controllers\Backend\DiscountOfferController;
 use App\Http\Controllers\Backend\FeatureAttributeController;
+use App\Http\Controllers\Backend\GiftWrapperController;
 use App\Http\Controllers\Backend\OfferController;
 use App\Http\Controllers\Backend\OrderController;
 use App\Http\Controllers\Backend\PublicationController;
@@ -71,6 +72,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::post('/admin/delete', [AdminController::class, 'destroy'])->name('admin.delete');
 //* employee route end */
 
+//* gift wrapper route start */
+Route::get('/gift-wrapper', [GiftWrapperController::class, 'index'])->name('gift.wrapper.index');
+Route::get('/gift-wrapper/{wrapper}', [GiftWrapperController::class, 'edit'])->name('gift.wrapper.edit');
+Route::put('/gift-wrapper/{wrapper}', [GiftWrapperController::class, 'update'])->name('gift.wrapper.update');
+//* gift wrapper route end */
+
 /* category route start */
     Route::resource('category', CategoryController::class);
     Route::post('update-asdasd', [CategoryController::class, 'updateStatus'])->name('category.status.update');
@@ -121,7 +128,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 // Contact start
     Route::get('/orders', [OrderController::class, 'index'])->name('order.index');
-    Route::get('/order/{order}', [OrderController::class, 'downloadInvoice'])->name('order.invoice.download');
+    
     Route::get('/order-management', [OrderController::class, 'order_info'])->name('order.info');
     Route::post('/order/manage/edit', [OrderController::class, 'order_view'])->name('order.view');
     Route::post('/order/manage/change/status', [OrderController::class, 'order_change_status'])->name('order.change.status');
@@ -277,3 +284,7 @@ Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
 Route::get('/cart', [CartController::class, 'index'])->name('frontend.cart');
 Route::post('/delete-wishlist', [WishlistController::class, 'delete'])->name('wishlist.remove');
 Route::post('/filter-books', [FrontendBookController::class, 'filterBookByPrice'])->name('book.filter.price');
+
+Route::get('/order/{order}', [OrderController::class, 'downloadInvoice'])->name('order.invoice.download');
+
+Route::post('/gift/wrapper', [GiftWrapperController::class, 'getGiftWrapper'])->name('get.gift.wrapper');

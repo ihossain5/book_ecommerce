@@ -26,6 +26,7 @@
             <div class="login_container ">
 
                 @include('partial.frontend.auth.logo')
+                
                 <div class="login_content">
 
                     <h2>আপনার ফোন নম্বর</h2>
@@ -34,7 +35,7 @@
 
                         @include('partial.frontend.auth.otp')
                     </form>
-                    @include('partial.frontend.auth.social_login')
+
                 </div>
             </div>
         </div>

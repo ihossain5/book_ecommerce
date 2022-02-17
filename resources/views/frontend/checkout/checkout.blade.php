@@ -123,10 +123,10 @@
                             <label id="paymentMethod-error" class="error h3 text-danger" for="paymentMethod"></label>
 
                             <!-- <div class="form_group">
-                                                            <label for="address" class="form-label">আরও তথ্য</label>
-                                                            <textarea name="address" class="form-control" id="address" cols="30" rows="4"
-                                                                placeholder="এখানে লিখুন..."></textarea>
-                                                        </div> -->
+                                                                            <label for="address" class="form-label">আরও তথ্য</label>
+                                                                            <textarea name="address" class="form-control" id="address" cols="30" rows="4"
+                                                                                placeholder="এখানে লিখুন..."></textarea>
+                                                                        </div> -->
                         </div>
                     </div>
                 </div>
@@ -158,6 +158,13 @@
                             </div>
 
                             <div>
+                                <div class="cart_chack">
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="checkBox" type="checkbox"
+                                            name="permanent_address" value="">
+                                        <label class="form-check-label"> উপহারের মোড়ক</label>
+                                    </div>
+                                </div>
                                 <div class="cart_fees">
                                     <div>
                                         সাব টোটাল
@@ -173,10 +180,10 @@
                                     </div>
                                     @if (!empty($default_address))
                                         <input type="hidden" name="delivery_fee" id="deliveryFee"
-                                            value="{{ $default_address->inside_dhaka_city == 1 ? $cartService->insideDhakadeliveryFee : $cartService->outsideDhakadeliveryFee }}">
+                                            value="{{ $default_address->inside_dhaka_city == 1? $cartService->insideDhakadeliveryFee: $cartService->outsideDhakadeliveryFee }}">
                                         <div class="deliveryFee">
 
-                                            {{ $default_address->inside_dhaka_city == 1 ? englishTobangla($cartService->insideDhakadeliveryFee) : englishTobangla($cartService->outsideDhakadeliveryFee) }}
+                                            {{ $default_address->inside_dhaka_city == 1? englishTobangla($cartService->insideDhakadeliveryFee): englishTobangla($cartService->outsideDhakadeliveryFee) }}
                                             টাকা
                                         </div>
                                     @else
@@ -189,12 +196,24 @@
                                     @endif
 
                                 </div>
+
+                                <div class="cart_fees d-none" id="giftWrapper">
+                                    <div>
+                                        উপহারের মোড়ক
+                                    </div>
+                                    <input type="hidden" name="delivery_fee" id="giftWrapperCost" value="0">
+                                    <div class="deliveryFee giftWrapper"></div>
+
+                                </div>
+
                                 <div class="cart_fees">
                                     <div>
                                         টোটাল
                                     </div>
                                     <input type="hidden" name="subtotal" id="total"
                                         value="{{ $cartService->subTotal() }}">
+
+                                    <input type="hidden" name="subtotal" id="grandTotal" value="{{ $total }}">
 
                                     <div class="grandTotal">
 
@@ -248,7 +267,7 @@
             var val = $(this).val();
 
             if (val == '') {
-                alert('asdas');
+                // alert('asdas');
             } else {
                 $.ajax({
                     url: "{!! route('get.customer.address') !!}",
@@ -311,6 +330,10 @@
                 name: {
                     required: true,
                 },
+                email: {
+                    required: true,
+                    email: true,
+                },
                 paymentMethod: {
                     required: true,
                 },
@@ -336,9 +359,7 @@
 
             },
             messages: {
-                otp: {
-                    required: 'Please insert your otp code',
-                },
+
             },
             errorPlacement: function(label, element) {
                 label.addClass('h3 text-danger');
@@ -382,6 +403,8 @@
         var address;
         var deliveryFee;
         var addInfo;
+        var email;
+        var giftWrapperCost;
 
         function validateForm() {
             $('.checkoutForm').submit();
@@ -395,6 +418,8 @@
             address = $('#address').val();
             deliveryFee = $('#deliveryFee').val();
             addInfo = $('#notes').val();
+            email = $('#email').val();
+            giftWrapperCost = $('#giftWrapperCost').val();
 
             if ($('.checkoutForm').valid() == true) {
                 var obj = {};
@@ -405,6 +430,8 @@
                 obj.address = $('#address').val();
                 obj.deliveryFee = $('#deliveryFee').val();
                 obj.notes = $('#notes').val();
+                obj.email = $('#email').val();
+                obj.giftWrapperCost = $('#giftWrapperCost').val();
 
 
                 $('#sslczPayBtn').prop('postdata', obj);
@@ -445,6 +472,8 @@
                     address: address,
                     delivery_fee: deliveryFee,
                     addInfo: addInfo,
+                    email: email,
+                    giftWrapperCost: giftWrapperCost,
                     _token: "{{ csrf_token() }}"
                 },
                 dataType: "json",
@@ -466,5 +495,57 @@
                 },
             }); //ajax end  
         }
+
+        $('#checkBox').click(function() {
+
+            var total = format_value($('#grandTotal').val());
+
+            var cost;
+
+            if ($(this).is(':checked')) {
+                $.ajax({
+                    url: "{!! route('get.gift.wrapper') !!}",
+                    method: "post",
+                    data: {
+                        _token: "{{ csrf_token() }}"
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        if (response.success == true) {
+
+                            cost = response.data.cost;
+
+                            $('#giftWrapper').removeClass('d-none')
+                            $('.giftWrapper').html(engToBangla(cost) + ' টাকা')
+                            $('#giftWrapperCost').val(cost)
+
+
+
+                            var newTotal = total + cost;
+
+                            $('.grandTotal').html(engToBangla(newTotal) + ' টাকা');
+
+                        } //success end
+
+                    },
+                    error: function(error) {
+                        if (error.status == 422) {
+                            $.each(error.responseJSON.errors, function(i, message) {
+                                toastr['error'](message);
+                            });
+
+                        }
+                    },
+                }); //ajax end  
+
+
+            } else {
+                $('#giftWrapperCost').val(0)
+                $('.grandTotal').html(engToBangla(total) + ' টাকা');
+
+                $('#giftWrapper').addClass('d-none')
+            }
+
+        });
     </script>
 @endsection

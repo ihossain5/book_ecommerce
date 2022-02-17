@@ -64,11 +64,11 @@
                                                 <td style="width: 30%; font-weight:800;">
                                                     <h1 style="margin: 0; font-size: 18px; font-family:nikosh; font-weight: 800; ">{{$appInfo->name}}</h1>
                                                 </td>
-                                                <td style="width: 30%; font-weight:700;">
-                                                    <h1 style="margin: 0; font-size: 14px; font-family: 'Jost', sans-serif; ">Order ID: #{{$order->id}}</h1>
+                                                <td style="width: 30%; font-weight:600;">
+                                                    <h1 style="margin: 0; font-size: 12px; font-family: 'Jost', sans-serif; ">Order ID: #{{$order->id}}</h1>
                                                 </td>
-                                                <td style="width: 30%; font-weight:200;">
-                                                    <h1 style="margin: 0; font-size: 13px; font-family: 'Jost', sans-serif; ">Order Date: {{formatDate($order->created_at)}}
+                                                <td style="width: 30%; font-weight:600;">
+                                                    <h1 style="margin: 0; font-size: 12px; font-family: 'Jost', sans-serif; ">Order Date: {{formatDate($order->created_at)}}
                                                     </h1>
                                                 </td>
                                                 <td style="width: 7%"></td>
@@ -111,15 +111,17 @@
                                 <td style="width: 100%">
                                     <table style="width: 100%; border-spacing: 0;">
                                         <tbody>
+
                                             <tr>
-                                                <td style="width: 10%"></td>
+                                                <td style="width: 6%"></td>
                                                 <td width="53%" style="vertical-align: top;">
                                                     <table style="width: 100%; border-spacing: 0;">
                                                         <tbody>
                                                             <tr>
-                                                                <td style="width: 100%; font-weight: 700;">
-                                                                    <h1 style="margin: 0; font-size: 14px; font-family: 'Jost', sans-serif;">Shipping
-                                                                        Address</h1>
+                                                                <td style="width: 100%;">
+                                                                    <h1
+                                                                        style="margin: 0;font-family: 'Jost', sans-serif; font-size: 16px; font-weight: 600;">
+                                                                        Shipping Address</h1>
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -127,53 +129,83 @@
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 100%; line-height: 22px;">
+                                                                    <!--new added start   -->
                                                                     <p
-                                                                        style="margin: 0; font-size: 18px; font-family:nikosh; font-weight: 500; sans-serif; width: 200px;">
-                                                                        {{$order->division}}, {{$order->district}}, {{$order->address}}</p>
+                                                                        style="margin: 0; font-family:nikosh; sans-serif; font-size: 16px; line-height: 19px; font-weight: 500; width: 200px;">
+                                                            <!--new added end   -->
+
+                                                            {{$order->division}}, {{$order->district}}, {{$order->address}}</p>
                                                                 </td>
                                                             </tr>
+
+                                                            <!--new added start   -->
+                                                            <tr>
+                                                                <td style="width: 100%; height: 15px;"></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td style="width: 100%; height: 15px;"></td>
+                                                            </tr>
+                                                            <!--new added end   -->
                                                             <tr>
                                                                 <td style="width: 100%;">
+                                                                    <!--new added start   -->
                                                                     <p
-                                                                        style="margin: 0; font-size: 14px; font-weight: 400;">
-                                                                        Name: {{$order->name}}</p>
+                                                                        style="margin: 0;font-family: 'Jost', sans-serif; font-size: 12px; line-height: 24px; font-weight: 500;">
+                                                                        Name: <span style="font-weight: 700; font-family:nikosh;">{{$order->name}}</span> </p>
+                                                            <!--new added end   -->
+
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 100%; line-height: 22px;">
+                                                                    <!--new added start   -->
                                                                     <p
-                                                                        style="margin: 0; font-size: 14px; font-weight: 400;">
-                                                                        Order Number: #{{$order->id}}</p>
+                                                                        style="margin: 0;font-family: 'Jost', sans-serif; font-size: 12px; line-height: 24px; font-weight: 500;">
+                                                                        Phone: <span style="font-weight: 700;">{{$order->phone}}</span></p>
+                                                            <!--new added end   -->
+
                                                                 </td>
                                                             </tr>
                                                             <tr>
                                                                 <td style="width: 100%; line-height: 22px;">
+                                                                    <!--new added start   -->
                                                                     <p
-                                                                        style="margin: 0; font-size: 14px; font-weight: 400;">
-                                                                        Phone: {{$order->phone}}</p>
+                                                                        style="margin: 0;font-family: 'Jost', sans-serif; font-size: 12px; line-height: 24px; font-weight: 500;">
+                                                                        Email: <span style="font-weight: 700;">{{$order->email}}</span></p>
+                                                                        <!--new added start   -->
+
                                                                 </td>
                                                             </tr>
-                                                            {{-- <tr>
-                                                                <td style="width: 100%; line-height: 22px;">
-                                                                    <p
-                                                                        style="margin: 0; font-size: 14px; font-weight: 400;">
-                                                                        Email: test@gmail.com</p>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td style="width: 100%; line-height: 22px;">
-                                                                    <p
-                                                                        style="margin: 0; font-size: 14px; font-weight: 400;">
-                                                                        Delivery Date: 21 June, 2022</p>
-                                                                </td>
-                                                            </tr> --}}
                                                         </tbody>
                                                     </table>
                                                 </td>
-                                                <td width="27%" style="vertical-align: top;">
-
+                                                <td style="width: 37%">
+                                                    <!--new added start   -->
+                                                    <table style="width: 100%; border-spacing: 0;">
+                                                        <tbody>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr><td style="width: 100%; height: 17px;"></td></tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <p
+                                                                    style="margin: 0; font-family: 'Jost', sans-serif; font-size: 12px;
+                                                                    line-height: 24px; font-weight: 500;">
+                                                                    Delivary Method: <span style="font-weight: 700; font-family:nikosh; font-size: 16px;">{{$order->paymentMethod->payment_method}}</span>
+                                                                    </p>
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <!--new added start   -->
                                                 </td>
-                                                <td style="width: 10%"></td>
                                             </tr>
                                         </tbody>
                                     </table>

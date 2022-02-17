@@ -22,16 +22,15 @@ class SslCommerzPaymentController extends Controller {
     public function payViaAjax(Request $request, CartService $cartService) {
         $dataArray = $request->get('cart_json');
 
-        $data      = json_decode($dataArray, true);
+        $data = json_decode($dataArray, true);
 
-
-        $grandTotal = $this->totalAmount($cartService->subTotal(), $data['deliveryFee']);
+        $grandTotal = $this->totalAmount($cartService->subTotal(), $data['deliveryFee'],$data['giftWrapperCost']);
 
         $data['tran_id'] = uniqid(); // tran_id must be unique
 
         $data['total_amount'] = floatval(preg_replace('/[^\d.]/', '', $grandTotal)); # You cant not pay less than 10
 
-        $data['currency']     = "BDT";
+        $data['currency'] = "BDT";
 
         # CUSTOMER INFORMATION
         $data['cus_name']     = 'Customer Name';
@@ -62,24 +61,26 @@ class SslCommerzPaymentController extends Controller {
 
         #Before  going to initiate the payment order status need to update as Pending.
         $update_product = Order::create([
-                'name'            => $data['name'],
-                'email'           => $data['email'] ?? null,
-                'phone'           => $data['phone'],
-                'notes'           => $data['notes'],
-                'amount'          => $data['total_amount'],
-                'status'          => 'Pending',
-                'address'         => $data['address'],
-                'total'           => $grandTotal,
-                'subtotal'        => floatval(preg_replace('/[^\d.]/', '', $cartService->subTotal())),
-                'transaction_id'  => $data['tran_id'],
-                'delivery_fee'    => $data['deliveryFee'],
-                'division'        => $data['division'],
-                'district'        => $data['district'],
-                'user_id'         => auth()->user()->id,
-                'order_status_id' => 1,
-                'id'              => getMaxId(),
-            ]);
-
+            'name'            => $data['name'],
+            'email'           => $data['email'] ?? null,
+            'phone'           => $data['phone'],
+            'notes'           => $data['notes'],
+            'amount'          => $data['total_amount'],
+            'status'          => 'Pending',
+            'address'         => $data['address'],
+            'total'           => $grandTotal,
+            'subtotal'        => floatval(preg_replace('/[^\d.]/', '', $cartService->subTotal())),
+            'transaction_id'  => $data['tran_id'],
+            'delivery_fee'    => $data['deliveryFee'],
+            'division'        => $data['division'],
+            'district'        => $data['district'],
+            'email'           => $data['email'],
+            'wrapping_cost'   => $data['giftWrapperCost'],
+            'user_id'         => auth()->user()->id,
+            'order_status_id' => 1,
+            'payment_id'      => 2,
+            'id'              => getMaxId(),
+        ]);
 
         $sslc = new SslCommerzNotification();
         # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
@@ -98,8 +99,6 @@ class SslCommerzPaymentController extends Controller {
         }
 
     }
-
-
 
     public function paymentSuccess(Request $request, CartService $cartService) {
         // echo "Transaction is Successful";
@@ -255,10 +254,15 @@ class SslCommerzPaymentController extends Controller {
     }
 
     // order total amount
-    function totalAmount($amount, $deleiveryFee) {
-        $amount       = floatval(preg_replace('/[^\d.]/', '', $amount));
+    function totalAmount($amount, $deleiveryFee, $giftWrapperCost) {
+
+        $amount = floatval(preg_replace('/[^\d.]/', '', $amount));
+
         $deleiveryFee = floatval(preg_replace('/[^\d.]/', '', $deleiveryFee));
-        return ($amount + $deleiveryFee);
+
+        $giftWrapperCost = floatval(preg_replace('/[^\d.]/', '', $giftWrapperCost));
+
+        return currency_format($amount + $deleiveryFee + $giftWrapperCost);
     }
 
 }
