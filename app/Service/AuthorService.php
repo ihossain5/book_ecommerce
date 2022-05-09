@@ -5,7 +5,7 @@ use App\Exceptions\PrecedanceExistException;
 use App\Models\Author;
 use Illuminate\Support\Str as Str;
 
-
+Class AuthorService {
     /** Get All Author */
     function all() {
         return Author::latest()->get();

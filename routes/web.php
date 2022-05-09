@@ -36,6 +36,8 @@ use App\Http\Controllers\Frontend\WriterController;
 use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Backend\BookReviewController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -145,6 +147,14 @@ Route::put('/gift-wrapper/{wrapper}', [GiftWrapperController::class, 'update'])-
     Route::post('/user/ban', [CustomerController::class, 'user_ban'])->name('user.ban');
     Route::post('/customer/info', [CustomerController::class, 'customer_info'])->name('customer.info');
 // ban end
+
+//Review Management Start
+    Route::get('/bookreview', [BookReviewController::class, 'index'])->name('bookreview.index');
+    Route::post('/bookreview/delete', [BookReviewController::class, 'destroy'])->name('bookreview.delete');
+    Route::post('/bookreview/active', [BookReviewController::class, 'isactive'])->name('bookreview.active');
+//Review Management End
+
+
 
 });
 

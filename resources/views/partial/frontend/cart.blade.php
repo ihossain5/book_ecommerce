@@ -74,7 +74,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <a href="{{route('frontend.checkout')}}"><button class="check_btn">Checkouts</button></a>
+                    <a href="{{route('frontend.checkout')}}"><button class="check_btn">Checkout</button></a>
                 </div>
             </div>
         </div>

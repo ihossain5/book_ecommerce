@@ -433,7 +433,7 @@
             <div class="rating_content">
                 <div class="rating ratingReadOnly" data-rating="{{ $rating }}"></div>
                 <h3 class="reating_points">{{ englishTobangla($rating) }}/৫</h3>
-                <p>({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</p>
+                <p>({{ englishTobangla($book->reviews->where('is_active', 1)->count()) }}টি রিভিউ)</p>
             </div>
             {{-- <div class="rating_box">
                 <h3>রিভিউস এবং রেটিংস</h3>
@@ -466,24 +466,27 @@
                     </div>
 
                     @if (!empty($book->reviews))
+                    
                         @foreach ($book->reviews as $key => $review)
-                            <div class="user_rating_box">
-                                <div class="rating_user">
-                                    <div>
-                                        <img src="  {{ asset($review->user->image == null ? 'frontend/assets/images/demo_user.png' : 'images/' . $review->user->image) }}"
-                                            alt="">
+                            @if($review->is_active==1)
+                                <div class="user_rating_box">
+                                    <div class="rating_user">
+                                        <div>
+                                            <img src="  {{ asset($review->user->image == null ? 'frontend/assets/images/demo_user.png' : 'images/' . $review->user->image) }}"
+                                                alt="">
+                                        </div>
+                                        <div>
+                                            <h2>by <span>{{ $review->user->name }}</span>
+                                                {{ formatDate($review->created_at) }}</h2>
+                                            <div class="userRating userRatSerialId{{ $key }}"
+                                                data-user_rating="{{ $review->rating }}"></div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h2>by <span>{{ $review->user->name }}</span>
-                                            {{ formatDate($review->created_at) }}</h2>
-                                        <div class="userRating userRatSerialId{{ $key }}"
-                                            data-user_rating="{{ $review->rating }}"></div>
+                                    <div class="rating_msg">
+                                        <p>{{ $review->review }}</p>
                                     </div>
                                 </div>
-                                <div class="rating_msg">
-                                    <p>{{ $review->review }}</p>
-                                </div>
-                            </div>
+                            @endif
                         @endforeach
                     @endif
 

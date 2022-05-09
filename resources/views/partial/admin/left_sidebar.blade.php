@@ -131,6 +131,12 @@
                             <span> Gift Wrapper Management </span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('bookreview.index') }}" class="waves-effect customer_management">
+                            <i class="fa fa-book"></i>
+                            <span> Review Management </span>
+                        </a>
+                    </li>
 
                     <li class="has_sub">
                         <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-web"></i><span> Website

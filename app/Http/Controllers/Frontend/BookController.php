@@ -14,14 +14,13 @@ use Illuminate\Http\Request;
 class BookController extends Controller {
     public function bookDetails(Book $book) {
         $book->load('categories', 'authors', 'featureAttributes', 'authors.books');
-
         $books = [];
         foreach ($book->authors as $author) {
             foreach ($author->books->where('book_id', '!=', $book->book_id)->where('is_visible', 1) as $author_book) {
                 $books[] = $author_book;
             }
         }
-
+        
         $related_books = collect($books)->unique('book_id');
 
         $url = route('frontend.book.details', $book->book_id);
@@ -44,8 +43,9 @@ class BookController extends Controller {
     }
 
     private function getTotalRating($reviews) {
-        $totalReviews = $reviews->count();
-        $totalSum     = $reviews->sum('rating');
+        $totalReviews = $reviews->where('is_active', 1)->count();
+
+        $totalSum     = $reviews->where('is_active', 1)->sum('rating');
 
         return round($totalSum / $totalReviews, 1);
     }
