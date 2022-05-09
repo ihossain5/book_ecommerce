@@ -182,6 +182,10 @@
                                             <td>Tk <span class="deleveryFee"></span></td>
                                         </tr>
                                         <tr>
+                                            <td colspan="3">Wrapping Cost</td>
+                                            <td>Tk <span class="wrappingcost"></span></td>
+                                        </tr>
+                                        <tr>
                                             <td colspan="3">Total Amount</td>
                                             <td>Tk <span class="view_total"></span> </td>
                                         </tr>
@@ -256,6 +260,7 @@
 
                         $('.subTotal').html(response.data.subtotal)
                         $('.deleveryFee').html(response.data.delivery_fee)
+                        $('.wrappingcost').html(response.data.wrapping_cost)
                         $('.view_total').text(response.data.total)
 
                         $('#viewModal').modal('show');

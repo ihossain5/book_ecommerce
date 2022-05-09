@@ -41,11 +41,31 @@
                                                 <td style="width: 10%"></td>
                                                 <td style="width: 27%"></td>
                                                 <td style="width: 26%">
-                                                    {{-- <img src="{{public_path('images/logo.png')}}" alt="logo" style="width: 170px"> --}}
-                                                    <img src="{{url('images/logo.png')}}" alt="logo" style="width: 170px">
+                                                    <img src="{{public_path('images/logo.png')}}" alt="logo" style="width: 170px">
+                                                    {{-- <img src="{{url('images/logo.png')}}" alt="logo" style="width: 170px"> --}}
                                                 </td>
                                                 <td style="width: 27%"></td>
                                                 <td style="width: 10%"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <!-- empty space -->
+                            <tr>
+                                <td colspan="5" style="height: 25px;"></td>
+                            </tr>
+                            <!-- Address -->
+                            <tr>
+                                <td style="width: 100%;">
+                                    <table style="width: 100%; border-spacing: 0;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="width: 30%"></td>
+                                                <td style="width: 40%">
+                                                   {{$appInfo->address}}
+                                                </td>
+                                                <td style="width: 30%"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -287,10 +307,10 @@
                                                             <td
                                                                 style="width: 10%; border-style: solid; border-color: #000; border-width: 0 1px 1px 1px; text-align: center;">
 
-                                                                {{-- <img style="width: 46px; height: 46px;" src="{{public_path('images/'.$book->cover_image)}}"
-                                                                    alt=""> --}}
-                                                                <img style="width: 46px; height: 46px;" src="{{url('images/'.$book->cover_image)}}"
+                                                                <img style="width: 46px; height: 46px;" src="{{public_path('images/'.$book->cover_image)}}"
                                                                     alt="">
+                                                                {{-- <img style="width: 46px; height: 46px;" src="{{url('images/'.$book->cover_image)}}"
+                                                                    alt=""> --}}
 
                                                             </td>
                                                             <td
@@ -382,6 +402,23 @@
                                                                         <span
                                                                             style="font-family: nikosh; font-size: 14px;">৳</span>
                                                                             {{currency_format($order->delivery_fee)}}
+                                                                    </p>
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td
+                                                                    style="width: 50%; border-style: solid; border-color: #3084bb; border-width: 1px 0 1px 0; font-weight: 400; line-height: 28px;">
+                                                                    <p style="margin: 0; font-size: 14px; ">Wrapping Cost:
+                                                                    </p>
+                                                                </td>
+                                                                <td
+                                                                    style="width: 50%; text-align: right; border-style: solid; border-color: #3084bb; border-width: 1px 0 1px 0; line-height: 28px;">
+                                                                    <p
+                                                                        style="margin: 0; font-size: 14px; font-weight: 400; ">
+                                                                        <span
+                                                                            style="font-family: nikosh; font-size: 14px;">৳</span>
+                                                                            {{currency_format($order->wrapping_cost)}}
                                                                     </p>
 
                                                                 </td>

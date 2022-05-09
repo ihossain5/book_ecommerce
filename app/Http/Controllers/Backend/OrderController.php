@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use Auth;
 
 class OrderController extends Controller {
     use SmsTrait;
@@ -19,8 +20,9 @@ class OrderController extends Controller {
     public function index() {
 
         $orders = Order::all();
+        $contacts = Contact::all();
 
-        return view('admin.orders.order_management', compact('orders'));
+        return view('admin.orders.order_management', compact('orders','contacts'));
     }
 
     public function downloadInvoice(Order $order) {
@@ -39,8 +41,12 @@ class OrderController extends Controller {
         ]);
 
         $name = 'invoice-' . $order->id;
-
+        if(Auth::check()){
         return $pdf->download($name . '.pdf');
+        }else{
+            return redirect()->route('frontend.login');
+        }
+        // return $pdf->download($name . '.pdf');
     }
 
     public function order_info() {
