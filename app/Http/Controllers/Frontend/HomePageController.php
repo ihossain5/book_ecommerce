@@ -21,6 +21,8 @@ class HomePageController extends Controller {
 
         $popularBooks = $homepageService->popularBooks();
 
+        // dd($featureCategories);
+
         return view('frontend.index', compact('books', 'featureCategories','authors','popularBooks'));
     }
 

@@ -96,8 +96,14 @@
                     </button>
                 </li>
                 <li class="hide-phone list-inline-item app-search">
-                    <h3 class="page-title">Dashboard</h3>
+                    <h3 class="page-title">
+                        <a href="{{route('frontend.home')}}" class="" target="_blanck" style="color: #212529;">Go To Home</a>
+                    </h3>
                 </li>
+                <!-- <li class="list-inline-item">
+                    <a href="/" class="page-title" target="_blanck" style="color: #212529;">Home</a>
+                </li> -->
+                
             </ul>
 
             <div class="clearfix"></div>

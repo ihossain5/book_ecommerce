@@ -302,12 +302,12 @@
                             <ul class="orders_lists">
                                 @if (!empty($user_orders))
                                     @foreach ($user_orders as $user_order)
-                                        <li class="order_details">
+                                        <li class="order_details"
+                                                        onclick="order_view({{ $user_order->order_id }})">
                                             <div class="code_and_delevery">
 
                                                 <p class="order_code">অর্ডার কোডঃ
-                                                    <span role="button"
-                                                        onclick="order_view({{ $user_order->order_id }})">#{{ $user_order->id }}</span>
+                                                    <span role="button">#{{ $user_order->id }}</span>
                                                 </p>
 
                                                 @if ($user_order->order_status_id == 1)
@@ -410,13 +410,16 @@
                                                                     data-user_rating="{{ getTotalRating($wishlist->book->reviews) }}">
                                                                 </div> --}}
                                                             </div>
-                                                            <h3 class="title">{{ $wishlist->book->title }}</h3>
+                                                            <h3 class="title">
+                                                             <a class="text-reset" href="{{ route('frontend.book.details', [$wishlist->book->book_id]) }}">{{ $wishlist->book->title }}</a>   
+                                                            </h3>
                                                             <p class="author">
                                                                 @if (!empty($wishlist->book->authors))
                                                                     @foreach ($wishlist->book->authors as $author)
-                                                                        {{ $author->name }} @if (!$loop->last)
-                                                                            ,
-                                                                        @endif
+                                                                    <a class="text-reset" href="{{ route('frontend.author.details', [$author->author_id]) }}"> {{ $author->name }} @if (!$loop->last)
+                                                                        ,
+                                                                    @endif</a>
+                                                                       
                                                                     @endforeach
                                                                 @endif
                                                             </p>

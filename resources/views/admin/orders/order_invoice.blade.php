@@ -41,7 +41,8 @@
                                                 <td style="width: 10%"></td>
                                                 <td style="width: 27%"></td>
                                                 <td style="width: 26%">
-                                                    <img src="{{public_path('images/logo.png')}}" alt="logo" style="width: 170px">
+                                                    {{-- <img src="{{public_path('images/logo.png')}}" alt="logo" style="width: 170px"> --}}
+                                                    <img src="{{url('images/logo.png')}}" alt="logo" style="width: 170px">
                                                 </td>
                                                 <td style="width: 27%"></td>
                                                 <td style="width: 10%"></td>
@@ -128,10 +129,10 @@
                                                                 <td style="width: 100%; height: 15px;"></td>
                                                             </tr>
                                                             <tr>
-                                                                <td style="width: 100%; line-height: 22px;">
+                                                                <td style="width: 100%; line-height: 22px; font-family:nikosh;">
                                                                     <!--new added start   -->
                                                                     <p
-                                                                        style="margin: 0; font-family:nikosh; sans-serif; font-size: 16px; line-height: 19px; font-weight: 500; width: 200px;">
+                                                                        style="margin: 0; font-family:nikosh; font-size: 16px; line-height: 19px; font-weight: 500; width: 200px;">
                                                             <!--new added end   -->
 
                                                             {{$order->division}}, {{$order->district}}, {{$order->address}}</p>
@@ -286,7 +287,9 @@
                                                             <td
                                                                 style="width: 10%; border-style: solid; border-color: #000; border-width: 0 1px 1px 1px; text-align: center;">
 
-                                                                <img style="width: 46px; height: 46px;" src="{{public_path('images/'.$book->cover_image)}}"
+                                                                {{-- <img style="width: 46px; height: 46px;" src="{{public_path('images/'.$book->cover_image)}}"
+                                                                    alt=""> --}}
+                                                                <img style="width: 46px; height: 46px;" src="{{url('images/'.$book->cover_image)}}"
                                                                     alt="">
 
                                                             </td>
@@ -308,7 +311,7 @@
                                                                 <p
                                                                     style="margin: 0; font-size: 12px; font-weight: 400;">
                                                                     <span
-                                                                        style="font-family: nikosh; font-size: 12px;">৳</span>
+                                                                        style="font-family: nikosh; font-size: 14px;">৳</span>
                                                                         {{$book->discounted_price}}
                                                                 </p>
                                                             </td>
@@ -317,7 +320,7 @@
                                                                 <p
                                                                     style="margin: 0; font-size: 12px; font-weight: 400;">
                                                                     <span
-                                                                        style="font-family: nikosh; font-size: 12px;">৳</span>
+                                                                        style="font-family: nikosh; font-size: 14px;">৳</span>
                                                                         {{$book->pivot->amount}}
                                                                 </p>
                                                             </td>

@@ -31,7 +31,7 @@
                             <img src="{{ asset('images/' . $publication->photo) }}" alt="">
                         </a>
                     </div>
-                    <h6>{{  $publication->name }}</h6>
+                    <h6><a href="{{ route('frontend.publishers.name', $publication->publication_id ) }}" class="text-reset">{{  $publication->name }}</a></h6>
                 </div>
             </div>
             @endforeach

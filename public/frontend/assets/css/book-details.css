@@ -18,7 +18,7 @@
 }
 
 .left_book_img {
-    padding-top: 14.6rem;
+    padding-top: 9rem;
 }
 
 .hero_img {
@@ -189,8 +189,8 @@
 }
 
 .buy_btn {
-    font-family  : 'inter';
-    font-weight  : 600;
+    /* font-family  : 'inter'; */
+    font-weight  : bold;
     font-size    : 2rem;
     line-height  : 2.4rem;
     color        : #FFFFFF;

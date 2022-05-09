@@ -108,7 +108,7 @@
                                     <span>
                                         @if (!empty($book->authors))
                                             @foreach ($book->authors as $author)
-                                                {{ $author->name }} @if (!$loop->last) , @endif
+                                            <a href="{{route('frontend.author.details',[$author->author_id])}}" class="text-reset">{{ $author->name }} @if (!$loop->last) , @endif</a>                                                
                                             @endforeach
                                         @endif
                                     </span>
@@ -117,7 +117,7 @@
                                     <span>
                                         @if (!empty($book->categories))
                                             @foreach ($book->categories as $category)
-                                                {{ $category->name }} @if (!$loop->last) , @endif
+                                            <a href="{{route('frontend.topics.name',[$category->category_id])}}" class="text-reset">{{ $category->name }} @if (!$loop->last) , @endif</a>
                                             @endforeach
                                         @endif
                                     </span>
@@ -189,7 +189,7 @@
                             <span>
                                 @if (!empty($book->authors))
                                     @foreach ($book->authors as $author)
-                                        {{ $author->name }} @if (!$loop->last) , @endif
+                                    <a href="{{route('frontend.author.details',[$author->author_id])}}" class="text-reset">{{ $author->name }} @if (!$loop->last) , @endif</a>          
                                     @endforeach
                                 @endif
                             </span>
@@ -198,7 +198,7 @@
                             <span>
                                 @if (!empty($book->categories))
                                     @foreach ($book->categories as $category)
-                                        {{ $category->name }}
+                                    <a href="{{route('frontend.topics.name',[$category->category_id])}}" class="text-reset">{{ $category->name }} @if (!$loop->last) , @endif</a>
                                     @endforeach
                                 @endif
                             </span>
@@ -285,7 +285,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Title</td>
-                                        <td>{{ $book->title }}</td>
+                                        <td><a href="#" class="text-reset">{{ $book->title }}</a></td>
                                     </tr>
                                     <tr>
                                         <td>ISBN</td>
@@ -330,11 +330,13 @@
                                             <div class="item">
                                                 <div class="writer_details">
                                                     <div class="writer_details_img">
-                                                        <img class="img-fluid w-100"
+                                                    <a href="#" class="text-reset">
+                                                    <img class="img-fluid w-100"
                                                             src="{{ asset('images/' . $author->photo) }}" alt="">
+                                                    </a>
                                                     </div>
                                                     <div class="wd_description">
-                                                        <h2>{{ $author->name }}</h2>
+                                                        <h2><a href="{{route('frontend.author.details',[$author->author_id])}}" class="text-reset">{{ $author->name }}</a></h2>
                                                         <p>{{ $author->description }}</p>
                                                     </div>
                                                 </div>
@@ -390,11 +392,12 @@
                                         <div class="rateYo ratSerialId{{ $key }}"
                                             data-user_rating="{{ getTotalRating($related_book->reviews) }}"></div>
                                     </div> --}}
-                                    <h3 class="title">{{ $related_book->title }}</h3>
+                                    <h3 class="title"><a href="{{ route('frontend.book.details', [$related_book->book_id]) }}" class="text-reset">{{ $related_book->title }}</a></h3>
                                     <p class="author">
                                         @if (!empty($related_book->authors))
                                             @foreach ($related_book->authors as $author)
-                                                {{ $author->name }} @if (!$loop->last) , @endif
+                                            <a href="{{ route('frontend.author.details', [$author->author_id]) }}" class="text-reset">{{ $author->name }} @if (!$loop->last) , @endif</a>
+                                                
                                             @endforeach
                                         @endif
                                     </p>

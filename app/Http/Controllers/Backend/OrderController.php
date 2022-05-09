@@ -29,6 +29,8 @@ class OrderController extends Controller {
 
         $appInfo = Contact::first();
 
+        // dd($appInfo);
+
         $pdf = PDF::loadView('admin.orders.order_invoice', [
             'order'   => $order,
             'appInfo' => $appInfo,

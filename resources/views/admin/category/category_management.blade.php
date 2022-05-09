@@ -90,6 +90,7 @@
                                         <tr>
                                             <th>Name</th>
                                             <th>Description</th>
+                                            <th>Precedence</th>
                                             <th>Show to Homepage</th>
                                             <th>Show to Navbar</th>
                                             <th>Action</th>
@@ -102,6 +103,7 @@
                                                     <td>{{ $category->name }}</td>
 
                                                     <td>{{ $category->description }}</td>
+                                                    <td>{{ $category->precedance }}</td>
 
                                                     <td>
                                                         <label class="switch">
@@ -386,6 +388,7 @@
                         var row = $('<tr>')
                             .append(`<td>` + response.data.category.name + `</td>`)
                             .append(`<td>` + response.data.category.description + `</td>`)
+                            .append(`<td>` + response.data.category.precedance + `</td>`)
                             .append(`<td>
                                         <label class="switch">
                                                 <input class="is_home is_home_status${ response.data.category.category_id}"type="checkbox"
@@ -567,6 +570,7 @@
                             `
                                 <td>${response.data.category.name}</td>
                                 <td>${response.data.category.description}</td>
+                                <td>${response.data.category.precedance}</td>
 
                                 <td>
                                         <label class="switch">

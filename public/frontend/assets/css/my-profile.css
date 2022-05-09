@@ -344,6 +344,7 @@ input[type="file"] {
 .my_profile_body .order_details {
     border : 2px solid #F2F2F2;
     padding: 2.4rem 2.4rem 2.2rem;
+    cursor: pointer;
 }
 
 .my_profile_body .order_details p {

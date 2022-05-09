@@ -28,7 +28,7 @@ class CategoryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request, CategoryService $categoryService) {
-        dd($request->all());
+        // dd($request->all());
         try {
             $category = $categoryService->store($request->validated());
 

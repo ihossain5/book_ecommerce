@@ -12,7 +12,7 @@ Class HomepageService {
     }
 
     function featureCategories() {
-        return Category::where('is_home', 1)->orderBy('precedance', 'ASC')->limit(5)->get();
+        return Category::with('books')->where('is_home', 1)->orderBy('precedance', 'ASC')->limit(5)->get();
     }
 
     function authors() {

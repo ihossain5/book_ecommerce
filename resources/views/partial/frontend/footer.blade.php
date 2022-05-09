@@ -13,7 +13,7 @@ use App\Http\Controllers\Frontend\HomePageController;
                     </div>
                 </div>
                 <div class="col-lg-3 right_border left_content">
-                    <h6>ভোরের কাগজ প্রকাশন</h6>
+                    <h6>{{$appInfo->name}}</h6>
                     <ul class="website_address ">
                         <li>
                             <a href="" onclick="return false">{{$appInfo->address}}</a>
@@ -97,7 +97,7 @@ use App\Http\Controllers\Frontend\HomePageController;
                     <div class="acceptPayment">
                         <a target="_blank" href="https://www.sslcommerz.com/" title="SSLCommerz" alt="SSLCommerz"><img
                                 src="https://securepay.sslcommerz.com/public/image/SSLCommerz-Pay-With-logo-All-Size-03.png" /></a>
-                        <h6>Bkash Personal : 01733 062 014</h6>
+                        <h6>Bkash Personal : {{$appInfo->bcash}}</h6>
                     </div>
                 </div>
             </div>

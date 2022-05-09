@@ -267,12 +267,13 @@
                                         <div class="rateYo ratSerialId{{ $key }}"
                                             data-user_rating="{{getTotalRating($book->reviews)}}"></div>
                                     </div> --}}
-                                                <h3 class="title">{{ $book->title }}</h3>
+                                                <h3 class="title"><a href="{{ route('frontend.book.details', [$book->book_id]) }}" class="text-reset">{{ $book->title }}</a></h3>
                                                 <p class="author">
                                                     @foreach ($book->authors as $author)
-                                                        {{ $author->name }}@if (!$loop->last)
+                                                    <a href="{{ route('frontend.author.details', [$author->author_id]) }}" class="text-reset">{{ $author->name }}@if (!$loop->last)
                                                             ,
-                                                        @endif
+                                                        @endif</a>
+                                                        
                                                     @endforeach
 
                                                 </p>

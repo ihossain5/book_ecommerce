@@ -8,7 +8,7 @@
 <section class="not_found py-120">
     <div class="container">
         <div class="not_found_inner">
-            <img src="{{asset('frontend/assets/images/not-found/page-not-found.svg')}}" alt="" class="img-fluid w-100">
+            <img src="{{asset('frontend/assets/not-found/page-not-found.svg')}}" alt="" class="img-fluid w-100">
         </div>
     </div>
 </sect

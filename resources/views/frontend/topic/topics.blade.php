@@ -31,7 +31,7 @@
                             <img src="{{ asset('images/' . $category->photo) }}" alt="">
                         </a>
                     </div>
-                    <h6>{{  $category->name }}</h6>
+                    <h6><a href="{{ route('frontend.topics.name', $category->category_id ) }}" class="text-reset">{{  $category->name }}</a></h6>
                 </div>
             </div>
             @endforeach
