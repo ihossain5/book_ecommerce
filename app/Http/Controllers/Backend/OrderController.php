@@ -101,7 +101,7 @@ class OrderController extends Controller {
                 $this->smsSend($order->phone, $message);
             }
 
-            if ($request->status_id == 4) {
+            if ($request->status_id == 1 || $request->status_id == 2 || $request->status_id == 3 || $request->status_id == 4 || $request->status_id == 5) {
                 $order->load('books');
 
                 $appInfo = Contact::first();

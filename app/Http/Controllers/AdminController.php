@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Models\Order;
+use App\Models\BookReview;
+use App\Models\OrderBook;
+use App\Models\Book;
+use Illuminate\Support\Carbon;
 
 class AdminController extends Controller {
     public function adminLogin() {
@@ -19,7 +24,21 @@ class AdminController extends Controller {
     }
     public function index() {
         // dd('data');
-        return view('admin.dashboard');
+        $ordercompletecount=Order::where('order_status_id', 4)->count();
+        $orderpendingcount=Order::where('order_status_id', 1)->count();
+        $latestbookreview=BookReview::orderBy('book_review_id', 'desc')->first();
+        
+        $topsellingbook = Book::where('is_visible', 1)->with('categories','orders')->withCount(['orders as counted_order' => function ($query) 
+        {$query->where('order_status_id', 4);}])->orderBy('counted_order', 'DESC')->first();
+
+        foreach($topsellingbook->categories as $tbook){
+            $catName=$tbook->name;
+        }
+
+        $latesOrder = Order::whereDate('created_at', Carbon::today())->count();
+        // dd($latesOrder);
+        
+        return view('admin.dashboard', compact('ordercompletecount','orderpendingcount','latestbookreview','topsellingbook','catName','latesOrder'));
     }
     public function passwordChange() {
         return view('admin.password_change');
@@ -105,6 +124,7 @@ class AdminController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'name'          => 'required|max:50',
             'email'         => 'required|max:50|email|unique:users',
@@ -141,7 +161,7 @@ class AdminController extends Controller {
                 'password' => bcrypt($token),
                 'token'    => $token,
                 'image'    => $profile_image_image_url,
-                'is_admin' => 1,
+                'is_admin' => $request->role,
             ]);
             // Mail::send('password_mail', ['password' => $random, 'email' => $request->email], function ($message) use ($request) {
             //     $message->to($request->email);
@@ -261,7 +281,7 @@ class AdminController extends Controller {
                 'email'    => $request->email,
                 'phone'    => $request->phone,
                 'image'    => $profile_image_image_url,
-                'is_admin' => 1,
+                'is_admin' => $request->role,
             ]);
 
             $data            = array();

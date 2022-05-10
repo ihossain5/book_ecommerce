@@ -85,11 +85,11 @@
                                         @endforeach
                                     @endif
                                 </tbody>
-                                <tfoot>
+                                {{-- <tfoot>
                                     <tr>
                                         <th></th>
                                     </tr>
-                                </tfoot>
+                                </tfoot> --}}
                             </table>
 
                         </div>
@@ -127,6 +127,14 @@
                         <div class="form-group">
                             <label>Email</label>
                             <input type="text" class="form-control" name="email" placeholder="Type email" />
+                        </div>
+                        <div class="form-group">
+                            <label>Select Role</label>
+                            <select name="role" class="form-control" id="role">
+                                <option value="">Select Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="0">User</option>
+                            </select>
                         </div>
                         
 
@@ -180,6 +188,14 @@
                             <label>Phone</label>
                             <input type="text" class="form-control" name="phone" id="edit_phone"
                                 placeholder="Type phone no" />
+                        </div>
+                        <div class="form-group">
+                            <label>Select Role</label>
+                            <select name="role" class="form-control" id="role">
+                                <option value="">Select Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="0">User</option>
+                            </select>
                         </div>
                        
                         <div class="form-group ">
@@ -333,6 +349,9 @@
                     profile_image: {
                         required: true,
                     },
+                    role: {
+                        required: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -346,6 +365,9 @@
                     },
                     image: {
                         required: 'Please upload employee signature',
+                    },
+                    role: {
+                        required: 'Please Select Role Admin/User',
                     },
                 },
                 errorPlacement: function(label, element) {
@@ -487,9 +509,9 @@
                         digits: true,
                         maxlength: 50,
                     },
-                    // profile_image: {
-                    //     required: true,
-                    // },
+                    role: {
+                        required: true,
+                    },
                 },
                 messages: {
                     name: {
@@ -501,9 +523,9 @@
                     phone: {
                         required: 'Please insert employee phone number',
                     },
-                    // image: {
-                    //     required: 'Please upload employee signature',
-                    // },
+                    role: {
+                        required: 'Please Select Role Admin/User',
+                    },
                 },
                 errorPlacement: function(label, element) {
                     label.addClass('mt-2 text-danger');
