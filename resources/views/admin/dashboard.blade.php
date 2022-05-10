@@ -27,7 +27,7 @@ Dashboard
             <div class="row">   
                 <div class="col-md-6 col-xl-3">
                     <div class="card text-center m-b-30">
-                        <a href="javascript:(void)">
+                        <a href="javascript:void(0)">
                         <div class="row d-flex justify-content-center">
                             
                             {{-- <div class="col-md-4 ">
@@ -49,7 +49,7 @@ Dashboard
                 </div>
                 <div class="col-md-6 col-xl-3">
                     <div class="card text-center m-b-30">
-                        <a href="javascript:(void)">
+                        <a href="javascript:void(0)">
                         <div class="row d-flex justify-content-center">
                             {{-- <div class="col-md-4 ">
                                 <div class="mb-2 card-body ">
@@ -68,7 +68,7 @@ Dashboard
                 </div>
                 <div class="col-md-6 col-xl-3">
                     <div class="card text-center m-b-30">
-                        <a href="javascript:(void)">
+                        <a href="javascript:void(0)">
                         <div class="row d-flex justify-content-center">
                             {{-- <div class="col-md-4 ">
                                 <div class="mb-2 card-body ">
@@ -93,7 +93,7 @@ Dashboard
 
                 <div class="col-md-6 col-xl-3">
                     <div class="card text-center m-b-30">
-                        <a href="javascript:(void)">
+                        <a href="javascript:()">
                         <div class="row d-flex justify-content-center">
                             {{-- <div class="col-md-4 ">
                                 <div class="mb-2 card-body ">
@@ -113,7 +113,7 @@ Dashboard
 
                 <div class="col-md-6 col-xl-3">
                     <div class="card text-center m-b-30">
-                        <a href="javascript:(void)">
+                        <a href="javascript:void(0)">
                         <div class="row d-flex justify-content-center">
                             {{-- <div class="col-md-4 ">
                                 <div class="mb-2 card-body ">
@@ -140,7 +140,7 @@ Dashboard
             <div class="row">
                 <div class="col-md-6 col-xl-3">
                     <div class="card text-center m-b-30">
-                         <a href="javascript:(void)">
+                         <a href="javascript:void(0)">
                         <div class="row d-flex justify-content-center">
                             {{-- <div class="col-md-4 ">
                                 <div class="mb-2 card-body ">
@@ -149,7 +149,7 @@ Dashboard
                             </div> --}}
                             <div class="col-md-8">
                                 <div class="mb-2 card-body text-muted">
-                                <h3 class=" icon_color" style="font-size: 19px;">{{ $topsellingbook->title }}<span style="font-size: 18px;color: #707070;">({{ $topsellingbook->counted_order }})</span></h3>
+                                <h3 class=" icon_color" style="font-size: 19px">{{ $topsellingbook->title }}<span style="font-size: 18px;color: #707070;">({{ $topsellingbook->counted_order }})</span></h3>
                                 Top Selling Book
                             </div>
                             </div>
@@ -159,7 +159,7 @@ Dashboard
                 </div>
                 <div class="col-md-6 col-xl-3">
                     <div class="card text-center m-b-30">
-                         <a href="javascript:(void)">
+                         <a href="javascript:void(0)">
                         <div class="row d-flex justify-content-center">
                             {{-- <div class="col-md-4 ">
                                 <div class="mb-2 card-body ">
