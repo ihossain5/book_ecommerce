@@ -102,7 +102,7 @@ Dashboard
                             </div> --}}
                             <div class="col-md-8">
                                 <div class="mb-2 card-body text-muted">
-                                <h3 class=" icon_color">100</h3>
+                                <h3 class=" icon_color">{{ $totalCustomer }}</h3>
                                 Total Customar
                             </div>
                             </div>
@@ -149,7 +149,7 @@ Dashboard
                             </div> --}}
                             <div class="col-md-8">
                                 <div class="mb-2 card-body text-muted">
-                                <h3 class=" icon_color">{{ $topsellingbook->title }}<span style="font-size: 24px;color: #707070;">({{ $topsellingbook->counted_order }})</span></h3>
+                                <h3 class=" icon_color" style="font-size: 19px;">{{ $topsellingbook->title }}<span style="font-size: 18px;color: #707070;">({{ $topsellingbook->counted_order }})</span></h3>
                                 Top Selling Book
                             </div>
                             </div>

@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Models\Order;
 use App\Models\BookReview;
-use App\Models\OrderBook;
 use App\Models\Book;
 use Illuminate\Support\Carbon;
 
@@ -36,9 +35,11 @@ class AdminController extends Controller {
         }
 
         $latesOrder = Order::whereDate('created_at', Carbon::today())->count();
-        // dd($latesOrder);
+        $totalCustomer= User::where('is_admin', 0)->count();
+        // dd($totalCustomer);
+
         
-        return view('admin.dashboard', compact('ordercompletecount','orderpendingcount','latestbookreview','topsellingbook','catName','latesOrder'));
+        return view('admin.dashboard', compact('ordercompletecount','orderpendingcount','latestbookreview','topsellingbook','catName','latesOrder','totalCustomer'));
     }
     public function passwordChange() {
         return view('admin.password_change');
