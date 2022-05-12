@@ -92,7 +92,7 @@ class CheckoutController extends Controller {
         }
 
         $cartService->destroy();
-
+        Session::put('order', $order);
         Session::flash('success', 'Order has been placed');
 
         return $this->success($order);

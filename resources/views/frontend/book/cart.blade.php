@@ -100,7 +100,7 @@
                                 </svg> শপে ফিরে যান</a>
                         </div>
                         <div>
-                            <a href="{{route('frontend.checkout')}}"><button class="check_btn">Checkout</button></a>
+                            <a href="{{route('frontend.checkout')}}"><button class="check_btn">চেকআউট</button></a>
                         </div>
                     </div>
                 </div>

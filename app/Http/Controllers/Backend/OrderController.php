@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use PDF;
 use Auth;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller {
     use SmsTrait;
@@ -23,6 +24,19 @@ class OrderController extends Controller {
         $contacts = Contact::all();
 
         return view('admin.orders.order_management', compact('orders','contacts'));
+    }
+
+    public function orderdetails() {
+        
+        if(Session::has('order')){
+            $order = Session::get('order');
+            $orderDetails = Order::with('books')->where('order_id',$order->order_id)->first();
+        Session::forget('order');
+            return view('frontend.checkout.orderdetails', compact('orderDetails'));
+            
+        }else{
+            abort('404');
+        }
     }
 
     public function downloadInvoice(Order $order) {

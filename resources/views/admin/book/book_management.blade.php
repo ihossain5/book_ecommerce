@@ -129,6 +129,9 @@
                                             <th>Cover Image</th>
                                             <th>Title</th>
                                             <th>ISBN Number</th>
+                                            <th>Author</th>
+                                            <th>Publication</th>
+                                            <th>Category</th>
                                             <th>Regular Price</th>
                                             <th>Discounted Price</th>
                                             <th>Available Status</th>
@@ -147,6 +150,19 @@
                                                     </td>
                                                     <td>{{ $book->title }}</td>
                                                     <td>{{ $book->isbn }}</td>
+                                                    <td>
+                                                        @foreach ($book->authors as $author)
+                                                            {{ $author->name }}
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                         {{ $book->publication->name }}
+                                                    </td>
+                                                    <td>
+                                                        @foreach ($book->categories as $category)
+                                                            {{ $category->name }}
+                                                        @endforeach
+                                                    </td>
                                                     <td>{{ currency_format($book->regular_price) }}</td>
                                                     <td>{{ currency_format($book->discounted_price) }}</td>
 
@@ -173,8 +189,8 @@
 
                                                     <td>
                                                         <a type='button' class='btn btn-outline-primary'
-                                                        href="{{ route('book.review', $book->book_id) }}"><i
-                                                            class='fa fa-file'></i></a>
+                                                            href="{{ route('book.review', $book->book_id) }}"><i
+                                                                class='fa fa-file'></i></a>
 
                                                         <button type='button' class='btn btn-outline-dark'
                                                             onclick='viewBook({{ $book->book_id }})'><i
@@ -300,8 +316,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Regular Price</label>
-                                    <input type="number" onkeyup="getDiscountedPrice(this)" min="1" class="form-control" name="regular_price"
-                                        id="regularPrice">
+                                    <input type="number" onkeyup="getDiscountedPrice(this)" min="1" class="form-control"
+                                        name="regular_price" id="regularPrice">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -424,11 +440,12 @@
                                         placeholder="Type title" />
                                 </div>
                             </div>
-                  
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Title (English)</label>
-                                    <input type="text" class="form-control" name="slug" id="edit_slug" placeholder="Type title" />
+                                    <input type="text" class="form-control" name="slug" id="edit_slug"
+                                        placeholder="Type title" />
                                 </div>
                             </div>
                         </div>
@@ -492,15 +509,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Short Description</label>
-                                    <textarea name="short_description" class="form-control" id="edit_short_description"
-                                        cols="30" rows="3"></textarea>
+                                    <textarea name="short_description" class="form-control" id="edit_short_description" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Long Description</label>
-                                    <textarea name="long_description" class="form-control" id="edit_long_description"
-                                        cols="30" rows="3"></textarea>
+                                    <textarea name="long_description" class="form-control" id="edit_long_description" cols="30" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -508,8 +523,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Regular Price</label>
-                                    <input type="number" onkeyup="getDiscountedPriceEdit(this)" min="1" class="form-control" id="edit_regular_price"
-                                        name="regular_price">
+                                    <input type="number" onkeyup="getDiscountedPriceEdit(this)" min="1"
+                                        class="form-control" id="edit_regular_price" name="regular_price">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -732,13 +747,17 @@
             $('.author-select-box').val('');
             $('.author-select-box').trigger('change');
 
-            $('.input_box' ).prop('disabled', true).val('');
+            $('.input_box').prop('disabled', true).val('');
         });
 
         $(document).ready(function() {
             $('#bookTable').DataTable({
                 "ordering": false,
             });
+
+            var dt = $('#bookTable').DataTable();
+            //hide the second and third columns
+            dt.columns([3,4,5]).visible(false)
 
             $('.category-select-box').select2();
             $('.author-select-box').select2();
@@ -1105,7 +1124,7 @@
                             var imageId = '#edit_cover_photo';
                             var imageClass = '.coverPhoto';
                             var location = '/images/';
-                            showImageIntoModal(image, imageId, imageClass,location)
+                            showImageIntoModal(image, imageId, imageClass, location)
                         } else {
                             $('.coverPhoto').find(".dropify-preview .dropify-render img").attr("src", "");
                         }
@@ -1117,7 +1136,7 @@
                             var imageId = '#edit_back_photo';
                             var imageClass = '.back_photo';
                             var location = '/images/';
-                            showImageIntoModal(image, imageId, imageClass,location)
+                            showImageIntoModal(image, imageId, imageClass, location)
                         } else {
                             $('.back_photo').find(".dropify-preview .dropify-render img").attr("src", "");
                         }
@@ -1129,7 +1148,7 @@
                             var imageId = '#edit_preview_book';
                             var imageClass = '.preview_book';
                             var location = '/pdfs/';
-                            showImageIntoModal(image, imageId, imageClass,location)
+                            showImageIntoModal(image, imageId, imageClass, location)
                         } else {
                             $('.preview_book').find(".dropify-preview .dropify-render img").attr("src", "");
                         }
@@ -1157,7 +1176,7 @@
 
         }
 
-        function showImageIntoModal(image, imageId, imageClass,location_path) {
+        function showImageIntoModal(image, imageId, imageClass, location_path) {
             var main_path = location.origin;
             var img_url = main_path + location_path + image;
 

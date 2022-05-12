@@ -14,7 +14,7 @@ Class BookService {
 
     /** Get All books */
     function all() {
-        return $this->book->latest()->get();
+        return $this->book->with('categories','authors','publication')->latest()->get();
     }
 
     /** store a book */

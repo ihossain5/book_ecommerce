@@ -248,6 +248,8 @@
 
 @section('page-js')
     <script>
+
+    
         (function(window, document) {
             var loader = function() {
                 var script = document.createElement("script"),
@@ -477,10 +479,18 @@
                     _token: "{{ csrf_token() }}"
                 },
                 dataType: "json",
+                
                 success: function(response) {
                     if (response.success == true) {
-                        var url = '{{ route('frontend.home') }}';
-                        location.replace(url);
+                        //var orderdetails_url = config.routes.getOrderDetails;
+                        //orderdetails_url = orderdetails_url.replace(':id', response.data.order_id);
+                        //console.log(orderdetails_url);
+                        
+                        //location.replace(orderdetails_url);
+
+                        var orderdetails_url = '{{ route('order.details', ':id') }}';
+                        orderdetails_url = orderdetails_url.replace(':id', response.data.order_id);
+                        window.location.replace(orderdetails_url);
 
                     } //success end
 

@@ -41,8 +41,8 @@
                                                 <td style="width: 10%"></td>
                                                 <td style="width: 27%"></td>
                                                 <td style="width: 26%">
-                                                    {{-- <img src="{{public_path('images/logo.png')}}" alt="logo" style="width: 170px"> --}}
-                                                    <img src="{{url('images/logo.png')}}" alt="logo" style="width: 170px">
+                                                    <img src="{{public_path('images/logo.png')}}" alt="logo" style="width: 170px">
+                                                    {{-- <img src="{{url('images/logo.png')}}" alt="logo" style="width: 170px"> --}}
                                                 </td>
                                                 <td style="width: 27%"></td>
                                                 <td style="width: 10%"></td>
@@ -307,10 +307,10 @@
                                                             <td
                                                                 style="width: 10%; border-style: solid; border-color: #000; border-width: 0 1px 1px 1px; text-align: center;">
 
-                                                                {{-- <img style="width: 46px; height: 46px;" src="{{public_path('images/'.$book->cover_image)}}"
-                                                                    alt=""> --}}
-                                                                <img style="width: 46px; height: 46px;" src="{{url('images/'.$book->cover_image)}}"
+                                                                <img style="width: 46px; height: 46px;" src="{{public_path('images/'.$book->cover_image)}}"
                                                                     alt="">
+                                                                {{-- <img style="width: 46px; height: 46px;" src="{{url('images/'.$book->cover_image)}}"
+                                                                    alt=""> --}}
 
                                                             </td>
                                                             <td

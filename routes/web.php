@@ -298,3 +298,6 @@ Route::post('/filter-books', [FrontendBookController::class, 'filterBookByPrice'
 Route::get('/order/{order}', [OrderController::class, 'downloadInvoice'])->name('order.invoice.download');
 
 Route::post('/gift/wrapper', [GiftWrapperController::class, 'getGiftWrapper'])->name('get.gift.wrapper');
+
+//Order Details
+Route::get('/orderdetails/{order}', [OrderController::class, 'orderdetails'])->name('order.details');
