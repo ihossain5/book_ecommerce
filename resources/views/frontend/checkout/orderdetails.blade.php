@@ -13,7 +13,7 @@
                     {{-- <div class="check_img">
                         <img src="assets/images/book-details/1638787287 2.png" alt="">
                     </div> --}}
-                    <h1>আপনার অর্ডার কনফার্মড হয়েছে</h1>
+                    <h1>প্রিয় গ্রাহক আপনার অর্ডারটি সম্পন্ন হয়েছে</h1>
                     <p>ভোরের কাগজ প্রকাশন থেকে অর্ডার করার জন্য আপনাকে ধন্যবাদ</p>
                     <h4>অর্ডার কোডঃ <span>#{{ $orderDetails->order_id }}</span></h4>
                     <a href="{{ route('order.invoice.download', [$orderDetails->order_id]) }}"><button class="order_btn">ডাউনলোড করুন</button></a>

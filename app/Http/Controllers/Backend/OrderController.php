@@ -31,7 +31,7 @@ class OrderController extends Controller {
         if(Session::has('order')){
             $order = Session::get('order');
             $orderDetails = Order::with('books')->where('order_id',$order->order_id)->first();
-        Session::forget('order');
+            Session::forget('order');
             return view('frontend.checkout.orderdetails', compact('orderDetails'));
             
         }else{
@@ -108,9 +108,29 @@ class OrderController extends Controller {
             $order['order_status_id'] = $request->status_id;
             $order->update();
 
-            if ($request->status_id == 2) {
+            if ($request->status_id == 1) {
+
+                $message = 'Your order is pending now';
+
+                $this->smsSend($order->phone, $message);
+            }elseif ($request->status_id == 2) {
 
                 $message = 'Your order has been confirmed';
+
+                $this->smsSend($order->phone, $message);
+            }elseif ($request->status_id == 3) {
+
+                $message = 'Your order is ready to delivered';
+
+                $this->smsSend($order->phone, $message);
+            }elseif ($request->status_id == 4) {
+
+                $message = 'Your order is Completed';
+
+                $this->smsSend($order->phone, $message);
+            }elseif ($request->status_id == 5) {
+
+                $message = 'Your order is Cancelled';
 
                 $this->smsSend($order->phone, $message);
             }

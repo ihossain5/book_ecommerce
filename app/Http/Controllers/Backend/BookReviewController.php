@@ -10,7 +10,8 @@ class BookReviewController extends Controller
 {
     public function index() {
 
-        $reviews = BookReview::all();
+        $reviews = BookReview::with('user','reviewbook')->get();
+        // dd($reviews);
 
         return view('admin.review.review-management', compact('reviews'));
     }

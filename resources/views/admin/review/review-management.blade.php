@@ -102,6 +102,8 @@
                                     <thead>
                                         <tr>
                                            
+                                            <th>User</th>
+                                            <th>Book</th>
                                             <th>Review</th>
                                             <th>Rating</th>
                                             <th>Is Active</th>
@@ -113,6 +115,8 @@
                                             @foreach ($reviews as $review)
                                                 <tr class="review{{ $review->book_review_id }}">
                                                     
+                                                    <td>{{ $review->user->name }}</td>
+                                                    <td>{{ $review->reviewbook->title }}</td>
                                                     <td>{{ $review->review }}</td>
                                                     <td>{{ $review->rating }}</td>
                                                     <td>

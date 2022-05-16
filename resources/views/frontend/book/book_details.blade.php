@@ -127,7 +127,7 @@
                                     <div class="rating ratingDetails ratingId0" data-rating="{{ $rating }}"></div>
                                     <div>
                                         <span>({{ englishTobangla($rating) }} /
-                                            ({{ englishTobangla($book->reviews->count()) }}টি রিভিউ)</span>
+                                            ({{ englishTobangla($book->reviews->where('is_active', 1)->count()) }}টি রিভিউ))</span>
                                     </div>
                                 </div>
 
